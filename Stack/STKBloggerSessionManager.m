@@ -106,6 +106,10 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
     //    }
 }
 
+- (void)cancelPreviousPostSearches {
+//    [self.searchTask cancel];
+}
+
 - (void)getCommentsForPost:(STKPost *)post completion:(STKAPICompletion)completion {
     NSString *postID = [post.postID componentsSeparatedByString:@"_"].lastObject;
     NSNumber *blogID = self.blogID ? @(self.blogID.longLongValue) : @(0);

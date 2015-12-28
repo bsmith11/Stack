@@ -9,6 +9,7 @@
 #import "STKWordpressPost.h"
 #import "STKRSSPost.h"
 #import "STKBloggerPost.h"
+#import "STKPostSearchResult.h"
 #import "STKAttachment.h"
 #import "STKAuthor.h"
 #import "STKPostParagraphSection.h"
@@ -156,6 +157,42 @@
 }
 
 #pragma mark - Actions
+
++ (STKPost *)postFromPostSearchResult:(STKPostSearchResult *)postSearchResult {
+    STKBackendType backendType = [STKSource backendTypeForType:postSearchResult.sourceType.integerValue];
+    Class class;
+
+    switch (backendType) {
+        case STKBackendTypeWordpress:
+            class = [STKWordpressPost class];
+            break;
+
+        case STKBackendTypeRSS:
+            class = [STKRSSPost class];
+            break;
+
+        case STKBackendTypeBlogger:
+            class = [STKBloggerPost class];
+            break;
+
+        default:
+            class = [STKWordpressPost class];
+            break;
+    }
+
+    __block STKPost *post = nil;
+    NSManagedObjectContext *context = [STKCoreDataStack defaultStack].mainManagedObjectContext;
+
+    [context performBlockAndWait:^{
+        post = [class rzi_objectFromDictionary:postSearchResult.postDictionary inContext:context];
+        post.author.sourceType = postSearchResult.sourceType;
+        post.sourceType = postSearchResult.sourceType;
+
+        [context save:NULL];
+    }];
+    
+    return post;
+}
 
 - (void)bookmark {
     [[STKCoreDataStack defaultStack] performBlockUsingBackgroundContext:^(NSManagedObjectContext *context) {

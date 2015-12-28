@@ -134,6 +134,14 @@
 		064865831C29EF9E0087A41E /* STKImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865821C29EF9E0087A41E /* STKImageViewController.m */; };
 		064865861C29F4320087A41E /* UIViewController+STKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865851C29F4320087A41E /* UIViewController+STKMail.m */; };
 		064865891C29F4CF0087A41E /* NSURL+STKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865881C29F4CF0087A41E /* NSURL+STKExtensions.m */; };
+		0648658E1C2B9EB80087A41E /* STKListBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0648658D1C2B9EB80087A41E /* STKListBackgroundView.m */; };
+		064865911C2D0B310087A41E /* STKListBackgroundDefaultContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865901C2D0B310087A41E /* STKListBackgroundDefaultContentView.m */; };
+		064865951C2F02DB0087A41E /* STKSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865941C2F02DB0087A41E /* STKSearchViewController.m */; };
+		064865981C2F02EE0087A41E /* STKSearchViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865971C2F02EE0087A41E /* STKSearchViewModel.m */; };
+		0648659B1C307EC20087A41E /* STKSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0648659A1C307EC20087A41E /* STKSearchField.m */; };
+		0648659E1C31070F0087A41E /* STKPostSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0648659D1C31070F0087A41E /* STKPostSearchResult.m */; };
+		064865A21C310C130087A41E /* STKWordpressPostSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865A11C310C130087A41E /* STKWordpressPostSearchResult.m */; };
+		064865A51C31101F0087A41E /* STKBloggerPostSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865A41C31101F0087A41E /* STKBloggerPostSearchResult.m */; };
 		42A03B5B6B623051BF2CFD19 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */; };
 		43CA31C3620407C2CE3CA662 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC8BE816EFD96785C766EA6 /* libPods.a */; };
 		6AA09B1EF151881F366C4692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97D4CD85A6D0DFC1065098F /* Foundation.framework */; };
@@ -400,6 +408,22 @@
 		064865851C29F4320087A41E /* UIViewController+STKMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+STKMail.m"; sourceTree = "<group>"; };
 		064865871C29F4CF0087A41E /* NSURL+STKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+STKExtensions.h"; sourceTree = "<group>"; };
 		064865881C29F4CF0087A41E /* NSURL+STKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+STKExtensions.m"; sourceTree = "<group>"; };
+		0648658C1C2B9EB80087A41E /* STKListBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKListBackgroundView.h; sourceTree = "<group>"; };
+		0648658D1C2B9EB80087A41E /* STKListBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKListBackgroundView.m; sourceTree = "<group>"; };
+		0648658F1C2D0B310087A41E /* STKListBackgroundDefaultContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKListBackgroundDefaultContentView.h; sourceTree = "<group>"; };
+		064865901C2D0B310087A41E /* STKListBackgroundDefaultContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKListBackgroundDefaultContentView.m; sourceTree = "<group>"; };
+		064865931C2F02DB0087A41E /* STKSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKSearchViewController.h; sourceTree = "<group>"; };
+		064865941C2F02DB0087A41E /* STKSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKSearchViewController.m; sourceTree = "<group>"; };
+		064865961C2F02EE0087A41E /* STKSearchViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKSearchViewModel.h; sourceTree = "<group>"; };
+		064865971C2F02EE0087A41E /* STKSearchViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKSearchViewModel.m; sourceTree = "<group>"; };
+		064865991C307EC20087A41E /* STKSearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKSearchField.h; sourceTree = "<group>"; };
+		0648659A1C307EC20087A41E /* STKSearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKSearchField.m; sourceTree = "<group>"; };
+		0648659C1C31070F0087A41E /* STKPostSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKPostSearchResult.h; sourceTree = "<group>"; };
+		0648659D1C31070F0087A41E /* STKPostSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKPostSearchResult.m; sourceTree = "<group>"; };
+		064865A01C310C130087A41E /* STKWordpressPostSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKWordpressPostSearchResult.h; sourceTree = "<group>"; };
+		064865A11C310C130087A41E /* STKWordpressPostSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKWordpressPostSearchResult.m; sourceTree = "<group>"; };
+		064865A31C31101F0087A41E /* STKBloggerPostSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKBloggerPostSearchResult.h; sourceTree = "<group>"; };
+		064865A41C31101F0087A41E /* STKBloggerPostSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKBloggerPostSearchResult.m; sourceTree = "<group>"; };
 		230706168BFA7CD67B35EE05 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		287BF6C62C7F2E32F8A7DDB9 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		35D58FAA5187E5B8EDA647CA /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -506,6 +530,7 @@
 		064863F91C2692870087A41E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0648659F1C310BF10087A41E /* Post Search Result */,
 				064864521C276D7B0087A41E /* Attachment */,
 				064864511C276D710087A41E /* Comment */,
 				064864501C276D6A0087A41E /* Author */,
@@ -688,6 +713,12 @@
 				0648656B1C29390E0087A41E /* STKWebNode.m */,
 				0648656D1C2939680087A41E /* STKYoutubeNode.h */,
 				0648656E1C2939680087A41E /* STKYoutubeNode.m */,
+				0648658C1C2B9EB80087A41E /* STKListBackgroundView.h */,
+				0648658D1C2B9EB80087A41E /* STKListBackgroundView.m */,
+				0648658F1C2D0B310087A41E /* STKListBackgroundDefaultContentView.h */,
+				064865901C2D0B310087A41E /* STKListBackgroundDefaultContentView.m */,
+				064865991C307EC20087A41E /* STKSearchField.h */,
+				0648659A1C307EC20087A41E /* STKSearchField.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -979,6 +1010,30 @@
 			name = Nodes;
 			sourceTree = "<group>";
 		};
+		064865921C2F02C00087A41E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				064865931C2F02DB0087A41E /* STKSearchViewController.h */,
+				064865941C2F02DB0087A41E /* STKSearchViewController.m */,
+				064865961C2F02EE0087A41E /* STKSearchViewModel.h */,
+				064865971C2F02EE0087A41E /* STKSearchViewModel.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		0648659F1C310BF10087A41E /* Post Search Result */ = {
+			isa = PBXGroup;
+			children = (
+				0648659C1C31070F0087A41E /* STKPostSearchResult.h */,
+				0648659D1C31070F0087A41E /* STKPostSearchResult.m */,
+				064865A01C310C130087A41E /* STKWordpressPostSearchResult.h */,
+				064865A11C310C130087A41E /* STKWordpressPostSearchResult.m */,
+				064865A31C31101F0087A41E /* STKBloggerPostSearchResult.h */,
+				064865A41C31101F0087A41E /* STKBloggerPostSearchResult.m */,
+			);
+			name = "Post Search Result";
+			sourceTree = "<group>";
+		};
 		174A13054CF2376E088EECE5 = {
 			isa = PBXGroup;
 			children = (
@@ -1035,6 +1090,7 @@
 		B2507770EDFAB98B2E027B13 /* Stack */ = {
 			isa = PBXGroup;
 			children = (
+				064865921C2F02C00087A41E /* Search */,
 				064865801C29EF7E0087A41E /* Image */,
 				064865761C29D58C0087A41E /* Author */,
 				0648654E1C292F8E0087A41E /* Post */,
@@ -1339,12 +1395,14 @@
 				064864411C276CB80087A41E /* STKBloggerPost+CoreDataProperties.m in Sources */,
 				064865601C2936190087A41E /* STKPostSectionNode.m in Sources */,
 				064864391C276CB80087A41E /* STKPost+CoreDataProperties.m in Sources */,
+				0648659B1C307EC20087A41E /* STKSearchField.m in Sources */,
 				064865331C28ADB70087A41E /* STKFeedViewModel.m in Sources */,
 				064865431C291B050087A41E /* STKSourceListViewModel.m in Sources */,
 				064865171C28A8180087A41E /* STKBaseAnimationController.m in Sources */,
 				064864C01C27CE370087A41E /* STKAPIRSSConstants.m in Sources */,
 				064864351C276CB80087A41E /* STKPostParagraphSection+CoreDataProperties.m in Sources */,
 				064865721C293B580087A41E /* STKPostCommentNode.m in Sources */,
+				064865911C2D0B310087A41E /* STKListBackgroundDefaultContentView.m in Sources */,
 				064864551C276DB00087A41E /* STKCoreDataStack.m in Sources */,
 				0648645D1C2777D80087A41E /* STKHTMLParagraphSection.m in Sources */,
 				064864AB1C27A9700087A41E /* STKBaseURLSessionManager.m in Sources */,
@@ -1383,6 +1441,7 @@
 				064863EF1C268D440087A41E /* UIColor+STKStyle.m in Sources */,
 				064864BC1C27B8E30087A41E /* STKContentManager.m in Sources */,
 				064863F51C268F0E0087A41E /* STKAttributes.m in Sources */,
+				0648658E1C2B9EB80087A41E /* STKListBackgroundView.m in Sources */,
 				064864781C2794DE0087A41E /* STKImageDownloader.m in Sources */,
 				064864311C276CB80087A41E /* STKPostImageSection+CoreDataProperties.m in Sources */,
 				064863E11C2685BE0087A41E /* STKPermissionViewController.m in Sources */,
@@ -1400,12 +1459,14 @@
 				064865131C28A6BD0087A41E /* STKInteractiveViewController.m in Sources */,
 				0648643A1C276CB80087A41E /* STKPost.m in Sources */,
 				064864B81C27AD670087A41E /* STKAPIWordpressConstants.m in Sources */,
+				064865951C2F02DB0087A41E /* STKSearchViewController.m in Sources */,
 				0648643C1C276CB80087A41E /* STKAuthor.m in Sources */,
 				064863EA1C2688140087A41E /* STKNotificationsManager.m in Sources */,
 				0648655D1C2935B10087A41E /* STKPostSeparatorNode.m in Sources */,
 				064864C91C2877200087A41E /* STKAuthor+RZImport.m in Sources */,
 				0648645A1C27710A0087A41E /* STKHTMLSection.m in Sources */,
 				064865831C29EF9E0087A41E /* STKImageViewController.m in Sources */,
+				064865A21C310C130087A41E /* STKWordpressPostSearchResult.m in Sources */,
 				0648651A1C28A8830087A41E /* STKSlideAnimationController.m in Sources */,
 				064865511C292F9E0087A41E /* STKPostViewController.m in Sources */,
 				064864D91C287D670087A41E /* STKRSSComment+CoreDataProperties.m in Sources */,
@@ -1421,9 +1482,11 @@
 				0648646F1C278F810087A41E /* NSMutableAttributedString+STKHTML.m in Sources */,
 				064864E41C287DA50087A41E /* STKBloggerComment+RZImport.m in Sources */,
 				064864721C2790830087A41E /* NSParagraphStyle+STKHTML.m in Sources */,
+				064865A51C31101F0087A41E /* STKBloggerPostSearchResult.m in Sources */,
 				064863E41C26875D0087A41E /* STKAnalyticsManager.m in Sources */,
 				064865571C2934390087A41E /* STKPostTitleNode.m in Sources */,
 				0648657F1C29D5D50087A41E /* STKAuthorNode.m in Sources */,
+				064865981C2F02EE0087A41E /* STKSearchViewModel.m in Sources */,
 				064863F21C268DC40087A41E /* UIFont+STKStyle.m in Sources */,
 				064865791C29D5B20087A41E /* STKAuthorViewController.m in Sources */,
 				064864631C27785B0087A41E /* STKHTMLImageSection.m in Sources */,
@@ -1432,6 +1495,7 @@
 				0648643B1C276CB80087A41E /* STKAuthor+CoreDataProperties.m in Sources */,
 				064864441C276CB80087A41E /* STKRSSPost.m in Sources */,
 				064863FE1C2763380087A41E /* Stack.xcdatamodeld in Sources */,
+				0648659E1C31070F0087A41E /* STKPostSearchResult.m in Sources */,
 				0648648B1C2798930087A41E /* STKTableViewDataSource.m in Sources */,
 				064863F81C268F270087A41E /* STKAppearance.m in Sources */,
 				064864401C276CB80087A41E /* STKComment.m in Sources */,

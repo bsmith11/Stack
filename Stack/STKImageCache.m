@@ -77,7 +77,7 @@
                 completion(nil);
             }
             else {
-                NSError *error = [NSError errorWithDomain:@"com.UltimateApp.PINCache" code:0 userInfo:nil];
+                NSError *error = [NSError errorWithDomain:@"com.bradsmith.stack.PINCache" code:0 userInfo:nil];
                 completion(error);
             }
         }

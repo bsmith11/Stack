@@ -21,6 +21,7 @@
                 completion:(STKAPICompletion)completion;
 
 - (void)searchPostsWithText:(NSString *)text completion:(STKAPICompletion)completion;
+- (void)cancelPreviousPostSearches;
 - (void)getCommentsForPost:(STKPost *)post completion:(STKAPICompletion)completion;
 
 @property (assign, nonatomic, readonly) STKSourceType sourceType;

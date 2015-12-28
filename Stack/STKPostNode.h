@@ -8,10 +8,11 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
-#import "STKPost.h"
+@class STKPost, STKPostSearchResult;
 
 @interface STKPostNode : ASCellNode
 
 - (void)setupWithPost:(STKPost *)post;
+- (void)setupWithPostSearchResult:(STKPostSearchResult *)postSearchResult;
 
 @end

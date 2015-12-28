@@ -9,17 +9,13 @@
 #import "STKSourceListViewModel.h"
 
 #import "STKTableViewDataSource.h"
-//#import "STKCollectionListTableViewDataSource.h"
-//#import "STKSourceListObject.h"
-
-#import <RZCollectionList/RZCollectionList.h>
-#import <RZVinyl/RZVinyl.h>
-#import <RZDataBinding/RZDataBinding.h>
 
 @interface STKSourceListViewModel ()
 
 @property (strong, nonatomic, readwrite) NSArray *objects;
 @property (strong, nonatomic) STKTableViewDataSource *dataSource;
+
+@property (assign, nonatomic, readwrite) STKSourceType sourceType;
 
 @end
 
@@ -65,6 +61,21 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(NSInteger)[self.objects indexOfObject:object] inSection:0];
 
     return indexPath;
+}
+
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *oldSourceTypeNumber = @(self.sourceType);
+    NSIndexPath *oldIndexPath = [self indexPathForObject:oldSourceTypeNumber];
+    ASCellNode *oldNode = [self.dataSource.tableView nodeForRowAtIndexPath:oldIndexPath];
+
+    NSNumber *sourceTypeNumber = [self objectAtIndexPath:indexPath];
+    ASCellNode *node = [self.dataSource.tableView nodeForRowAtIndexPath:indexPath];
+
+    STKSourceType sourceType = sourceTypeNumber.integerValue;
+    self.sourceType = sourceType;
+
+    [self.dataSource.delegate tableView:self.dataSource.tableView updateNode:oldNode forObject:oldSourceTypeNumber atIndexPath:oldIndexPath];
+    [self.dataSource.delegate tableView:self.dataSource.tableView updateNode:node forObject:sourceTypeNumber atIndexPath:indexPath];
 }
 
 @end

@@ -27,18 +27,6 @@
 + (void)logEventDidClickPostSearch;
 + (void)logEventDidClickPostFromSearch:(STKPost *)post;
 
-#pragma mark - Twitter
-
-//+ (void)logEventDidClickTwitterTab;
-//+ (void)logEventDidClickTweetMedia:(STKTweet *)tweet;
-//+ (void)logEventDidClickTwitterSearch;
-//+ (void)logEventDidAddTwitterUser:(TWTRUser *)user;
-//+ (void)logEventDidRemoveTwitterUser:(STKTwitterUser *)user;
-//+ (void)logEventDidClickLoginTwitter;
-//+ (void)logEventDidEnableTwitter:(BOOL)enabled;
-//+ (void)logEventDidLoginTwitterCompleted:(BOOL)completed;
-//+ (void)logEventDidLogoutTwitter;
-
 #pragma mark - Bookmarks
 
 + (void)logEventDidClickBookmarksTab;

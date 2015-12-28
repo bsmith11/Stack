@@ -35,10 +35,9 @@
     self = [super init];
 
     if (self) {
-        self.title = @"Bookmarks";
-
         self.viewModel = [[STKBookmarksViewModel alloc] init];
         self.tabBarItem = self.viewModel.tabBarItem;
+        self.title = self.tabBarItem.title;
     }
 
     return self;

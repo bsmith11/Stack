@@ -22,7 +22,10 @@
                 completion:(STKAPICompletion)completion;
 
 - (void)searchPostsWithText:(NSString *)text
+                 sourceType:(STKSourceType)sourceType
                  completion:(STKAPICompletion)completion;
+
+- (void)cancelPreviousPostSearches;
 
 - (void)getCommentsForPost:(STKPost *)post
                 completion:(STKAPICompletion)completion;

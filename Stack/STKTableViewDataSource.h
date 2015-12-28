@@ -15,6 +15,7 @@
 @required
 - (ASCellNode *)tableView:(ASTableView *)tableView nodeForObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
 - (void)tableView:(ASTableView *)tableView updateNode:(ASCellNode *)node forObject:(id)object atIndexPath:(NSIndexPath *)indexPath;
+- (void)tableViewDidChangeContent:(ASTableView *)tableView;
 
 @end
 
@@ -33,5 +34,7 @@
 
 @property (weak, nonatomic, readonly) ASTableView *tableView;
 @property (weak, nonatomic, readonly) id <STKTableViewDataSourceDelegate> delegate;
+
+@property (assign, nonatomic) BOOL animateChanges;
 
 @end

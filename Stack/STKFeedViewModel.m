@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) STKTableViewDataSource *dataSource;
 @property (strong, nonatomic, readwrite) UITabBarItem *tabBarItem;
+@property (strong, nonatomic, readwrite) NSError *networkError;
 @property (strong, nonatomic) NSMutableArray *fetchIDs;
 
 @property (copy, nonatomic, readwrite) NSString *title;
@@ -98,7 +99,9 @@
 
     __weak __typeof(self) wself = self;
 
-    void (^fetchCompletion)(NSArray *, NSError *) = ^(NSArray *fetchedPosts, NSError *error) {
+    STKContentManagerDownloadCompletion fetchCompletion = ^(NSArray *fetchedPosts, NSError *error) {
+        wself.networkError = error;
+
         STKViewModelFetchResult result;
 
         if ([wself.fetchIDs containsObject:fetchID]) {

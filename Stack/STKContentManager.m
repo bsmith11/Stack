@@ -10,6 +10,7 @@
 
 #import "STKPost.h"
 #import "STKAuthor.h"
+#import "STKPostSearchResult.h"
 
 @implementation STKContentManager
 
@@ -19,6 +20,7 @@
 
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         dispatch_group_t group = dispatch_group_create();
+        __block NSError *networkError = nil;
 
         for (NSNumber *sourceType in sourceTypes) {
             NSPredicate *predicate = [STKPost predicateWithSourceType:sourceType.integerValue];
@@ -35,6 +37,7 @@
                                       NSLog(@"%@ finished downloading...", [STKSource nameForType:sourceType.integerValue]);
 
                                       if (error) {
+                                          networkError = error;
                                           NSLog(@"Error downloading posts: %@", error);
                                       }
 
@@ -49,7 +52,7 @@
                 NSArray *fetchedPosts = [STKPost fetchPostsBeforePost:posts.lastObject
                                                                author:nil
                                                            sourceType:-1];
-                completion(fetchedPosts, nil);
+                completion(fetchedPosts, networkError);
             });
         }
     });
@@ -65,7 +68,9 @@
                               NSArray *fetchedPosts = [STKPost fetchPostsBeforePost:posts.lastObject
                                                                              author:author
                                                                          sourceType:-1];
-                              completion(fetchedPosts, nil);
+                              if (completion) {
+                                  completion(fetchedPosts, error);
+                              }
                           }];
 }
 
@@ -88,9 +93,68 @@
                                   NSArray *fetchedPosts = [STKPost fetchPostsBeforePost:posts.lastObject
                                                                                  author:nil
                                                                              sourceType:sourceType];
-                                  completion(fetchedPosts, nil);
+                                  if (completion) {
+                                      completion(fetchedPosts, error);
+                                  }
                               }];
     }
+}
+
++ (void)searchPostsWithText:(NSString *)text
+                 completion:(STKContentManagerDownloadCompletion)completion {
+    NSArray *sourceTypes = [STKSource allSourceTypes];
+    NSMutableArray *searchResults = [NSMutableArray array];
+
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        dispatch_group_t group = dispatch_group_create();
+        __block NSError *networkError = nil;
+
+        for (NSNumber *sourceType in sourceTypes) {
+            dispatch_group_enter(group);
+
+            [STKPostSearchResult searchPostsWithText:text
+                                          sourceType:sourceType.integerValue
+                                          completion:^(NSArray *results, NSError *error) {
+                                              NSLog(@"%@ finished searching...", [STKSource nameForType:sourceType.integerValue]);
+
+                                              if (error) {
+                                                  networkError = error;
+                                                  NSLog(@"Error searching posts: %@", error);
+                                              }
+                                              else {
+                                                  [searchResults addObjectsFromArray:results];
+                                              }
+
+                                              dispatch_group_leave(group);
+            }];
+        }
+
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(searchResults, networkError);
+            });
+        }
+    });
+}
+
++ (void)searchPostsWithText:(NSString *)text
+                 sourceType:(STKSourceType)sourceType
+                 completion:(STKContentManagerDownloadCompletion)completion {
+    if (sourceType < 0) {
+        [self searchPostsWithText:text
+                       completion:completion];
+    }
+    else {
+        [STKPostSearchResult searchPostsWithText:text
+                                      sourceType:sourceType
+                                      completion:completion];
+    }
+}
+
++ (void)cancelPreviousPostSearches {
+    [STKPostSearchResult cancelPreviousPostSearches];
 }
 
 @end

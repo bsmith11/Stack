@@ -103,4 +103,8 @@
     }
 }
 
+- (void)cancelPreviousPostSearches {
+
+}
+
 @end

@@ -17,7 +17,8 @@
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
-@property (assign, nonatomic) STKSourceType sourceType;
+@property (assign, nonatomic, readonly) STKSourceType sourceType;
 
 @end

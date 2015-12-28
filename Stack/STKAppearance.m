@@ -20,8 +20,6 @@
     [UINavigationBar appearance].titleTextAttributes = [STKAttributes stk_navigationBarTitleAttributes];
     [UINavigationBar appearance].barTintColor = [UIColor stk_stackColor];
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    //    [UINavigationBar appearance].backIndicatorImage = [UIImage imageNamed:@"Back Icon"];
-    //    [UINavigationBar appearance].backIndicatorTransitionMaskImage = [UIImage imageNamed:@"Back Icon"];
 
     [UITabBar appearance].translucent = NO;
     [UITabBar appearance].shadowImage = [[UIImage alloc] init];

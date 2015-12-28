@@ -10,10 +10,7 @@
 
 #import "STKPost.h"
 #import "STKAuthor.h"
-//#import "STKTwitterUser.h"
-//#import "STKTweet.h"
 
-//#import <TwitterKit/TWTRUser.h>
 #import <Parse/Parse.h>
 #import <RZUtils/RZCommonUtils.h>
 
@@ -62,51 +59,6 @@
 + (void)logEventDidClickPostFromSearch:(STKPost *)post {
     [PFAnalytics trackEvent:@"didClickPostFromSearch" dimensions:post.analyticsInfo];
 }
-
-#pragma mark - Twitter
-
-//+ (void)logEventDidClickTwitterTab {
-//    [PFAnalytics trackEvent:@"didClickTwitterTab"];
-//}
-//
-//+ (void)logEventDidClickTweetMedia:(STKTweet *)tweet {
-//    [PFAnalytics trackEvent:@"didClickTweetMedia" dimensions:tweet.analyticsInfo];
-//}
-//
-//+ (void)logEventDidClickTwitterSearch {
-//    [PFAnalytics trackEvent:@"didClickTwitterSearch"];
-//}
-//
-//+ (void)logEventDidAddTwitterUser:(TWTRUser *)user {
-//    NSDictionary *dimensions = @{@"userID":RZNilToEmptyString(user.userID),
-//                                 @"screenName":RZNilToEmptyString(user.screenName)};
-//
-//    [PFAnalytics trackEvent:@"didAddTwitterUser" dimensions:dimensions];
-//}
-//
-//+ (void)logEventDidRemoveTwitterUser:(STKTwitterUser *)user {
-//    [PFAnalytics trackEvent:@"didRemoveTwitterUser" dimensions:user.analyticsInfo];
-//}
-//
-//+ (void)logEventDidClickLoginTwitter {
-//    [PFAnalytics trackEvent:@"didClickLoginTwitter"];
-//}
-//
-//+ (void)logEventDidEnableTwitter:(BOOL)enabled {
-//    NSDictionary *dimensions = @{@"enabled":STKBooleanToString(enabled)};
-//
-//    [PFAnalytics trackEvent:@"didEnableTwitter" dimensions:dimensions];
-//}
-//
-//+ (void)logEventDidLoginTwitterCompleted:(BOOL)completed {
-//    NSDictionary *dimensions = @{@"completed":STKBooleanToString(completed)};
-//
-//    [PFAnalytics trackEvent:@"didLoginTwitterCompleted" dimensions:dimensions];
-//}
-//
-//+ (void)logEventDidLogoutTwitter {
-//    [PFAnalytics trackEvent:@"didLogoutTwitter"];
-//}
 
 #pragma mark - Bookmarks
 

@@ -11,7 +11,7 @@
 
 typedef void (^ _Nullable STKPostDownloadCompletion)(NSError * _Nullable error);
 
-@class STKAttachment, STKAuthor, STKComment, STKPostSection, RZFetchedCollectionList;
+@class STKAttachment, STKAuthor, STKComment, STKPostSection, RZFetchedCollectionList, STKPostSearchResult;
 
 @interface STKPost : NSManagedObject
 
@@ -27,6 +27,8 @@ typedef void (^ _Nullable STKPostDownloadCompletion)(NSError * _Nullable error);
                          author:(STKAuthor * _Nullable)author
                      sourceType:(STKSourceType)sourceType
                      completion:(STKPostDownloadCompletion)completion;
+
++ (STKPost * _Nullable)postFromPostSearchResult:(STKPostSearchResult * _Nullable)postSearchResult;
 
 - (void)bookmark;
 - (NSURL * _Nullable)featureImageURL;

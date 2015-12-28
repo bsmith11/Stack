@@ -9,18 +9,17 @@
 #import "STKFeedViewController.h"
 #import "STKPostViewController.h"
 #import "STKSourceListViewController.h"
-//#import "STKSearchViewController.h"
 
 #import "STKFeedViewModel.h"
-//#import "STKSearchViewModel.h"
 
 #import "STKPost.h"
 
 #import "STKPostNode.h"
 
+#import "STKListBackgroundView.h"
+#import "STKListBackgroundDefaultContentView.h"
 #import "UIColor+STKStyle.h"
 #import "UIBarButtonItem+STKExtensions.h"
-//#import "STKSearchTextField.h"
 #import "STKAnalyticsManager.h"
 #import "STKTableViewDataSource.h"
 
@@ -31,15 +30,14 @@
 #import <tgmath.h>
 #import <SSPullToRefresh/SSPullToRefresh.h>
 
-@interface STKFeedViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, STKSourceListViewControllerDelegate>//, STKSearchViewControllerDelegate>
+@interface STKFeedViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, STKSourceListViewControllerDelegate, STKListBackgroundViewDelegate>
 
-//@property (strong, nonatomic) STKSearchViewController *searchViewController;
-//@property (strong, nonatomic) STKSearchViewModel *searchViewModel;
 @property (strong, nonatomic) STKSourceListViewController *sourceListViewController;
 @property (strong, nonatomic) STKFeedViewModel *viewModel;
 @property (strong, nonatomic) ASTableView *tableView;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
+@property (strong, nonatomic) STKListBackgroundView *listBackgroundView;
 
 @property (assign, nonatomic) BOOL hasLayoutSubviews;
 
@@ -66,13 +64,13 @@
 
     [self setupBarButtonItems];
     [self setupTableView];
+    [self setupListBackgroundView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self setupObservers];
-//    [self setupSearchViewController];
     [self setupSourceListViewController];
 
     [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
@@ -116,12 +114,6 @@
     UIBarButtonItem *listBarButtonItem = [[UIBarButtonItem alloc] initWithImage:listImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapListBarButtonItem)];
     UIBarButtonItem *rightSpaceBarButtonItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:fixedWidth];
     self.navigationItem.rightBarButtonItems = @[rightSpaceBarButtonItem, listBarButtonItem];
-
-    //    [self addRightBarButtonItems:self.listBarButtonItems width:listImage.size.width + kSTKFullPadding];
-    //
-    //    [self addSearchTextFieldBarButtonItem];
-    //
-    //    [self.searchTextField un_setPlaceholderText:@"Find articles"];
 }
 
 - (void)setupTableView {
@@ -137,12 +129,30 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)setupListBackgroundView {
+    self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.tableView delegate:self];
+
+    STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
+    [contentView setImage:[UIImage imageNamed:@"Feed Large"] forState:STKListBackgroundViewStateEmpty];
+    [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
+    [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
+
+    [contentView setImage:[UIImage imageNamed:@"Feed Large"] forState:STKListBackgroundViewStateError];
+    [contentView setTitle:@"Network Error" forState:STKListBackgroundViewStateError];
+    [contentView setMessage:@"Something seems to have gone with the servers..." forState:STKListBackgroundViewStateError];
+    [contentView setActionTitle:@"Try again" forState:STKListBackgroundViewStateError];
+
+    self.listBackgroundView.contentView = contentView;
+}
+
 - (void)setupRefreshView {
     if (!self.refreshView) {
         self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
+        
         SSPullToRefreshSimpleContentView *contentView = [[SSPullToRefreshSimpleContentView alloc] initWithFrame:CGRectZero];
         contentView.statusLabel.textColor = [UIColor stk_stackColor];
         contentView.activityIndicatorView.color = [UIColor stk_stackColor];
+
         self.refreshView.contentView = contentView;
     }
 }
@@ -155,6 +165,8 @@
     [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, downloading) options:options block:^(id observer, id object, NSDictionary *change) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSNumber *downloading = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+            wself.listBackgroundView.loading = downloading.boolValue;
 
             if (downloading.boolValue) {
                 [wself.spinner startAnimating];
@@ -170,22 +182,18 @@
         });
     }];
 
-//    [self.KVOController observe:self.searchViewModel keyPath:RZDB_KP_OBJ(self.searchViewModel, downloading) options:options block:^(id observer, id object, NSDictionary *change) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSNumber *downloading = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
-//
-//            wself.searchTextField.loading = downloading.boolValue;
-//        });
-//    }];
+    [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, networkError) options:options block:^(id observer, id object, NSDictionary *change) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+            if (error) {
+                wself.listBackgroundView.state = STKListBackgroundViewStateError;
+            }
+        });
+    }];
 
     [self rz_bindKey:RZDB_KP_SELF(title) toKeyPath:RZDB_KP_OBJ(self.viewModel, title) ofObject:self.viewModel];
 }
-
-//- (void)setupSearchViewController {
-//    self.searchViewModel = [[STKSearchViewModel alloc] init];
-//    self.searchViewController = [[STKSearchViewController alloc] initWithViewModel:self.searchViewModel];
-//    self.searchViewController.delegate = self;
-//}
 
 - (void)setupSourceListViewController {
     self.sourceListViewController = [[STKSourceListViewController alloc] init];
@@ -193,46 +201,6 @@
 }
 
 #pragma mark - Actions
-
-//- (void)presentSearchViewController {
-//    [STKAnalyticsManager logEventDidClickPostSearch];
-//
-//    [self addChildViewController:self.searchViewController];
-//    [self.view addSubview:self.searchViewController.view];
-//    self.searchViewController.view.frame = self.view.frame;
-//    [self.searchViewController didMoveToParentViewController:self];
-//}
-//
-//- (void)dismissSearchViewController {
-//    [self.searchViewController willMoveToParentViewController:nil];
-//    [self.searchViewController.view removeFromSuperview];
-//    [self.searchViewController removeFromParentViewController];
-//}
-//
-//- (void)searchTextFieldEditingChanged:(STKSearchTextField *)searchTextField {
-//    [self.searchViewModel searchPostsWithText:searchTextField.text];
-//}
-//
-//- (void)searchTextFieldEditingDidBegin:(STKSearchTextField *)searchTextField {
-//    [super searchTextFieldEditingDidBegin:searchTextField];
-//
-//    if (!self.searchViewModel.searching) {
-//        self.searchViewModel.searching = YES;
-//        [self presentSearchViewController];
-//    }
-//}
-//
-//- (void)searchTextFieldEditingDidEnd:(STKSearchTextField *)searchTextField {
-//    [super searchTextFieldEditingDidEnd:searchTextField];
-//}
-//
-//- (void)didTapCancelBarButtonItem {
-//    [super didTapCancelBarButtonItem];
-//
-//    [self.searchViewModel cancelSearching];
-//    self.searchViewModel.searching = NO;
-//    [self dismissSearchViewController];
-//}
 
 - (void)didTapListBarButtonItem {
     [self.navigationController pushViewController:self.sourceListViewController animated:YES];
@@ -250,6 +218,10 @@
 
 - (void)tableView:(ASTableView *)tableView updateNode:(STKPostNode *)node forObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
     [node setupWithPost:object];
+}
+
+- (void)tableViewDidChangeContent:(ASTableView *)tableView {
+    [self.listBackgroundView tableViewDidChangeContent];
 }
 
 #pragma mark - Table View Delegate
@@ -288,19 +260,6 @@
 
     [self.viewModel fetchNewPostsWithCompletion:nil];
 }
-
-//#pragma mark - Search View Controller Delegate
-//
-//- (void)searchViewController:(STKSearchViewController *)searchViewController didSelectPost:(STKPost *)post {
-//    [self.searchTextField resignFirstResponder];
-//
-//    [STKAnalyticsManager logEventDidClickPostFromSearch:post];
-//
-//    STKPostViewModel *viewModel = [[STKPostViewModel alloc] initWithPost:post];
-//    STKPostViewController *postViewController = [[STKPostViewController alloc] initWithViewModel:viewModel];
-//
-//    [self.navigationController pushViewController:postViewController animated:YES];
-//}
 
 #pragma mark - Source List View Controller Delegate
 

@@ -93,6 +93,10 @@ static NSInteger const kSTKWordpressSessionManagerPostsPerPage = 20;
     }
 }
 
+- (void)cancelPreviousPostSearches {
+    [self.searchTask cancel];
+}
+
 - (void)getCommentsForPost:(STKPost *)post completion:(STKAPICompletion)completion {
     NSString *postID = [post.postID componentsSeparatedByString:@"_"].lastObject;
     NSString *path = [self pathWithRoute:[NSString stringWithFormat:kSTKAPIWordpressRoutePostComments, postID]];

@@ -31,6 +31,8 @@
     self = [super init];
 
     if (self) {
+        self.animateChanges = YES;
+
         self.queue = [NSOperationQueue mainQueue];
         self.queue.maxConcurrentOperationCount = 1;
 
@@ -114,7 +116,7 @@
 
             [self.tableView insertRowsAtIndexPaths:newIndexPaths withRowAnimation:UITableViewRowAnimationNone];
 
-            [self.tableView endUpdatesAnimated:YES completion:^(BOOL completed) {
+            [self.tableView endUpdatesAnimated:self.animateChanges completion:^(BOOL completed) {
                 for (NSIndexPath *indexPath in updatedIndexPaths) {
                     if ([self tableView:self.tableView containsIndexPath:indexPath]) {
                         ASCellNode *node = [self.tableView nodeForRowAtIndexPath:indexPath];
@@ -125,7 +127,11 @@
                         }
                     }
                 }
+
+                [self.delegate tableViewDidChangeContent:self.tableView];
             }];
+
+        
         }];
     }
 }
@@ -151,7 +157,9 @@
 
             [self.tableView deleteRowsAtIndexPaths:removedIndexPaths withRowAnimation:UITableViewRowAnimationNone];
 
-            [self.tableView endUpdates];
+            [self.tableView endUpdatesAnimated:self.animateChanges completion:^(BOOL completed) {
+                [self.delegate tableViewDidChangeContent:self.tableView];
+            }];
         }];
     }
 }
@@ -165,7 +173,9 @@
 
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 
-        [self.tableView endUpdates];
+        [self.tableView endUpdatesAnimated:self.animateChanges completion:^(BOOL completed) {
+            [self.delegate tableViewDidChangeContent:self.tableView];
+        }];
     }];
 }
 

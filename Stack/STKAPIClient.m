@@ -68,10 +68,21 @@
     }
 }
 
-- (void)searchPostsWithText:(NSString *)text completion:(STKAPICompletion)completion {
-    NSArray *sessionManagers = self.sessionManagers.allValues;
-    for (id <STKSessionManagerProtocol> sessionManager in sessionManagers) {
+- (void)searchPostsWithText:(NSString *)text
+                 sourceType:(STKSourceType)sourceType
+                 completion:(STKAPICompletion)completion {
+    id <STKSessionManagerProtocol> sessionManager = self.sessionManagers[@(sourceType)];
+
+    if ([sessionManager conformsToProtocol:@protocol(STKSessionManagerProtocol)]) {
         [sessionManager searchPostsWithText:text completion:completion];
+    }
+}
+
+- (void)cancelPreviousPostSearches {
+    for (id <STKSessionManagerProtocol> sessionManager in self.sessionManagers) {
+        if ([sessionManager conformsToProtocol:@protocol(STKSessionManagerProtocol)]) {
+            [sessionManager cancelPreviousPostSearches];
+        }
     }
 }
 

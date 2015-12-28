@@ -25,4 +25,10 @@ typedef void (^ _Nullable STKContentManagerDownloadCompletion)(NSArray * _Nullab
                       sourceType:(STKSourceType)sourceType
                       completion:(STKContentManagerDownloadCompletion)completion;
 
++ (void)searchPostsWithText:(NSString * _Nullable)text
+                 sourceType:(STKSourceType)sourceType
+                 completion:(STKContentManagerDownloadCompletion)completion;
+
++ (void)cancelPreviousPostSearches;
+
 @end

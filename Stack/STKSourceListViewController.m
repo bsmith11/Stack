@@ -81,6 +81,7 @@
     CGFloat topInset = CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
     self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
     self.tableView.asyncDelegate = self;
 
     [self.view addSubview:self.tableView];
@@ -92,7 +93,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - Collection List Data Source Delegate
+#pragma mark - Table View Data Source Delegate
 
 - (ASCellNode *)tableView:(ASTableView *)tableView nodeForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
     STKSourceListNode *node = [[STKSourceListNode alloc] init];
@@ -109,24 +110,17 @@
     [node setupWithSourceType:sourceType selected:selected];
 }
 
+- (void)tableViewDidChangeContent:(ASTableView *)tableView {
+    
+}
+
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSNumber *oldSourceTypeNumber = @(self.viewModel.sourceType);
-    NSIndexPath *oldIndexPath = [self.viewModel indexPathForObject:oldSourceTypeNumber];
-    ASCellNode *oldNode = [self.tableView nodeForRowAtIndexPath:oldIndexPath];
-
-    NSNumber *sourceTypeNumber = [self.viewModel objectAtIndexPath:indexPath];
-    ASCellNode *node = [self.tableView nodeForRowAtIndexPath:indexPath];
-
-    STKSourceType sourceType = sourceTypeNumber.integerValue;
-    self.viewModel.sourceType = sourceType;
-
-    [self tableView:self.tableView updateNode:oldNode forObject:oldSourceTypeNumber atIndexPath:oldIndexPath];
-    [self tableView:self.tableView updateNode:node forObject:sourceTypeNumber atIndexPath:indexPath];
+    [self.viewModel didSelectRowAtIndexPath:indexPath];
 
     if ([self.delegate respondsToSelector:@selector(sourceListViewController:didSelectSourceType:)]) {
-        [self.delegate sourceListViewController:self didSelectSourceType:sourceType];
+        [self.delegate sourceListViewController:self didSelectSourceType:self.viewModel.sourceType];
     }
 }
 

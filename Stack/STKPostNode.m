@@ -9,6 +9,7 @@
 #import "STKPostNode.h"
 
 #import "STKPost.h"
+#import "STKPostSearchResult.h"
 
 #import "STKImageCache.h"
 #import "STKImageDownloader.h"
@@ -164,6 +165,19 @@
     self.dateTextNode.attributedString = [[NSAttributedString alloc] initWithString:date attributes:[STKAttributes stk_postNodeDateAttributes]];
 
     UIImage *image = [UIImage imageNamed:[STKSource imageNameForType:post.sourceType.integerValue]];
+    self.sourceImageNode.image = image;
+}
+
+- (void)setupWithPostSearchResult:(STKPostSearchResult *)postSearchResult {
+    self.featureNetworkImageNode.URL = nil;
+
+    NSString *title = postSearchResult.title ?: @"No title";
+    self.titleTextNode.attributedString = [[NSAttributedString alloc] initWithString:title attributes:[STKAttributes stk_postNodeTitleAttributes]];
+
+    NSString *date = [postSearchResult.createDate stk_timeSinceNow] ?: @"No timestamp";
+    self.dateTextNode.attributedString = [[NSAttributedString alloc] initWithString:date attributes:[STKAttributes stk_postNodeDateAttributes]];
+
+    UIImage *image = [UIImage imageNamed:[STKSource imageNameForType:postSearchResult.sourceType.integerValue]];
     self.sourceImageNode.image = image;
 }
 
