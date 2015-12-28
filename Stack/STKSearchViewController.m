@@ -18,6 +18,8 @@
 #import "STKPostNode.h"
 #import "STKSourceListNode.h"
 
+#import "STKListBackgroundView.h"
+#import "STKListBackgroundDefaultContentView.h"
 #import "STKSearchField.h"
 #import "STKTableViewDataSource.h"
 #import "UIColor+STKStyle.h"
@@ -26,8 +28,10 @@
 #import <AsyncDisplayKit/ASTableView.h>
 #import <RZUtils/UIViewController+RZKeyboardWatcher.h>
 #import <RZDataBinding/RZDataBinding.h>
+#import <KVOController/FBKVOController.h>
+#import <RZUtils/RZCommonUtils.h>
 
-@interface STKSearchViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate>
+@interface STKSearchViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, STKListBackgroundViewDelegate>
 
 @property (strong, nonatomic) STKSourceListViewModel *sourceListViewModel;
 @property (strong, nonatomic) STKSearchViewModel *searchViewModel;
@@ -36,6 +40,7 @@
 @property (strong, nonatomic) NSArray *cancelBarButtonItems;
 @property (strong, nonatomic) ASTableView *sourceListTableView;
 @property (strong, nonatomic) ASTableView *searchTableView;
+@property (strong, nonatomic) STKListBackgroundView *listBackgroundView;
 
 @end
 
@@ -64,6 +69,7 @@
     [self setupBarButtonItems];
     [self setupSourceListTableView];
     [self setupSearchTableView];
+    [self setupListBackgroundView];
 
     self.searchTableView.hidden = YES;
 }
@@ -137,7 +143,37 @@
     [self.view addSubview:self.searchTableView];
 }
 
+- (void)setupListBackgroundView {
+    self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.searchTableView delegate:self];
+
+    STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
+    [contentView setImage:[UIImage imageNamed:@"Feed Large"] forState:STKListBackgroundViewStateEmpty];
+    [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
+    [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
+
+    [contentView setImage:[UIImage imageNamed:@"Feed Large"] forState:STKListBackgroundViewStateError];
+    [contentView setTitle:@"Network Error" forState:STKListBackgroundViewStateError];
+    [contentView setMessage:@"Something seems to have gone with the servers..." forState:STKListBackgroundViewStateError];
+    [contentView setActionTitle:@"Try again" forState:STKListBackgroundViewStateError];
+
+    self.listBackgroundView.contentView = contentView;
+}
+
 - (void)setupObservers {
+    NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
+
+    __weak __typeof(self) wself = self;
+
+    [self.KVOController observe:self.searchViewModel keyPath:RZDB_KP_OBJ(self.searchViewModel, networkError) options:options block:^(id observer, id object, NSDictionary *change) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+            if (error) {
+                wself.listBackgroundView.state = STKListBackgroundViewStateError;
+            }
+        });
+    }];
+
     [self.searchField rz_bindKey:RZDB_KP(STKSearchField, loading) toKeyPath:RZDB_KP_OBJ(self.searchViewModel, searching) ofObject:self.searchViewModel];
 
     [self.searchViewModel rz_bindKey:RZDB_KP_OBJ(self.searchViewModel, sourceType) toKeyPath:RZDB_KP_OBJ(self.sourceListViewModel, sourceType) ofObject:self.sourceListViewModel];
@@ -248,7 +284,7 @@
 
     }
     else if ([tableView isEqual:self.searchTableView]) {
-
+        [self.listBackgroundView tableViewDidChangeContent];
     }
 }
 

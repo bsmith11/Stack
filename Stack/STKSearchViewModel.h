@@ -19,6 +19,8 @@
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
+@property (strong, nonatomic, readonly) NSError *networkError;
+
 @property (assign, nonatomic) STKSourceType sourceType;
 @property (assign, nonatomic, readonly) BOOL searching;
 

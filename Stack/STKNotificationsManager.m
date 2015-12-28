@@ -128,11 +128,12 @@ NSString * const kSTKNotificationsPermissionDidChangeNotificationKeyEnabled = @"
         NSDictionary *userInfo = @{kSTKNotificationsPermissionDidChangeNotificationKeyEnabled:@(enabled)};
         [[NSNotificationCenter defaultCenter] postNotificationName:kSTKNotificationsPermissionDidChangeNotification object:nil userInfo:userInfo];
     }
+
+    self.previousPermissionStatus = enabled;
 }
 
 - (void)applicationDidEnterBackground {
-    NSLog(@"Did Enter Background");
-    self.previousPermissionStatus = [self notificationsPermissionEnabled];
+
 }
 
 @end

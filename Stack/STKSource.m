@@ -25,7 +25,9 @@
 }
 
 + (NSArray *)sourcesWithNotificationsAvailable {
-    return @[@(STKSourceTypeSkyd), @(STKSourceTypeBamaSecs), @(STKSourceTypeMLU)];
+    return @[@(STKSourceTypeSkyd),
+             @(STKSourceTypeBamaSecs),
+             @(STKSourceTypeMLU)];
 }
 
 + (STKSourceType)sourceTypeForName:(NSString *)name {

@@ -61,7 +61,9 @@
 
     [self.containerView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
     [self.containerView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:25.0f].active = YES;
-    [self.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor constant:25.0f].active = YES;
+    NSLayoutConstraint *trailing = [self.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor constant:25.0f];
+    trailing.active = YES;
+//    trailing.priority = UILayoutPriorityDefaultLow;
 }
 
 - (void)setupImageView {

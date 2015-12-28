@@ -10,6 +10,7 @@
 #import "STKFeedViewController.h"
 #import "STKSearchViewController.h"
 #import "STKBookmarksViewController.h"
+#import "STKSettingsViewController.h"
 
 #import "STKAnalyticsManager.h"
 #import "UIView+STKShadow.h"
@@ -45,11 +46,10 @@
     STKBookmarksViewController *bookmarksViewController = [[STKBookmarksViewController alloc] init];
     STKNavigationController *bookmarksNavigationController = [[STKNavigationController alloc] initWithRootViewController:bookmarksViewController];
 
-//    STKSettingsViewModel *settingsViewModel = [[STKSettingsViewModel alloc] init];
-//    STKSettingsViewController *settingsViewController = [[STKSettingsViewController alloc] initWithViewModel:settingsViewModel];
-//    STKNavigationController *settingsNavigationController = [[STKNavigationController alloc] initWithRootViewController:settingsViewController];
+    STKSettingsViewController *settingsViewController = [[STKSettingsViewController alloc] init];
+    STKNavigationController *settingsNavigationController = [[STKNavigationController alloc] initWithRootViewController:settingsViewController];
 
-    [self setViewControllers:@[feedNavigationController, searchNavigationController, bookmarksNavigationController] animated:YES];
+    [self setViewControllers:@[feedNavigationController, searchNavigationController, bookmarksNavigationController, settingsNavigationController] animated:YES];
 }
 
 #pragma mark - Tab Bar Controller Delegate
