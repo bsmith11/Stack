@@ -65,7 +65,7 @@
     else if ([key isEqualToString:kSTKAPIRSSResponseKeyAuthor]) {
         if ([value isKindOfClass:[NSString class]] && [value length] > 0) {
             self.author = [STKAuthor rzv_objectWithPrimaryKeyValue:value createNew:YES inContext:context];
-            self.author.name = value;
+            self.author.name = [value componentsSeparatedByString:@"_"].lastObject;
         }
         else {
             self.author = nil;

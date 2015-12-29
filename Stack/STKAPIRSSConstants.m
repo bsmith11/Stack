@@ -15,4 +15,3 @@ NSString * const kSTKAPIRSSResponseKeyAuthor = @"author";
 NSString * const kSTKAPIRSSResponseKeyContent = @"content";
 NSString * const kSTKAPIRSSResponseKeyLink = @"link";
 NSString * const kSTKAPIRSSResponseKeyCommentsRSS = @"commentsRSS";
-NSString * const kSTKAPIRSSResponseKeyPostID = @"postID";

@@ -75,16 +75,6 @@
 
         return NO;
     }
-    else if ([key isEqualToString:kSTKAPIRSSResponseKeyPostID]) {
-        if ([value isKindOfClass:[NSString class]]) {
-            self.post = [STKRSSPost rzv_objectWithPrimaryKeyValue:value createNew:YES inContext:context];
-        }
-        else {
-            self.post = nil;
-        }
-
-        return NO;
-    }
 
     return [super rzi_shouldImportValue:value forKey:key inContext:context];
 }

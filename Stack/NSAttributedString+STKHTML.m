@@ -45,7 +45,6 @@
                          (NSString *)kCTBaselineClassAttributeName,
                          (NSString *)kCTRunDelegateAttributeName,
                          (NSString *)kCTLanguageAttributeName,
-                         (NSString *)kCTCharacterShapeAttributeName,
                          (NSString *)kCTGlyphInfoAttributeName,
                          (NSString *)kCTVerticalFormsAttributeName,
                          (NSString *)kCTUnderlineColorAttributeName,

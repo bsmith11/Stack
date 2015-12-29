@@ -10,10 +10,10 @@
 
 @interface RSSItem (STKImport)
 
-+ (NSDictionary *)stk_postImportDictionaryFromItem:(RSSItem *)item;
-+ (NSDictionary *)stk_commentImportDictionaryFromItem:(RSSItem *)item postID:(NSString *)postID;
++ (NSMutableDictionary *)stk_postImportDictionaryFromItem:(RSSItem *)item;
++ (NSMutableDictionary *)stk_commentImportDictionaryFromItem:(RSSItem *)item;
 
-+ (NSArray *)stk_postImportDictionariesFromArray:(NSArray *)feedItems;
-+ (NSArray *)stk_commentImportDictionariesFromArray:(NSArray *)feedItems postID:(NSString *)postID;
++ (NSMutableArray *)stk_postImportDictionariesFromArray:(NSArray *)feedItems;
++ (NSMutableArray *)stk_commentImportDictionariesFromArray:(NSArray *)feedItems;
 
 @end

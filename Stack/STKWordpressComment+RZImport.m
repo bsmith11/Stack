@@ -35,23 +35,14 @@
 }
 
 + (NSArray *)rzi_ignoredKeys {
-    return @[kSTKAPIWordpressResponseKeyDateGMT, kSTKAPIWordpressResponseKeyDateTZ, kSTKAPIWordpressResponseKeyMeta, kSTKAPIWordpressResponseKeyType, kSTKAPIWordpressResponseKeyStatus, kSTKAPIWordpressResponseKeyParent];
+    return @[kSTKAPIWordpressResponseKeyDateGMT, kSTKAPIWordpressResponseKeyDateTZ, kSTKAPIWordpressResponseKeyMeta, kSTKAPIWordpressResponseKeyType, kSTKAPIWordpressResponseKeyStatus, kSTKAPIWordpressResponseKeyParent, kSTKAPIWordpressResponseKeyPost];
 }
 
 - (BOOL)rzi_shouldImportValue:(id)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
     if ([key isEqualToString:kSTKAPIWordpressResponseKeyAuthor]) {
         if ([value isKindOfClass:[NSDictionary class]]) {
-            NSString *authorID = RZNSNullToNil(value[kSTKAPIWordpressResponseKeyID]);
-            //TODO: Figure out what this does
-            if ([[authorID componentsSeparatedByString:@"_"].lastObject isEqualToString:@"0"]) {
-                self.authorAvatarImageURL = RZNSNullToNil(value[kSTKAPIWordpressResponseKeyAvatar]);
-                self.authorName = RZNSNullToNil(value[kSTKAPIWordpressResponseKeyName]);
-            }
-            else {
-                //TODO: Figure out whats happening here
-                self.authorAvatarImageURL = @"test";
-                self.authorName = @"test";
-            }
+            self.authorAvatarImageURL = RZNSNullToNil(value[kSTKAPIWordpressResponseKeyAvatar]);
+            self.authorName = RZNSNullToNil(value[kSTKAPIWordpressResponseKeyName]);
         }
         else {
             self.authorAvatarImageURL = nil;
@@ -86,18 +77,6 @@
         }
         else {
             self.createDate = nil;
-        }
-
-        return NO;
-    }
-    else if ([key isEqualToString:kSTKAPIWordpressResponseKeyPost]) {
-        //TODO: Check and make sure this needs to be a number, especially after this postID is prefixed
-        if ([value isKindOfClass:[NSNumber class]]) {
-            NSString *postID = [value stringValue];
-            self.post = [STKWordpressPost rzv_objectWithPrimaryKeyValue:postID createNew:NO inContext:context];
-        }
-        else {
-            self.post = nil;
         }
 
         return NO;

@@ -8,6 +8,8 @@
 
 #import "STKListBackgroundDefaultContentView.h"
 
+#import "UIColor+STKStyle.h"
+
 @interface STKListBackgroundDefaultContentView ()
 
 @property (strong, nonatomic) NSMutableDictionary *images;
@@ -124,6 +126,7 @@
     [self addSubview:self.activityIndicatorView];
 
     self.activityIndicatorView.hidesWhenStopped = YES;
+    self.activityIndicatorView.color = [UIColor stk_stackColor];
 
     [self.activityIndicatorView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
     [self.activityIndicatorView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;

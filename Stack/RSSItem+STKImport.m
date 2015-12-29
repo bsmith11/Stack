@@ -15,7 +15,7 @@
 
 @implementation RSSItem (STKImport)
 
-+ (NSDictionary *)stk_postImportDictionaryFromItem:(RSSItem *)item {
++ (NSMutableDictionary *)stk_postImportDictionaryFromItem:(RSSItem *)item {
     NSMutableDictionary *dictionary = nil;
 
     if (![item.categories containsObject:@"Deals"] && ![item.categories containsObject:@"Deal Alert"]) {
@@ -35,10 +35,10 @@
         dictionary[kSTKAPIRSSResponseKeyContent] = RZNilToNSNull(content);
     }
 
-    return [dictionary copy];
+    return dictionary;
 }
 
-+ (NSDictionary *)stk_commentImportDictionaryFromItem:(RSSItem *)item postID:(NSString *)postID {
++ (NSMutableDictionary *)stk_commentImportDictionaryFromItem:(RSSItem *)item {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
     NSString *endString = [item.guid componentsSeparatedByString:@"="].lastObject;
@@ -51,35 +51,34 @@
 
     NSString *content = item.content ?: item.itemDescription;
     dictionary[kSTKAPIRSSResponseKeyContent] = RZNilToNSNull(content);
-    dictionary[kSTKAPIRSSResponseKeyPostID] = RZNilToNSNull(postID);
 
-    return [dictionary copy];
+    return dictionary;
 }
 
-+ (NSArray *)stk_postImportDictionariesFromArray:(NSArray *)feedItems {
++ (NSMutableArray *)stk_postImportDictionariesFromArray:(NSArray *)feedItems {
     NSMutableArray *dictionaries = [NSMutableArray array];
 
     for (RSSItem *item in feedItems) {
-        NSDictionary *dictionary = [self stk_postImportDictionaryFromItem:item];
+        NSMutableDictionary *dictionary = [self stk_postImportDictionaryFromItem:item];
         if (dictionary) {
             [dictionaries addObject:dictionary];
         }
     }
 
-    return [dictionaries copy];
+    return dictionaries;
 }
 
-+ (NSArray *)stk_commentImportDictionariesFromArray:(NSArray *)feedItems postID:(NSString *)postID {
++ (NSMutableArray *)stk_commentImportDictionariesFromArray:(NSArray *)feedItems {
     NSMutableArray *dictionaries = [NSMutableArray array];
 
     for (RSSItem *item in feedItems) {
-        NSDictionary *dictionary = [self stk_commentImportDictionaryFromItem:item postID:postID];
+        NSMutableDictionary *dictionary = [self stk_commentImportDictionaryFromItem:item];
         if (dictionary) {
             [dictionaries addObject:dictionary];
         }
     }
 
-    return [dictionaries copy];
+    return dictionaries;
 }
 
 @end

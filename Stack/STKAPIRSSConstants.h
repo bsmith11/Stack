@@ -15,4 +15,3 @@ OBJC_EXTERN NSString * const kSTKAPIRSSResponseKeyAuthor;
 OBJC_EXTERN NSString * const kSTKAPIRSSResponseKeyContent;
 OBJC_EXTERN NSString * const kSTKAPIRSSResponseKeyLink;
 OBJC_EXTERN NSString * const kSTKAPIRSSResponseKeyCommentsRSS;
-OBJC_EXTERN NSString * const kSTKAPIRSSResponseKeyPostID;

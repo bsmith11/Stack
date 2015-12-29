@@ -37,10 +37,4 @@ typedef NS_ENUM(NSInteger, STKBackendType) {
 + (UIColor *)colorForType:(STKSourceType)type;
 + (STKBackendType)backendTypeForType:(STKSourceType)type;
 
-+ (NSString *)prefixedIDFromID:(NSNumber *)ID type:(STKSourceType)type;
-+ (NSDictionary *)prefixedPostDictionaryFromDictionary:(NSDictionary *)dictionary type:(STKSourceType)type;
-+ (NSArray *)prefixedArrayOfPostDictionariesFromArray:(NSArray *)array type:(STKSourceType)type;
-+ (NSDictionary *)prefixedCommentDictionaryFromDictionary:(NSDictionary *)dictionary type:(STKSourceType)type;
-+ (NSArray *)prefixedArrayOfCommentDictionariesFromArray:(NSArray *)array type:(STKSourceType)type;
-
 @end

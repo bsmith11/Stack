@@ -119,6 +119,9 @@
         self.authorNetworkImageNode.URL = URL;
     }
 
+    UIColor *color = [STKSource colorForType:author.sourceType.integerValue];
+    self.authorNetworkImageNode.defaultImage = [UIImage rz_solidColorImageWithSize:CGSizeMake(2 * 50.0f, 2 * 50.0f) color:color];
+
     NSMutableAttributedString *attributedString = [author.attributedSummary mutableCopy];
     if (attributedString) {
         UIColor *linkColor = [STKSource colorForType:author.sourceType.integerValue];
@@ -152,7 +155,6 @@
     self.authorNetworkImageNode.layerBacked = YES;
     self.authorNetworkImageNode.contentMode = UIViewContentModeScaleAspectFit;
     self.authorNetworkImageNode.imageModificationBlock = STKImageNodeCornerRadiusModificationBlock(100.0f);
-    self.authorNetworkImageNode.defaultImage = [UIImage rz_solidColorImageWithSize:CGSizeMake(2 * 50.0f, 2 * 50.0f) color:[UIColor stk_stackColor]];
     self.authorNetworkImageNode.placeholderEnabled = YES;
     self.authorNetworkImageNode.delegate = self;
 

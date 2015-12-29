@@ -64,10 +64,10 @@ static NSInteger const kSTKWordpressSessionManagerPostsPerPage = 20;
     NSString *path = [self pathWithRoute:kSTKAPIWordpressRoutePosts];
 
     [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
-        NSArray *posts = [STKSource prefixedArrayOfPostDictionariesFromArray:responseObject type:self.sourceType];
+        [self prefixValuesForPosts:responseObject];
 
         if (completion) {
-            completion(posts, error, self.sourceType);
+            completion(responseObject, error, self.sourceType);
         }
     }];
 }
@@ -82,10 +82,10 @@ static NSInteger const kSTKWordpressSessionManagerPostsPerPage = 20;
         NSString *path = [self pathWithRoute:kSTKAPIWordpressRoutePosts];
 
         NSURLSessionDataTask *searchTask = [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
-            NSArray *posts = [STKSource prefixedArrayOfPostDictionariesFromArray:responseObject type:self.sourceType];
+            [self prefixValuesForPosts:responseObject];
 
             if (completion) {
-                completion(posts, error, self.sourceType);
+                completion(responseObject, error, self.sourceType);
             }
         }];
 
@@ -102,12 +102,39 @@ static NSInteger const kSTKWordpressSessionManagerPostsPerPage = 20;
     NSString *path = [self pathWithRoute:[NSString stringWithFormat:kSTKAPIWordpressRoutePostComments, postID]];
 
     [self GET:path parameters:nil completion:^(id responseObject, NSError *error) {
-        NSArray *comments = [STKSource prefixedArrayOfCommentDictionariesFromArray:responseObject type:self.sourceType];
+        [self prefixValuesForComments:responseObject];
 
         if (completion) {
-            completion(comments, error, self.sourceType);
+            completion(responseObject, error, self.sourceType);
         }
     }];
+}
+
+- (void)prefixValuesForPosts:(NSMutableArray *)responseObject {
+    NSArray *keyPaths = @[kSTKAPIWordpressResponseKeyID, [NSString stringWithFormat:@"%@.%@", kSTKAPIWordpressResponseKeyAuthor, kSTKAPIWordpressResponseKeyID], [NSString stringWithFormat:@"%@.%@", kSTKAPIWordpressResponseKeyFeaturedImage, kSTKAPIWordpressResponseKeyID]];
+
+    for (NSMutableDictionary *dictionary in responseObject) {
+        [self prefixValuesForKeyPaths:keyPaths inDictionary:dictionary];
+    }
+}
+
+- (void)prefixValuesForComments:(NSMutableArray *)responseObject {
+    NSArray *keyPaths = @[kSTKAPIWordpressResponseKeyID];
+
+    for (NSMutableDictionary *dictionary in responseObject) {
+        [self prefixValuesForKeyPaths:keyPaths inDictionary:dictionary];
+    }
+}
+
+- (void)prefixValuesForKeyPaths:(NSArray *)keyPaths inDictionary:(NSMutableDictionary *)dictionary {
+    for (NSString *keyPath in keyPaths) {
+        id oldValue = [dictionary valueForKeyPath:keyPath];
+        if (![oldValue isKindOfClass:[NSNull class]]) {
+            NSString *newValue = [NSString stringWithFormat:@"%@_%@", @(self.sourceType).stringValue, oldValue];
+
+            [dictionary setValue:newValue forKeyPath:keyPath];
+        }
+    }
 }
 
 @end

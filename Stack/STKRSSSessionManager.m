@@ -12,6 +12,7 @@
 
 #import "STKAnalyticsManager.h"
 #import "RSSItem+STKImport.h"
+#import "STKAPIRSSConstants.h"
 
 #import <BlockRSSParser/RSSParser.h>
 
@@ -53,7 +54,8 @@
     [RSSParser parseRSSFeedForRequest:request success:^(NSArray *feedItems) {
         self.page++;
 
-        NSArray *responseObject = [RSSItem stk_postImportDictionariesFromArray:feedItems];
+        NSMutableArray *responseObject = [RSSItem stk_postImportDictionariesFromArray:feedItems];
+        [self prefixValuesForPosts:responseObject];
 
         if (completion) {
             completion(responseObject, nil, self.sourceType);
@@ -75,7 +77,8 @@
         NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
 
         [RSSParser parseRSSFeedForRequest:request success:^(NSArray *feedItems) {
-            NSArray *responseObject = [RSSItem stk_commentImportDictionariesFromArray:feedItems postID:post.postID];
+            NSMutableArray *responseObject = [RSSItem stk_commentImportDictionariesFromArray:feedItems];
+            [self prefixValuesForComments:responseObject];
 
             if (completion) {
                 completion(responseObject, nil, self.sourceType);
@@ -105,6 +108,33 @@
 
 - (void)cancelPreviousPostSearches {
 
+}
+
+- (void)prefixValuesForPosts:(NSMutableArray *)responseObject {
+    NSArray *keyPaths = @[kSTKAPIRSSResponseKeyID, kSTKAPIRSSResponseKeyAuthor];
+
+    for (NSMutableDictionary *dictionary in responseObject) {
+        [self prefixValuesForKeyPaths:keyPaths inDictionary:dictionary];
+    }
+}
+
+- (void)prefixValuesForComments:(NSMutableArray *)responseObject {
+    NSArray *keyPaths = @[kSTKAPIRSSResponseKeyID];
+
+    for (NSMutableDictionary *dictionary in responseObject) {
+        [self prefixValuesForKeyPaths:keyPaths inDictionary:dictionary];
+    }
+}
+
+- (void)prefixValuesForKeyPaths:(NSArray *)keyPaths inDictionary:(NSMutableDictionary *)dictionary {
+    for (NSString *keyPath in keyPaths) {
+        id oldValue = [dictionary valueForKeyPath:keyPath];
+        if (![oldValue isKindOfClass:[NSNull class]]) {
+            NSString *newValue = [NSString stringWithFormat:@"%@_%@", @(self.sourceType).stringValue, oldValue];
+
+            [dictionary setValue:newValue forKeyPath:keyPath];
+        }
+    }
 }
 
 @end

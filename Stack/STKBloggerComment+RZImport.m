@@ -38,7 +38,8 @@
     return @[kSTKAPIBloggerResponseKeyUpdated,
              kSTKAPIBloggerResponseKeySelfLink,
              kSTKAPIBloggerResponseKeyKind,
-             kSTKAPIBloggerResponseKeyBlog];
+             kSTKAPIBloggerResponseKeyBlog,
+             kSTKAPIBloggerResponseKeyPost];
 }
 
 - (BOOL)rzi_shouldImportValue:(id)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
@@ -88,24 +89,6 @@
         else {
             self.authorName = nil;
             self.authorAvatarImageURL = nil;
-        }
-
-        return NO;
-    }
-    else if ([key isEqualToString:kSTKAPIBloggerResponseKeyPost]) {
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *postDictionary = (NSDictionary *)value;
-            NSString *postID = RZNSNullToNil(postDictionary[kSTKAPIBloggerResponseKeyID]);
-
-            if (postID) {
-                self.post = [STKBloggerPost rzv_objectWithPrimaryKeyValue:postID createNew:YES inContext:context];
-            }
-            else {
-                self.post = nil;
-            }
-        }
-        else {
-            self.post = nil;
         }
 
         return NO;

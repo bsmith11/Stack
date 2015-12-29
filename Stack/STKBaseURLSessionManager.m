@@ -18,7 +18,7 @@
     self = [super initWithBaseURL:url];
 
     if (self) {
-        self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+        self.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments | NSJSONReadingMutableContainers];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
     }
 

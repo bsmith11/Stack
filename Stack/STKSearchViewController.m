@@ -55,8 +55,9 @@
         self.searchViewModel = [[STKSearchViewModel alloc] init];
         self.sourceListViewModel = [[STKSourceListViewModel alloc] init];
 
-        UIImage *image = [UIImage imageNamed:@"Search Icon"];
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Search" image:image selectedImage:nil];
+        UIImage *image = [UIImage imageNamed:@"Search Off Icon"];
+        UIImage *selectedImage = [UIImage imageNamed:@"Search On Icon"];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Search" image:image selectedImage:selectedImage];
     }
 
     return self;

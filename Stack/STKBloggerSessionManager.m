@@ -74,7 +74,8 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
     NSString *path = [self pathWithRoute:kSTKAPIBloggerRoutePosts];
 
     [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
-        NSArray *posts = responseObject[kSTKAPIBloggerResponseKeyItems];
+        NSMutableArray *posts = responseObject[kSTKAPIBloggerResponseKeyItems];
+        [self prefixValuesForPosts:posts];
 
         if (completion) {
             completion(posts, error, self.sourceType);
@@ -124,12 +125,40 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
     NSString *path = [self pathWithRoute:[NSString stringWithFormat:kSTKAPIBloggerRoutePostComments, postID]];
 
     [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
-        NSArray *comments = responseObject[@"items"];
+        NSMutableArray *comments = responseObject[kSTKAPIBloggerResponseKeyItems];
+        [self prefixValuesForComments:comments];
         
         if (completion) {
             completion(comments, error, self.sourceType);
         }
     }];
+}
+
+- (void)prefixValuesForPosts:(NSMutableArray *)responseObject {
+    NSArray *keyPaths = @[kSTKAPIBloggerResponseKeyID, [NSString stringWithFormat:@"%@.%@", kSTKAPIBloggerResponseKeyAuthor, kSTKAPIBloggerResponseKeyID]];
+
+    for (NSMutableDictionary *dictionary in responseObject) {
+        [self prefixValuesForKeyPaths:keyPaths inDictionary:dictionary];
+    }
+}
+
+- (void)prefixValuesForComments:(NSMutableArray *)responseObject {
+    NSArray *keyPaths = @[kSTKAPIBloggerResponseKeyID];
+
+    for (NSMutableDictionary *dictionary in responseObject) {
+        [self prefixValuesForKeyPaths:keyPaths inDictionary:dictionary];
+    }
+}
+
+- (void)prefixValuesForKeyPaths:(NSArray *)keyPaths inDictionary:(NSMutableDictionary *)dictionary {
+    for (NSString *keyPath in keyPaths) {
+        id oldValue = [dictionary valueForKeyPath:keyPath];
+        if (![oldValue isKindOfClass:[NSNull class]]) {
+            NSString *newValue = [NSString stringWithFormat:@"%@_%@", @(self.sourceType).stringValue, oldValue];
+
+            [dictionary setValue:newValue forKeyPath:keyPath];
+        }
+    }
 }
 
 @end
