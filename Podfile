@@ -22,10 +22,6 @@ pod 'PINRemoteImage', '~> 1.0'
 pod 'SSPullToRefresh', '~> 1.2'
 pod 'youtube-ios-player-helper', '~> 0.1'
 pod 'BlockRSSParser', :git => "https://github.com/bsmith11/BlockRSSParser", :commit => "4938eaa1eb7c88d7a4d376f31e37b808ae957e15"
-pod 'TwitterKit', '~> 1.12'
-pod 'TwitterCore', '~> 1.12'
-pod 'Fabric', '~> 1.5'
-pod 'Crashlytics', '~> 3.3'
 pod 'Parse', '~> 1.10'
 
 target :unit_tests, :exclusive => true do

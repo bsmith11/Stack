@@ -34,8 +34,6 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - Crashlytics (3.4.1):
-    - Fabric (~> 1.6.0)
   - DTCoreText (1.6.16):
     - DTFoundation/Core (~> 1.7.5)
     - DTFoundation/DTAnimatedGIF (~> 1.7.5)
@@ -48,24 +46,23 @@ PODS:
   - DTFoundation/UIKit (1.7.8):
     - DTFoundation/Core
   - Expecta (1.0.5)
-  - Fabric (1.6.1)
   - FLAnimatedImage (1.0.10)
   - Keys (1.0.0)
   - KVOController (1.0.3)
   - OCMock (3.2)
-  - OHHTTPStubs (4.6.0):
-    - OHHTTPStubs/Default (= 4.6.0)
-  - OHHTTPStubs/Core (4.6.0)
-  - OHHTTPStubs/Default (4.6.0):
+  - OHHTTPStubs (4.7.0):
+    - OHHTTPStubs/Default (= 4.7.0)
+  - OHHTTPStubs/Core (4.7.0)
+  - OHHTTPStubs/Default (4.7.0):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (4.6.0):
+  - OHHTTPStubs/JSON (4.7.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (4.6.0):
+  - OHHTTPStubs/NSURLSession (4.7.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (4.6.0)
+  - OHHTTPStubs/OHPathHelpers (4.7.0)
   - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
   - PINCache (2.1.2)
@@ -157,10 +154,6 @@ PODS:
     - RZVinyl/Core
   - Specta (1.0.5)
   - SSPullToRefresh (1.2.4)
-  - TwitterCore (1.14.6):
-    - Fabric
-  - TwitterKit (1.14.6):
-    - TwitterCore (= 1.14.6)
   - youtube-ios-player-helper (0.1.5)
 
 DEPENDENCIES:
@@ -168,10 +161,8 @@ DEPENDENCIES:
   - AsyncDisplayKit (from `https://github.com/bsmith11/AsyncDisplayKit`, commit `e64965c1caea384be84d31e53a733f80bdf12d90`)
   - BlockRSSParser (from `https://github.com/bsmith11/BlockRSSParser`, commit `4938eaa1eb7c88d7a4d376f31e37b808ae957e15`)
   - CocoaLumberjack (~> 2.0)
-  - Crashlytics (~> 3.3)
   - DTCoreText (~> 1.6)
   - Expecta
-  - Fabric (~> 1.5)
   - Keys (from `Pods/CocoaPodsKeys`)
   - KVOController (~> 1.0)
   - OCMock
@@ -186,8 +177,6 @@ DEPENDENCIES:
   - RZVinyl (~> 1.1)
   - Specta
   - SSPullToRefresh (~> 1.2)
-  - TwitterCore (~> 1.12)
-  - TwitterKit (~> 1.12)
   - youtube-ios-player-helper (~> 0.1)
 
 EXTERNAL SOURCES:
@@ -214,16 +203,14 @@ SPEC CHECKSUMS:
   BlockRSSParser: aedf3ab9a6c92f8d0881b9415fe88b5e136ab174
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   DTCoreText: 934a16fe9ffdd169c96261721b39dc312b75713d
   DTFoundation: 46e2b2fafe78d67febfd8d1f85fe9845a093f00e
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
-  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   FLAnimatedImage: e16a1e1cef08e4c509b47e4acbe3923f65c16135
   Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
-  OHHTTPStubs: cb1aefbbeb4de4e741644455d4b945538e5248a2
+  OHHTTPStubs: d2bf6a0f407620d67e75a1d3f12d86a2b1dd15c0
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
   PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81
@@ -235,8 +222,6 @@ SPEC CHECKSUMS:
   RZVinyl: 3ddb4a3e99e1f3063e06794aff124fc270fd2798
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
   SSPullToRefresh: 369e862c1d6528c7a354fc85cd4763d4e670e9af
-  TwitterCore: 5e9b2d066ceeef53fe611c0c4436cb700f1ed620
-  TwitterKit: f67360ee0a5f935f053bf37015652ac157e4eb92
   youtube-ios-player-helper: 8706bb155ffee74fbe5f2f5cf41c2dafe60dc155
 
 COCOAPODS: 0.39.0
