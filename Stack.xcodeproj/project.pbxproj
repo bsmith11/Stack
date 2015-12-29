@@ -149,6 +149,7 @@
 		064865B51C31E31F0087A41E /* STKSettingsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865B41C31E31F0087A41E /* STKSettingsHeader.m */; };
 		064865B81C31E32D0087A41E /* STKSettingsHeaderNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865B71C31E32D0087A41E /* STKSettingsHeaderNode.m */; };
 		064865BB1C31E4EC0087A41E /* STKSwitchNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BA1C31E4EC0087A41E /* STKSwitchNode.m */; };
+		064865BE1C322E3C0087A41E /* STKMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BD1C322E3C0087A41E /* STKMailViewController.m */; };
 		42A03B5B6B623051BF2CFD19 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */; };
 		43CA31C3620407C2CE3CA662 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC8BE816EFD96785C766EA6 /* libPods.a */; };
 		6AA09B1EF151881F366C4692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97D4CD85A6D0DFC1065098F /* Foundation.framework */; };
@@ -445,6 +446,8 @@
 		064865B71C31E32D0087A41E /* STKSettingsHeaderNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKSettingsHeaderNode.m; sourceTree = "<group>"; };
 		064865B91C31E4EC0087A41E /* STKSwitchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKSwitchNode.h; sourceTree = "<group>"; };
 		064865BA1C31E4EC0087A41E /* STKSwitchNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKSwitchNode.m; sourceTree = "<group>"; };
+		064865BC1C322E3C0087A41E /* STKMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKMailViewController.h; sourceTree = "<group>"; };
+		064865BD1C322E3C0087A41E /* STKMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKMailViewController.m; sourceTree = "<group>"; };
 		230706168BFA7CD67B35EE05 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		287BF6C62C7F2E32F8A7DDB9 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		35D58FAA5187E5B8EDA647CA /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -916,6 +919,8 @@
 				0648650F1C28A65D0087A41E /* STKBaseViewController.m */,
 				064865111C28A6BD0087A41E /* STKInteractiveViewController.h */,
 				064865121C28A6BD0087A41E /* STKInteractiveViewController.m */,
+				064865BC1C322E3C0087A41E /* STKMailViewController.h */,
+				064865BD1C322E3C0087A41E /* STKMailViewController.m */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -1132,16 +1137,18 @@
 		B2507770EDFAB98B2E027B13 /* Stack */ = {
 			isa = PBXGroup;
 			children = (
-				064865A61C31CCC60087A41E /* Settings */,
-				064865921C2F02C00087A41E /* Search */,
-				064865801C29EF7E0087A41E /* Image */,
-				064865761C29D58C0087A41E /* Author */,
-				0648654E1C292F8E0087A41E /* Post */,
-				064865471C2928580087A41E /* Bookmarks */,
-				0648653A1C2918C50087A41E /* Source List */,
-				0648652D1C28AD000087A41E /* Feed */,
-				064865141C28A78D0087A41E /* Animation Controllers */,
+				064863DA1C2685300087A41E /* App Delegate */,
 				064865041C28A43F0087A41E /* Root */,
+				064863DB1C26853B0087A41E /* Onboarding */,
+				0648652D1C28AD000087A41E /* Feed */,
+				064865921C2F02C00087A41E /* Search */,
+				064865471C2928580087A41E /* Bookmarks */,
+				064865A61C31CCC60087A41E /* Settings */,
+				0648653A1C2918C50087A41E /* Source List */,
+				0648654E1C292F8E0087A41E /* Post */,
+				064865761C29D58C0087A41E /* Author */,
+				064865801C29EF7E0087A41E /* Image */,
+				064865141C28A78D0087A41E /* Animation Controllers */,
 				0648649B1C27A5C00087A41E /* Constants */,
 				0648648C1C279E1E0087A41E /* Protocols */,
 				064864791C2795D90087A41E /* Categories */,
@@ -1149,8 +1156,6 @@
 				064863F91C2692870087A41E /* Models */,
 				064863EB1C268A680087A41E /* Style */,
 				064863E51C2687C60087A41E /* Managers */,
-				064863DB1C26853B0087A41E /* Onboarding */,
-				064863DA1C2685300087A41E /* App Delegate */,
 				78F1E9CCE866BACC7C3D17AD /* Resources */,
 			);
 			path = Stack;
@@ -1517,6 +1522,7 @@
 				064865831C29EF9E0087A41E /* STKImageViewController.m in Sources */,
 				064865A21C310C130087A41E /* STKWordpressPostSearchResult.m in Sources */,
 				0648651A1C28A8830087A41E /* STKSlideAnimationController.m in Sources */,
+				064865BE1C322E3C0087A41E /* STKMailViewController.m in Sources */,
 				064865511C292F9E0087A41E /* STKPostViewController.m in Sources */,
 				064864D91C287D670087A41E /* STKRSSComment+CoreDataProperties.m in Sources */,
 				064864DB1C287D670087A41E /* STKBloggerComment+CoreDataProperties.m in Sources */,

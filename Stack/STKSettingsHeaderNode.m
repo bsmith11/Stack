@@ -31,6 +31,7 @@
 
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.neverShowPlaceholders = YES;
 
         [self setupTitleTextNode];
     }

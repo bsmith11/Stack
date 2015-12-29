@@ -9,6 +9,7 @@
 @import MessageUI;
 
 #import "STKSettingsViewController.h"
+#import "STKMailViewController.h"
 
 #import "STKSettingsViewModel.h"
 
@@ -135,7 +136,7 @@
 - (void)presentMailViewController {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([MFMailComposeViewController canSendMail]) {
-            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+            STKMailViewController *mailViewController = [[STKMailViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
             [mailViewController setSubject:@"Feedback"];
             [mailViewController setToRecipients:@[@"bradley.d.smith11@gmail.com"]];

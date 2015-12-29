@@ -10,6 +10,8 @@
 
 #import "UIViewController+STKMail.h"
 
+#import "STKMailViewController.h"
+
 @interface UIViewController () <MFMailComposeViewControllerDelegate>
 
 @end
@@ -18,7 +20,7 @@
 
 - (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients {
     if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+        STKMailViewController *mailComposeViewController = [[STKMailViewController alloc] init];
         mailComposeViewController.mailComposeDelegate = self;
         [mailComposeViewController setToRecipients:recipients];
 
