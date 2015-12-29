@@ -10,11 +10,9 @@
 
 #import "STKSettingsHeader.h"
 
-#import "STKAttributes.h"
-
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
 
-@interface STKSettingsHeaderNode ()
+@interface STKSettingsHeaderNode () <ASTextNodeDelegate>
 
 @property (strong, nonatomic) ASTextNode *titleTextNode;
 
@@ -31,7 +29,6 @@
 
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.neverShowPlaceholders = YES;
 
         [self setupTitleTextNode];
     }
@@ -59,17 +56,32 @@
 
 #pragma mark - Setup
 
-- (void)setupWithSettingsHeader:(STKSettingsHeader *)header {
-    NSString *title = header.title ?: @"No name";
-    self.titleTextNode.attributedString = [[NSAttributedString alloc] initWithString:title attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
+- (void)setupWithSettingsHeader:(STKSettingsHeader *)header delegate:(id<STKSettingsHeaderNodeDelegate>)delegate {
+    self.titleTextNode.attributedString = header.title;
+    self.delegate = delegate;
 }
 
 - (void)setupTitleTextNode {
     self.titleTextNode = [[ASTextNode alloc] init];
-    self.titleTextNode.layerBacked = YES;
+    self.titleTextNode.userInteractionEnabled = YES;
     self.titleTextNode.placeholderEnabled = YES;
+    self.titleTextNode.delegate = self;
+    self.titleTextNode.linkAttributeNames = @[@"STKLink"];
 
     [self addSubnode:self.titleTextNode];
+}
+
+#pragma mark - Text Node Delegate
+
+- (void)textNode:(ASTextNode *)textNode tappedLinkAttribute:(NSString *)attribute value:(id)value atPoint:(CGPoint)point textRange:(NSRange)textRange {
+    if ([value isKindOfClass:[NSString class]]) {
+        NSURL *URL = [NSURL URLWithString:value];
+        [self.delegate settingsHeaderNode:self didTapLink:URL];
+    }
+}
+
+- (BOOL)textNode:(ASTextNode *)textNode shouldHighlightLinkAttribute:(NSString *)attribute value:(id)value atPoint:(CGPoint)point {
+    return [attribute isEqualToString:@"STKLink"];
 }
 
 @end

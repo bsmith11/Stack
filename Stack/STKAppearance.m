@@ -25,13 +25,6 @@
     [UITabBar appearance].shadowImage = [[UIImage alloc] init];
     [UITabBar appearance].backgroundImage = [[UIImage alloc] init];
     [UITabBar appearance].tintColor = [UIColor stk_stackColor];
-
-    [UISearchBar appearance].translucent = NO;
-    [UISearchBar appearance].barTintColor = [UIColor whiteColor];
-    [UISearchBar appearance].tintColor = [UIColor stk_stackColor];
-
-    [UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].backgroundColor = [UIColor stk_searchTextFieldColor];
-    [UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].textColor = [UIColor stk_stackColor];
 }
 
 @end

@@ -49,7 +49,6 @@
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.clipsToBounds = NO;
-        self.neverShowPlaceholders = YES;
 
         [self setupContainerNode];
         [self setupImageNode];

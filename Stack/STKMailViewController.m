@@ -22,4 +22,10 @@
     return nil;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.navigationBar.tintColor = [UINavigationBar appearance].tintColor;
+}
+
 @end

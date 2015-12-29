@@ -113,7 +113,7 @@
 
 #pragma mark - Collection List Delegate
 
-- (void)collectionList:(id <RZCollectionList>)collectionList didChangeObject:(id)object atIndexPath:(NSIndexPath*)indexPath forChangeType:(RZCollectionListChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+- (void)collectionList:(id <RZCollectionList>)collectionList didChangeObject:(id)object atIndexPath:(NSIndexPath *)indexPath forChangeType:(RZCollectionListChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     [self.operationQueue addOperationWithBlock:^{
         switch(type) {
             case RZCollectionListChangeInsert:

@@ -10,8 +10,8 @@
 
 @interface STKSettingsHeader : NSObject
 
-+ (instancetype)headerWithTitle:(NSString *)title;
++ (instancetype)headerWithTitle:(NSAttributedString *)title;
 
-@property (copy, nonatomic) NSString *title;
+@property (copy, nonatomic) NSAttributedString *title;
 
 @end

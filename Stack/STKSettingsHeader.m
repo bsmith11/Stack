@@ -12,7 +12,7 @@
 
 #pragma mark - Lifecycle
 
-+ (instancetype)headerWithTitle:(NSString *)title {
++ (instancetype)headerWithTitle:(NSAttributedString *)title {
     STKSettingsHeader *header = [[STKSettingsHeader alloc] init];
     header.title = title;
 

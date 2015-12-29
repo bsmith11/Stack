@@ -38,8 +38,9 @@
 + (NSDictionary *)stk_sourceNameAttributes;
 + (NSDictionary *)stk_sourceSummaryAttributes;
 
-+ (NSDictionary *)stk_emptyStateLabelAttributes;
-+ (NSDictionary *)stk_emptyStateButtonAttributes;
++ (NSDictionary *)stk_emptyStateTitleAttributes;
++ (NSDictionary *)stk_emptyStateMessageAttributes;
++ (NSDictionary *)stk_emptyStateActionAttributes;
 
 + (NSDictionary *)stk_filterSourceAttributes;
 

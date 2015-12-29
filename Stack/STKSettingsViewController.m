@@ -26,7 +26,7 @@
 
 #import <AsyncDisplayKit/ASTableView.h>
 
-@interface STKSettingsViewController () <ASTableViewDelegate, STKCollectionListTableViewDelegate, STKSettingsItemNodeDelegate, STKSettingsViewModelDelegate, MFMailComposeViewControllerDelegate>
+@interface STKSettingsViewController () <ASTableViewDelegate, STKCollectionListTableViewDelegate, STKSettingsItemNodeDelegate, STKSettingsHeaderNodeDelegate, STKSettingsViewModelDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) STKSettingsViewModel *viewModel;
 @property (strong, nonatomic) ASTableView *tableView;
@@ -110,7 +110,7 @@
     }
     else if ([object isKindOfClass:[STKSettingsHeader class]]) {
         STKSettingsHeaderNode *headerNode = (STKSettingsHeaderNode *)node;
-        [headerNode setupWithSettingsHeader:object];
+        [headerNode setupWithSettingsHeader:object delegate:self];
     }
 }
 
@@ -128,6 +128,14 @@
 
     if (item.type == STKSettingsItemTypeSwitch) {
         [item performActionWithValue:@(value)];
+    }
+}
+
+#pragma mark - Settings Header Node Delegate
+
+- (void)settingsHeaderNode:(STKSettingsHeaderNode *)node didTapLink:(NSURL *)link {
+    if ([[UIApplication sharedApplication] canOpenURL:link]) {
+        [[UIApplication sharedApplication] openURL:link];
     }
 }
 

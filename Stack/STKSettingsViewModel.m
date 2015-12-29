@@ -14,9 +14,11 @@
 #import "STKCollectionListTableViewDataSource.h"
 #import "STKNotificationsManager.h"
 #import "STKAnalyticsManager.h"
+#import "STKAttributes.h"
 
 #import <RZCollectionList/RZCollectionList.h>
 
+static NSString * const kSTKSettingsViewModelNotificationsObjectUpdateNotification = @"com.bradsmith.stack.settings.notificationsObjectUpdateNotification";
 static NSString * const kSTKSettingsViewModelHeaderTitleGeneral = @"General";
 static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsEnabled = @"Notifications";
 static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = @"Notifications disabled, enable in Settings";
@@ -27,6 +29,9 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 @property (strong, nonatomic) RZCompositeCollectionList *items;
 @property (strong, nonatomic) RZArrayCollectionList *generalList;
 @property (strong, nonatomic) RZArrayCollectionList *notificationsList;
+
+@property (copy, nonatomic) NSAttributedString *headerTitleNotificationsEnabled;
+@property (copy, nonatomic) NSAttributedString *headerTitleNotificationsDisabled;
 
 @end
 
@@ -52,7 +57,8 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 #pragma mark - Setup
 
 - (void)setupItems {
-    STKSettingsHeader *generalHeader = [STKSettingsHeader headerWithTitle:kSTKSettingsViewModelHeaderTitleGeneral];
+    NSAttributedString *generalTitle = [[NSAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleGeneral attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
+    STKSettingsHeader *generalHeader = [STKSettingsHeader headerWithTitle:generalTitle];
 
     STKSettingsItem *feedbackItem = [STKSettingsItem itemWithTitle:@"Feedback"
                                                              image:[UIImage imageNamed:@"Mail Icon"]
@@ -63,10 +69,19 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
     NSArray *generalItems = @[generalHeader, feedbackItem];
     self.generalList = [[RZArrayCollectionList alloc] initWithArray:generalItems sectionNameKeyPath:nil];
 
-    BOOL notificationsEnabled = [[STKNotificationsManager sharedInstance] notificationsPermissionEnabled];
+    self.headerTitleNotificationsEnabled = [[NSAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleNotificationsEnabled attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
 
-    NSString *headerTitle = notificationsEnabled ? kSTKSettingsViewModelHeaderTitleNotificationsEnabled : kSTKSettingsViewModelHeaderTitleNotificationsDisabled;
-    STKSettingsHeader *notificationsHeader = [STKSettingsHeader headerWithTitle:headerTitle];
+    NSMutableAttributedString *headerTitleNotificationsDisabled = [[NSMutableAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleNotificationsDisabled attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
+    NSRange range = [headerTitleNotificationsDisabled.string rangeOfString:@"Settings"];
+    [headerTitleNotificationsDisabled addAttribute:@"STKLink" value:UIApplicationOpenSettingsURLString range:range];
+    [headerTitleNotificationsDisabled addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+    [headerTitleNotificationsDisabled addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:range];
+    self.headerTitleNotificationsDisabled = headerTitleNotificationsDisabled;
+
+    BOOL notificationsEnabled = [[STKNotificationsManager sharedInstance] notificationsPermissionEnabled];
+    NSAttributedString *notificationsTitle = notificationsEnabled ? self.headerTitleNotificationsEnabled : self.headerTitleNotificationsDisabled;
+
+    STKSettingsHeader *notificationsHeader = [STKSettingsHeader headerWithTitle:notificationsTitle];
 
     NSMutableArray *notificationItems = [NSMutableArray arrayWithObject:notificationsHeader];
 
@@ -85,6 +100,7 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
     }
 
     self.notificationsList = [[RZArrayCollectionList alloc] initWithArray:notificationItems sectionNameKeyPath:nil];
+    self.notificationsList.objectUpdateNotifications = @[kSTKSettingsViewModelNotificationsObjectUpdateNotification];
     self.items = [[RZCompositeCollectionList alloc] initWithSourceLists:@[self.generalList, self.notificationsList]];
 }
 
@@ -148,14 +164,10 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
         }
         else if ([object isKindOfClass:[STKSettingsHeader class]]) {
             STKSettingsHeader *header = (STKSettingsHeader *)object;
-            header.title = enabled ? kSTKSettingsViewModelHeaderTitleNotificationsEnabled : kSTKSettingsViewModelHeaderTitleNotificationsDisabled;
+            header.title = enabled ? self.headerTitleNotificationsEnabled : self.headerTitleNotificationsDisabled;
         }
-    }
 
-    NSUInteger index = [self.items.sourceLists indexOfObject:self.notificationsList];
-    if (index != NSNotFound) {
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
-        [self.dataSource.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSTKSettingsViewModelNotificationsObjectUpdateNotification object:object];
     }
 }
 

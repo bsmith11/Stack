@@ -11,8 +11,12 @@
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import <KVOController/FBKVOController.h>
 #import <RZDataBinding/RZDataBinding.h>
+#import <RZUtils/RZCommonUtils.h>
 
 @interface STKListBackgroundView ()
+
+@property (strong, nonatomic) NSLayoutConstraint *contentViewTop;
+@property (strong, nonatomic) NSLayoutConstraint *contentViewBottom;
 
 @property (weak, nonatomic) ASTableView *tableView;
 @property (weak, nonatomic) id <STKListBackgroundViewDelegate> delegate;
@@ -28,6 +32,7 @@
 
     if (self) {
         [self setupWithTableView:tableView];
+        [self setupObservers];
         self.delegate = delegate;
 
         self.state = STKListBackgroundViewStateEmpty;
@@ -49,10 +54,32 @@
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:contentView];
 
-    [contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    self.contentViewTop = [contentView.topAnchor constraintEqualToAnchor:self.topAnchor];
+    self.contentViewTop.active = YES;
     [contentView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
     [self.trailingAnchor constraintEqualToAnchor:contentView.trailingAnchor].active = YES;
-    [self.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor].active = YES;
+    self.contentViewBottom = [self.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor];
+    self.contentViewBottom.active = YES;
+
+    [self updateContentViewConstraintsWithInsets:self.tableView.contentInset];
+}
+
+- (void)updateContentViewConstraintsWithInsets:(UIEdgeInsets)insets {
+    self.contentViewTop.constant = insets.top;
+    self.contentViewBottom.constant = insets.bottom;
+}
+
+- (void)setupObservers {
+    NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
+    __weak __typeof(self) wself = self;
+
+    [self.KVOController observe:self.tableView keyPath:RZDB_KP_OBJ(self.tableView, contentInset) options:options block:^(id observer, id object, NSDictionary *change) {
+        NSValue *value = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+        if (value) {
+            [wself updateContentViewConstraintsWithInsets:[value UIEdgeInsetsValue]];
+        }
+    }];
 }
 
 #pragma mark - Actions

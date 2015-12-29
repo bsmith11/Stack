@@ -252,25 +252,40 @@
 
 #pragma mark - Empty State
 
-+ (NSDictionary *)stk_emptyStateLabelAttributes {
++ (NSDictionary *)stk_emptyStateTitleAttributes {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;
     paragraphStyle.alignment = NSTextAlignmentCenter;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
 
     NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_stackColor],
-                                 NSFontAttributeName:[UIFont stk_emptyStateLabelFont],
+                                 NSFontAttributeName:[UIFont stk_emptyStateTitleFont],
                                  NSParagraphStyleAttributeName:paragraphStyle};
 
     return attributes;
 }
 
-+ (NSDictionary *)stk_emptyStateButtonAttributes {
++ (NSDictionary *)stk_emptyStateMessageAttributes {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;
     paragraphStyle.alignment = NSTextAlignmentCenter;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_stackColor],
+                                 NSFontAttributeName:[UIFont stk_emptyStateMessageFont],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+
+    return attributes;
+}
+
++ (NSDictionary *)stk_emptyStateActionAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
 
     NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_twitterColor],
-                                 NSFontAttributeName:[UIFont stk_emptyStateButtonFont],
+                                 NSFontAttributeName:[UIFont stk_emptyStateActionFont],
                                  NSParagraphStyleAttributeName:paragraphStyle};
 
     return attributes;

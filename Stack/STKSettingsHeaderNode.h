@@ -8,10 +8,19 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
-@class STKSettingsHeader;
+@class STKSettingsHeader, STKSettingsHeaderNode;
+
+@protocol STKSettingsHeaderNodeDelegate <NSObject>
+
+@required
+- (void)settingsHeaderNode:(STKSettingsHeaderNode *)node didTapLink:(NSURL *)link;
+
+@end
 
 @interface STKSettingsHeaderNode : ASCellNode
 
-- (void)setupWithSettingsHeader:(STKSettingsHeader *)header;
+- (void)setupWithSettingsHeader:(STKSettingsHeader *)header delegate:(id <STKSettingsHeaderNodeDelegate>)delegate;
+
+@property (weak, nonatomic) id <STKSettingsHeaderNodeDelegate> delegate;
 
 @end

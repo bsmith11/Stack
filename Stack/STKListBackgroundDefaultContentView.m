@@ -9,6 +9,7 @@
 #import "STKListBackgroundDefaultContentView.h"
 
 #import "UIColor+STKStyle.h"
+#import "STKAttributes.h"
 
 @interface STKListBackgroundDefaultContentView ()
 
@@ -63,9 +64,7 @@
 
     [self.containerView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
     [self.containerView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:25.0f].active = YES;
-    NSLayoutConstraint *trailing = [self.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor constant:25.0f];
-    trailing.active = YES;
-//    trailing.priority = UILayoutPriorityDefaultLow;
+    [self.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor constant:25.0f].active = YES;
 }
 
 - (void)setupImageView {
@@ -86,8 +85,6 @@
     [self.containerView addSubview:self.titleLabel];
 
     self.titleLabel.numberOfLines = 0;
-    self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
 
     [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:25.0f].active = YES;
     [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
@@ -100,8 +97,6 @@
     [self.containerView addSubview:self.messageLabel];
 
     self.messageLabel.numberOfLines = 0;
-    self.messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    self.messageLabel.textAlignment = NSTextAlignmentCenter;
 
     [self.messageLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:12.5f].active = YES;
     [self.messageLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
@@ -215,9 +210,18 @@
 
 - (void)updateState:(STKListBackgroundViewState)state {
     self.imageView.image = self.images[@(state)];
-    self.titleLabel.text = self.titles[@(state)];
-    self.messageLabel.text = self.messages[@(state)];
-    [self.actionButton setTitle:self.actionTitles[@(state)] forState:UIControlStateNormal];
+
+    NSString *title = self.titles[@(state)] ?: @"";
+    NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:[STKAttributes stk_emptyStateTitleAttributes]];
+    self.titleLabel.attributedText = attributedTitle;
+
+    NSString *message = self.messages[@(state)] ?: @"";
+    NSAttributedString *attributedMessage = [[NSAttributedString alloc] initWithString:message attributes:[STKAttributes stk_emptyStateMessageAttributes]];
+    self.messageLabel.attributedText = attributedMessage;
+
+    NSString *actionTitle = self.actionTitles[@(state)] ?: @"";
+    NSAttributedString *attributedActionTitle = [[NSAttributedString alloc] initWithString:actionTitle attributes:[STKAttributes stk_emptyStateActionAttributes]];
+    [self.actionButton setAttributedTitle:attributedActionTitle forState:UIControlStateNormal];
 }
 
 @end

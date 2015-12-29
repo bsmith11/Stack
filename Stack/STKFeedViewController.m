@@ -137,7 +137,7 @@
     [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
 
-    [contentView setImage:[UIImage imageNamed:@"Feed Large"] forState:STKListBackgroundViewStateError];
+    [contentView setImage:[UIImage imageNamed:@"Error Large"] forState:STKListBackgroundViewStateError];
     [contentView setTitle:@"Network Error" forState:STKListBackgroundViewStateError];
     [contentView setMessage:@"Something seems to have gone with the servers..." forState:STKListBackgroundViewStateError];
     [contentView setActionTitle:@"Try again" forState:STKListBackgroundViewStateError];
