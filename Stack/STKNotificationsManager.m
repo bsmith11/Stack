@@ -42,6 +42,7 @@ NSString * const kSTKNotificationsPermissionDidChangeNotificationKeyEnabled = @"
     self = [super init];
 
     if (self) {
+        self.previousPermissionStatus = [self notificationsPermissionEnabled];
         self.channels = @{@(STKSourceTypeSkyd):@"skyd_magazine",
                           @(STKSourceTypeBamaSecs):@"bama_secs",
                           @(STKSourceTypeUltiworld):@"ultiworld",
@@ -92,6 +93,7 @@ NSString * const kSTKNotificationsPermissionDidChangeNotificationKeyEnabled = @"
 
 - (void)didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
     BOOL granted = (notificationSettings.types == UIUserNotificationTypeAlert);
+    self.previousPermissionStatus = granted;
 
     if (self.notificationsPermissionBlock) {
         self.notificationsPermissionBlock(granted);

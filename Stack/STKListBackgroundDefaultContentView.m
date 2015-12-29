@@ -86,7 +86,7 @@
 
     self.titleLabel.numberOfLines = 0;
 
-    [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:25.0f].active = YES;
+    [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:50.0f].active = YES;
     [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.containerView.trailingAnchor constraintEqualToAnchor:self.titleLabel.trailingAnchor].active = YES;
 }
@@ -110,8 +110,9 @@
 
     [self.actionButton addTarget:self action:@selector(didTapActionButton) forControlEvents:UIControlEventTouchUpInside];
 
+    [self.actionButton.heightAnchor constraintEqualToConstant:44.0f].active = YES;
     [self.actionButton.centerXAnchor constraintEqualToAnchor:self.containerView.centerXAnchor].active = YES;
-    [self.actionButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:12.5f].active = YES;
+    [self.actionButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
     [self.containerView.bottomAnchor constraintEqualToAnchor:self.actionButton.bottomAnchor].active = YES;
 }
 
@@ -130,7 +131,9 @@
 #pragma mark - Actions
 
 - (void)didTapActionButton {
-    
+    if ([self.delegate respondsToSelector:@selector(listBackgroundDefaultContentView:didTapActionButtonWithState:)]) {
+        [self.delegate listBackgroundDefaultContentView:self didTapActionButtonWithState:self.state];
+    }
 }
 
 #pragma mark - State Attributes
@@ -209,6 +212,8 @@
 #pragma mark - List Background View Content View Protocol
 
 - (void)updateState:(STKListBackgroundViewState)state {
+    self.state = state;
+
     self.imageView.image = self.images[@(state)];
 
     NSString *title = self.titles[@(state)] ?: @"";

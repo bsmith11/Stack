@@ -59,6 +59,9 @@
 - (void)setupWithSettingsHeader:(STKSettingsHeader *)header delegate:(id<STKSettingsHeaderNodeDelegate>)delegate {
     self.titleTextNode.attributedString = header.title;
     self.delegate = delegate;
+
+    //Force layout pass to adjust for different size title
+    [self setNeedsLayout];
 }
 
 - (void)setupTitleTextNode {

@@ -16,10 +16,6 @@ typedef NS_ENUM(NSInteger, STKListBackgroundViewState) {
 
 @class ASTableView;
 
-@protocol STKListBackgroundViewDelegate <NSObject>
-
-@end
-
 @protocol STKListBackgroundContentViewProtocol <NSObject>
 
 - (void)updateState:(STKListBackgroundViewState)state;
@@ -30,7 +26,7 @@ typedef NS_ENUM(NSInteger, STKListBackgroundViewState) {
 
 @interface STKListBackgroundView : UIView
 
-- (instancetype)initWithTableView:(ASTableView *)tableView delegate:(id <STKListBackgroundViewDelegate>)delegate;
+- (instancetype)initWithTableView:(ASTableView *)tableView;
 - (void)tableViewDidChangeContent;
 
 @property (strong, nonatomic) UIView <STKListBackgroundContentViewProtocol> *contentView;

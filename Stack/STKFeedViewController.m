@@ -30,7 +30,7 @@
 #import <tgmath.h>
 #import <SSPullToRefresh/SSPullToRefresh.h>
 
-@interface STKFeedViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, STKSourceListViewControllerDelegate, STKListBackgroundViewDelegate>
+@interface STKFeedViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, STKSourceListViewControllerDelegate, STKListBackgroundDefaultContentViewDelegate>
 
 @property (strong, nonatomic) STKSourceListViewController *sourceListViewController;
 @property (strong, nonatomic) STKFeedViewModel *viewModel;
@@ -52,7 +52,9 @@
 
     if (self) {
         self.viewModel = [[STKFeedViewModel alloc] init];
-        self.tabBarItem = self.viewModel.tabBarItem;
+        UIImage *image = [UIImage imageNamed:@"Feed Off Icon"];
+        UIImage *selectedImage = [UIImage imageNamed:@"Feed On Icon"];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Feed" image:image selectedImage:selectedImage];
     }
 
     return self;
@@ -130,16 +132,18 @@
 }
 
 - (void)setupListBackgroundView {
-    self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.tableView delegate:self];
+    self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.tableView];
 
     STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
+    contentView.delegate = self;
+
     [contentView setImage:[UIImage imageNamed:@"Feed Large"] forState:STKListBackgroundViewStateEmpty];
     [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
 
     [contentView setImage:[UIImage imageNamed:@"Error Large"] forState:STKListBackgroundViewStateError];
     [contentView setTitle:@"Network Error" forState:STKListBackgroundViewStateError];
-    [contentView setMessage:@"Something seems to have gone with the servers..." forState:STKListBackgroundViewStateError];
+    [contentView setMessage:@"There seems to be a malfunction with the hyperdrive..." forState:STKListBackgroundViewStateError];
     [contentView setActionTitle:@"Try again" forState:STKListBackgroundViewStateError];
 
     self.listBackgroundView.contentView = contentView;
@@ -170,6 +174,7 @@
 
             if (downloading.boolValue) {
                 [wself.spinner startAnimating];
+                wself.listBackgroundView.state = STKListBackgroundViewStateNone;
             }
             else {
                 [wself.spinner stopAnimating];
@@ -269,6 +274,14 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.navigationController popViewControllerAnimated:YES];
     });
+}
+
+#pragma mark - List Background Default Content View Delegate
+
+- (void)listBackgroundDefaultContentView:(STKListBackgroundDefaultContentView *)contentView didTapActionButtonWithState:(STKListBackgroundViewState)state {
+    if (state == STKListBackgroundViewStateError) {
+        [self.viewModel fetchNewPostsWithCompletion:nil];
+    }
 }
 
 @end

@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSLayoutConstraint *contentViewBottom;
 
 @property (weak, nonatomic) ASTableView *tableView;
-@property (weak, nonatomic) id <STKListBackgroundViewDelegate> delegate;
 
 @end
 
@@ -27,13 +26,12 @@
 
 #pragma mark - Lifecycle
 
-- (instancetype)initWithTableView:(ASTableView *)tableView delegate:(id<STKListBackgroundViewDelegate>)delegate {
+- (instancetype)initWithTableView:(ASTableView *)tableView {
     self = [super init];
 
     if (self) {
         [self setupWithTableView:tableView];
         [self setupObservers];
-        self.delegate = delegate;
 
         self.state = STKListBackgroundViewStateEmpty;
     }

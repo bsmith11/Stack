@@ -116,7 +116,7 @@ static NSString * const kSTKDefaultFontNameBold = @"Gotham-Bold";
 #pragma mark - Empty State
 
 + (UIFont *)stk_emptyStateTitleFont {
-    return [UIFont fontWithName:kSTKDefaultFontName size:20.0f];
+    return [UIFont fontWithName:kSTKDefaultFontNameBold size:20.0f];
 }
 
 + (UIFont *)stk_emptyStateMessageFont {

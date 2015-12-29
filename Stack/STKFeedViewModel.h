@@ -30,7 +30,6 @@ typedef void (^STKViewModelFetchCompletion)(STKViewModelFetchResult result);
 - (void)fetchOlderPostsWithCompletion:(STKViewModelFetchCompletion)completion;
 - (void)updatePostsForSourceType:(STKSourceType)sourceType;
 
-@property (strong, nonatomic, readonly) UITabBarItem *tabBarItem;
 @property (strong, nonatomic, readonly) NSError *networkError;
 
 @property (copy, nonatomic, readonly) NSString *title;

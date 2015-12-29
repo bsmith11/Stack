@@ -15,6 +15,7 @@
 #import "STKNotificationsManager.h"
 #import "STKAnalyticsManager.h"
 #import "STKAttributes.h"
+#import "UIColor+STKStyle.h"
 
 #import <RZCollectionList/RZCollectionList.h>
 
@@ -74,7 +75,7 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
     NSMutableAttributedString *headerTitleNotificationsDisabled = [[NSMutableAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleNotificationsDisabled attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
     NSRange range = [headerTitleNotificationsDisabled.string rangeOfString:@"Settings"];
     [headerTitleNotificationsDisabled addAttribute:@"STKLink" value:UIApplicationOpenSettingsURLString range:range];
-    [headerTitleNotificationsDisabled addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+    [headerTitleNotificationsDisabled addAttribute:NSForegroundColorAttributeName value:[UIColor stk_twitterColor] range:range];
     [headerTitleNotificationsDisabled addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:range];
     self.headerTitleNotificationsDisabled = headerTitleNotificationsDisabled;
 

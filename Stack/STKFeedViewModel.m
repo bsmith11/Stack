@@ -36,9 +36,6 @@
     self = [super init];
 
     if (self) {
-        UIImage *image = [UIImage imageNamed:@"Feed Off Icon"];
-        UIImage *selectedImage = [UIImage imageNamed:@"Feed On Icon"];
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Feed" image:image selectedImage:selectedImage];
         self.sourceType = -1;
         self.fetchIDs = [NSMutableArray array];
     }

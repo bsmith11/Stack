@@ -31,7 +31,7 @@
 #import <KVOController/FBKVOController.h>
 #import <RZUtils/RZCommonUtils.h>
 
-@interface STKSearchViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, STKListBackgroundViewDelegate>
+@interface STKSearchViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, STKListBackgroundDefaultContentViewDelegate>
 
 @property (strong, nonatomic) STKSourceListViewModel *sourceListViewModel;
 @property (strong, nonatomic) STKSearchViewModel *searchViewModel;
@@ -145,9 +145,11 @@
 }
 
 - (void)setupListBackgroundView {
-    self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.searchTableView delegate:self];
+    self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.searchTableView];
 
     STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
+    contentView.delegate = self;
+
     [contentView setImage:[UIImage imageNamed:@"Search Large"] forState:STKListBackgroundViewStateEmpty];
     [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
@@ -314,6 +316,14 @@
         postViewController.transitioningDelegate = postViewController;
 
         [self presentViewController:postViewController animated:YES completion:nil];
+    }
+}
+
+#pragma mark - List Background Default Content View Delegate
+
+- (void)listBackgroundDefaultContentView:(STKListBackgroundDefaultContentView *)contentView didTapActionButtonWithState:(STKListBackgroundViewState)state {
+    if (state == STKListBackgroundViewStateError) {
+        [self.searchViewModel searchPostsWithText:self.searchField.text];
     }
 }
 
