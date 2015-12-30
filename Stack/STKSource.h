@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, STKBackendType) {
 @interface STKSource : NSObject
 
 + (NSArray *)allSourceTypes;
++ (NSArray *)sourcesWithSearchAvailable;
 + (NSArray *)sourcesWithNotificationsAvailable;
 
 + (STKSourceType)sourceTypeForName:(NSString *)name;

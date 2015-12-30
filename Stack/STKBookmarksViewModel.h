@@ -18,8 +18,6 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
 
-@property (strong, nonatomic, readonly) UITabBarItem *tabBarItem;
-
-@property (assign, nonatomic, readonly) BOOL downloading;
+@property (assign, nonatomic, readonly) BOOL empty;
 
 @end

@@ -36,7 +36,7 @@
     if (self) {
         self.title = @"Sources";
 
-        self.viewModel = [[STKSourceListViewModel alloc] init];
+        self.viewModel = [[STKSourceListViewModel alloc] initWithSourceListType:STKSourceListTypeAll];
     }
 
     return self;

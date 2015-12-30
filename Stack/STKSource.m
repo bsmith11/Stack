@@ -16,18 +16,24 @@
 @implementation STKSource
 
 + (NSArray *)allSourceTypes {
-    return @[@(STKSourceTypeSkyd),
+    return @[@(STKSourceTypeAUDL),
              @(STKSourceTypeBamaSecs),
-             @(STKSourceTypeUltiworld),
-             @(STKSourceTypeAUDL),
              @(STKSourceTypeMLU),
-             @(STKSourceTypeSludge)];
+             @(STKSourceTypeSkyd),
+             @(STKSourceTypeSludge),
+             @(STKSourceTypeUltiworld)];
+}
+
++ (NSArray *)sourcesWithSearchAvailable {
+    return @[@(STKSourceTypeBamaSecs),
+             @(STKSourceTypeMLU),
+             @(STKSourceTypeSkyd)];
 }
 
 + (NSArray *)sourcesWithNotificationsAvailable {
-    return @[@(STKSourceTypeSkyd),
-             @(STKSourceTypeBamaSecs),
-             @(STKSourceTypeMLU)];
+    return @[@(STKSourceTypeBamaSecs),
+             @(STKSourceTypeMLU),
+             @(STKSourceTypeSkyd)];
 }
 
 + (STKSourceType)sourceTypeForName:(NSString *)name {

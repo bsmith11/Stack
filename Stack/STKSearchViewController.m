@@ -53,7 +53,7 @@
 
     if (self) {
         self.searchViewModel = [[STKSearchViewModel alloc] init];
-        self.sourceListViewModel = [[STKSourceListViewModel alloc] init];
+        self.sourceListViewModel = [[STKSourceListViewModel alloc] initWithSourceListType:STKSourceListTypeSearchAvailable];
 
         UIImage *image = [UIImage imageNamed:@"Search Off Icon"];
         UIImage *selectedImage = [UIImage imageNamed:@"Search On Icon"];

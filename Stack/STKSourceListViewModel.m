@@ -23,13 +23,13 @@
 
 #pragma mark - Lifecycle
 
-- (instancetype)init {
+- (instancetype)initWithSourceListType:(STKSourceListType)sourceListType {
     self = [super init];
 
     if (self) {
         self.sourceType = -1;
 
-        [self setupSources];
+        [self setupSourcesWithSourceListType:sourceListType];
     }
 
     return self;
@@ -37,9 +37,27 @@
 
 #pragma mark - Setup
 
-- (void)setupSources {
+- (void)setupSourcesWithSourceListType:(STKSourceListType)sourceListType {
     NSArray *stackSourceType = @[@(-1)];
-    NSArray *sourceTypes = [STKSource allSourceTypes];
+    NSArray *sourceTypes;
+
+    switch (sourceListType) {
+        case STKSourceListTypeAll:
+            sourceTypes = [STKSource allSourceTypes];
+            break;
+
+        case STKSourceListTypeSearchAvailable:
+            sourceTypes = [STKSource sourcesWithSearchAvailable];
+            break;
+
+        case STKSourceListTypeNotificationsAvailable:
+            sourceTypes = [STKSource sourcesWithNotificationsAvailable];
+            break;
+
+        default:
+            sourceTypes = [NSArray array];
+            break;
+    }
 
     self.objects = [stackSourceType arrayByAddingObjectsFromArray:sourceTypes];
 }

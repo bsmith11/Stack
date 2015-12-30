@@ -8,11 +8,18 @@
 
 @import Foundation;
 
+typedef NS_ENUM(NSInteger, STKSourceListType) {
+    STKSourceListTypeAll,
+    STKSourceListTypeSearchAvailable,
+    STKSourceListTypeNotificationsAvailable
+};
+
 @protocol STKTableViewDataSourceDelegate;
 @class ASTableView;
 
 @interface STKSourceListViewModel : NSObject
 
+- (instancetype)initWithSourceListType:(STKSourceListType)sourceListType;
 - (void)setupDataSourceWithTableView:(ASTableView *)tableView delegate:(id <STKTableViewDataSourceDelegate>)delegate;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
