@@ -70,7 +70,6 @@
     [self setupBarButtonItems];
     [self setupSourceListTableView];
     [self setupSearchTableView];
-    [self setupListBackgroundView];
 
     self.searchTableView.hidden = YES;
 }
@@ -85,11 +84,16 @@
     [self.searchViewModel setupDataSourceWithTableView:self.searchTableView delegate:self];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 
-    self.sourceListTableView.frame = self.view.frame;
-    self.searchTableView.frame = self.view.frame;
+    if (!self.didLayoutSubviews) {
+        self.didLayoutSubviews = YES;
+
+        self.sourceListTableView.frame = self.view.bounds;
+        self.searchTableView.frame = self.view.bounds;
+        [self setupListBackgroundView];
+    }
 }
 
 - (void)dealloc {

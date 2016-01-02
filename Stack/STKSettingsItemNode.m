@@ -12,6 +12,7 @@
 
 #import "STKAttributes.h"
 #import "ASDisplayNode+STKShadow.h"
+#import "UIColor+STKStyle.h"
 
 #import "STKSwitchNode.h"
 
@@ -118,7 +119,7 @@
 
     switch (type) {
         case STKSettingsItemTypeDisclosureIndicator:
-            size = [UIImage imageNamed:@"Forward Icon"].size;
+            size = [UIImage imageNamed:@"Disclosure Icon"].size;
             break;
 
         case STKSettingsItemTypeSwitch:
@@ -177,6 +178,7 @@
     self.accessoryImageNode = [[ASImageNode alloc] init];
     self.accessoryImageNode.layerBacked = YES;
     self.accessoryImageNode.placeholderEnabled = YES;
+    self.accessoryImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock([UIColor stk_stackColor]);
 
     [self.accessoryContainerNode addSubnode:self.accessoryImageNode];
 }
@@ -196,7 +198,7 @@
     switch (type) {
         case STKSettingsItemTypeDisclosureIndicator: {
             self.accessoryImageNode.hidden = NO;
-            UIImage *image = [UIImage imageNamed:@"Forward Icon"];
+            UIImage *image = [UIImage imageNamed:@"Disclosure Icon"];
             self.accessoryImageNode.image = image;
             self.accessoryImageNodeFrame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);
         }

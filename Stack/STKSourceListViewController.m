@@ -56,10 +56,14 @@
     [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 
-    self.tableView.frame = self.view.frame;
+    if (!self.didLayoutSubviews) {
+        self.didLayoutSubviews = YES;
+
+        self.tableView.frame = self.view.bounds;
+    }
 }
 
 #pragma mark - Setup

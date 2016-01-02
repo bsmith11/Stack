@@ -982,7 +982,7 @@
 		0648654E1C292F8E0087A41E /* Post */ = {
 			isa = PBXGroup;
 			children = (
-				0648658A1C2A797E0087A41E /* Nodes */,
+				0648658A1C2A797E0087A41E /* Cell Nodes */,
 				0648654F1C292F9E0087A41E /* STKPostViewController.h */,
 				064865501C292F9E0087A41E /* STKPostViewController.m */,
 				064865521C292FAF0087A41E /* STKPostViewModel.h */,
@@ -1013,7 +1013,7 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
-		0648658A1C2A797E0087A41E /* Nodes */ = {
+		0648658A1C2A797E0087A41E /* Cell Nodes */ = {
 			isa = PBXGroup;
 			children = (
 				064865551C2934390087A41E /* STKPostTitleNode.h */,
@@ -1035,7 +1035,7 @@
 				064865731C293DAC0087A41E /* STKPostFeatureImageNode.h */,
 				064865741C293DAC0087A41E /* STKPostFeatureImageNode.m */,
 			);
-			name = Nodes;
+			name = "Cell Nodes";
 			sourceTree = "<group>";
 		};
 		064865921C2F02C00087A41E /* Search */ = {

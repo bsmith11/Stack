@@ -21,7 +21,8 @@
 }
 
 + (UIColor *)stk_backgroundColor {
-    return [UIColor rz_colorFromHexString:@"D3D6DB"];
+//    return [UIColor rz_colorFromHexString:@"D3D6DB"];
+    return [UIColor rz_colorFromHexString:@"D0D4DA"];
 }
 
 + (UIColor *)stk_searchTextFieldColor {

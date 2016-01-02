@@ -39,8 +39,6 @@
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 @property (strong, nonatomic) STKListBackgroundView *listBackgroundView;
 
-@property (assign, nonatomic) BOOL hasLayoutSubviews;
-
 @end
 
 @implementation STKFeedViewController
@@ -66,7 +64,6 @@
 
     [self setupBarButtonItems];
     [self setupTableView];
-    [self setupListBackgroundView];
 }
 
 - (void)viewDidLoad {
@@ -79,14 +76,15 @@
     [self.viewModel updatePostsForSourceType:-1];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 
-    if (!self.hasLayoutSubviews) {
-        self.hasLayoutSubviews = YES;
+    if (!self.didLayoutSubviews) {
+        self.didLayoutSubviews = YES;
 
-        self.tableView.frame = self.view.frame;
+        self.tableView.frame = self.view.bounds;
         [self setupRefreshView];
+        [self setupListBackgroundView];
     }
 }
 

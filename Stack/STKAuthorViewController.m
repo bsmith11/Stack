@@ -36,8 +36,6 @@
 @property (strong, nonatomic) ASTableView *tableView;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 
-@property (assign, nonatomic) BOOL hasLayoutSubviews;
-
 @end
 
 @implementation STKAuthorViewController
@@ -69,13 +67,13 @@
     [self.viewModel setupCollectionListDataSourceWithTableView:self.tableView delegate:self];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 
-    if (!self.hasLayoutSubviews) {
-        self.hasLayoutSubviews = YES;
+    if (!self.didLayoutSubviews) {
+        self.didLayoutSubviews = YES;
 
-        self.tableView.frame = self.view.frame;
+        self.tableView.frame = self.view.bounds;
         [self setupRefreshView];
     }
 }

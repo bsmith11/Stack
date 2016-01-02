@@ -35,7 +35,6 @@
 #import "NSURL+STKExtensions.h"
 #import "UIViewController+STKMail.h"
 #import "UIBarButtonItem+STKExtensions.h"
-#import "NSNumber+STKCGFloat.h"
 
 #import <AsyncDisplayKit/ASTableView.h>
 #import <KVOController/FBKVOController.h>
@@ -50,6 +49,8 @@
 @property (strong, nonatomic) UIToolbar *toolbar;
 @property (strong, nonatomic) UIBarButtonItem *bookmarkToolbarItem;
 @property (strong, nonatomic) ASCellNode *selectedNode;
+
+@property (assign, nonatomic) CGPoint previousContentOffset;
 
 @end
 
@@ -84,13 +85,18 @@
     [self.viewModel setupCollectionListDataSourceWithTableView:self.tableView delegate:self];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 
-    self.tableView.frame = self.view.frame;
-    self.toolbar.frame = CGRectMake(0.0f, CGRectGetHeight(self.view.frame) - 49.0f, CGRectGetWidth(self.view.frame), 49.0f);
+    if (!self.didLayoutSubviews) {
+        self.didLayoutSubviews = YES;
 
-    [self.toolbar stk_setupShadow];
+        self.tableView.frame = self.view.bounds;
+        CGFloat toolbarHeight = 49.0f;
+        self.toolbar.frame = CGRectMake(0.0f, CGRectGetHeight(self.view.bounds) - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
+
+        [self.toolbar stk_setupShadow];
+    }
 }
 
 #pragma mark - Setup
@@ -99,8 +105,8 @@
     self.tableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:NO];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 12.5f + 49.0f, 0.0f);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, 49.0f, 0.0f);
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 12.5f, 0.0f);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
     self.tableView.asyncDelegate = self;
 
     [self.view addSubview:self.tableView];
@@ -118,19 +124,31 @@
 }
 
 - (void)setupToolbarItems {
-    UIImage *bookmarkImage = [UIImage imageNamed:@"Bookmark Off Icon"];
+    CGFloat interitemSpacing = 50.0f;
     CGFloat width = (25.0f - 16.0f);
     UIBarButtonItem *leftFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:width];
-    UIBarButtonItem *middleFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:25.0f];
 
+    UIImage *backImage = [UIImage imageNamed:@"Back Icon"];
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBackBarButtonItem)];
+
+    UIBarButtonItem *middleLeftFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:interitemSpacing];
+
+    UIImage *commentsImage = [UIImage imageNamed:@"Comments Off Icon"];
+    UIBarButtonItem *commentsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:commentsImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapCommentsBarButtonItem)];
+
+    UIBarButtonItem *middleRightFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:interitemSpacing];
+
+    UIImage *bookmarkImage = [UIImage imageNamed:@"Bookmark Off Icon"];
     self.bookmarkToolbarItem = [[UIBarButtonItem alloc] initWithImage:bookmarkImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBookmarkBarButtonItem)];
     self.bookmarkToolbarItem.imageInsets = UIEdgeInsetsMake(3.0f, 0.0f, 0.0f, 0.0f);
+
+    UIBarButtonItem *rightFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:interitemSpacing];
 
     UIBarButtonItem *shareToolbarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(didTapShareBarButtonItem)];
     shareToolbarItem.imageInsets = UIEdgeInsetsMake(0.0f, 0.0f, 3.0f, 0.0f);
     shareToolbarItem.enabled = (self.viewModel.post.link != nil);
 
-    [self.toolbar setItems:@[leftFixedSpaceToolbarItem, self.bookmarkToolbarItem, middleFixedSpaceToolbarItem, shareToolbarItem] animated:NO];
+    [self.toolbar setItems:@[leftFixedSpaceToolbarItem, backBarButtonItem, middleLeftFixedSpaceToolbarItem, commentsBarButtonItem, middleRightFixedSpaceToolbarItem, self.bookmarkToolbarItem, rightFixedSpaceToolbarItem, shareToolbarItem] animated:NO];
 }
 
 - (void)setupObservers {
@@ -154,6 +172,14 @@
 }
 
 #pragma mark - Actions
+
+- (void)didTapBackBarButtonItem {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didTapCommentsBarButtonItem {
+
+}
 
 - (void)didTapBookmarkBarButtonItem {
     [STKAnalyticsManager logEventDidBookmarkPost:self.viewModel.post enabled:!self.viewModel.post.bookmarked.boolValue];
@@ -249,6 +275,37 @@
 
 - (void)tableView:(ASTableView *)tableView updateNode:(ASCellNode *)node forObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
 
+}
+
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self updateToolbarFrameForScrollView:scrollView];
+
+    self.previousContentOffset = scrollView.contentOffset;
+}
+
+- (void)updateToolbarFrameForScrollView:(UIScrollView *)scrollView {
+    CGRect toolbarFrame = self.toolbar.frame;
+    CGFloat min = CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.toolbar.frame);
+    CGFloat max = CGRectGetHeight(self.view.frame);
+
+    if (scrollView.contentOffset.y < scrollView.contentInset.top) {
+        toolbarFrame.origin.y = min;
+    }
+    else if ((scrollView.contentOffset.y + CGRectGetHeight(scrollView.frame)) > (scrollView.contentSize.height + scrollView.contentInset.bottom)) {
+        toolbarFrame.origin.y = max;
+    }
+    else {
+        CGFloat delta = self.previousContentOffset.y - scrollView.contentOffset.y;
+        toolbarFrame.origin.y = RZClampFloat(toolbarFrame.origin.y - delta, min, max);
+    }
+
+    self.toolbar.frame = toolbarFrame;
+
+    UIEdgeInsets insets = scrollView.scrollIndicatorInsets;
+    insets.bottom = CGRectGetHeight(scrollView.frame) - CGRectGetMinY(self.toolbar.frame);
+    scrollView.scrollIndicatorInsets = insets;
 }
 
 #pragma mark - Post Section Node Delegate

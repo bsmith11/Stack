@@ -43,7 +43,10 @@
 
 - (void)setupWithTableView:(ASTableView *)tableView {
     self.tableView = tableView;
-    tableView.backgroundView = self;
+    [tableView addSubview:self];
+    [tableView sendSubviewToBack:self];
+
+    self.frame = tableView.bounds;
 
     [self tableViewDidChangeContent];
 }

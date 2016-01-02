@@ -55,7 +55,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
 
     [self setupTableView];
-    [self setupListBackgroundView];
 }
 
 - (void)viewDidLoad {
@@ -66,10 +65,15 @@
     [self.viewModel setupCollectionListDataSourceWithTableView:self.tableView delegate:self];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 
-    self.tableView.frame = self.view.frame;
+    if (!self.didLayoutSubviews) {
+        self.didLayoutSubviews = YES;
+
+        self.tableView.frame = self.view.bounds;
+        [self setupListBackgroundView];
+    }
 }
 
 #pragma mark - Setup
@@ -101,14 +105,12 @@
 }
 
 - (void)setupObservers {
-    NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
-    __weak __typeof(self) wself = self;
-
-    [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, empty) options:options block:^(id observer, id object, NSDictionary *change) {
-        NSNumber *empty = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
-
-        wself.listBackgroundView.state = empty.boolValue ? STKListBackgroundViewStateEmpty : STKListBackgroundViewStateNone;
-    }];
+//    NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
+//    __weak __typeof(self) wself = self;
+//
+//    [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, empty) options:options block:^(id observer, id object, NSDictionary *change) {
+//        [wself.listBackgroundView tableViewDidChangeContent];
+//    }];
 }
 
 #pragma mark - Collection List Data Source Delegate
@@ -124,6 +126,10 @@
 
 - (void)tableView:(ASTableView *)tableView updateNode:(STKPostNode *)node forObject:(STKPost *)post atIndexPath:(NSIndexPath *)indexPath {
     [node setupWithPost:post];
+}
+
+- (void)tableView:(ASTableView *)tableView didFinishUpdatingCompleted:(BOOL)completed {
+    [self.listBackgroundView tableViewDidChangeContent];
 }
 
 #pragma mark - Table View Delegate

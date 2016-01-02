@@ -14,4 +14,6 @@
 
 - (STKNavigationController *)stk_navigationController;
 
+@property (assign, nonatomic) BOOL didLayoutSubviews;
+
 @end
