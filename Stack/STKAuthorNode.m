@@ -27,11 +27,13 @@
 @property (strong, nonatomic) ASImageNode *sourceBannerImageNode;
 @property (strong, nonatomic) ASImageNode *authorBorderImageNode;
 @property (strong, nonatomic) ASNetworkImageNode *authorNetworkImageNode;
+@property (strong, nonatomic) ASTextNode *authorTextNode;
 @property (strong, nonatomic) ASTextNode *summaryTextNode;
 
 @property (assign, nonatomic) CGRect sourceBannerImageNodeFrame;
 @property (assign, nonatomic) CGRect authorBorderImageNodeFrame;
 @property (assign, nonatomic) CGRect authorNetworkImageNodeFrame;
+@property (assign, nonatomic) CGRect authorTextNodeFrame;
 @property (assign, nonatomic) CGRect summaryTextNodeFrame;
 
 @property (assign, nonatomic) CGSize bannerImageSize;
@@ -52,6 +54,7 @@
         [self setupSourceBannerImageNode];
         [self setupAuthorBorderImageNode];
         [self setupAuthorNetworkImageNode];
+        [self setupAuthorTextNode];
         [self setupSummaryTextNode];
     }
 
@@ -67,6 +70,11 @@
     CGSize authorBorderSize = CGSizeMake(112.5f, 112.5f);
 
     CGSize authorNetworkImageSize = CGSizeMake(100.0f, 100.0f);
+
+    UIFont *font = [STKAttributes stk_authorNameAttributes][NSFontAttributeName];
+    CGFloat width = constrainedSize.width - ((3 * 12.5f) + authorBorderSize.width);
+    CGSize authorConstrainedSize = CGSizeMake(width, font.lineHeight);
+    CGSize authorSize = [self.authorTextNode measure:authorConstrainedSize];
 
     CGSize summarySize = CGSizeZero;
     if (self.summaryTextNode.attributedString) {
@@ -90,6 +98,11 @@
 
     self.authorNetworkImageNodeFrame = CGRectMake(x, y, authorNetworkImageSize.width, authorNetworkImageSize.height);
 
+    x = CGRectGetMaxX(self.authorBorderImageNodeFrame) + 12.5f;
+    y = CGRectGetMidY(self.authorBorderImageNodeFrame) + (((CGRectGetHeight(self.authorBorderImageNodeFrame) / 2) + 12.5f) / 2) - (authorSize.height / 2);
+
+    self.authorTextNodeFrame = CGRectMake(x, y, authorSize.width, authorSize.height);
+
     x = 12.5f;
     CGFloat offset = (summarySize.height > 0) ? 12.5f : 0.0f;
     y = CGRectGetMaxY(self.authorNetworkImageNodeFrame) + offset;
@@ -103,6 +116,7 @@
     self.sourceBannerImageNode.frame = self.sourceBannerImageNodeFrame;
     self.authorBorderImageNode.frame = self.authorBorderImageNodeFrame;
     self.authorNetworkImageNode.frame = self.authorNetworkImageNodeFrame;
+    self.authorTextNode.frame = self.authorTextNodeFrame;
     self.summaryTextNode.frame = self.summaryTextNodeFrame;
 }
 
@@ -121,6 +135,12 @@
 
     UIColor *color = [STKSource colorForType:author.sourceType.integerValue];
     self.authorNetworkImageNode.defaultImage = [UIImage rz_solidColorImageWithSize:CGSizeMake(2 * 50.0f, 2 * 50.0f) color:color];
+
+    NSString *authorName = author.name ?: @"No name";
+    authorName = [authorName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSAttributedString *attributedName = [[NSAttributedString alloc] initWithString:authorName attributes:[STKAttributes stk_authorNameAttributes]];
+
+    self.authorTextNode.attributedString = attributedName;
 
     NSMutableAttributedString *attributedString = [author.attributedSummary mutableCopy];
     if (attributedString) {
@@ -159,6 +179,13 @@
     self.authorNetworkImageNode.delegate = self;
 
     [self addSubnode:self.authorNetworkImageNode];
+}
+
+- (void)setupAuthorTextNode {
+    self.authorTextNode = [[ASTextNode alloc] init];
+    self.authorTextNode.placeholderEnabled = YES;
+
+    [self addSubnode:self.authorTextNode];
 }
 
 - (void)setupSummaryTextNode {
