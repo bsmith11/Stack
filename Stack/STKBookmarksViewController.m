@@ -20,9 +20,6 @@
 #import "STKAnalyticsManager.h"
 
 #import <AsyncDisplayKit/ASTableView.h>
-#import <KVOController/FBKVOController.h>
-#import <RZDataBinding/RZDBMacros.h>
-#import <RZUtils/RZCommonUtils.h>
 
 @interface STKBookmarksViewController () <ASTableViewDelegate, STKCollectionListTableViewDelegate, STKListBackgroundDefaultContentViewDelegate>
 
@@ -60,8 +57,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setupObservers];
-
     [self.viewModel setupCollectionListDataSourceWithTableView:self.tableView delegate:self];
 }
 
@@ -73,6 +68,9 @@
 
         self.tableView.frame = self.view.bounds;
         [self setupListBackgroundView];
+
+        self.listBackgroundView.hidden = !self.viewModel.empty;
+        self.tableView.scrollEnabled = !self.viewModel.empty;
     }
 }
 
@@ -102,15 +100,6 @@
     [contentView setMessage:@"Bookmark posts to access them offline" forState:STKListBackgroundViewStateEmpty];
 
     self.listBackgroundView.contentView = contentView;
-}
-
-- (void)setupObservers {
-//    NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
-//    __weak __typeof(self) wself = self;
-//
-//    [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, empty) options:options block:^(id observer, id object, NSDictionary *change) {
-//        [wself.listBackgroundView tableViewDidChangeContent];
-//    }];
 }
 
 #pragma mark - Collection List Data Source Delegate
