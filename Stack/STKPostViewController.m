@@ -105,8 +105,8 @@
     self.tableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:NO];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 12.5f, 0.0f);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 49.0f + 12.5f, 0.0f);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, 49.0f, 0.0f);
     self.tableView.asyncDelegate = self;
 
     [self.view addSubview:self.tableView];
@@ -178,7 +178,8 @@
 }
 
 - (void)didTapCommentsBarButtonItem {
-
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)didTapBookmarkBarButtonItem {
