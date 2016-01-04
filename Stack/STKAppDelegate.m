@@ -11,11 +11,13 @@
 #import "STKRootViewController.h"
 
 #import "STKCoreDataStack.h"
-#import "STKSource.h"
 #import "STKNotificationsManager.h"
 #import "STKAnalyticsManager.h"
 #import "STKContentManager.h"
 
+#import <Keys/StackKeys.h>
+#import <Parse/Parse.h>
+#import <ParseCrashReporting/ParseCrashReporting.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation STKAppDelegate
@@ -23,6 +25,14 @@
 #pragma mark - Application Delegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    StackKeys *keys = [[StackKeys alloc] init];
+
+    [ParseCrashReporting enable];
+    [Parse setApplicationId:keys.parseApplicationID
+                  clientKey:keys.parseClientKey];
+
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 

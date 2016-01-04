@@ -63,9 +63,15 @@
 
 + (STKHTMLVideoSectionType)typeForSourceURL:(NSString *)sourceURL {
     STKHTMLVideoSectionType type = STKHTMLVideoSectionTypeOther;
-//TODO: handle rest of video types
+
     if ([sourceURL stk_youtubeVideoID]) {
         type = STKHTMLVideoSectionTypeYoutube;
+    }
+    else if ([sourceURL stk_isVimeoURL]) {
+        type = STKHTMLVideoSectionTypeVimeo;
+    }
+    else if ([sourceURL stk_isSoundCloudURL]) {
+        type = STKHTMLVideoSectionTypeSoundcloud;
     }
     
     return type;

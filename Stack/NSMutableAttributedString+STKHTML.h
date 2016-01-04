@@ -10,8 +10,6 @@
 
 @interface NSMutableAttributedString (STKHTML)
 
-
-
 - (void)stk_trimCharactersFromSet:(NSCharacterSet *)set;
 - (void)stk_trimBeginningCharactersFromSet:(NSCharacterSet *)set;
 - (void)stk_trimEndingCharactersFromSet:(NSCharacterSet *)set;

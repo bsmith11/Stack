@@ -31,6 +31,7 @@
 - (BOOL)stk_isYoutubeURL;
 - (BOOL)stk_isVimeoURL;
 - (BOOL)stk_isGfycatURL;
+- (BOOL)stk_isSoundCloudURL;
 
 - (NSString *)stk_youtubeVideoID;
 

@@ -23,6 +23,7 @@ pod 'SSPullToRefresh', '~> 1.2'
 pod 'youtube-ios-player-helper', '~> 0.1'
 pod 'BlockRSSParser', :git => "https://github.com/bsmith11/BlockRSSParser", :commit => "4938eaa1eb7c88d7a4d376f31e37b808ae957e15"
 pod 'Parse', '~> 1.10'
+pod 'ParseCrashReporting', '~> 1.9'
 
 target :unit_tests, :exclusive => true do
   link_with 'UnitTests'

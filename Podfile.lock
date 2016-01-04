@@ -25,7 +25,7 @@ PODS:
   - AsyncDisplayKit/ASDealloc2MainObject (1.9.3)
   - BlockRSSParser (2.1):
     - AFNetworking (~> 2.0)
-  - Bolts/Tasks (1.5.0)
+  - Bolts/Tasks (1.5.1)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -34,16 +34,16 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - DTCoreText (1.6.16):
+  - DTCoreText (1.6.17):
     - DTFoundation/Core (~> 1.7.5)
     - DTFoundation/DTAnimatedGIF (~> 1.7.5)
     - DTFoundation/DTHTMLParser (~> 1.7.5)
     - DTFoundation/UIKit (~> 1.7.5)
-  - DTFoundation/Core (1.7.8)
-  - DTFoundation/DTAnimatedGIF (1.7.8)
-  - DTFoundation/DTHTMLParser (1.7.8):
+  - DTFoundation/Core (1.7.9)
+  - DTFoundation/DTAnimatedGIF (1.7.9)
+  - DTFoundation/DTHTMLParser (1.7.9):
     - DTFoundation/Core
-  - DTFoundation/UIKit (1.7.8):
+  - DTFoundation/UIKit (1.7.9):
     - DTFoundation/Core
   - Expecta (1.0.5)
   - FLAnimatedImage (1.0.10)
@@ -65,6 +65,9 @@ PODS:
   - OHHTTPStubs/OHPathHelpers (4.7.0)
   - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
+  - ParseCrashReporting (1.9.2):
+    - Bolts/Tasks (~> 1.5)
+    - Parse (~> 1.9)
   - PINCache (2.1.2)
   - PINRemoteImage (1.2.2):
     - PINRemoteImage/FLAnimatedImage (= 1.2.2)
@@ -168,6 +171,7 @@ DEPENDENCIES:
   - OCMock
   - OHHTTPStubs
   - Parse (~> 1.10)
+  - ParseCrashReporting (~> 1.9)
   - PINRemoteImage (~> 1.0)
   - pop (~> 1.0)
   - RZCollectionList (~> 0.7)
@@ -201,10 +205,10 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   AsyncDisplayKit: 87d340329280dba0363da3587a43f9d1bbe62aac
   BlockRSSParser: aedf3ab9a6c92f8d0881b9415fe88b5e136ab174
-  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
+  Bolts: a12663244b1d3351c738882e71902fc74db54f64
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  DTCoreText: 934a16fe9ffdd169c96261721b39dc312b75713d
-  DTFoundation: 46e2b2fafe78d67febfd8d1f85fe9845a093f00e
+  DTCoreText: 3ea8bba23dd2141ba18adb227a7dd33a822df1c4
+  DTFoundation: 70a0765e3596f82dd421832e95c65e2166eb3102
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
   FLAnimatedImage: e16a1e1cef08e4c509b47e4acbe3923f65c16135
   Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
@@ -212,6 +216,7 @@ SPEC CHECKSUMS:
   OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
   OHHTTPStubs: d2bf6a0f407620d67e75a1d3f12d86a2b1dd15c0
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
+  ParseCrashReporting: 33b760facc649d4fd99eef8f35dcda6a406099e5
   PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
   PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57

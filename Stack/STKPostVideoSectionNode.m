@@ -90,8 +90,11 @@
         }
             break;
 
+        case STKHTMLVideoSectionTypeSoundcloud: { //This case falls through
+            self.videoSize = CGSizeMake(self.videoSize.width, 0.0f);
+        }
+
         case STKHTMLVideoSectionTypeVimeo:
-        case STKHTMLVideoSectionTypeSoundcloud:
         case STKHTMLVideoSectionTypeOther: {
             [self.youtubeNode removeFromSupernode];
             self.youtubeNode = nil;

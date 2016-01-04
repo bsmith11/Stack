@@ -11,7 +11,7 @@
 @implementation NSString (STKHTML)
 
 - (BOOL)stk_isVideoURL {
-    return [self stk_isYoutubeURL] || [self stk_isVimeoURL] || [self stk_isGfycatURL];
+    return [self stk_isYoutubeURL] || [self stk_isVimeoURL] || [self stk_isGfycatURL] || [self stk_isSoundCloudURL];
 }
 
 - (NSString *)stk_youtubeVideoID {
@@ -36,6 +36,10 @@
 
 - (BOOL)stk_isGfycatURL {
     return [self containsString:@"gfycat.com/"];
+}
+
+- (BOOL)stk_isSoundCloudURL {
+    return [self containsString:@"soundcloud.com/"];
 }
 
 - (NSString *)stk_stringMatchingRegexPattern:(NSString *)pattern {

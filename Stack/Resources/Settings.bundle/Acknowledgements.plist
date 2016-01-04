@@ -540,6 +540,14 @@ limitations under the License.
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>See https://www.parse.com/about/terms</string>
+			<key>Title</key>
+			<string>ParseCrashReporting</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright 2012 Raizlabs and other contributors
 http://raizlabs.com/
 
