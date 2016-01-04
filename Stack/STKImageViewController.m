@@ -280,6 +280,8 @@ static CGFloat const kSTKImageViewControllerMaximumZoom = 2.0f;
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     [self centerScrollViewContents];
+
+    self.panGesture.enabled = (scrollView.zoomScale == kSTKImageViewControllerMinimumZoom);
 }
 
 #pragma mark - POP Animation Delegate
