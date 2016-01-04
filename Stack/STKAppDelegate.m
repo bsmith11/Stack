@@ -28,7 +28,7 @@
 
     [STKCoreDataStack configureStack];
 
-    [application setMinimumBackgroundFetchInterval:20000.0f];
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
     STKRootViewController *rootViewController = [[STKRootViewController alloc] init];
 

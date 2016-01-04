@@ -155,8 +155,8 @@
     contentView.delegate = self;
 
     [contentView setImage:[UIImage imageNamed:@"Search Large"] forState:STKListBackgroundViewStateEmpty];
-    [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
-    [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
+    [contentView setTitle:@"Search" forState:STKListBackgroundViewStateEmpty];
+    [contentView setMessage:@"Find articles based on keywords" forState:STKListBackgroundViewStateEmpty];
 
     [contentView setImage:[UIImage imageNamed:@"Error Large"] forState:STKListBackgroundViewStateError];
     [contentView setTitle:@"Network Error" forState:STKListBackgroundViewStateError];

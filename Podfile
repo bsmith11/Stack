@@ -35,7 +35,9 @@ end
 plugin 'cocoapods-keys', {
     :project => "Stack",
     :keys => [
-    "BloggerAPIKey"
+    "BloggerAPIKey",
+    "ParseApplicationID",
+    "ParseClientKey"
     ]}
 
 # Copy acknowledgements to the Settings.bundle
