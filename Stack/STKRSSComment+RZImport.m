@@ -46,6 +46,7 @@
             DTHTMLAttributedStringBuilder *stringBuilder = [[DTHTMLAttributedStringBuilder alloc] initWithHTML:data options:options documentAttributes:nil];
             NSAttributedString *generatedAttributedString = [stringBuilder generatedAttributedString];
             NSAttributedString *attributedString = [NSAttributedString stk_coreTextCleansedAttributedString:generatedAttributedString];
+            attributedString = [NSAttributedString stk_attributedStringByRemovingAttachmentsFromString:attributedString];
 
             self.content = [NSKeyedArchiver archivedDataWithRootObject:attributedString];
         }

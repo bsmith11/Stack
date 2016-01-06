@@ -115,4 +115,26 @@
     return [mutableAttributedString copy];
 }
 
++ (NSAttributedString *)stk_attributedStringByRemovingAttachmentsFromString:(NSAttributedString *)attributedString {
+    NSMutableAttributedString *mutableAttributedString = [attributedString mutableCopy];
+
+    void (^block)(NSDictionary *, NSRange, BOOL *) = ^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+        NSMutableDictionary *mutableAttributes = [attrs mutableCopy];
+
+        [attrs enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stopBool) {
+            if ([key isEqualToString:NSAttachmentAttributeName]) {
+                [mutableAttributes removeObjectForKey:key];
+            }
+        }];
+
+        [mutableAttributedString setAttributes:mutableAttributes range:range];
+    };
+
+    [mutableAttributedString enumerateAttributesInRange:NSMakeRange(0, attributedString.length)
+                                                options:0
+                                             usingBlock:block];
+    
+    return [mutableAttributedString copy];
+}
+
 @end

@@ -11,5 +11,6 @@
 @interface NSAttributedString (STKHTML)
 
 + (NSAttributedString *)stk_coreTextCleansedAttributedString:(NSAttributedString *)attributedString;
++ (NSAttributedString *)stk_attributedStringByRemovingAttachmentsFromString:(NSAttributedString *)attributedString;
 
 @end

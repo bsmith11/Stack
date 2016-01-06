@@ -1601,7 +1601,7 @@
 			baseConfigurationReference = E12A95AE96C7960F38B4631B /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Bradley Smith (Q9WZ7ZSJK2)";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1620,7 +1620,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bradsmith.stack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5e675304-2ab1-4027-a51a-a3b6bc307960";
+				PROVISIONING_PROFILE = "e46f49f3-4d1e-4a27-acb5-0409723421e3";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1777,7 +1777,7 @@
 			baseConfigurationReference = A42A75EDA365BD5D1EDC5012 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bradley Smith (XDGTA3SS2P)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
