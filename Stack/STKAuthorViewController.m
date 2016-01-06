@@ -241,10 +241,13 @@
 #pragma mark - Unavailable Node Delegate
 
 - (void)unavailableNodeDidTapAction:(STKUnavailableNode *)node {
+    NSString *sourceName = [STKSource nameForType:self.viewModel.author.sourceType.integerValue];
+
     NSString *recipient = [STKSource contactEmailForType:self.viewModel.author.sourceType.integerValue];
-    NSString *body = [NSString stringWithFormat:@"I'd love to see more support for the Stack iOS app, especially with regards to author pages"];
+    NSString *body = [NSString stringWithFormat:@"I'd love to see more %@ support for the Stack app, especially with regards to author pages", sourceName];
+    NSString *subject = [NSString stringWithFormat:@"%@ Stack Support", sourceName];
     
-    [self stk_presentMailComposeViewControllerWithRecipients:@[recipient] body:body];
+    [self stk_presentMailComposeViewControllerWithRecipients:@[recipient] body:body subject:subject];
 }
 
 @end

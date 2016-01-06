@@ -12,5 +12,6 @@
 
 - (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients;
 - (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients body:(NSString *)body;
+- (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients body:(NSString *)body subject:(NSString *)subject;
 
 @end

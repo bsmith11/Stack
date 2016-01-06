@@ -72,8 +72,8 @@
     CGSize authorNetworkImageSize = CGSizeMake(100.0f, 100.0f);
 
     UIFont *font = [STKAttributes stk_authorNameAttributes][NSFontAttributeName];
-    CGFloat width = constrainedSize.width - ((3 * 12.5f) + authorBorderSize.width);
-    CGSize authorConstrainedSize = CGSizeMake(width, font.lineHeight);
+    CGFloat authorAvailableWidth = constrainedSize.width - ((3 * 12.5f) + authorBorderSize.width);
+    CGSize authorConstrainedSize = CGSizeMake(authorAvailableWidth, font.lineHeight);
     CGSize authorSize = [self.authorTextNode measure:authorConstrainedSize];
 
     CGSize summarySize = CGSizeZero;
@@ -98,7 +98,8 @@
 
     self.authorNetworkImageNodeFrame = CGRectMake(x, y, authorNetworkImageSize.width, authorNetworkImageSize.height);
 
-    x = CGRectGetMaxX(self.authorBorderImageNodeFrame) + 12.5f;
+    CGFloat authorOffset = CGRectGetMaxX(self.authorBorderImageNodeFrame) + 12.5f;
+    x = authorOffset + (authorAvailableWidth / 2) - (authorSize.width / 2);
     y = CGRectGetMidY(self.authorBorderImageNodeFrame) + (((CGRectGetHeight(self.authorBorderImageNodeFrame) / 2) + 12.5f) / 2) - (authorSize.height / 2);
 
     self.authorTextNodeFrame = CGRectMake(x, y, authorSize.width, authorSize.height);

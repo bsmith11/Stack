@@ -50,7 +50,7 @@
 
 - (CGSize)calculateSizeThatFits:(CGSize)constrainedSize {
     //Sizing
-    CGSize imageNodeSize = CGSizeMake(150.0f, 150.0f);
+    CGSize imageNodeSize = CGSizeMake(100.0f, 100.0f);
 
     CGSize titleConstrainedSize = CGSizeMake(constrainedSize.width - 50.0f, constrainedSize.height);
     CGSize titleSize = [self.titleTextNode measure:titleConstrainedSize];
@@ -68,7 +68,7 @@
     self.imageNodeFrame = CGRectMake(x, y, imageNodeSize.width, imageNodeSize.height);
 
     x = (constrainedSize.width - titleSize.width) / 2;
-    y = CGRectGetMaxY(self.imageNodeFrame) + 50.0f;
+    y = CGRectGetMaxY(self.imageNodeFrame) + 25.0f;
 
     self.titleTextNodeFrame = CGRectMake(x, y, titleSize.width, titleSize.height);
 
@@ -116,7 +116,7 @@
 - (void)setupImageNode {
     self.imageNode = [[ASImageNode alloc] init];
     self.imageNode.layerBacked = YES;
-    self.imageNode.contentMode = UIViewContentModeCenter;
+    self.imageNode.contentMode = UIViewContentModeScaleAspectFit;
     self.imageNode.placeholderEnabled = YES;
 
     [self addSubnode:self.imageNode];

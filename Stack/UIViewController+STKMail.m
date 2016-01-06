@@ -23,11 +23,16 @@
 }
 
 - (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients body:(NSString *)body {
+    [self stk_presentMailComposeViewControllerWithRecipients:recipients body:body subject:nil];
+}
+
+- (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients body:(NSString *)body subject:(NSString *)subject {
     if ([MFMailComposeViewController canSendMail]) {
         STKMailViewController *mailComposeViewController = [[STKMailViewController alloc] init];
         mailComposeViewController.mailComposeDelegate = self;
         [mailComposeViewController setToRecipients:recipients];
         [mailComposeViewController setMessageBody:body isHTML:NO];
+        [mailComposeViewController setSubject:subject];
 
         [self presentViewController:mailComposeViewController animated:YES completion:nil];
     }
