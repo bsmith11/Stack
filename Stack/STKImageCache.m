@@ -29,8 +29,13 @@
 - (UIImage *)imageForURL:(NSURL *)URL {
     PINRemoteImageManager *imageManager = [PINRemoteImageManager sharedImageManager];
     NSString *cacheKey = [imageManager cacheKeyForURL:URL processorKey:kSTKImageDownloaderProcessorKeyScaleAspectFill];
+    id object = [imageManager.cache objectForKey:cacheKey];
 
-    return [imageManager.cache objectForKey:cacheKey];
+    if (![object isKindOfClass:[UIImage class]]) {
+        object = [UIImage imageWithData:object];
+    }
+
+    return object;
 }
 
 #pragma mark - ASImage Cache Protocol
