@@ -30,6 +30,9 @@
     self = [super init];
 
     if (self) {
+        self.baseInsets = UIEdgeInsetsZero;
+        self.emptyThreshold = 0;
+
         [self setupWithTableView:tableView];
         [self setupObservers];
 
@@ -66,8 +69,8 @@
 }
 
 - (void)updateContentViewConstraintsWithInsets:(UIEdgeInsets)insets {
-    self.contentViewTop.constant = insets.top;
-    self.contentViewBottom.constant = insets.bottom;
+    self.contentViewTop.constant = insets.top + self.baseInsets.top;
+    self.contentViewBottom.constant = insets.bottom + self.baseInsets.bottom;
 }
 
 - (void)setupObservers {
@@ -97,8 +100,8 @@
         rowCount += [tableView numberOfRowsInSection:section];
     }
 
-    self.hidden = (rowCount > 0);
-    tableView.scrollEnabled = (rowCount > 0);
+    self.hidden = (rowCount > self.emptyThreshold);
+    tableView.scrollEnabled = (rowCount > self.emptyThreshold);
 }
 
 #pragma mark - Setters
@@ -117,6 +120,26 @@
 
         self.contentView.loading = loading;
     }
+}
+
+- (void)setBaseInsets:(UIEdgeInsets)baseInsets {
+    if (!UIEdgeInsetsEqualToEdgeInsets(_baseInsets, baseInsets)) {
+        CGFloat oldTopInset = _baseInsets.top;
+        CGFloat oldBottomInset = _baseInsets.bottom;
+
+        _baseInsets = baseInsets;
+
+        self.contentViewTop.constant = self.contentViewTop.constant - oldTopInset + baseInsets.top;
+        self.contentViewBottom.constant = self.contentViewBottom.constant - oldBottomInset + baseInsets.bottom;
+    }
+}
+
+- (void)setEmptyThreshold:(NSInteger)emptyThreshold {
+    if (_emptyThreshold != emptyThreshold) {
+        _emptyThreshold = emptyThreshold;
+    }
+
+    [self tableViewDidChangeContent];
 }
 
 - (void)setContentView:(UIView<STKListBackgroundContentViewProtocol> *)contentView {

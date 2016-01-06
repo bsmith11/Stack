@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, STKBackendType) {
 + (NSArray *)allSourceTypes;
 + (NSArray *)sourcesWithSearchAvailable;
 + (NSArray *)sourcesWithNotificationsAvailable;
++ (NSArray *)sourcesWithAuthorAvailable;
 
 + (STKSourceType)sourceTypeForName:(NSString *)name;
 + (NSURL *)baseURLForType:(STKSourceType)type;
@@ -37,5 +38,6 @@ typedef NS_ENUM(NSInteger, STKBackendType) {
 + (NSString *)bannerImageNameForType:(STKSourceType)type;
 + (UIColor *)colorForType:(STKSourceType)type;
 + (STKBackendType)backendTypeForType:(STKSourceType)type;
++ (NSString *)contactEmailForType:(STKSourceType)type;
 
 @end

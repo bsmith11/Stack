@@ -151,6 +151,7 @@
 		064865BB1C31E4EC0087A41E /* STKSwitchNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BA1C31E4EC0087A41E /* STKSwitchNode.m */; };
 		064865BE1C322E3C0087A41E /* STKMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BD1C322E3C0087A41E /* STKMailViewController.m */; };
 		064865C01C323B310087A41E /* Assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 064865BF1C323B310087A41E /* Assets.bundle */; };
+		06A4967A1C3CD0370057209E /* STKUnavailableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A496791C3CD0370057209E /* STKUnavailableNode.m */; };
 		42A03B5B6B623051BF2CFD19 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */; };
 		43CA31C3620407C2CE3CA662 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC8BE816EFD96785C766EA6 /* libPods.a */; };
 		6AA09B1EF151881F366C4692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97D4CD85A6D0DFC1065098F /* Foundation.framework */; };
@@ -450,6 +451,8 @@
 		064865BC1C322E3C0087A41E /* STKMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKMailViewController.h; sourceTree = "<group>"; };
 		064865BD1C322E3C0087A41E /* STKMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKMailViewController.m; sourceTree = "<group>"; };
 		064865BF1C323B310087A41E /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
+		06A496781C3CD0370057209E /* STKUnavailableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKUnavailableNode.h; sourceTree = "<group>"; };
+		06A496791C3CD0370057209E /* STKUnavailableNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKUnavailableNode.m; sourceTree = "<group>"; };
 		230706168BFA7CD67B35EE05 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		287BF6C62C7F2E32F8A7DDB9 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		35D58FAA5187E5B8EDA647CA /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -1000,6 +1003,8 @@
 				0648657B1C29D5C20087A41E /* STKAuthorViewModel.m */,
 				0648657D1C29D5D50087A41E /* STKAuthorNode.h */,
 				0648657E1C29D5D50087A41E /* STKAuthorNode.m */,
+				06A496781C3CD0370057209E /* STKUnavailableNode.h */,
+				06A496791C3CD0370057209E /* STKUnavailableNode.m */,
 			);
 			name = Author;
 			sourceTree = "<group>";
@@ -1560,6 +1565,7 @@
 				064864401C276CB80087A41E /* STKComment.m in Sources */,
 				064865751C293DAC0087A41E /* STKPostFeatureImageNode.m in Sources */,
 				064864FE1C2896E20087A41E /* NSAttributedString+STKHTML.m in Sources */,
+				06A4967A1C3CD0370057209E /* STKUnavailableNode.m in Sources */,
 				064864601C2778450087A41E /* STKHTMLMediaSection.m in Sources */,
 				0648646C1C278F630087A41E /* NSString+STKHTML.m in Sources */,
 				064865B81C31E32D0087A41E /* STKSettingsHeaderNode.m in Sources */,

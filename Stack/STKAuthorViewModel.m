@@ -25,6 +25,7 @@
 @property (strong, nonatomic) STKCollectionListTableViewDataSource *dataSource;
 
 @property (assign, nonatomic, readwrite) BOOL downloading;
+@property (assign, nonatomic, readwrite) BOOL enabled;
 
 @end
 
@@ -37,6 +38,7 @@
 
     if (self) {
         self.author = author;
+        self.enabled = [[STKSource sourcesWithAuthorAvailable] containsObject:author.sourceType];
 
         [self setupObjects];
 
@@ -49,11 +51,23 @@
 #pragma mark - Setup
 
 - (void)setupObjects {
-    self.postsArrayList = [[RZArrayCollectionList alloc] initWithArray:[NSArray array] sectionNameKeyPath:nil];
-    self.posts = [[RZSortedCollectionList alloc] initWithSourceList:self.postsArrayList sortDescriptors:@[[STKPost createDateSortDescriptor]]];
+    NSMutableArray *sourceLists = [NSMutableArray array];
 
-    RZArrayCollectionList *author = [[RZArrayCollectionList alloc] initWithArray:@[self.author] sectionNameKeyPath:nil];
-    self.objects = [[RZCompositeCollectionList alloc] initWithSourceLists:@[author, self.posts]];
+    RZArrayCollectionList *authorList = [[RZArrayCollectionList alloc] initWithArray:@[self.author] sectionNameKeyPath:nil];
+    [sourceLists addObject:authorList];
+
+    if (self.enabled) {
+        self.postsArrayList = [[RZArrayCollectionList alloc] initWithArray:[NSArray array] sectionNameKeyPath:nil];
+        self.posts = [[RZSortedCollectionList alloc] initWithSourceList:self.postsArrayList sortDescriptors:@[[STKPost createDateSortDescriptor]]];
+
+        [sourceLists addObject:self.posts];
+    }
+    else {
+        RZArrayCollectionList *notAvailableList = [[RZArrayCollectionList alloc] initWithArray:@[@"Not Available"] sectionNameKeyPath:nil];
+        [sourceLists addObject:notAvailableList];
+    }
+
+    self.objects = [[RZCompositeCollectionList alloc] initWithSourceLists:sourceLists];
 }
 
 - (void)setupCollectionListDataSourceWithTableView:(ASTableView *)tableView delegate:(id<STKCollectionListTableViewDelegate>)delegate {
@@ -80,33 +94,40 @@
 }
 
 - (void)fetchPostsBeforePosts:(NSArray *)posts completion:(STKViewModelFetchCompletion)completion {
-    self.downloading = YES;
+    if (self.enabled) {
+        self.downloading = YES;
 
-    __weak __typeof(self) wself = self;
+        __weak __typeof(self) wself = self;
 
-    void (^fetchCompletion)(NSArray *, NSError *) = ^(NSArray *fetchedPosts, NSError *error) {
-        wself.downloading = NO;
+        void (^fetchCompletion)(NSArray *, NSError *) = ^(NSArray *fetchedPosts, NSError *error) {
+            wself.downloading = NO;
 
-        if (!error) {
-            [wself updatePostsWithPosts:fetchedPosts];
-        }
+            if (!error) {
+                [wself updatePostsWithPosts:fetchedPosts];
+            }
 
-        STKViewModelFetchResult result;
-        if (error || fetchedPosts.count == 0) {
-            result = STKViewModelFetchResultFailed;
-        }
-        else {
-            result = STKViewModelFetchResultSuccess;
-        }
+            STKViewModelFetchResult result;
+            if (error || fetchedPosts.count == 0) {
+                result = STKViewModelFetchResultFailed;
+            }
+            else {
+                result = STKViewModelFetchResultSuccess;
+            }
 
+            if (completion) {
+                completion(result);
+            }
+        };
+
+        [STKContentManager downloadPostsBeforePosts:posts
+                                             author:self.author
+                                         completion:fetchCompletion];
+    }
+    else {
         if (completion) {
-            completion(result);
+            completion(STKViewModelFetchResultFailed);
         }
-    };
-
-    [STKContentManager downloadPostsBeforePosts:posts
-                                         author:self.author
-                                     completion:fetchCompletion];
+    }
 }
 
 - (void)updatePostsWithPosts:(NSArray *)posts {

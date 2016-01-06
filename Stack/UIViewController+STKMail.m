@@ -19,10 +19,15 @@
 @implementation UIViewController (STKMail)
 
 - (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients {
+    [self stk_presentMailComposeViewControllerWithRecipients:recipients body:nil];
+}
+
+- (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients body:(NSString *)body {
     if ([MFMailComposeViewController canSendMail]) {
         STKMailViewController *mailComposeViewController = [[STKMailViewController alloc] init];
         mailComposeViewController.mailComposeDelegate = self;
         [mailComposeViewController setToRecipients:recipients];
+        [mailComposeViewController setMessageBody:body isHTML:NO];
 
         [self presentViewController:mailComposeViewController animated:YES completion:nil];
     }

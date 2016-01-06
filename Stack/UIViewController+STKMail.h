@@ -11,5 +11,6 @@
 @interface UIViewController (STKMail)
 
 - (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients;
+- (void)stk_presentMailComposeViewControllerWithRecipients:(NSArray *)recipients body:(NSString *)body;
 
 @end

@@ -33,5 +33,7 @@ typedef NS_ENUM(NSInteger, STKListBackgroundViewState) {
 
 @property (assign, nonatomic) STKListBackgroundViewState state;
 @property (assign, nonatomic) BOOL loading;
+@property (assign, nonatomic) UIEdgeInsets baseInsets;
+@property (assign, nonatomic) NSInteger emptyThreshold;
 
 @end

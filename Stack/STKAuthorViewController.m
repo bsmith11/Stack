@@ -13,6 +13,7 @@
 
 #import "STKPostNode.h"
 #import "STKAuthorNode.h"
+#import "STKUnavailableNode.h"
 
 #import "STKPost.h"
 #import "STKAuthor.h"
@@ -30,7 +31,7 @@
 #import <SSPullToRefresh/SSPullToRefresh.h>
 #import <tgmath.h>
 
-@interface STKAuthorViewController () <ASTableViewDelegate, STKCollectionListTableViewDelegate, SSPullToRefreshViewDelegate, STKAuthorNodeDelegate>
+@interface STKAuthorViewController () <ASTableViewDelegate, STKCollectionListTableViewDelegate, SSPullToRefreshViewDelegate, STKAuthorNodeDelegate, STKUnavailableNodeDelegate>
 
 @property (strong, nonatomic) STKAuthorViewModel *viewModel;
 @property (strong, nonatomic) ASTableView *tableView;
@@ -92,7 +93,7 @@
 }
 
 - (void)setupRefreshView {
-    if (!self.refreshView) {
+    if (self.viewModel.enabled) {
         self.refreshView = [[SSPullToRefreshView alloc] initWithScrollView:self.tableView delegate:self];
         SSPullToRefreshSimpleContentView *contentView = [[SSPullToRefreshSimpleContentView alloc] initWithFrame:CGRectZero];
         contentView.statusLabel.textColor = [UIColor stk_stackColor];
@@ -143,6 +144,13 @@
 
         node = authorNode;
     }
+    else if ([object isKindOfClass:[NSString class]]) {
+        STKUnavailableNode *unavailableNode = [[STKUnavailableNode alloc] init];
+
+        [self tableView:tableView updateNode:unavailableNode forObject:object atIndexPath:indexPath];
+
+        node = unavailableNode;
+    }
 
     return node;
 }
@@ -156,6 +164,18 @@
         STKAuthorNode *authorNode = (STKAuthorNode *)node;
         [authorNode setupWithAuthor:object];
         authorNode.delegate = self;
+    }
+    else if ([object isKindOfClass:[NSString class]]) {
+        STKUnavailableNode *unavailableNode = (STKUnavailableNode *)node;
+        NSString *sournceName = [STKSource nameForType:self.viewModel.author.sourceType.integerValue];
+        NSString *message = [NSString stringWithFormat:@"Author articles are currently not available for %@. If you would like to see them supported, let %@ know.", sournceName, sournceName];
+        NSString *action = [NSString stringWithFormat:@"Contact %@", sournceName];
+
+        [unavailableNode setupWithImage:[UIImage imageNamed:@"Unavailable Large"]
+                                  title:@"Not Available"
+                                message:message
+                                 action:action
+                               delegate:self];
     }
 }
 
@@ -216,6 +236,15 @@
 
 - (void)authorNode:(STKAuthorNode *)node didTapImageWithURL:(NSURL *)URL size:(CGSize)size {
 
+}
+
+#pragma mark - Unavailable Node Delegate
+
+- (void)unavailableNodeDidTapAction:(STKUnavailableNode *)node {
+    NSString *recipient = [STKSource contactEmailForType:self.viewModel.author.sourceType.integerValue];
+    NSString *body = [NSString stringWithFormat:@"I'd love to see more support for the Stack iOS app, especially with regards to author pages"];
+    
+    [self stk_presentMailComposeViewControllerWithRecipients:@[recipient] body:body];
 }
 
 @end

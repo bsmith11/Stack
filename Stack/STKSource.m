@@ -36,6 +36,12 @@
              @(STKSourceTypeSkyd)];
 }
 
++ (NSArray *)sourcesWithAuthorAvailable {
+    return @[@(STKSourceTypeBamaSecs),
+             @(STKSourceTypeMLU),
+             @(STKSourceTypeSkyd)];
+}
+
 + (STKSourceType)sourceTypeForName:(NSString *)name {
     __block STKSourceType sourceType = 0;
 
@@ -197,6 +203,25 @@
     });
 
     return backendTypes;
+}
+
++ (NSString *)contactEmailForType:(STKSourceType)type {
+    return [self contactEmails][@(type)];
+}
+
++ (NSDictionary *)contactEmails {
+    static NSDictionary *contactEmails = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        contactEmails = @{@(STKSourceTypeSkyd):@"info@skydmagazine.com",
+                          @(STKSourceTypeBamaSecs):@"editors@bamasecs.com",
+                          @(STKSourceTypeUltiworld):@"editor@ultiworld.com",
+                          @(STKSourceTypeAUDL):@"info@theaudl.com",
+                          @(STKSourceTypeMLU):@"info@mlultimate.com",
+                          @(STKSourceTypeSludge):@"Sludge.bbm@gmail.com"};
+    });
+
+    return contactEmails;
 }
 
 + (BOOL)notificationsAvailableForType:(STKSourceType)type {

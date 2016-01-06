@@ -28,5 +28,6 @@
 @property (strong, nonatomic, readonly) STKAuthor *author;
 
 @property (assign, nonatomic, readonly) BOOL downloading;
+@property (assign, nonatomic, readonly) BOOL enabled;
 
 @end
