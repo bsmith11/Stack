@@ -16,6 +16,7 @@
 @interface STKSearchViewModel ()
 
 @property (strong, nonatomic) STKTableViewDataSource *dataSource;
+@property (strong, nonatomic) NSMutableArray *searchIDs;
 @property (strong, nonatomic) NSUUID *currentSearchID;
 @property (strong, nonatomic, readwrite) NSError *networkError;
 
@@ -32,6 +33,7 @@
 
     if (self) {
         self.sourceType = -1;
+        self.searchIDs = [NSMutableArray array];
     }
 
     return self;
@@ -53,7 +55,7 @@
     return [self.dataSource.objects objectAtIndex:(NSUInteger)indexPath.row];
 }
 
-- (void)cancelSearch {
+- (void)cancelPreviousPostSearches {
     [STKContentManager cancelPreviousPostSearches];
 
     [self.dataSource replaceAllObjectsWithObjects:[NSArray array]];
@@ -63,30 +65,33 @@
     NSUUID *searchID = [NSUUID UUID];
     self.currentSearchID = searchID;
 
-    [self cancelSearch];
+    [self cancelPreviousPostSearches];
 
     if (text.length > 0) {
         __weak __typeof(self) wself = self;
 
         void (^block)() = ^{
             if ([wself.currentSearchID isEqual:searchID]) {
-                wself.searching = YES;
+                [wself addSearchID:searchID];
 
                 STKContentManagerDownloadCompletion completion = ^(NSArray *results, NSError *error) {
-                    if (error) {
-                        if (error.code == NSURLErrorCancelled) {
-                            NSLog(@"Cancelled search for \"%@\"", text);
+                    if ([wself.searchIDs containsObject:searchID]) {
+                        if (error) {
+                            if (error.code == NSURLErrorCancelled) {
+                                NSLog(@"Cancelled search for \"%@\"", text);
+                            }
+                            else {
+                                wself.networkError = error;
+                                
+                                NSLog(@"Failed to search for \"%@\" with error: %@", text, error);
+                            }
                         }
                         else {
-                            wself.networkError = error;
-                            
-                            NSLog(@"Failed to search for \"%@\" with error: %@", text, error);
+                            [wself.dataSource addObjects:results];
                         }
+
+                        [wself removeSearchID:searchID];
                     }
-
-                    [wself.dataSource addObjects:results];
-
-                    wself.searching = NO;
                 };
 
                 [STKContentManager searchPostsWithText:text
@@ -101,8 +106,28 @@
         dispatch_after(time, dispatch_get_main_queue(), block);
     }
     else {
+        [self removeAllSearchIDs];
+    }
+}
+
+- (void)addSearchID:(NSUUID *)searchID {
+    [self.searchIDs addObject:searchID];
+
+    self.searching = YES;
+}
+
+- (void)removeSearchID:(NSUUID *)searchID {
+    [self.searchIDs removeObject:searchID];
+
+    if (self.searchIDs.count == 0) {
         self.searching = NO;
     }
+}
+
+- (void)removeAllSearchIDs {
+    [self.searchIDs removeAllObjects];
+
+    self.searching = NO;
 }
 
 @end

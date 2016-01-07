@@ -15,7 +15,6 @@
 
 - (void)setupDataSourceWithTableView:(ASTableView *)tableView delegate:(id <STKTableViewDataSourceDelegate>)delegate;
 - (void)searchPostsWithText:(NSString *)text;
-- (void)cancelSearch;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 

@@ -228,6 +228,8 @@
 
     [self.searchField resignFirstResponder];
     [self hideCancelBarButtonItems];
+
+    self.listBackgroundView.state = STKListBackgroundViewStateEmpty;
 }
 
 - (void)showCancelBarButtonItems {

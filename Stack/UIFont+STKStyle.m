@@ -96,7 +96,7 @@ static NSString * const kSTKDefaultFontNameBold = @"Gotham-Bold";
 #pragma mark - Author
 
 + (UIFont *)stk_authorNameFont {
-    return [UIFont fontWithName:kSTKDefaultFontName size:20.0f];
+    return [UIFont fontWithName:kSTKDefaultFontNameBold size:20.0f];
 }
 
 + (UIFont *)stk_authorSummaryFont {
