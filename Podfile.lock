@@ -20,9 +20,9 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AsyncDisplayKit (1.9.3):
-    - AsyncDisplayKit/ASDealloc2MainObject (= 1.9.3)
-  - AsyncDisplayKit/ASDealloc2MainObject (1.9.3)
+  - AsyncDisplayKit (1.9.4):
+    - AsyncDisplayKit/ASDealloc2MainObject (= 1.9.4)
+  - AsyncDisplayKit/ASDealloc2MainObject (1.9.4)
   - BlockRSSParser (2.1):
     - AFNetworking (~> 2.0)
   - Bolts/Tasks (1.5.1)
@@ -161,7 +161,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
-  - AsyncDisplayKit (from `https://github.com/bsmith11/AsyncDisplayKit`, commit `e64965c1caea384be84d31e53a733f80bdf12d90`)
+  - AsyncDisplayKit (~> 1.9)
   - BlockRSSParser (from `https://github.com/bsmith11/BlockRSSParser`, commit `4938eaa1eb7c88d7a4d376f31e37b808ae957e15`)
   - CocoaLumberjack (~> 2.0)
   - DTCoreText (~> 1.6)
@@ -184,9 +184,6 @@ DEPENDENCIES:
   - youtube-ios-player-helper (~> 0.1)
 
 EXTERNAL SOURCES:
-  AsyncDisplayKit:
-    :commit: e64965c1caea384be84d31e53a733f80bdf12d90
-    :git: https://github.com/bsmith11/AsyncDisplayKit
   BlockRSSParser:
     :commit: 4938eaa1eb7c88d7a4d376f31e37b808ae957e15
     :git: https://github.com/bsmith11/BlockRSSParser
@@ -194,16 +191,13 @@ EXTERNAL SOURCES:
     :path: Pods/CocoaPodsKeys
 
 CHECKOUT OPTIONS:
-  AsyncDisplayKit:
-    :commit: e64965c1caea384be84d31e53a733f80bdf12d90
-    :git: https://github.com/bsmith11/AsyncDisplayKit
   BlockRSSParser:
     :commit: 4938eaa1eb7c88d7a4d376f31e37b808ae957e15
     :git: https://github.com/bsmith11/BlockRSSParser
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  AsyncDisplayKit: 87d340329280dba0363da3587a43f9d1bbe62aac
+  AsyncDisplayKit: 0932ff6f78364130a195039ab9a1c2ff63adc665
   BlockRSSParser: aedf3ab9a6c92f8d0881b9415fe88b5e136ab174
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0

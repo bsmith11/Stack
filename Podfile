@@ -14,7 +14,7 @@ pod 'RZCollectionList', '~> 0.7'
 pod 'RZDataBinding', '~> 2.0'
 pod 'RZUtils', '~> 2.5'
 pod 'AFNetworking', '~> 2.5'
-pod 'AsyncDisplayKit', :git => "https://github.com/bsmith11/AsyncDisplayKit", :commit => "e64965c1caea384be84d31e53a733f80bdf12d90"
+pod 'AsyncDisplayKit', '~> 1.9'
 pod 'pop', '~> 1.0'
 pod 'KVOController', '~> 1.0'
 pod 'DTCoreText', '~> 1.6'
