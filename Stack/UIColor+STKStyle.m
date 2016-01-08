@@ -62,4 +62,8 @@
     return [UIColor rz_colorFromHexString:@"543805"];
 }
 
++ (UIColor *)stk_getHorizontalColor {
+    return [UIColor rz_colorFromHexString:@"00A890"];
+}
+
 @end

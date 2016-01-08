@@ -48,7 +48,8 @@
                                  @(STKSourceTypeUltiworld):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeUltiworld],
                                  @(STKSourceTypeAUDL):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeAUDL],
                                  @(STKSourceTypeSludge):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDSludge sourceType:STKSourceTypeSludge],
-                                 @(STKSourceTypeProcessOfIllumination):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDProcessOfIllumination sourceType:STKSourceTypeProcessOfIllumination]};
+                                 @(STKSourceTypeProcessOfIllumination):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDProcessOfIllumination sourceType:STKSourceTypeProcessOfIllumination],
+                                 @(STKSourceTypeGetHorizontal):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeGetHorizontal]};
 
         self.cancelledSearchRequests = [NSMutableSet set];
     }

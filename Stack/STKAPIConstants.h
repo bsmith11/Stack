@@ -16,6 +16,7 @@ OBJC_EXTERN NSString * const kSTKAPIBaseURLBamaSecs;
 OBJC_EXTERN NSString * const kSTKAPIBaseURLUltiworld;
 OBJC_EXTERN NSString * const kSTKAPIBaseURLAUDL;
 OBJC_EXTERN NSString * const kSTKAPIBaseURLMLU;
+OBJC_EXTERN NSString * const kSTKAPIBaseURLGetHorizontal;
 OBJC_EXTERN NSString * const kSTKAPIBaseURLBlogger;
 
 OBJC_EXTERN NSString * const kSTKAPIBloggerIDSludge;

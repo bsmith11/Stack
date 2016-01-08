@@ -23,5 +23,6 @@
 + (UIColor *)stk_mluColor;
 + (UIColor *)stk_bamasecsColor;
 + (UIColor *)stk_sludgeColor;
++ (UIColor *)stk_getHorizontalColor;
 
 @end

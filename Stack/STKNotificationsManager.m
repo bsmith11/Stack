@@ -48,7 +48,8 @@ NSString * const kSTKNotificationsPermissionDidChangeNotificationKeyEnabled = @"
                           @(STKSourceTypeUltiworld):@"ultiworld",
                           @(STKSourceTypeAUDL):@"audl",
                           @(STKSourceTypeMLU):@"mlu",
-                          @(STKSourceTypeProcessOfIllumination):@"process_of_illumination"};
+                          @(STKSourceTypeProcessOfIllumination):@"process_of_illumination",
+                          @(STKSourceTypeGetHorizontal):@"get_horizontal"};
     }
 
     return self;

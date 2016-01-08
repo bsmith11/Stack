@@ -18,6 +18,7 @@
 + (NSArray *)allSourceTypes {
     return @[@(STKSourceTypeAUDL),
              @(STKSourceTypeBamaSecs),
+             @(STKSourceTypeGetHorizontal),
              @(STKSourceTypeMLU),
              @(STKSourceTypeProcessOfIllumination),
              @(STKSourceTypeSkyd),
@@ -70,7 +71,8 @@
                            @(STKSourceTypeAUDL):[NSURL URLWithString:kSTKAPIBaseURLAUDL],
                            @(STKSourceTypeMLU):[NSURL URLWithString:kSTKAPIBaseURLMLU],
                            @(STKSourceTypeSludge):[NSURL URLWithString:kSTKAPIBaseURLBlogger],
-                           @(STKSourceTypeProcessOfIllumination):[NSURL URLWithString:kSTKAPIBaseURLBlogger]};
+                           @(STKSourceTypeProcessOfIllumination):[NSURL URLWithString:kSTKAPIBaseURLBlogger],
+                           @(STKSourceTypeGetHorizontal):[NSURL URLWithString:kSTKAPIBaseURLGetHorizontal]};
     });
 
     return sourceBaseURLs;
@@ -90,7 +92,8 @@
                         @(STKSourceTypeAUDL):@"AUDL",
                         @(STKSourceTypeMLU):@"MLU",
                         @(STKSourceTypeSludge):@"Sludge Brown",
-                        @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination"};
+                        @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination",
+                        @(STKSourceTypeGetHorizontal):@"Get Horizontal"};
     });
 
     return sourceNames;
@@ -110,7 +113,8 @@
                             @(STKSourceTypeAUDL):@"The American Ultimate Disc League (AUDL) is the first and largest professional ultimate league in the world. It strives to maintain the sport’s rich history, and its 26 franchises embody the robust spirit of ultimate's players, fans, and community alike. The league's mission is to increase the visibility of one of North America’s fastest growing sports by creating fun, family friendly events that showcase the sport being played at its highest level.",
                             @(STKSourceTypeMLU):@"Major League Ultimate is the national Professional Ultimate Frisbee league with 8 teams on the east and west coasts.",
                             @(STKSourceTypeSludge):@"Sludge Brown Summary",
-                            @(STKSourceTypeProcessOfIllumination):@"The off-hand backhand in the pick-up game of life"};
+                            @(STKSourceTypeProcessOfIllumination):@"The off-hand backhand in the pick-up game of life",
+                            @(STKSourceTypeGetHorizontal):@"Get Horizontal is a creative collective representing the culture of frisbee. Our inspiration is a community of people with a positive attitude towards sports, life and style. In search of adventure and sunshine, here's #TheUltimateLife."};
     });
 
     return sourceSummaries;
@@ -130,7 +134,8 @@
                        @(STKSourceTypeAUDL):@"AUDL Source Image",
                        @(STKSourceTypeMLU):@"MLU Source Image",
                        @(STKSourceTypeSludge):@"Sludge Source Image",
-                       @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination Source Image"};
+                       @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination Source Image",
+                       @(STKSourceTypeGetHorizontal):@"Get Horizontal Source Image"};
     });
 
     return imageNames;
@@ -150,7 +155,8 @@
                              @(STKSourceTypeAUDL):@"AUDL Banner Image",
                              @(STKSourceTypeMLU):@"MLU Banner Image",
                              @(STKSourceTypeSludge):@"Sludge Banner Image",
-                             @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination Banner Image"};
+                             @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination Banner Image",
+                             @(STKSourceTypeGetHorizontal):@"Get Horizontal Banner Image"};
     });
 
     return bannerImageNames;
@@ -188,6 +194,10 @@
             color = [UIColor blackColor];
             break;
 
+        case STKSourceTypeGetHorizontal:
+            color = [UIColor stk_getHorizontalColor];
+            break;
+
         default:
             color = [UIColor stk_stackColor];
             break;
@@ -210,7 +220,8 @@
                          @(STKSourceTypeAUDL):@(STKBackendTypeRSS),
                          @(STKSourceTypeMLU):@(STKBackendTypeWordpress),
                          @(STKSourceTypeSludge):@(STKBackendTypeBlogger),
-                         @(STKSourceTypeProcessOfIllumination):@(STKBackendTypeBlogger)};
+                         @(STKSourceTypeProcessOfIllumination):@(STKBackendTypeBlogger),
+                         @(STKSourceTypeGetHorizontal):@(STKBackendTypeRSS)};
     });
 
     return backendTypes;
@@ -230,7 +241,8 @@
                           @(STKSourceTypeAUDL):@"info@theaudl.com",
                           @(STKSourceTypeMLU):@"info@mlultimate.com",
                           @(STKSourceTypeSludge):@"Sludge.bbm@gmail.com",
-                          @(STKSourceTypeProcessOfIllumination):@""};
+                          @(STKSourceTypeProcessOfIllumination):@"",
+                          @(STKSourceTypeGetHorizontal):@"bommie@gethorizontal.com"};
     });
 
     return contactEmails;

@@ -15,7 +15,8 @@ typedef NS_ENUM(NSInteger, STKSourceType) {
     STKSourceTypeAUDL,
     STKSourceTypeMLU,
     STKSourceTypeSludge,
-    STKSourceTypeProcessOfIllumination
+    STKSourceTypeProcessOfIllumination,
+    STKSourceTypeGetHorizontal
 };
 
 typedef NS_ENUM(NSInteger, STKBackendType) {

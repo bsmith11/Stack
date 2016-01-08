@@ -13,6 +13,7 @@ NSString * const kSTKAPIBaseURLBamaSecs = @"http://bamasecs.com";
 NSString * const kSTKAPIBaseURLUltiworld = @"http://ultiworld.com/feed";
 NSString * const kSTKAPIBaseURLAUDL = @"http://theaudl.com/appfeed.xml";
 NSString * const kSTKAPIBaseURLMLU = @"http://mlultimate.com";
+NSString * const kSTKAPIBaseURLGetHorizontal = @"http://gethorizontal.com/feed";
 NSString * const kSTKAPIBaseURLBlogger = @"https://www.googleapis.com";
 
 NSString * const kSTKAPIBloggerIDSludge = @"36043047";
