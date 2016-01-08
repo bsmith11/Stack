@@ -11,17 +11,18 @@
 #import "STKAttributes.h"
 
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
+#import <KVOController/FBKVOController.h>
+#import <RZDataBinding/RZDataBinding.h>
+#import <RZUtils/RZCommonUtils.h>
 
 @interface STKUnavailableNode ()
 
-@property (strong, nonatomic) ASImageNode *imageNode;
 @property (strong, nonatomic) ASTextNode *titleTextNode;
 @property (strong, nonatomic) ASTextNode *messageTextNode;
 @property (strong, nonatomic) ASTextNode *actionTextNode;
 
 @property (weak, nonatomic) id <STKUnavailableNodeDelegate> delegate;
 
-@property (assign, nonatomic) CGRect imageNodeFrame;
 @property (assign, nonatomic) CGRect titleTextNodeFrame;
 @property (assign, nonatomic) CGRect messageTextNodeFrame;
 @property (assign, nonatomic) CGRect actionTextNodeFrame;
@@ -39,10 +40,11 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor clearColor];
 
-        [self setupImageNode];
         [self setupTitleTextNode];
         [self setupMessageTextNode];
         [self setupActionTextNode];
+
+        [self setupObservers];
     }
 
     return self;
@@ -50,8 +52,6 @@
 
 - (CGSize)calculateSizeThatFits:(CGSize)constrainedSize {
     //Sizing
-    CGSize imageNodeSize = CGSizeMake(100.0f, 100.0f);
-
     CGSize titleConstrainedSize = CGSizeMake(constrainedSize.width - 50.0f, constrainedSize.height);
     CGSize titleSize = [self.titleTextNode measure:titleConstrainedSize];
 
@@ -62,13 +62,8 @@
     CGSize actionSize = [self.actionTextNode measure:actionConstrainedSize];
 
     //Positioning
-    CGFloat x = (constrainedSize.width - imageNodeSize.width) / 2;
+    CGFloat x = (constrainedSize.width - titleSize.width) / 2;
     CGFloat y = 25.0f;
-
-    self.imageNodeFrame = CGRectMake(x, y, imageNodeSize.width, imageNodeSize.height);
-
-    x = (constrainedSize.width - titleSize.width) / 2;
-    y = CGRectGetMaxY(self.imageNodeFrame) + 25.0f;
 
     self.titleTextNodeFrame = CGRectMake(x, y, titleSize.width, titleSize.height);
 
@@ -86,7 +81,6 @@
 }
 
 - (void)layout {
-    self.imageNode.frame = self.imageNodeFrame;
     self.titleTextNode.frame = self.titleTextNodeFrame;
     self.messageTextNode.frame = self.messageTextNodeFrame;
     self.actionTextNode.frame = self.actionTextNodeFrame;
@@ -94,32 +88,20 @@
 
 #pragma mark - Setup
 
-- (void)setupWithImage:(UIImage *)image
-                 title:(NSString *)title
+- (void)setupWithTitle:(NSString *)title
                message:(NSString *)message
                 action:(NSString *)action
               delegate:(id <STKUnavailableNodeDelegate>)delegate {
-    self.imageNode.image = image;
-
     title = title ?: @"";
-    self.titleTextNode.attributedString = [[NSAttributedString alloc] initWithString:title attributes:[STKAttributes stk_emptyStateTitleAttributes]];
+    self.titleTextNode.attributedString = [[NSAttributedString alloc] initWithString:title attributes:[STKAttributes stk_unavailableTitleAttributes]];
 
     message = message ?: @"";
-    self.messageTextNode.attributedString = [[NSAttributedString alloc] initWithString:message attributes:[STKAttributes stk_emptyStateMessageAttributes]];
+    self.messageTextNode.attributedString = [[NSAttributedString alloc] initWithString:message attributes:[STKAttributes stk_unavailableMessageAttributes]];
 
     action = action ?: @"";
-    self.actionTextNode.attributedString = [[NSAttributedString alloc] initWithString:action attributes:[STKAttributes stk_emptyStateActionAttributes]];
+    self.actionTextNode.attributedString = [[NSAttributedString alloc] initWithString:action attributes:[STKAttributes stk_unavailableActionAttributes]];
 
     self.delegate = delegate;
-}
-
-- (void)setupImageNode {
-    self.imageNode = [[ASImageNode alloc] init];
-    self.imageNode.layerBacked = YES;
-    self.imageNode.contentMode = UIViewContentModeScaleAspectFit;
-    self.imageNode.placeholderEnabled = YES;
-
-    [self addSubnode:self.imageNode];
 }
 
 - (void)setupTitleTextNode {
@@ -147,6 +129,19 @@
     [self.actionTextNode addTarget:self action:@selector(didTapActionTextNode) forControlEvents:ASControlNodeEventTouchUpInside];
 
     [self addSubnode:self.actionTextNode];
+}
+
+- (void)setupObservers {
+    NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
+
+    __weak __typeof(self) wself = self;
+
+    [self.KVOController observe:self.actionTextNode keyPath:RZDB_KP(ASTextNode, highlighted) options:options block:^(id observer, id object, NSDictionary *change) {
+        NSNumber *highlighted = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+        CGFloat alpha = highlighted.boolValue ? 0.5f : 1.0f;
+        wself.actionTextNode.alpha = alpha;
+    }];
 }
 
 #pragma mark - Actions

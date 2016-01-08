@@ -98,8 +98,9 @@
 
     self.authorNetworkImageNodeFrame = CGRectMake(x, y, authorNetworkImageSize.width, authorNetworkImageSize.height);
 
-    CGFloat authorOffset = CGRectGetMaxX(self.authorBorderImageNodeFrame) + 12.5f;
-    x = authorOffset + (authorAvailableWidth / 2) - (authorSize.width / 2);
+//    CGFloat authorOffset = CGRectGetMaxX(self.authorBorderImageNodeFrame) + 12.5f;
+//    x = authorOffset + (authorAvailableWidth / 2) - (authorSize.width / 2);
+    x = CGRectGetMaxX(self.authorBorderImageNodeFrame) + 12.5f;
     y = CGRectGetMidY(self.authorBorderImageNodeFrame) + (((CGRectGetHeight(self.authorBorderImageNodeFrame) / 2) + 12.5f) / 2) - (authorSize.height / 2);
 
     self.authorTextNodeFrame = CGRectMake(x, y, authorSize.width, authorSize.height);

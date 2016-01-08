@@ -38,6 +38,10 @@
 + (NSDictionary *)stk_sourceNameAttributes;
 + (NSDictionary *)stk_sourceSummaryAttributes;
 
++ (NSDictionary *)stk_unavailableTitleAttributes;
++ (NSDictionary *)stk_unavailableMessageAttributes;
++ (NSDictionary *)stk_unavailableActionAttributes;
+
 + (NSDictionary *)stk_emptyStateTitleAttributes;
 + (NSDictionary *)stk_emptyStateMessageAttributes;
 + (NSDictionary *)stk_emptyStateActionAttributes;

@@ -18,8 +18,7 @@
 
 @interface STKUnavailableNode : ASCellNode
 
-- (void)setupWithImage:(UIImage *)image
-                 title:(NSString *)title
+- (void)setupWithTitle:(NSString *)title
                message:(NSString *)message
                 action:(NSString *)action
               delegate:(id <STKUnavailableNodeDelegate>)delegate;

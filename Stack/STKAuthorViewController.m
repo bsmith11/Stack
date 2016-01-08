@@ -171,8 +171,7 @@
         NSString *message = [NSString stringWithFormat:@"Author articles are currently not available for %@. If you would like to see them supported, let %@ know.", sournceName, sournceName];
         NSString *action = [NSString stringWithFormat:@"Contact %@", sournceName];
 
-        [unavailableNode setupWithImage:[UIImage imageNamed:@"Unavailable Large"]
-                                  title:@"Not Available"
+        [unavailableNode setupWithTitle:@"Not Available"
                                 message:message
                                  action:action
                                delegate:self];

@@ -250,6 +250,45 @@
     return attributes;
 }
 
+#pragma mark - Unavailable Message
+
++ (NSDictionary *)stk_unavailableTitleAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_stackColor],
+                                 NSFontAttributeName:[UIFont stk_emptyStateTitleFont],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+
+    return attributes;
+}
+
++ (NSDictionary *)stk_unavailableMessageAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_stackColor],
+                                 NSFontAttributeName:[UIFont stk_emptyStateMessageFont],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+
+    return attributes;
+}
+
++ (NSDictionary *)stk_unavailableActionAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_twitterColor],
+                                 NSFontAttributeName:[UIFont stk_emptyStateActionFont],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+
+    return attributes;
+}
+
 #pragma mark - Empty State
 
 + (NSDictionary *)stk_emptyStateTitleAttributes {
