@@ -19,6 +19,7 @@
     return @[@(STKSourceTypeAUDL),
              @(STKSourceTypeBamaSecs),
              @(STKSourceTypeMLU),
+             @(STKSourceTypeProcessOfIllumination),
              @(STKSourceTypeSkyd),
              @(STKSourceTypeSludge),
              @(STKSourceTypeUltiworld)];
@@ -68,7 +69,8 @@
                            @(STKSourceTypeUltiworld):[NSURL URLWithString:kSTKAPIBaseURLUltiworld],
                            @(STKSourceTypeAUDL):[NSURL URLWithString:kSTKAPIBaseURLAUDL],
                            @(STKSourceTypeMLU):[NSURL URLWithString:kSTKAPIBaseURLMLU],
-                           @(STKSourceTypeSludge):[NSURL URLWithString:kSTKAPIBaseURLBlogger]};
+                           @(STKSourceTypeSludge):[NSURL URLWithString:kSTKAPIBaseURLBlogger],
+                           @(STKSourceTypeProcessOfIllumination):[NSURL URLWithString:kSTKAPIBaseURLBlogger]};
     });
 
     return sourceBaseURLs;
@@ -87,7 +89,8 @@
                         @(STKSourceTypeUltiworld):@"Ultiworld",
                         @(STKSourceTypeAUDL):@"AUDL",
                         @(STKSourceTypeMLU):@"MLU",
-                        @(STKSourceTypeSludge):@"Sludge Brown"};
+                        @(STKSourceTypeSludge):@"Sludge Brown",
+                        @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination"};
     });
 
     return sourceNames;
@@ -106,7 +109,8 @@
                             @(STKSourceTypeUltiworld):@"Ultiworld is the premier news media site dedicated to the sport of Ultimate. From in-depth reporting to video highlights, we strive to bring you the most interesting and important stories from around the globe.",
                             @(STKSourceTypeAUDL):@"The American Ultimate Disc League (AUDL) is the first and largest professional ultimate league in the world. It strives to maintain the sport’s rich history, and its 26 franchises embody the robust spirit of ultimate's players, fans, and community alike. The league's mission is to increase the visibility of one of North America’s fastest growing sports by creating fun, family friendly events that showcase the sport being played at its highest level.",
                             @(STKSourceTypeMLU):@"Major League Ultimate is the national Professional Ultimate Frisbee league with 8 teams on the east and west coasts.",
-                            @(STKSourceTypeSludge):@"Sludge Brown Summary"};
+                            @(STKSourceTypeSludge):@"Sludge Brown Summary",
+                            @(STKSourceTypeProcessOfIllumination):@"The off-hand backhand in the pick-up game of life"};
     });
 
     return sourceSummaries;
@@ -125,7 +129,8 @@
                        @(STKSourceTypeUltiworld):@"Ultiworld Source Image",
                        @(STKSourceTypeAUDL):@"AUDL Source Image",
                        @(STKSourceTypeMLU):@"MLU Source Image",
-                       @(STKSourceTypeSludge):@"Sludge Source Image"};
+                       @(STKSourceTypeSludge):@"Sludge Source Image",
+                       @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination Source Image"};
     });
 
     return imageNames;
@@ -144,7 +149,8 @@
                              @(STKSourceTypeUltiworld):@"Ultiworld Banner Image",
                              @(STKSourceTypeAUDL):@"AUDL Banner Image",
                              @(STKSourceTypeMLU):@"MLU Banner Image",
-                             @(STKSourceTypeSludge):@"Sludge Banner Image"};
+                             @(STKSourceTypeSludge):@"Sludge Banner Image",
+                             @(STKSourceTypeProcessOfIllumination):@"Process Of Illumination Banner Image"};
     });
 
     return bannerImageNames;
@@ -178,6 +184,10 @@
             color = [UIColor stk_sludgeColor];
             break;
 
+        case STKSourceTypeProcessOfIllumination:
+            color = [UIColor blackColor];
+            break;
+
         default:
             color = [UIColor stk_stackColor];
             break;
@@ -199,7 +209,8 @@
                          @(STKSourceTypeUltiworld):@(STKBackendTypeRSS),
                          @(STKSourceTypeAUDL):@(STKBackendTypeRSS),
                          @(STKSourceTypeMLU):@(STKBackendTypeWordpress),
-                         @(STKSourceTypeSludge):@(STKBackendTypeBlogger)};
+                         @(STKSourceTypeSludge):@(STKBackendTypeBlogger),
+                         @(STKSourceTypeProcessOfIllumination):@(STKBackendTypeBlogger)};
     });
 
     return backendTypes;
@@ -218,7 +229,8 @@
                           @(STKSourceTypeUltiworld):@"editor@ultiworld.com",
                           @(STKSourceTypeAUDL):@"info@theaudl.com",
                           @(STKSourceTypeMLU):@"info@mlultimate.com",
-                          @(STKSourceTypeSludge):@"Sludge.bbm@gmail.com"};
+                          @(STKSourceTypeSludge):@"Sludge.bbm@gmail.com",
+                          @(STKSourceTypeProcessOfIllumination):@""};
     });
 
     return contactEmails;

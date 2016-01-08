@@ -19,3 +19,4 @@ OBJC_EXTERN NSString * const kSTKAPIBaseURLMLU;
 OBJC_EXTERN NSString * const kSTKAPIBaseURLBlogger;
 
 OBJC_EXTERN NSString * const kSTKAPIBloggerIDSludge;
+OBJC_EXTERN NSString * const kSTKAPIBloggerIDProcessOfIllumination;

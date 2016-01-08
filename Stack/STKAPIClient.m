@@ -47,7 +47,8 @@
                                  @(STKSourceTypeMLU):[[STKWordpressSessionManager alloc] initWithSourceType:STKSourceTypeMLU],
                                  @(STKSourceTypeUltiworld):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeUltiworld],
                                  @(STKSourceTypeAUDL):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeAUDL],
-                                 @(STKSourceTypeSludge):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDSludge sourceType:STKSourceTypeSludge]};
+                                 @(STKSourceTypeSludge):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDSludge sourceType:STKSourceTypeSludge],
+                                 @(STKSourceTypeProcessOfIllumination):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDProcessOfIllumination sourceType:STKSourceTypeProcessOfIllumination]};
 
         self.cancelledSearchRequests = [NSMutableSet set];
     }

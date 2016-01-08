@@ -16,3 +16,4 @@ NSString * const kSTKAPIBaseURLMLU = @"http://mlultimate.com";
 NSString * const kSTKAPIBaseURLBlogger = @"https://www.googleapis.com";
 
 NSString * const kSTKAPIBloggerIDSludge = @"36043047";
+NSString * const kSTKAPIBloggerIDProcessOfIllumination = @"17185944";

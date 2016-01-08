@@ -47,7 +47,8 @@ NSString * const kSTKNotificationsPermissionDidChangeNotificationKeyEnabled = @"
                           @(STKSourceTypeBamaSecs):@"bama_secs",
                           @(STKSourceTypeUltiworld):@"ultiworld",
                           @(STKSourceTypeAUDL):@"audl",
-                          @(STKSourceTypeMLU):@"mlu"};
+                          @(STKSourceTypeMLU):@"mlu",
+                          @(STKSourceTypeProcessOfIllumination):@"process_of_illumination"};
     }
 
     return self;
