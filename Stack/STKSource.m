@@ -29,7 +29,9 @@
 + (NSArray *)sourcesWithSearchAvailable {
     return @[@(STKSourceTypeBamaSecs),
              @(STKSourceTypeMLU),
-             @(STKSourceTypeSkyd)];
+             @(STKSourceTypeSkyd),
+             @(STKSourceTypeSludge),
+             @(STKSourceTypeProcessOfIllumination)];
 }
 
 + (NSArray *)sourcesWithNotificationsAvailable {

@@ -11,14 +11,16 @@
 NSString * const kSTKAPIBloggerRoutePrefix = @"/blogger/v3/blogs";
 NSString * const kSTKAPIBloggerRoutePosts = @"/posts";
 NSString * const kSTKAPIBloggerRoutePostComments = @"/posts/%@/comments";
+NSString * const kSTKAPIBloggerRoutePostsSearch = @"/posts/search";
 
 NSString * const kSTKAPIBloggerRequestKeyMaxResults = @"maxResults";
 NSString * const kSTKAPIBloggerRequestKeyFetchImages = @"fetchImages";
 NSString * const kSTKAPIBloggerRequestKeyStatus = @"status";
 NSString * const kSTKAPIBloggerRequestKeyEndDate = @"endDate";
 NSString * const kSTKAPIBloggerRequestKeyAPIKey = @"key";
+NSString * const kSTKAPIBloggerRequestKeyQuery = @"q";
 
-NSString * const KSTKAPIBloggerRequestValueStatus = @"live";
+NSString * const kSTKAPIBloggerRequestValueStatus = @"live";
 
 //Post
 

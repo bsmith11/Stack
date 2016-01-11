@@ -23,6 +23,7 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
 @interface STKBloggerSessionManager ()
 
 @property (strong, nonatomic, readwrite) NSString *blogID;
+@property (strong, nonatomic) NSURLSessionDataTask *searchTask;
 
 @property (assign, nonatomic, readwrite) STKSourceType sourceType;
 
@@ -68,7 +69,7 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
     NSDictionary *parameters = @{kSTKAPIBloggerRequestKeyBlogID:blogID,
                                  kSTKAPIBloggerRequestKeyEndDate:dateString,
                                  kSTKAPIBloggerRequestKeyMaxResults:@(kSTKBloggerSessionManagerPostsPerPage),
-                                 kSTKAPIBloggerRequestKeyStatus:KSTKAPIBloggerRequestValueStatus,
+                                 kSTKAPIBloggerRequestKeyStatus:kSTKAPIBloggerRequestValueStatus,
                                  kSTKAPIBloggerRequestKeyFetchImages:@"true",
                                  kSTKAPIBloggerRequestKeyAPIKey:bloggerAPIKey};
     NSString *path = [self pathWithRoute:kSTKAPIBloggerRoutePosts];
@@ -84,31 +85,33 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
 }
 
 - (void)searchPostsWithText:(NSString *)text completion:(STKAPICompletion)completion {
-    if (completion) {
-        completion(nil, nil, self.sourceType);
+    [self.searchTask cancel];
+
+    if (text.length > 0) {
+        NSNumber *blogID = self.blogID ? @(self.blogID.longLongValue) : @(0);
+        StackKeys *keys = [[StackKeys alloc] init];
+        NSString *bloggerAPIKey = keys.bloggerAPIKey ?: @"";
+
+        NSDictionary *parameters = @{kSTKAPIBloggerRequestKeyBlogID:blogID,
+                                     kSTKAPIBloggerRequestKeyQuery:text,
+                                     kSTKAPIBloggerRequestKeyAPIKey:bloggerAPIKey};
+        NSString *path = [self pathWithRoute:kSTKAPIBloggerRoutePostsSearch];
+
+        NSURLSessionDataTask *searchTask = [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
+            NSMutableArray *posts = responseObject[kSTKAPIBloggerResponseKeyItems];
+            [self prefixValuesForPosts:posts];
+
+            if (completion) {
+                completion(posts, error, self.sourceType);
+            }
+        }];
+
+        self.searchTask = searchTask;
     }
-    //    [self.searchTask cancel];
-    //
-    //    if (text.length > 0) {
-    //        NSDictionary *parameters = @{kSTKAPIWordpressRequestKeyFilter:@{kSTKAPIWordpressRequestKeySearch:text,
-    //                                                                       kSTKAPIWordpressRequestKeyPostsPerPage:@(kSTKWordpressSessionManagerPostsPerPage)}};
-    //
-    //        NSString *path = [self pathWithRoute:kSTKAPIWordpressRoutePosts];
-    //
-    //        NSURLSessionDataTask *searchTask = [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
-    //            NSArray *posts = [STKSource prefixedArrayOfPostDictionariesFromArray:responseObject type:self.type];
-    //
-    //            if (completion) {
-    //                completion(posts, error, self.type);
-    //            }
-    //        }];
-    //
-    //        self.searchTask = searchTask;
-    //    }
 }
 
 - (void)cancelPreviousPostSearches {
-//    [self.searchTask cancel];
+    [self.searchTask cancel];
 }
 
 - (void)getCommentsForPost:(STKPost *)post completion:(STKAPICompletion)completion {
@@ -119,7 +122,7 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
 
     NSDictionary *parameters = @{kSTKAPIBloggerRequestKeyBlogID:blogID,
                                  kSTKAPIBloggerRequestKeyPostID:postID,
-                                 kSTKAPIBloggerRequestKeyStatus:KSTKAPIBloggerRequestValueStatus,
+                                 kSTKAPIBloggerRequestKeyStatus:kSTKAPIBloggerRequestValueStatus,
                                  kSTKAPIBloggerRequestKeyFetchBodies:@"true",
                                  kSTKAPIBloggerRequestKeyAPIKey:bloggerAPIKey};
     NSString *path = [self pathWithRoute:[NSString stringWithFormat:kSTKAPIBloggerRoutePostComments, postID]];

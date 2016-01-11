@@ -11,14 +11,16 @@
 OBJC_EXTERN NSString * const kSTKAPIBloggerRoutePrefix;
 OBJC_EXTERN NSString * const kSTKAPIBloggerRoutePosts;
 OBJC_EXTERN NSString * const kSTKAPIBloggerRoutePostComments;
+OBJC_EXTERN NSString * const kSTKAPIBloggerRoutePostsSearch;
 
 OBJC_EXTERN NSString * const kSTKAPIBloggerRequestKeyMaxResults;
 OBJC_EXTERN NSString * const kSTKAPIBloggerRequestKeyFetchImages;
 OBJC_EXTERN NSString * const kSTKAPIBloggerRequestKeyStatus;
 OBJC_EXTERN NSString * const kSTKAPIBloggerRequestKeyEndDate;
 OBJC_EXTERN NSString * const kSTKAPIBloggerRequestKeyAPIKey;
+OBJC_EXTERN NSString * const kSTKAPIBloggerRequestKeyQuery;
 
-OBJC_EXTERN NSString * const KSTKAPIBloggerRequestValueStatus;
+OBJC_EXTERN NSString * const kSTKAPIBloggerRequestValueStatus;
 
 //Post
 
