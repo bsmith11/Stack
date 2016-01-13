@@ -45,6 +45,8 @@
     [[STKAPIClient sharedInstance] getCommentsForPost:post completion:^(id responseObject, NSError *error, STKSourceType type) {
         if (!error) {
             if ([responseObject isKindOfClass:[NSArray class]]) {
+                NSLog(@"Finished downloading comments for post: %@", post.title);
+
                 STKBackendType backendType = [STKSource backendTypeForType:type];
                 Class class;
 

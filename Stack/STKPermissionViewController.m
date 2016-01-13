@@ -78,7 +78,7 @@
     NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:[STKAttributes stk_onboardingTitleAttributes]];
     self.titleLabel.attributedText = attributedTitle;
 
-    [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:(8 * 25.0f)].active = YES;
+    [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:(2 * 25.0f)].active = YES;
     [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
 }
@@ -94,7 +94,7 @@
     NSAttributedString *attributedMessage = [[NSAttributedString alloc] initWithString:message attributes:[STKAttributes stk_onboardingMessageAttributes]];
     self.messageLabel.attributedText = attributedMessage;
 
-    [self.messageLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:(2 * 25.0f)].active = YES;
+    [self.messageLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:25.0f].active = YES;
     [self.messageLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.messageLabel.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
 }
@@ -110,7 +110,7 @@
     NSAttributedString *attributedActionTitle = [[NSAttributedString alloc] initWithString:actionTitle attributes:[STKAttributes stk_onboardingActionAttributes]];
     [self.actionButton setAttributedTitle:attributedActionTitle forState:UIControlStateNormal];
 
-    [self.actionButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:(2 * 25.0f)].active = YES;
+    [self.actionButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
     [self.actionButton.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.actionButton.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
     [self.actionButton.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor].active = YES;
@@ -127,7 +127,7 @@
     NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:acceptedTitle attributes:attributes];
     self.acceptedLabel.attributedText = attributedTitle;
 
-    [self.acceptedLabel.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:(2 * 25.0f)].active = YES;
+    [self.acceptedLabel.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
     [self.acceptedLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.acceptedLabel.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
     [self.acceptedLabel.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor].active = YES;
@@ -146,7 +146,7 @@
     NSAttributedString *attributedDeniedTitle = [[NSAttributedString alloc] initWithString:deniedTitle attributes:[STKAttributes stk_onboardingActionAttributes]];
     [self.deniedButton setAttributedTitle:attributedDeniedTitle forState:UIControlStateNormal];
 
-    [self.deniedButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:(2 * 25.0f)].active = YES;
+    [self.deniedButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
     [self.deniedButton.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.deniedButton.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
     [self.deniedButton.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor].active = YES;

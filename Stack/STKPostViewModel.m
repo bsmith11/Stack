@@ -37,8 +37,10 @@
         [self setupObjects];
 
         self.downloading = YES;
+
+        __weak __typeof(self) wself = self;
         [STKComment downloadCommentsForPost:post completion:^(NSError * _Nonnull error) {
-            self.downloading = NO;
+            wself.downloading = NO;
         }];
     }
 

@@ -74,12 +74,13 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
                                  kSTKAPIBloggerRequestKeyAPIKey:bloggerAPIKey};
     NSString *path = [self pathWithRoute:kSTKAPIBloggerRoutePosts];
 
+    __weak __typeof(self) wself = self;
     [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
         NSMutableArray *posts = responseObject[kSTKAPIBloggerResponseKeyItems];
-        [self prefixValuesForPosts:posts];
+        [wself prefixValuesForPosts:posts];
 
         if (completion) {
-            completion(posts, error, self.sourceType);
+            completion(posts, error, wself.sourceType);
         }
     }];
 }
@@ -97,12 +98,13 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
                                      kSTKAPIBloggerRequestKeyAPIKey:bloggerAPIKey};
         NSString *path = [self pathWithRoute:kSTKAPIBloggerRoutePostsSearch];
 
+        __weak __typeof(self) wself = self;
         NSURLSessionDataTask *searchTask = [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
             NSMutableArray *posts = responseObject[kSTKAPIBloggerResponseKeyItems];
-            [self prefixValuesForPosts:posts];
+            [wself prefixValuesForPosts:posts];
 
             if (completion) {
-                completion(posts, error, self.sourceType);
+                completion(posts, error, wself.sourceType);
             }
         }];
 
@@ -127,12 +129,13 @@ static NSInteger const kSTKBloggerSessionManagerPostsPerPage = 20;
                                  kSTKAPIBloggerRequestKeyAPIKey:bloggerAPIKey};
     NSString *path = [self pathWithRoute:[NSString stringWithFormat:kSTKAPIBloggerRoutePostComments, postID]];
 
+    __weak __typeof(self) wself = self;
     [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
         NSMutableArray *comments = responseObject[kSTKAPIBloggerResponseKeyItems];
-        [self prefixValuesForComments:comments];
+        [wself prefixValuesForComments:comments];
         
         if (completion) {
-            completion(comments, error, self.sourceType);
+            completion(comments, error, wself.sourceType);
         }
     }];
 }

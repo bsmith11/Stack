@@ -197,7 +197,7 @@
     RZKeyboardAnimationBlock animations = ^(BOOL keyboardVisible, CGRect keyboardFrame) {
         UIEdgeInsets contentInset = wself.searchTableView.contentInset;
         UIEdgeInsets indicatorInset = wself.searchTableView.scrollIndicatorInsets;
-        CGFloat bottomInset = keyboardVisible ? CGRectGetHeight(keyboardFrame) : CGRectGetHeight(self.tabBarController.tabBar.frame);
+        CGFloat bottomInset = keyboardVisible ? CGRectGetHeight(keyboardFrame) : CGRectGetHeight(wself.tabBarController.tabBar.frame);
 
         contentInset.bottom = bottomInset + 6.25f;
         indicatorInset.bottom = bottomInset;

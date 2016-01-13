@@ -12,9 +12,11 @@
 #import "STKAnalyticsManager.h"
 
 #import "UIColor+STKStyle.h"
+#import "UIFont+STKStyle.h"
 
 @interface STKOnboardingPageViewController () <UIPageViewControllerDataSource, STKPermissionViewControllerDelegate>
 
+@property (strong, nonatomic) UILabel *skipLabel;
 @property (strong, nonatomic) UIButton *skipButton;
 
 @end
@@ -32,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor stk_backgroundColor];
+    self.view.backgroundColor = [UIColor whiteColor];
 
     STKPermissionViewController *notificationsPermissionViewController = [[STKPermissionViewController alloc] init];
     notificationsPermissionViewController.delegate = self;
@@ -52,10 +54,15 @@
     [self.view addSubview:self.skipButton];
 
     [self.skipButton setTitle:@"Skip" forState:UIControlStateNormal];
+    self.skipButton.titleLabel.font = [UIFont stk_onboardingActionFont];
+    [self.skipButton setTitleColor:[UIColor stk_twitterColor] forState:UIControlStateNormal];
     [self.skipButton addTarget:self action:@selector(didTapSkipButton) forControlEvents:UIControlEventTouchUpInside];
+    self.skipButton.contentEdgeInsets = UIEdgeInsetsMake(12.5f + 3.0f, 12.5f, 12.5f, 12.5f);
 
-    [self.view.bottomAnchor constraintEqualToAnchor:self.skipButton.bottomAnchor constant:25.0f].active = YES;
-    [self.view.trailingAnchor constraintEqualToAnchor:self.skipButton.trailingAnchor constant:(2 * 25.0f)].active = YES;
+    NSArray *constraints = @[[self.view.bottomAnchor constraintEqualToAnchor:self.skipButton.bottomAnchor],
+                             [self.view.trailingAnchor constraintEqualToAnchor:self.skipButton.trailingAnchor]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 #pragma mark - Actions

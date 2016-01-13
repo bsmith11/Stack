@@ -84,21 +84,23 @@
 
 - (void)addObjects:(NSArray *)objects {
     if (objects.count > 0) {
+        __weak __typeof(self) wself = self;
+
         [self.queue addOperationWithBlock:^{
             NSMutableOrderedSet *newObjects = [NSMutableOrderedSet orderedSetWithArray:objects];
-            [newObjects minusOrderedSet:self.mutableObjects];
+            [newObjects minusOrderedSet:wself.mutableObjects];
 
             NSMutableOrderedSet *updatedObjects = [NSMutableOrderedSet orderedSetWithArray:objects];
-            [updatedObjects intersectOrderedSet:self.mutableObjects];
+            [updatedObjects intersectOrderedSet:wself.mutableObjects];
 
-            [self.mutableObjects unionOrderedSet:newObjects];
-            [self.mutableObjects sortUsingDescriptors:self.sortDescriptors];
+            [wself.mutableObjects unionOrderedSet:newObjects];
+            [wself.mutableObjects sortUsingDescriptors:wself.sortDescriptors];
 
-            NSIndexSet *newIndexes = [self.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSIndexSet *newIndexes = [wself.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 return [newObjects containsObject:obj];
             }];
 
-            NSIndexSet *updatedIndexes = [self.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSIndexSet *updatedIndexes = [wself.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 return [updatedObjects containsObject:obj];
             }];
 
@@ -112,39 +114,39 @@
                 [updatedIndexPaths addObject:[NSIndexPath indexPathForRow:(NSInteger)idx inSection:0]];
             }];
 
-            [self.tableView beginUpdates];
+            [wself.tableView beginUpdates];
 
-            [self.tableView insertRowsAtIndexPaths:newIndexPaths withRowAnimation:UITableViewRowAnimationNone];
+            [wself.tableView insertRowsAtIndexPaths:newIndexPaths withRowAnimation:UITableViewRowAnimationNone];
 
-            [self.tableView endUpdatesAnimated:self.animateChanges completion:^(BOOL completed) {
+            [wself.tableView endUpdatesAnimated:wself.animateChanges completion:^(BOOL completed) {
                 for (NSIndexPath *indexPath in updatedIndexPaths) {
-                    if ([self tableView:self.tableView containsIndexPath:indexPath]) {
-                        ASCellNode *node = [self.tableView nodeForRowAtIndexPath:indexPath];
-                        id object = [self.mutableObjects objectAtIndex:(NSUInteger)indexPath.row];
+                    if ([wself tableView:wself.tableView containsIndexPath:indexPath]) {
+                        ASCellNode *node = [wself.tableView nodeForRowAtIndexPath:indexPath];
+                        id object = [wself.mutableObjects objectAtIndex:(NSUInteger)indexPath.row];
 
                         if (node) {
-                            [self.delegate tableView:self.tableView updateNode:node forObject:object atIndexPath:indexPath];
+                            [wself.delegate tableView:wself.tableView updateNode:node forObject:object atIndexPath:indexPath];
                         }
                     }
                 }
 
-                [self.delegate tableViewDidChangeContent:self.tableView];
+                [wself.delegate tableViewDidChangeContent:wself.tableView];
             }];
-
-        
         }];
     }
 }
 
 - (void)removeObjects:(NSArray *)objects {
     if (objects.count > 0) {
+        __weak __typeof(self) wself = self;
+
         [self.queue addOperationWithBlock:^{
             NSMutableOrderedSet *removedObjects = [NSMutableOrderedSet orderedSetWithArray:objects];
 
-            [self.mutableObjects minusOrderedSet:removedObjects];
-            [self.mutableObjects sortUsingDescriptors:self.sortDescriptors];
+            [wself.mutableObjects minusOrderedSet:removedObjects];
+            [wself.mutableObjects sortUsingDescriptors:wself.sortDescriptors];
 
-            NSIndexSet *removedIndexes = [self.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSIndexSet *removedIndexes = [wself.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 return [removedObjects containsObject:obj];
             }];
 
@@ -153,28 +155,30 @@
                 [removedIndexPaths addObject:[NSIndexPath indexPathForRow:(NSInteger)idx inSection:0]];
             }];
 
-            [self.tableView beginUpdates];
+            [wself.tableView beginUpdates];
 
-            [self.tableView deleteRowsAtIndexPaths:removedIndexPaths withRowAnimation:UITableViewRowAnimationNone];
+            [wself.tableView deleteRowsAtIndexPaths:removedIndexPaths withRowAnimation:UITableViewRowAnimationNone];
 
-            [self.tableView endUpdatesAnimated:self.animateChanges completion:^(BOOL completed) {
-                [self.delegate tableViewDidChangeContent:self.tableView];
+            [wself.tableView endUpdatesAnimated:wself.animateChanges completion:^(BOOL completed) {
+                [wself.delegate tableViewDidChangeContent:wself.tableView];
             }];
         }];
     }
 }
 
 - (void)replaceAllObjectsWithObjects:(NSArray *)objects {
+    __weak __typeof(self) wself = self;
+
     [self.queue addOperationWithBlock:^{
-        [self.mutableObjects removeAllObjects];
-        [self.mutableObjects addObjectsFromArray:objects];
+        [wself.mutableObjects removeAllObjects];
+        [wself.mutableObjects addObjectsFromArray:objects];
 
-        [self.tableView beginUpdates];
+        [wself.tableView beginUpdates];
 
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        [wself.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 
-        [self.tableView endUpdatesAnimated:self.animateChanges completion:^(BOOL completed) {
-            [self.delegate tableViewDidChangeContent:self.tableView];
+        [wself.tableView endUpdatesAnimated:wself.animateChanges completion:^(BOOL completed) {
+            [wself.delegate tableViewDidChangeContent:wself.tableView];
         }];
     }];
 }

@@ -63,11 +63,12 @@ static NSInteger const kSTKWordpressSessionManagerPostsPerPage = 20;
     NSDictionary *parameters = @{kSTKAPIWordpressRequestKeyFilter:filterDictionary};
     NSString *path = [self pathWithRoute:kSTKAPIWordpressRoutePosts];
 
+    __weak __typeof(self) wself = self;
     [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
-        [self prefixValuesForPosts:responseObject];
+        [wself prefixValuesForPosts:responseObject];
 
         if (completion) {
-            completion(responseObject, error, self.sourceType);
+            completion(responseObject, error, wself.sourceType);
         }
     }];
 }
@@ -81,11 +82,12 @@ static NSInteger const kSTKWordpressSessionManagerPostsPerPage = 20;
 
         NSString *path = [self pathWithRoute:kSTKAPIWordpressRoutePosts];
 
+        __weak __typeof(self) wself = self;
         NSURLSessionDataTask *searchTask = [self GET:path parameters:parameters completion:^(id responseObject, NSError *error) {
-            [self prefixValuesForPosts:responseObject];
+            [wself prefixValuesForPosts:responseObject];
 
             if (completion) {
-                completion(responseObject, error, self.sourceType);
+                completion(responseObject, error, wself.sourceType);
             }
         }];
 
@@ -101,11 +103,12 @@ static NSInteger const kSTKWordpressSessionManagerPostsPerPage = 20;
     NSString *postID = [post.postID componentsSeparatedByString:@"_"].lastObject;
     NSString *path = [self pathWithRoute:[NSString stringWithFormat:kSTKAPIWordpressRoutePostComments, postID]];
 
+    __weak __typeof(self) wself = self;
     [self GET:path parameters:nil completion:^(id responseObject, NSError *error) {
-        [self prefixValuesForComments:responseObject];
+        [wself prefixValuesForComments:responseObject];
 
         if (completion) {
-            completion(responseObject, error, self.sourceType);
+            completion(responseObject, error, wself.sourceType);
         }
     }];
 }

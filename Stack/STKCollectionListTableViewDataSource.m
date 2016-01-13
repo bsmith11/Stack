@@ -114,26 +114,28 @@
 #pragma mark - Collection List Delegate
 
 - (void)collectionList:(id <RZCollectionList>)collectionList didChangeObject:(id)object atIndexPath:(NSIndexPath *)indexPath forChangeType:(RZCollectionListChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    __weak __typeof(self) wself = self;
+
     [self.operationQueue addOperationWithBlock:^{
         switch(type) {
             case RZCollectionListChangeInsert:
-                [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:self.addObjectAnimation];
+                [wself.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:wself.addObjectAnimation];
                 break;
 
             case RZCollectionListChangeDelete:
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:self.removeObjectAnimation];
+                [wself.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:wself.removeObjectAnimation];
                 break;
 
             case RZCollectionListChangeMove:
-                [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+                [wself.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
                 break;
 
             case RZCollectionListChangeUpdate: {
-                if ([self tableView:self.tableView containsIndexPath:indexPath]) {
-                    ASCellNode *node = [self.tableView nodeForRowAtIndexPath:indexPath];
+                if ([wself tableView:wself.tableView containsIndexPath:indexPath]) {
+                    ASCellNode *node = [wself.tableView nodeForRowAtIndexPath:indexPath];
 
                     if (node) {
-                        [self.delegate tableView:self.tableView updateNode:node forObject:object atIndexPath:newIndexPath];
+                        [wself.delegate tableView:wself.tableView updateNode:node forObject:object atIndexPath:newIndexPath];
                     }
                 }
             }
@@ -147,14 +149,16 @@
 }
 
 - (void)collectionList:(id <RZCollectionList>)collectionList didChangeSection:(id <RZCollectionListSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(RZCollectionListChangeType)type {
+    __weak __typeof(self) wself = self;
+
     [self.operationQueue addOperationWithBlock:^{
         switch(type) {
             case RZCollectionListChangeInsert:
-                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:self.addSectionAnimation];
+                [wself.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:wself.addSectionAnimation];
                 break;
 
             case RZCollectionListChangeDelete:
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:self.removeSectionAnimation];
+                [wself.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:wself.removeSectionAnimation];
                 break;
 
             default:
@@ -166,16 +170,20 @@
 }
 
 - (void)collectionListWillChangeContent:(id <RZCollectionList>)collectionList {
+    __weak __typeof(self) wself = self;
+
     [self.operationQueue addOperationWithBlock:^{
-        [self.tableView beginUpdates];
+        [wself.tableView beginUpdates];
     }];
 }
 
 - (void)collectionListDidChangeContent:(id <RZCollectionList>)collectionList {
+    __weak __typeof(self) wself = self;
+
     [self.operationQueue addOperationWithBlock:^{
-        [self.tableView endUpdatesAnimated:self.animateTableChanges completion:^(BOOL completed) {
-            if ([self.delegate respondsToSelector:@selector(tableView:didFinishUpdatingCompleted:)]) {
-                [self.delegate tableView:self.tableView didFinishUpdatingCompleted:completed];
+        [wself.tableView endUpdatesAnimated:wself.animateTableChanges completion:^(BOOL completed) {
+            if ([wself.delegate respondsToSelector:@selector(tableView:didFinishUpdatingCompleted:)]) {
+                [wself.delegate tableView:wself.tableView didFinishUpdatingCompleted:completed];
             }
         }];
     }];

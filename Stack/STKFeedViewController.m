@@ -241,10 +241,11 @@
 }
 
 - (void)tableView:(ASTableView *)tableView willBeginBatchFetchWithContext:(ASBatchContext *)context {
+    __weak __typeof(self) wself = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"Fetching additional posts...");
 
-        [self.viewModel fetchOlderPostsWithCompletion:^(STKViewModelFetchResult result) {
+        [wself.viewModel fetchOlderPostsWithCompletion:^(STKViewModelFetchResult result) {
             NSLog(@"Received additional posts...");
 
             if (result == STKViewModelFetchResultFailed || STKViewModelFetchResultCancelled) {

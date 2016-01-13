@@ -51,20 +51,21 @@
     NSURL *URL = [NSURL URLWithString:URLString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
 
+    __weak __typeof(self) wself = self;
     [RSSParser parseRSSFeedForRequest:request success:^(NSArray *feedItems) {
-        self.page++;
+        wself.page++;
 
         NSMutableArray *responseObject = [RSSItem stk_postImportDictionariesFromArray:feedItems];
-        [self prefixValuesForPosts:responseObject];
+        [wself prefixValuesForPosts:responseObject];
 
         if (completion) {
-            completion(responseObject, nil, self.sourceType);
+            completion(responseObject, nil, wself.sourceType);
         }
     } failure:^(NSError *error) {
         [STKAnalyticsManager logEventDidFailRequest:request error:error];
 
         if (completion) {
-            completion(nil, error, self.sourceType);
+            completion(nil, error, wself.sourceType);
         }
     }];
 }
@@ -76,12 +77,13 @@
         NSURL *URL = [NSURL URLWithString:RSSPost.commentsRSS];
         NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
 
+        __weak __typeof(self) wself = self;
         [RSSParser parseRSSFeedForRequest:request success:^(NSArray *feedItems) {
             NSMutableArray *responseObject = [RSSItem stk_commentImportDictionariesFromArray:feedItems];
-            [self prefixValuesForComments:responseObject];
+            [wself prefixValuesForComments:responseObject];
 
             if (completion) {
-                completion(responseObject, nil, self.sourceType);
+                completion(responseObject, nil, wself.sourceType);
             }
         } failure:^(NSError *error) {
             if (error.code != NSURLErrorCancelled) {
@@ -89,7 +91,7 @@
             }
 
             if (completion) {
-                completion(nil, error, self.sourceType);
+                completion(nil, error, wself.sourceType);
             }
         }];
     }
