@@ -82,12 +82,13 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-//TODO: Debug notification, should be removed before release
+#ifdef DEBUG
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertTitle = @"Background Fetch";
     notification.alertBody = @"Performing background fetch...";
 
     [application scheduleLocalNotification:notification];
+#endif
 
     [STKContentManager downloadPostsBeforePosts:nil completion:^(NSArray * _Nullable posts, NSError * _Nullable error) {
         completionHandler(UIBackgroundFetchResultNewData);
