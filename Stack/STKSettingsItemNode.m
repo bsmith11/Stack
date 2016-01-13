@@ -110,8 +110,6 @@
 
     self.accessoryImageNode.frame = self.accessoryImageNodeFrame;
     self.accessorySwitchNode.frame = self.accessorySwitchNodeFrame;
-
-    [self.containerNode stk_setupShadow];
 }
 
 - (CGSize)accessoryContainerSizeForType:(STKSettingsItemType)type {

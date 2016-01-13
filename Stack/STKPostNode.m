@@ -149,8 +149,6 @@
     self.titleTextNode.frame = self.titleTextNodeFrame;
     self.dateTextNode.frame = self.dateTextNodeFrame;
     self.sourceImageNode.frame = self.sourceImageNodeFrame;
-
-    [self stk_setupShadow];
 }
 
 #pragma mark - Setup

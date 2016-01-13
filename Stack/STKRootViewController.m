@@ -32,7 +32,7 @@ static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.sta
     [super viewDidLoad];
 
     if (!self.shownOnboarding) {
-//        self.shownOnboarding = YES;
+        self.shownOnboarding = YES;
         [self showOnboardingPageViewController];
     }
     else {

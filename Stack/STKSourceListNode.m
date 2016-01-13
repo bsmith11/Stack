@@ -94,8 +94,6 @@
     self.sourceImageNode.frame = self.sourceImageNodeFrame;
     self.titleTextNode.frame = self.titleTextNodeFrame;
     self.checkmarkImageNode.frame = self.checkmarkImageNodeFrame;
-
-    [self.containerNode stk_setupShadow];
 }
 
 #pragma mark - Setup
