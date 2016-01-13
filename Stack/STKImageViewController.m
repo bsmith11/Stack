@@ -228,15 +228,14 @@ static CGFloat const kSTKImageViewControllerMaximumZoom = 2.0f;
 
     [self.scrollView pop_addAnimation:translationAnimation forKey:@"translation"];
 
-    POPBasicAnimation *alphaAnimation = [self.backgroundView pop_animationForKey:@"alpha"];
+    POPSpringAnimation *alphaAnimation = [self.backgroundView pop_animationForKey:@"alpha"];
     if (!alphaAnimation) {
-        alphaAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+        alphaAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
     }
 
     alphaAnimation.name = @"present_alpha";
     alphaAnimation.delegate = self;
     alphaAnimation.toValue = @(1.0f);
-    alphaAnimation.duration = 0.75f;
 
     [self.backgroundView pop_addAnimation:alphaAnimation forKey:@"alpha"];
 }
@@ -261,15 +260,14 @@ static CGFloat const kSTKImageViewControllerMaximumZoom = 2.0f;
 
     [self.scrollView pop_addAnimation:translationAnimation forKey:@"translation"];
 
-    POPBasicAnimation *alphaAnimation = [self.backgroundView pop_animationForKey:@"alpha"];
+    POPSpringAnimation *alphaAnimation = [self.backgroundView pop_animationForKey:@"alpha"];
     if (!alphaAnimation) {
-        alphaAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+        alphaAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
     }
 
     alphaAnimation.name = @"dismiss_alpha";
     alphaAnimation.delegate = self;
     alphaAnimation.toValue = @(0.0f);
-    alphaAnimation.duration = 0.75f;
 
     [self.backgroundView pop_addAnimation:alphaAnimation forKey:@"alpha"];
 }
