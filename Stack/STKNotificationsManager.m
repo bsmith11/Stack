@@ -97,6 +97,9 @@ NSString * const kSTKNotificationsPermissionDidChangeNotificationKeyEnabled = @"
     BOOL granted = (notificationSettings.types == UIUserNotificationTypeAlert);
     self.previousPermissionStatus = granted;
 
+    NSDictionary *userInfo = @{kSTKNotificationsPermissionDidChangeNotificationKeyEnabled:@(granted)};
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSTKNotificationsPermissionDidChangeNotification object:nil userInfo:userInfo];
+
     if (self.notificationsPermissionBlock) {
         self.notificationsPermissionBlock(granted);
         self.notificationsPermissionBlock = nil;

@@ -19,6 +19,7 @@
 #import "STKSettingsItemNode.h"
 #import "STKSettingsHeaderNode.h"
 
+#import "STKNotificationsManager.h"
 #import "STKCollectionListTableViewDataSource.h"
 #import "STKAnalyticsManager.h"
 
@@ -138,9 +139,13 @@
 #pragma mark - Settings Header Node Delegate
 
 - (void)settingsHeaderNode:(STKSettingsHeaderNode *)node didTapLink:(NSURL *)link {
-    if ([[UIApplication sharedApplication] canOpenURL:link]) {
-        [[UIApplication sharedApplication] openURL:link];
-    }
+    [[STKNotificationsManager sharedInstance] requestNotificationsPermissionWithCompletion:^(BOOL granted) {
+        if (!granted) {
+            if ([[UIApplication sharedApplication] canOpenURL:link]) {
+                [[UIApplication sharedApplication] openURL:link];
+            }
+        }
+    }];
 }
 
 #pragma mark - Settings View Model Delegate
