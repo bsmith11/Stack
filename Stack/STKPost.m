@@ -28,6 +28,18 @@
 
 @implementation STKPost
 
+#pragma mark - RZVinyl
+
++ (NSPredicate *)rzv_stalenessPredicate {
+    NSTimeInterval oneWeekAgo = -604800.0;
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:oneWeekAgo];
+    NSPredicate *fetchDatePredicate = [NSPredicate predicateWithFormat:@"%K < %@", RZDB_KP(STKPost, lastSaveDate), date];
+    NSPredicate *bookmarkPredicate = [NSPredicate predicateWithFormat:@"%K == %@", RZDB_KP(STKPost, bookmarked), @NO];
+    NSCompoundPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[fetchDatePredicate, bookmarkPredicate]];
+
+    return predicate;
+}
+
 #pragma mark - Fetches
 
 + (NSArray *)fetchPostsBeforePost:(STKPost *)post
@@ -142,10 +154,12 @@
 
         [[STKCoreDataStack defaultStack] performBlockUsingBackgroundContext:^(NSManagedObjectContext *context) {
             NSArray *posts = [class rzi_objectsFromArray:responseObject inContext:context];
+            NSDate *date = [NSDate date];
 
             for (STKPost *post in posts) {
                 post.sourceType = @(sourceType);
                 post.author.sourceType = @(sourceType);
+                post.lastSaveDate = date;
             }
         } completion:completion];
     }

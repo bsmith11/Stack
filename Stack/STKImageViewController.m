@@ -121,6 +121,8 @@ static CGFloat const kSTKImageViewControllerMaximumZoom = 2.0f;
     self.scrollView.minimumZoomScale = kSTKImageViewControllerMinimumZoom;
     self.scrollView.maximumZoomScale = kSTKImageViewControllerMaximumZoom;
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+    self.scrollView.alwaysBounceVertical = YES;
+    self.scrollView.alwaysBounceHorizontal = YES;
 
     [self.view addSubview:self.scrollView];
 }

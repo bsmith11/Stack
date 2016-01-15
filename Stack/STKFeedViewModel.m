@@ -10,6 +10,7 @@
 
 #import "STKPost.h"
 
+#import "STKCoreDataStack.h"
 #import "STKTableViewDataSource.h"
 #import "STKContentManager.h"
 #import "STKAPIClient.h"
@@ -56,6 +57,8 @@
                                                                objects:[NSArray array]
                                                        sortDescriptors:@[[STKPost createDateSortDescriptor]]
                                                               delegate:delegate];
+
+    [self.dataSource registerForChangeNotificationsForContext:[STKCoreDataStack defaultStack].mainManagedObjectContext entityName:[STKPost rzv_entityName]];
 }
 
 #pragma mark - Actions

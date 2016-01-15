@@ -6,6 +6,8 @@
 //  Copyright © 2015 Brad Smith. All rights reserved.
 //
 
+@import CoreData;
+
 #import "STKTableViewDataSource.h"
 
 @interface STKTableViewDataSource () <ASTableViewDataSource>
@@ -14,6 +16,7 @@
 @property (strong, nonatomic) NSOperationQueue *queue;
 
 @property (copy, nonatomic) NSArray *sortDescriptors;
+@property (copy, nonatomic) NSString *entityName;
 
 @property (weak, nonatomic, readwrite) ASTableView *tableView;
 @property (weak, nonatomic, readwrite) id <STKTableViewDataSourceDelegate> delegate;
@@ -52,10 +55,48 @@
 
 - (void)dealloc {
     [self.queue cancelAllOperations];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSArray *)objects {
     return self.mutableObjects.array;
+}
+
+#pragma mark - Actions
+
+- (void)registerForChangeNotificationsForContext:(NSManagedObjectContext *)context entityName:(NSString *)entityName {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeNSManagedObjectContext:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+    self.entityName = entityName;
+}
+
+- (void)unregisterForChangeNotificationsForContext:(NSManagedObjectContext *)context {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+}
+
+- (void)didChangeNSManagedObjectContext:(NSNotification *)notification {
+    NSSet *deletedObjects = notification.userInfo[NSDeletedObjectsKey];
+
+    if (self.entityName.length > 0) {
+        NSManagedObjectContext *context = notification.object;
+        NSDictionary *entitiesByName = context.persistentStoreCoordinator.managedObjectModel.entitiesByName;
+        NSEntityDescription *entity = entitiesByName[self.entityName];
+
+        if (entity) {
+            NSSet *deletedEntities = [deletedObjects objectsPassingTest:^BOOL(id  _Nonnull obj, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[NSManagedObject class]]) {
+                    return [[obj entity] isKindOfEntity:entity];
+                }
+                else {
+                    return NO;
+                }
+            }];
+
+            if (deletedEntities.count > 0) {
+                [self removeObjects:deletedEntities.allObjects];
+            }
+        }
+    }
 }
 
 #pragma mark - Table View Data Source
@@ -143,10 +184,7 @@
         [self.queue addOperationWithBlock:^{
             NSMutableOrderedSet *removedObjects = [NSMutableOrderedSet orderedSetWithArray:objects];
 
-            [wself.mutableObjects minusOrderedSet:removedObjects];
-            [wself.mutableObjects sortUsingDescriptors:wself.sortDescriptors];
-
-            NSIndexSet *removedIndexes = [wself.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSIndexSet *removedIndexes = [self.mutableObjects indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 return [removedObjects containsObject:obj];
             }];
 
@@ -154,6 +192,9 @@
             [removedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
                 [removedIndexPaths addObject:[NSIndexPath indexPathForRow:(NSInteger)idx inSection:0]];
             }];
+
+            [wself.mutableObjects minusOrderedSet:removedObjects];
+            [wself.mutableObjects sortUsingDescriptors:wself.sortDescriptors];
 
             [wself.tableView beginUpdates];
 

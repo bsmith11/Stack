@@ -26,7 +26,6 @@
 		064864361C276CB80087A41E /* STKPostParagraphSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0648640E1C276CB80087A41E /* STKPostParagraphSection.m */; };
 		064864371C276CB80087A41E /* STKPostVideoSection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 064864101C276CB80087A41E /* STKPostVideoSection+CoreDataProperties.m */; };
 		064864381C276CB80087A41E /* STKPostVideoSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 064864121C276CB80087A41E /* STKPostVideoSection.m */; };
-		064864391C276CB80087A41E /* STKPost+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 064864141C276CB80087A41E /* STKPost+CoreDataProperties.m */; };
 		0648643A1C276CB80087A41E /* STKPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 064864161C276CB80087A41E /* STKPost.m */; };
 		0648643B1C276CB80087A41E /* STKAuthor+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 064864181C276CB80087A41E /* STKAuthor+CoreDataProperties.m */; };
 		0648643C1C276CB80087A41E /* STKAuthor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0648641A1C276CB80087A41E /* STKAuthor.m */; };
@@ -152,6 +151,7 @@
 		064865BE1C322E3C0087A41E /* STKMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BD1C322E3C0087A41E /* STKMailViewController.m */; };
 		064865C01C323B310087A41E /* Assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 064865BF1C323B310087A41E /* Assets.bundle */; };
 		06A4967A1C3CD0370057209E /* STKUnavailableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A496791C3CD0370057209E /* STKUnavailableNode.m */; };
+		06C7CF201C478BD50012BEFC /* STKPost+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C7CF1F1C478BD50012BEFC /* STKPost+CoreDataProperties.m */; };
 		42A03B5B6B623051BF2CFD19 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */; };
 		43CA31C3620407C2CE3CA662 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC8BE816EFD96785C766EA6 /* libPods.a */; };
 		6AA09B1EF151881F366C4692 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97D4CD85A6D0DFC1065098F /* Foundation.framework */; };
@@ -208,8 +208,6 @@
 		064864101C276CB80087A41E /* STKPostVideoSection+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKPostVideoSection+CoreDataProperties.m"; sourceTree = "<group>"; };
 		064864111C276CB80087A41E /* STKPostVideoSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKPostVideoSection.h; sourceTree = "<group>"; };
 		064864121C276CB80087A41E /* STKPostVideoSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKPostVideoSection.m; sourceTree = "<group>"; };
-		064864131C276CB80087A41E /* STKPost+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKPost+CoreDataProperties.h"; sourceTree = "<group>"; };
-		064864141C276CB80087A41E /* STKPost+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKPost+CoreDataProperties.m"; sourceTree = "<group>"; };
 		064864151C276CB80087A41E /* STKPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKPost.h; sourceTree = "<group>"; };
 		064864161C276CB80087A41E /* STKPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKPost.m; sourceTree = "<group>"; };
 		064864171C276CB80087A41E /* STKAuthor+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKAuthor+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -453,6 +451,8 @@
 		064865BF1C323B310087A41E /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
 		06A496781C3CD0370057209E /* STKUnavailableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKUnavailableNode.h; sourceTree = "<group>"; };
 		06A496791C3CD0370057209E /* STKUnavailableNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKUnavailableNode.m; sourceTree = "<group>"; };
+		06C7CF1E1C478BD50012BEFC /* STKPost+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKPost+CoreDataProperties.h"; sourceTree = "<group>"; };
+		06C7CF1F1C478BD50012BEFC /* STKPost+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKPost+CoreDataProperties.m"; sourceTree = "<group>"; };
 		230706168BFA7CD67B35EE05 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		287BF6C62C7F2E32F8A7DDB9 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		35D58FAA5187E5B8EDA647CA /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -580,8 +580,8 @@
 				0648644A1C276CFC0087A41E /* Blogger */,
 				064864491C276CF70087A41E /* RSS */,
 				064864481C276CF00087A41E /* Wordpress */,
-				064864131C276CB80087A41E /* STKPost+CoreDataProperties.h */,
-				064864141C276CB80087A41E /* STKPost+CoreDataProperties.m */,
+				06C7CF1E1C478BD50012BEFC /* STKPost+CoreDataProperties.h */,
+				06C7CF1F1C478BD50012BEFC /* STKPost+CoreDataProperties.m */,
 				064864151C276CB80087A41E /* STKPost.h */,
 				064864161C276CB80087A41E /* STKPost.m */,
 				0648648E1C279E7A0087A41E /* STKPost+Analytical.h */,
@@ -1444,6 +1444,7 @@
 				064864DC1C287D670087A41E /* STKBloggerComment.m in Sources */,
 				0648643E1C276CB80087A41E /* STKPostSection.m in Sources */,
 				064864461C276CB80087A41E /* STKPostMediaSection.m in Sources */,
+				06C7CF201C478BD50012BEFC /* STKPost+CoreDataProperties.m in Sources */,
 				064864321C276CB80087A41E /* STKPostImageSection.m in Sources */,
 				064865541C292FAF0087A41E /* STKPostViewModel.m in Sources */,
 				064865661C2937B90087A41E /* STKPostImageSectionNode.m in Sources */,
@@ -1452,7 +1453,6 @@
 				064864DA1C287D670087A41E /* STKRSSComment.m in Sources */,
 				064864411C276CB80087A41E /* STKBloggerPost+CoreDataProperties.m in Sources */,
 				064865601C2936190087A41E /* STKPostSectionNode.m in Sources */,
-				064864391C276CB80087A41E /* STKPost+CoreDataProperties.m in Sources */,
 				0648659B1C307EC20087A41E /* STKSearchField.m in Sources */,
 				064865331C28ADB70087A41E /* STKFeedViewModel.m in Sources */,
 				064865431C291B050087A41E /* STKSourceListViewModel.m in Sources */,

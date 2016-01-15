@@ -30,6 +30,9 @@
 - (void)removeObjects:(NSArray *)objects;
 - (void)replaceAllObjectsWithObjects:(NSArray *)objects;
 
+- (void)registerForChangeNotificationsForContext:(NSManagedObjectContext *)context entityName:(NSString *)entityName;
+- (void)unregisterForChangeNotificationsForContext:(NSManagedObjectContext *)context;
+
 @property (copy, nonatomic, readonly) NSArray *objects;
 
 @property (weak, nonatomic, readonly) ASTableView *tableView;
