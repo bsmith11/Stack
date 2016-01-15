@@ -16,6 +16,14 @@
 
 @implementation STKNavigationController
 
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.topViewController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return self.topViewController;
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {

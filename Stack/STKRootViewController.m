@@ -22,16 +22,12 @@ static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.sta
 
 @implementation STKRootViewController
 
-- (BOOL)prefersStatusBarHidden {
-    return NO;
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.currentViewController;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationSlide;
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return self.currentViewController;
 }
 
 #pragma mark - Lifecycle
@@ -40,7 +36,6 @@ static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.sta
     [super viewDidLoad];
 
     if (!self.shownOnboarding) {
-        self.shownOnboarding = YES;
         [self showOnboardingPageViewController];
     }
     else {
@@ -72,6 +67,8 @@ static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.sta
 
     self.currentViewController = viewController;
 
+    [self setNeedsStatusBarAppearanceUpdate];
+
     [self addChildViewController:viewController];
     [self.view addSubview:viewController.view];
     viewController.view.frame = self.view.frame;
@@ -91,6 +88,8 @@ static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.sta
 #pragma mark - Onboarding Page View Controller Delgate
 
 - (void)onboardingPageViewControllerDidFinish:(STKOnboardingPageViewController *)onboardingPageViewController {
+    self.shownOnboarding = YES;
+    
     [self showTabBarController];
 }
 

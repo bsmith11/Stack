@@ -23,6 +23,14 @@
 
 @implementation STKOnboardingPageViewController
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
 #pragma mark - Lifecycle
 
 + (instancetype)onboardingPageViewController {
