@@ -125,7 +125,7 @@
     self.sourceListTableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:NO];
     self.sourceListTableView.backgroundColor = [UIColor stk_backgroundColor];
     self.sourceListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    CGFloat topInset = CGRectGetHeight(self.navigationController.navigationBar.frame);
+    CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
     self.sourceListTableView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
     self.sourceListTableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
@@ -139,7 +139,7 @@
     self.searchTableView.backgroundColor = [UIColor stk_backgroundColor];
     self.searchTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.searchTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-    CGFloat topInset = CGRectGetHeight(self.navigationController.navigationBar.frame);
+    CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
     self.searchTableView.contentInset = UIEdgeInsetsMake(topInset + 6.25f, 0.0f, bottomInset + 6.25f, 0.0f);
     self.searchTableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);

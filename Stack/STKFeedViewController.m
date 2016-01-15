@@ -120,7 +120,7 @@
     self.tableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:YES];
     self.tableView.backgroundColor = [UIColor stk_backgroundColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    CGFloat topInset = CGRectGetHeight(self.navigationController.navigationBar.frame);
+    CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
     self.tableView.contentInset = UIEdgeInsetsMake(topInset + 6.25f, 0.0f, bottomInset + 6.25f, 0.0f);
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);

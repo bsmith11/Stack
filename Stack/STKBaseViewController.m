@@ -17,7 +17,15 @@
 #pragma mark - Lifecycle
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return NO;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
 }
 
 - (void)viewDidLoad {
@@ -50,6 +58,14 @@
     }
 
     return navigationController;
+}
+
+- (CGFloat)statusBarHeight {
+    return CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+}
+
+- (CGFloat)navigationBarHeight {
+    return CGRectGetHeight(self.navigationController.navigationBar.bounds);
 }
 
 @end

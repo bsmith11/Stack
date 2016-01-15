@@ -42,6 +42,14 @@ static CGFloat const kSTKImageViewControllerMaximumZoom = 2.0f;
     return self.presentingViewController.prefersStatusBarHidden;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.presentingViewController.preferredStatusBarStyle;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return self.presentingViewController.preferredStatusBarUpdateAnimation;
+}
+
 #pragma mark - Lifecycle
 
 - (instancetype)initWithURL:(NSURL *)URL originalRect:(CGRect)originalRect {

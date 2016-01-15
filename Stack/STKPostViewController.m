@@ -56,6 +56,14 @@
 
 @implementation STKPostViewController
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
 #pragma mark - Lifecycle
 
 - (instancetype)initWithPost:(STKPost *)post {

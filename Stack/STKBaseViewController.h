@@ -15,5 +15,7 @@
 - (STKNavigationController *)stk_navigationController;
 
 @property (assign, nonatomic) BOOL didLayoutSubviews;
+@property (assign, nonatomic, readonly) CGFloat statusBarHeight;
+@property (assign, nonatomic, readonly) CGFloat navigationBarHeight;
 
 @end

@@ -25,6 +25,14 @@
     return self.presentingViewController.prefersStatusBarHidden;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.presentingViewController.preferredStatusBarStyle;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return self.presentingViewController.preferredStatusBarUpdateAnimation;
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad {

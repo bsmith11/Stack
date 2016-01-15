@@ -23,7 +23,15 @@ static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.sta
 @implementation STKRootViewController
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return NO;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
 }
 
 #pragma mark - Lifecycle

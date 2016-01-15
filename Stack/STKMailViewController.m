@@ -15,10 +15,22 @@
 @implementation STKMailViewController
 
 - (BOOL)prefersStatusBarHidden {
-    return self.presentingViewController.prefersStatusBarHidden;
+    return NO;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.presentingViewController.preferredStatusBarStyle;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return self.presentingViewController.preferredStatusBarUpdateAnimation;
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden {
+    return nil;
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle {
     return nil;
 }
 
