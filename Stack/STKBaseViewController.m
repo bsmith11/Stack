@@ -25,7 +25,7 @@
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationSlide;
+    return UIStatusBarAnimationFade;
 }
 
 - (void)viewDidLoad {

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-//TODO: Abstract out this stuff
+//TODO: Abstract out this enum
 #import "STKFeedViewModel.h"
 
 @class ASTableView, STKAuthor;

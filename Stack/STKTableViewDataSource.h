@@ -26,9 +26,9 @@
                   sortDescriptors:(NSArray *)sortDescriptors
                          delegate:(id <STKTableViewDataSourceDelegate>)delegate;
 
-- (void)addObjects:(NSArray *)objects;
-- (void)removeObjects:(NSArray *)objects;
-- (void)replaceAllObjectsWithObjects:(NSArray *)objects;
+- (void)addObjects:(NSArray *)objects completion:(void (^)(NSArray *newObjects))completion;
+- (void)removeObjects:(NSArray *)objects completion:(void (^)(NSArray *removedObjects))completion;
+- (void)replaceAllObjectsWithObjects:(NSArray *)objects completion:(void (^)())completion;
 
 - (void)registerForChangeNotificationsForContext:(NSManagedObjectContext *)context entityName:(NSString *)entityName;
 - (void)unregisterForChangeNotificationsForContext:(NSManagedObjectContext *)context;

@@ -58,7 +58,7 @@
 - (void)cancelPreviousPostSearches {
     [STKContentManager cancelPreviousPostSearches];
 
-    [self.dataSource replaceAllObjectsWithObjects:[NSArray array]];
+    [self.dataSource replaceAllObjectsWithObjects:[NSArray array] completion:nil];
 }
 
 - (void)searchPostsWithText:(NSString *)text {
@@ -87,7 +87,7 @@
                             }
                         }
                         else {
-                            [wself.dataSource addObjects:results];
+                            [wself.dataSource addObjects:results completion:nil];
                         }
 
                         [wself removeSearchID:searchID];

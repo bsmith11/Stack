@@ -19,6 +19,7 @@
 #import "STKListBackgroundView.h"
 #import "STKListBackgroundDefaultContentView.h"
 #import "UIColor+STKStyle.h"
+#import "UIFont+STKStyle.h"
 #import "UIBarButtonItem+STKExtensions.h"
 #import "STKAnalyticsManager.h"
 #import "STKTableViewDataSource.h"
@@ -29,6 +30,7 @@
 #import <RZUtils/RZCommonUtils.h>
 #import <tgmath.h>
 #import <SSPullToRefresh/SSPullToRefresh.h>
+#import <pop/POP.h>
 
 @interface STKFeedViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, STKSourceListViewControllerDelegate, STKListBackgroundDefaultContentViewDelegate>
 
@@ -38,6 +40,10 @@
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 @property (strong, nonatomic) STKListBackgroundView *listBackgroundView;
+@property (strong, nonatomic) UIButton *contentButton;
+
+@property (assign, nonatomic) BOOL contentButtonShown;
+@property (assign, nonatomic) BOOL shouldRemovePostsBeforeGap;
 
 @end
 
@@ -64,6 +70,7 @@
 
     [self setupBarButtonItems];
     [self setupTableView];
+    [self setupContentButton];
 }
 
 - (void)viewDidLoad {
@@ -73,7 +80,11 @@
     [self setupSourceListViewController];
 
     [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
-    [self.viewModel updatePostsForSourceType:-1];
+
+    __weak __typeof(self) wself = self;
+    [self.viewModel updatePostsForSourceType:-1 completion:^(STKViewModelFetchResult result) {
+        [wself handleNewFetchCompletionWithResult:result];
+    }];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -83,6 +94,12 @@
         self.didLayoutSubviews = YES;
 
         self.tableView.frame = self.view.bounds;
+
+        CGFloat x = (CGRectGetWidth(self.view.bounds) - CGRectGetWidth(self.contentButton.bounds)) / 2;
+        CGFloat y = -CGRectGetHeight(self.contentButton.bounds);
+
+        self.contentButton.frame = CGRectMake(x, y, CGRectGetWidth(self.contentButton.bounds), CGRectGetHeight(self.contentButton.bounds));
+
         [self setupRefreshView];
         [self setupListBackgroundView];
     }
@@ -94,6 +111,7 @@
     [self.transitionCoordinator animateAlongsideTransitionInView:self.stk_navigationController.view animation:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         UIColor *color = [STKSource colorForType:self.viewModel.sourceType] ?: [UIColor stk_stackColor];
         self.navigationController.navigationBar.barTintColor = color;
+        self.contentButton.backgroundColor = color;
     } completion:nil];
 }
 
@@ -125,8 +143,25 @@
     self.tableView.contentInset = UIEdgeInsetsMake(topInset + 6.25f, 0.0f, bottomInset + 6.25f, 0.0f);
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
     self.tableView.asyncDelegate = self;
+    self.tableView.automaticallyAdjustsContentOffset = YES;
 
     [self.view addSubview:self.tableView];
+}
+
+- (void)setupContentButton {
+    self.contentButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.view addSubview:self.contentButton];
+
+    [self.contentButton addTarget:self action:@selector(didTapContentButton) forControlEvents:UIControlEventTouchUpInside];
+    self.contentButton.backgroundColor = self.navigationController.navigationBar.barTintColor;
+    [self.contentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.contentButton setTitle:@"Tap to view new articles" forState:UIControlStateNormal];
+    self.contentButton.titleLabel.font = [UIFont stk_postNodeTitleFont];
+    self.contentButton.contentEdgeInsets = UIEdgeInsetsMake(12.0f, 12.0f, 12.0f, 12.0f);
+    self.contentButton.layer.cornerRadius = 12.0f;
+    self.contentButton.clipsToBounds = YES;
+
+    [self.contentButton sizeToFit];
 }
 
 - (void)setupListBackgroundView {
@@ -209,6 +244,67 @@
     [self.navigationController pushViewController:self.sourceListViewController animated:YES];
 }
 
+- (void)didTapContentButton {
+    CGPoint contentOffset = self.tableView.contentOffset;
+    contentOffset.y = -self.tableView.contentInset.top;
+    [self.tableView setContentOffset:contentOffset animated:YES];
+
+    [self hideNewContentView];
+}
+
+- (void)showNewContentView {
+    if (!self.contentButtonShown) {
+        self.contentButtonShown = YES;
+
+        POPSpringAnimation *animation = [self.contentButton pop_animationForKey:@"spring"];
+        if (!animation) {
+            animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+        }
+
+        CGRect frame = self.contentButton.frame;
+        frame.origin.y = self.statusBarHeight + self.navigationBarHeight + 20.0f;
+        animation.toValue = [NSValue valueWithCGRect:frame];
+
+        [self.contentButton pop_addAnimation:animation forKey:@"spring"];
+    }
+}
+
+- (void)hideNewContentView {
+    if (self.contentButtonShown) {
+        self.contentButtonShown = NO;
+
+        POPSpringAnimation *animation = [self.contentButton pop_animationForKey:@"spring"];
+        if (!animation) {
+            animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+        }
+
+        CGRect frame = self.contentButton.frame;
+        frame.origin.y = -CGRectGetHeight(self.contentButton.bounds);
+        animation.toValue = [NSValue valueWithCGRect:frame];
+
+        [self.contentButton pop_addAnimation:animation forKey:@"spring"];
+    }
+}
+
+- (void)handleNewFetchCompletionWithResult:(STKViewModelFetchResult)result {
+    if (result == STKViewModelFetchResultSuccessNew) {
+        [self showNewContentView];
+    }
+    else if (result == STKViewModelFetchResultSuccessNewGap) {
+        self.shouldRemovePostsBeforeGap = YES;
+
+        [self showNewContentView];
+    }
+}
+
+- (void)removePostsBeforeGap {
+    if (self.shouldRemovePostsBeforeGap) {
+        self.shouldRemovePostsBeforeGap = NO;
+
+        [self.viewModel removePostsBeforeGap];
+    }
+}
+
 #pragma mark - Table View Data Source Delegate
 
 - (ASCellNode *)tableView:(ASTableView *)tableView nodeForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
@@ -246,15 +342,33 @@
         NSLog(@"Fetching additional posts...");
 
         [wself.viewModel fetchOlderPostsWithCompletion:^(STKViewModelFetchResult result) {
-            NSLog(@"Received additional posts...");
+            NSLog(@"Received additional posts with result: %ld", result);
 
-            if (result == STKViewModelFetchResultFailed || STKViewModelFetchResultCancelled) {
-                [context cancelBatchFetching];
-            }
+            [context completeBatchFetching:YES];
+//TODO: Do more testing to stop false negatives 
 
-            [context completeBatchFetching:[context batchFetchingWasCancelled]];
+//            if (result == STKViewModelFetchResultFailed ||
+//                result == STKViewModelFetchResultSuccessNone) {
+//                [context cancelBatchFetching];
+//            }
+//
+//            [context completeBatchFetching:[context batchFetchingWasCancelled]];
         }];
     });
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGRect rect = [self.tableView rectForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+
+    if (scrollView.contentOffset.y < CGRectGetMaxY(rect)) {
+        if (self.contentButtonShown) {
+            [self hideNewContentView];
+        }
+
+        if (self.shouldRemovePostsBeforeGap) {
+            [self removePostsBeforeGap];
+        }
+    }
 }
 
 #pragma mark - Pull To Refresh Delegate
@@ -262,13 +376,21 @@
 - (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view {
     [view startLoading];
 
-    [self.viewModel fetchNewPostsWithCompletion:nil];
+    __weak __typeof(self) wself = self;
+    [self.viewModel fetchNewPostsWithCompletion:^(STKViewModelFetchResult result) {
+        [wself handleNewFetchCompletionWithResult:result];
+    }];
 }
 
 #pragma mark - Source List View Controller Delegate
 
 - (void)sourceListViewController:(STKSourceListViewController *)sourceListViewController didSelectSourceType:(STKSourceType)sourceType {
-    [self.viewModel updatePostsForSourceType:sourceType];
+    self.shouldRemovePostsBeforeGap = NO;
+    
+    __weak __typeof(self) wself = self;
+    [self.viewModel updatePostsForSourceType:sourceType completion:^(STKViewModelFetchResult result) {
+        [wself handleNewFetchCompletionWithResult:result];
+    }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.navigationController popViewControllerAnimated:YES];

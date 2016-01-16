@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-//TODO: Abstract out this stuff
+//TODO: Abstract out this enum
 
 typedef NS_ENUM(NSInteger, STKViewModelFetchResult) {
-    STKViewModelFetchResultSuccess,
+    STKViewModelFetchResultSuccessNone,
+    STKViewModelFetchResultSuccessNew,
+    STKViewModelFetchResultSuccessNewGap,
     STKViewModelFetchResultCancelled,
     STKViewModelFetchResultFailed
 };
@@ -28,7 +30,8 @@ typedef void (^STKViewModelFetchCompletion)(STKViewModelFetchResult result);
 
 - (void)fetchNewPostsWithCompletion:(STKViewModelFetchCompletion)completion;
 - (void)fetchOlderPostsWithCompletion:(STKViewModelFetchCompletion)completion;
-- (void)updatePostsForSourceType:(STKSourceType)sourceType;
+- (void)updatePostsForSourceType:(STKSourceType)sourceType completion:(STKViewModelFetchCompletion)completion;
+- (void)removePostsBeforeGap;
 
 @property (strong, nonatomic, readonly) NSError *networkError;
 

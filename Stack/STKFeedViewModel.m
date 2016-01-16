@@ -58,6 +58,7 @@
                                                        sortDescriptors:@[[STKPost createDateSortDescriptor]]
                                                               delegate:delegate];
 
+    self.dataSource.animateChanges = NO;
     [self.dataSource registerForChangeNotificationsForContext:[STKCoreDataStack defaultStack].mainManagedObjectContext entityName:[STKPost rzv_entityName]];
 }
 
@@ -67,7 +68,7 @@
     return [self.dataSource.objects objectAtIndex:(NSUInteger)indexPath.row];
 }
 
-- (void)updatePostsForSourceType:(STKSourceType)sourceType {
+- (void)updatePostsForSourceType:(STKSourceType)sourceType completion:(STKViewModelFetchCompletion)completion {
     self.sourceType = sourceType;
     [self.fetchIDs removeAllObjects];
     self.downloading = NO;
@@ -76,11 +77,35 @@
                                             author:nil
                                         sourceType:sourceType];
 
-    [self.dataSource replaceAllObjectsWithObjects:posts];
-    CGFloat topInset = -self.dataSource.tableView.contentInset.top;
-    [self.dataSource.tableView setContentOffset:CGPointMake(0.0f, topInset) animated:NO];
+    BOOL previousValue = self.dataSource.tableView.automaticallyAdjustsContentOffset;
+    self.dataSource.tableView.automaticallyAdjustsContentOffset = NO;
 
-    [self fetchNewPostsWithCompletion:nil];
+    __weak __typeof(self) wself = self;
+    [self.dataSource replaceAllObjectsWithObjects:posts completion:^{
+        CGPoint contentOffset = wself.dataSource.tableView.contentOffset;
+        contentOffset.y = -wself.dataSource.tableView.contentInset.top;
+        [wself.dataSource.tableView setContentOffset:contentOffset animated:NO];
+
+        wself.dataSource.tableView.automaticallyAdjustsContentOffset = previousValue;
+    }];
+
+    [self fetchNewPostsWithCompletion:completion];
+}
+
+- (void)removePostsBeforeGap {
+    NSLog(@"Removing posts before gap...");
+    if (self.dataSource.objects.count > 10) {
+        BOOL previousValue = self.dataSource.tableView.automaticallyAdjustsContentOffset;
+        self.dataSource.tableView.automaticallyAdjustsContentOffset = NO;
+
+        NSRange range = NSMakeRange(10, self.dataSource.objects.count - 10);
+        NSArray *objectsToRemove = [self.dataSource.objects subarrayWithRange:range];
+
+        __weak __typeof(self) wself = self;
+        [self.dataSource removeObjects:objectsToRemove completion:^(NSArray *removedObjects) {
+            wself.dataSource.tableView.automaticallyAdjustsContentOffset = previousValue;
+        }];
+    }
 }
 
 - (void)fetchNewPostsWithCompletion:(STKViewModelFetchCompletion)completion {
@@ -102,25 +127,45 @@
     STKContentManagerDownloadCompletion fetchCompletion = ^(NSArray *fetchedPosts, NSError *error) {
         wself.networkError = error;
 
-        STKViewModelFetchResult result;
+        if (!error) {
+            if ([wself.fetchIDs containsObject:fetchID]) {
+                [wself.fetchIDs removeObject:fetchID];
 
-        if ([wself.fetchIDs containsObject:fetchID]) {
-            [wself.fetchIDs removeObject:fetchID];
+                [wself.dataSource addObjects:fetchedPosts completion:^(NSArray *newObjects) {
+                    STKViewModelFetchResult result;
+                    if (newObjects.count > 0) {
+                        if (posts || newObjects.count < 10) {
+                            NSLog(@"Success New");
+                            result = STKViewModelFetchResultSuccessNew;
+                        }
+                        else {
+                            NSLog(@"Success Gap");
+                            result = STKViewModelFetchResultSuccessNewGap;
+                        }
+                    }
+                    else {
+                        result = STKViewModelFetchResultSuccessNone;
+                    }
 
-            [wself.dataSource addObjects:fetchedPosts];
-
-            result = error ? STKViewModelFetchResultFailed : STKViewModelFetchResultSuccess;
+                    if (completion) {
+                        completion(result);
+                    }
+                }];
+            }
+            else {
+                if (completion) {
+                    completion(STKViewModelFetchResultCancelled);
+                }
+            }
         }
         else {
-            result = STKViewModelFetchResultCancelled;
+            if (completion) {
+                completion(STKViewModelFetchResultFailed);
+            }
         }
 
         if (wself.fetchIDs.count == 0) {
             wself.downloading = NO;
-        }
-
-        if (completion) {
-            completion(result);
         }
     };
 

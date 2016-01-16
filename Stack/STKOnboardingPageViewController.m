@@ -28,7 +28,7 @@
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationSlide;
+    return UIStatusBarAnimationFade;
 }
 
 #pragma mark - Lifecycle

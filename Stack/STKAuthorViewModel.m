@@ -111,7 +111,7 @@
                 result = STKViewModelFetchResultFailed;
             }
             else {
-                result = STKViewModelFetchResultSuccess;
+                result = STKViewModelFetchResultSuccessNew;
             }
 
             if (completion) {

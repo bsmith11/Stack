@@ -19,7 +19,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.presentingViewController.preferredStatusBarStyle;
+    return UIStatusBarStyleLightContent;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {

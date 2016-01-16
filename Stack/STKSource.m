@@ -16,14 +16,16 @@
 @implementation STKSource
 
 + (NSArray *)allSourceTypes {
-    return @[@(STKSourceTypeAUDL),
+    return @[
+             @(STKSourceTypeAUDL),
              @(STKSourceTypeBamaSecs),
              @(STKSourceTypeGetHorizontal),
              @(STKSourceTypeMLU),
              @(STKSourceTypeProcessOfIllumination),
              @(STKSourceTypeSkyd),
              @(STKSourceTypeSludge),
-             @(STKSourceTypeUltiworld)];
+             @(STKSourceTypeUltiworld)
+             ];
 }
 
 + (NSArray *)sourcesWithSearchAvailable {

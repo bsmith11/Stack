@@ -93,7 +93,7 @@
             }];
 
             if (deletedEntities.count > 0) {
-                [self removeObjects:deletedEntities.allObjects];
+                [self removeObjects:deletedEntities.allObjects completion:nil];
             }
         }
     }
@@ -123,7 +123,7 @@
     self.queue.suspended = NO;
 }
 
-- (void)addObjects:(NSArray *)objects {
+- (void)addObjects:(NSArray *)objects completion:(void (^)(NSArray *))completion {
     if (objects.count > 0) {
         __weak __typeof(self) wself = self;
 
@@ -172,12 +172,16 @@
                 }
 
                 [wself.delegate tableViewDidChangeContent:wself.tableView];
+
+                if (completion) {
+                    completion(newIndexPaths);
+                }
             }];
         }];
     }
 }
 
-- (void)removeObjects:(NSArray *)objects {
+- (void)removeObjects:(NSArray *)objects completion:(void (^)(NSArray *))completion {
     if (objects.count > 0) {
         __weak __typeof(self) wself = self;
 
@@ -202,12 +206,16 @@
 
             [wself.tableView endUpdatesAnimated:wself.animateChanges completion:^(BOOL completed) {
                 [wself.delegate tableViewDidChangeContent:wself.tableView];
+
+                if (completion) {
+                    completion([removedIndexPaths copy]);
+                }
             }];
         }];
     }
 }
 
-- (void)replaceAllObjectsWithObjects:(NSArray *)objects {
+- (void)replaceAllObjectsWithObjects:(NSArray *)objects completion:(void (^)())completion {
     __weak __typeof(self) wself = self;
 
     [self.queue addOperationWithBlock:^{
@@ -220,6 +228,10 @@
 
         [wself.tableView endUpdatesAnimated:wself.animateChanges completion:^(BOOL completed) {
             [wself.delegate tableViewDidChangeContent:wself.tableView];
+
+            if (completion) {
+                completion();
+            }
         }];
     }];
 }

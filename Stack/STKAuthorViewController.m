@@ -203,7 +203,8 @@
         [wself.viewModel fetchOlderPostsWithCompletion:^(STKViewModelFetchResult result) {
             NSLog(@"Received additional posts...");
 
-            if (result == STKViewModelFetchResultFailed || STKViewModelFetchResultCancelled) {
+            if (result == STKViewModelFetchResultFailed ||
+                result == STKViewModelFetchResultSuccessNone) {
                 [context cancelBatchFetching];
             }
 
