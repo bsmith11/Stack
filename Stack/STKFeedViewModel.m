@@ -106,6 +106,9 @@
 - (void)removePostsBeforeGap {
     NSLog(@"Removing posts before gap...");
     if (self.dataSource.objects.count > 10) {
+        [self.fetchIDs removeAllObjects];
+        self.downloading = NO;
+
         BOOL previousValue = self.dataSource.tableView.automaticallyAdjustsContentOffset;
         self.dataSource.tableView.automaticallyAdjustsContentOffset = NO;
 
