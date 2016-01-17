@@ -11,6 +11,7 @@
 #import "STKPost.h"
 
 #import "STKCoreDataStack.h"
+#import "STKSettingsViewModel.h"
 #import "STKTableViewDataSource.h"
 #import "STKContentManager.h"
 #import "STKAPIClient.h"
@@ -39,6 +40,8 @@
     if (self) {
         self.sourceType = -1;
         self.fetchIDs = [NSMutableArray array];
+
+        [self setupObservers];
     }
 
     return self;
@@ -48,6 +51,10 @@
     _sourceType = sourceType;
 
     self.title = [STKSource nameForType:sourceType] ?: @"Stack";
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSTKSettingsClearCacheNotification object:nil];
 }
 
 #pragma mark - Setup
@@ -60,6 +67,10 @@
 
     self.dataSource.animateChanges = NO;
     [self.dataSource registerForChangeNotificationsForContext:[STKCoreDataStack defaultStack].mainManagedObjectContext entityName:[STKPost rzv_entityName]];
+}
+
+- (void)setupObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveClearCacheNotification) name:kSTKSettingsClearCacheNotification object:nil];
 }
 
 #pragma mark - Actions
@@ -172,6 +183,16 @@
     [STKContentManager downloadPostsBeforePosts:posts
                                      sourceType:self.sourceType
                                      completion:fetchCompletion];
+}
+
+- (void)didReceiveClearCacheNotification {
+    [self.fetchIDs removeAllObjects];
+    self.downloading = NO;
+
+    __weak __typeof(self) wself = self;
+    [self.dataSource replaceAllObjectsWithObjects:nil completion:^{
+        [wself fetchNewPostsWithCompletion:nil];
+    }];
 }
 
 @end

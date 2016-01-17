@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+OBJC_EXTERN NSString * const kSTKSettingsClearCacheNotification;
+
 @protocol STKCollectionListTableViewDelegate;
 @class ASTableView;
 

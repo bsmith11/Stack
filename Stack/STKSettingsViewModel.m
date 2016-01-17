@@ -10,14 +10,20 @@
 
 #import "STKSettingsItem.h"
 #import "STKSettingsHeader.h"
+#import "STKPost.h"
 
 #import "STKCollectionListTableViewDataSource.h"
 #import "STKNotificationsManager.h"
 #import "STKAnalyticsManager.h"
 #import "STKAttributes.h"
 #import "UIColor+STKStyle.h"
+#import "STKCoreDataStack.h"
 
 #import <RZCollectionList/RZCollectionList.h>
+#import <RZVinyl/RZVinyl.h>
+#import <RZDataBinding/RZDBMacros.h>
+
+NSString * const kSTKSettingsClearCacheNotification = @"com.bradsmith.stack.settings.clearCacheNotification";
 
 static NSString * const kSTKSettingsViewModelNotificationsObjectUpdateNotification = @"com.bradsmith.stack.settings.notificationsObjectUpdateNotification";
 static NSString * const kSTKSettingsViewModelHeaderTitleGeneral = @"General";
@@ -183,8 +189,9 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 
 - (void)didTapClearCacheItem {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Message Here" preferredStyle:UIAlertControllerStyleAlert];
+    __weak typeof(self) wself = self;
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Clear" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-
+        [wself clearCache];
     }];
     UIAlertAction *denyAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:confirmAction];
@@ -229,6 +236,15 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kSTKSettingsViewModelNotificationsObjectUpdateNotification object:object];
     }
+}
+
+- (void)clearCache {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSTKSettingsClearCacheNotification object:nil];
+
+    NSManagedObjectContext *context = [STKCoreDataStack defaultStack].mainManagedObjectContext;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", RZDB_KP(STKPost, bookmarked), @NO];
+    [STKPost rzv_deleteAllWhere:predicate inContext:context];
+    [context rzv_saveToStoreAndWait:nil];
 }
 
 @end

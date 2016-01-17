@@ -207,7 +207,6 @@
 
             if (downloading.boolValue) {
                 [wself.spinner startAnimating];
-                wself.listBackgroundView.state = STKListBackgroundViewStateNone;
             }
             else {
                 [wself.spinner stopAnimating];
