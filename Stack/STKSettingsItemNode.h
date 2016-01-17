@@ -13,7 +13,8 @@
 @protocol STKSettingsItemNodeDelegate <NSObject>
 
 @required
-- (void)settingsItemNode:(STKSettingsItemNode *)node didChangeValue:(BOOL)value;
+- (void)settingsItemNodeDidTapSwitch:(STKSettingsItemNode *)node;
+- (void)settingsItemNodeDidTapAccessoryItem:(STKSettingsItemNode *)node;
 
 @end
 

@@ -12,8 +12,8 @@
 @class ASTableView;
 
 @protocol STKSettingsViewModelDelegate <NSObject>
-
 - (void)presentMailViewController;
+- (void)presentAlertController:(UIAlertController *)alertController;
 
 @end
 
@@ -23,7 +23,10 @@
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
+
 - (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)didTapSwitchForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)didTapAccessoryForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @property (weak, nonatomic) id <STKSettingsViewModelDelegate> delegate;
 

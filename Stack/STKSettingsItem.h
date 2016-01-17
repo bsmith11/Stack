@@ -10,19 +10,24 @@
 
 typedef NS_ENUM(NSInteger, STKSettingsItemType) {
     STKSettingsItemTypeDisclosureIndicator,
-    STKSettingsItemTypeSwitch
+    STKSettingsItemTypeSwitch,
+    STKSettingsItemTypeDetail
+};
+
+typedef NS_ENUM(NSInteger, STKSettingsItemEvent) {
+    STKSettingsItemEventSelection,
+    STKSettingsItemEventSwitch,
+    STKSettingsItemEventAccessory
 };
 
 @interface STKSettingsItem : NSObject
 
 + (instancetype)itemWithTitle:(NSString *)title
                         image:(UIImage *)image
-                       target:(id)target
-                       action:(SEL)action
                          type:(STKSettingsItemType)type;
 
-- (void)performAction;
-- (void)performActionWithValue:(id)value;
+- (void)addTarget:(id)target action:(SEL)action forEvent:(STKSettingsItemEvent)event;
+- (void)performActionForEvent:(STKSettingsItemEvent)event;
 
 @property (strong, nonatomic, readonly) UIImage *image;
 

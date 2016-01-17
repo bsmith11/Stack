@@ -11,12 +11,11 @@
 @interface STKSettingsItem ()
 
 @property (strong, nonatomic, readwrite) UIImage *image;
+@property (strong, nonatomic) NSMutableDictionary *targets;
+@property (strong, nonatomic) NSMutableDictionary *actions;
 
 @property (copy, nonatomic, readwrite) NSString *title;
 
-@property (weak, nonatomic) id target;
-
-@property (assign, nonatomic) SEL action;
 @property (assign, nonatomic, readwrite) STKSettingsItemType type;
 
 @end
@@ -27,32 +26,41 @@
 
 + (instancetype)itemWithTitle:(NSString *)title
                         image:(UIImage *)image
-                       target:(id)target
-                       action:(SEL)action
                          type:(STKSettingsItemType)type {
     STKSettingsItem *item = [[STKSettingsItem alloc] init];
     item.title = title;
     item.image = image;
-    item.target = target;
-    item.action = action;
     item.type = type;
     item.enabled = YES;
+
+    item.targets = [NSMutableDictionary dictionary];
+    item.actions = [NSMutableDictionary dictionary];
 
     return item;
 }
 
-#pragma mark - Actions
-
-- (void)performAction {
-    [self performActionWithValue:nil];
+- (void)addTarget:(id)target action:(SEL)action forEvent:(STKSettingsItemEvent)event {
+    if (target && action) {
+        [self.targets setObject:target forKey:@(event)];
+        [self.actions setObject:NSStringFromSelector(action) forKey:@(event)];
+    }
+    else {
+        [self.targets removeObjectForKey:@(event)];
+        [self.actions removeObjectForKey:@(event)];
+    }
 }
 
-- (void)performActionWithValue:(id)value {
-    if (self.target && self.action) {
-        if ([self.target respondsToSelector:self.action]) {
+- (void)performActionForEvent:(STKSettingsItemEvent)event {
+    id target = [self.targets objectForKey:@(event)];
+    NSString *actionString = [self.actions objectForKey:@(event)];
+
+    if (target && actionString) {
+        SEL action = NSSelectorFromString(actionString);
+
+        if ([target respondsToSelector:action]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [self.target performSelector:self.action withObject:self withObject:value];
+            [target performSelector:action withObject:self];
 #pragma clang diagnostic pop
         }
     }

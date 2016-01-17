@@ -58,21 +58,30 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 #pragma mark - Setup
 
 - (void)setupItems {
-    NSAttributedString *generalTitle = [[NSAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleGeneral attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
+    NSAttributedString *generalTitle = [[NSAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleGeneral
+                                                                       attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
     STKSettingsHeader *generalHeader = [STKSettingsHeader headerWithTitle:generalTitle];
 
-    STKSettingsItem *feedbackItem = [STKSettingsItem itemWithTitle:@"Feedback"
+    STKSettingsItem *feedbackItem = [STKSettingsItem itemWithTitle:@"Send Feedback"
                                                              image:[UIImage imageNamed:@"Mail Icon"]
-                                                            target:self
-                                                            action:@selector(didTapFeedbackItem)
-                                                              type:STKSettingsItemTypeDisclosureIndicator];
+                                                              type:STKSettingsItemTypeDetail];
+    [feedbackItem addTarget:self action:@selector(didTapFeedbackItem) forEvent:STKSettingsItemEventSelection];
+    [feedbackItem addTarget:self action:@selector(didTapFeedbackItemAccessory) forEvent:STKSettingsItemEventAccessory];
 
-    NSArray *generalItems = @[generalHeader, feedbackItem];
+    STKSettingsItem *clearCacheItem = [STKSettingsItem itemWithTitle:@"Clear Cache"
+                                                               image:[UIImage imageNamed:@"Delete Icon"]
+                                                                type:STKSettingsItemTypeDetail];
+    [clearCacheItem addTarget:self action:@selector(didTapClearCacheItem) forEvent:STKSettingsItemEventSelection];
+    [clearCacheItem addTarget:self action:@selector(didTapClearCacheItemAccessory) forEvent:STKSettingsItemEventAccessory];
+
+    NSArray *generalItems = @[generalHeader, feedbackItem, clearCacheItem];
     self.generalList = [[RZArrayCollectionList alloc] initWithArray:generalItems sectionNameKeyPath:nil];
 
-    self.headerTitleNotificationsEnabled = [[NSAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleNotificationsEnabled attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
+    self.headerTitleNotificationsEnabled = [[NSAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleNotificationsEnabled
+                                                                           attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
 
-    NSMutableAttributedString *headerTitleNotificationsDisabled = [[NSMutableAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleNotificationsDisabled attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
+    NSMutableAttributedString *headerTitleNotificationsDisabled = [[NSMutableAttributedString alloc] initWithString:kSTKSettingsViewModelHeaderTitleNotificationsDisabled
+                                                                                                         attributes:[STKAttributes stk_settingsHeaderTitleAttributes]];
     NSRange range = [headerTitleNotificationsDisabled.string rangeOfString:@"Settings"];
     [headerTitleNotificationsDisabled addAttribute:@"STKLink" value:UIApplicationOpenSettingsURLString range:range];
     [headerTitleNotificationsDisabled addAttribute:NSForegroundColorAttributeName value:[UIColor stk_twitterColor] range:range];
@@ -91,9 +100,8 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
         STKSourceType sourceType = sourceTypeNumber.integerValue;
         STKSettingsItem *item = [STKSettingsItem itemWithTitle:[STKSource nameForType:sourceType]
                                                          image:[UIImage imageNamed:[STKSource imageNameForType:sourceType]]
-                                                        target:self
-                                                        action:@selector(didSwitchNotificationsItem:value:)
                                                           type:STKSettingsItemTypeSwitch];
+        [item addTarget:self action:@selector(didSwitchNotificationsItem:) forEvent:STKSettingsItemEventSwitch];
         item.value = [[STKNotificationsManager sharedInstance] notificationsEnabledForSourceType:sourceType];
         item.enabled = notificationsEnabled;
 
@@ -131,9 +139,27 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
     if ([object isKindOfClass:[STKSettingsItem class]]) {
         STKSettingsItem *item = (STKSettingsItem *)object;
 
-        if (item.type == STKSettingsItemTypeDisclosureIndicator) {
-            [item performAction];
-        }
+        [item performActionForEvent:STKSettingsItemEventSelection];
+    }
+}
+
+- (void)didTapSwitchForRowAtIndexPath:(NSIndexPath *)indexPath {
+    id object = [self objectAtIndexPath:indexPath];
+
+    if ([object isKindOfClass:[STKSettingsItem class]]) {
+        STKSettingsItem *item = (STKSettingsItem *)object;
+
+        [item performActionForEvent:STKSettingsItemEventSwitch];
+    }
+}
+
+- (void)didTapAccessoryForRowAtIndexPath:(NSIndexPath *)indexPath {
+    id object = [self objectAtIndexPath:indexPath];
+
+    if ([object isKindOfClass:[STKSettingsItem class]]) {
+        STKSettingsItem *item = (STKSettingsItem *)object;
+
+        [item performActionForEvent:STKSettingsItemEventAccessory];
     }
 }
 
@@ -145,14 +171,47 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
     }
 }
 
-- (void)didSwitchNotificationsItem:(STKSettingsItem *)item value:(id)value {
-    if ([value isKindOfClass:[NSNumber class]]) {
-        NSNumber *status = (NSNumber *)value;
-        STKSourceType sourceType = [STKSource sourceTypeForName:item.title];
+- (void)didTapFeedbackItemAccessory {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Feedback" message:@"Info Here" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:action];
 
-        [STKAnalyticsManager logEventDidEnableNotifications:status.boolValue sourceType:sourceType];
-        [[STKNotificationsManager sharedInstance] setNotificationsEnabled:status.boolValue sourceType:sourceType];
+    if ([self.delegate respondsToSelector:@selector(presentAlertController:)]) {
+        [self.delegate presentAlertController:alertController];
     }
+}
+
+- (void)didTapClearCacheItem {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Message Here" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Clear" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+
+    }];
+    UIAlertAction *denyAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:confirmAction];
+    [alertController addAction:denyAction];
+
+    if ([self.delegate respondsToSelector:@selector(presentAlertController:)]) {
+        [self.delegate presentAlertController:alertController];
+    }
+}
+
+- (void)didTapClearCacheItemAccessory {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Info Here" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:action];
+
+    if ([self.delegate respondsToSelector:@selector(presentAlertController:)]) {
+        [self.delegate presentAlertController:alertController];
+    }
+}
+
+- (void)didSwitchNotificationsItem:(STKSettingsItem *)item {
+    item.value = !item.value;
+
+    STKSourceType sourceType = [STKSource sourceTypeForName:item.title];
+
+    [STKAnalyticsManager logEventDidEnableNotifications:item.value sourceType:sourceType];
+    [[STKNotificationsManager sharedInstance] setNotificationsEnabled:item.value sourceType:sourceType];
 }
 
 - (void)notificationsPermissionDidChangeNotification:(NSNotification *)notification {

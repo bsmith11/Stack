@@ -127,13 +127,14 @@
 
 #pragma mark - Settings Item Node Delegate
 
-- (void)settingsItemNode:(STKSettingsItemNode *)node didChangeValue:(BOOL)value {
+- (void)settingsItemNodeDidTapSwitch:(STKSettingsItemNode *)node {
     NSIndexPath *indexPath = [self.tableView indexPathForNode:node];
-    STKSettingsItem *item = [self.viewModel objectAtIndexPath:indexPath];
+    [self.viewModel didTapSwitchForRowAtIndexPath:indexPath];
+}
 
-    if (item.type == STKSettingsItemTypeSwitch) {
-        [item performActionWithValue:@(value)];
-    }
+- (void)settingsItemNodeDidTapAccessoryItem:(STKSettingsItemNode *)node {
+    NSIndexPath *indexPath = [self.tableView indexPathForNode:node];
+    [self.viewModel didTapAccessoryForRowAtIndexPath:indexPath];
 }
 
 #pragma mark - Settings Header Node Delegate
@@ -163,6 +164,12 @@
         else {
             NSLog(@"Device unable to send mail");
         }
+    });
+}
+
+- (void)presentAlertController:(UIAlertController *)alertController {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alertController animated:YES completion:nil];
     });
 }
 

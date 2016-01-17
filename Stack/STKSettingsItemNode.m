@@ -17,6 +17,9 @@
 #import "STKSwitchNode.h"
 
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
+#import <KVOController/FBKVOController.h>
+#import <RZDataBinding/RZDBMacros.h>
+#import <RZUtils/RZCommonUtils.h>
 
 @interface STKSettingsItemNode ()
 
@@ -55,9 +58,9 @@
         [self setupImageNode];
         [self setupTitleTextNode];
         [self setupAccessoryContainerNode];
-
         [self setupAccessoryImageNode];
         [self setupAccessorySwitchNode];
+        [self setupObservers];
     }
 
     return self;
@@ -123,6 +126,10 @@
         case STKSettingsItemTypeSwitch:
             size = CGSizeMake(51.0f, 31.0f);
             break;
+
+        case STKSettingsItemTypeDetail:
+            size = [UIImage imageNamed:@"Info Icon"].size;
+            break;
     }
 
     return size;
@@ -168,15 +175,19 @@
 
 - (void)setupAccessoryContainerNode {
     self.accessoryContainerNode = [[ASDisplayNode alloc] init];
+    CGFloat inset = -12.5f;
+    self.accessoryContainerNode.hitTestSlop = UIEdgeInsetsMake(inset, inset, inset, inset);
 
     [self.containerNode addSubnode:self.accessoryContainerNode];
 }
 
 - (void)setupAccessoryImageNode {
     self.accessoryImageNode = [[ASImageNode alloc] init];
-    self.accessoryImageNode.layerBacked = YES;
     self.accessoryImageNode.placeholderEnabled = YES;
+    self.accessoryImageNode.userInteractionEnabled = YES;
     self.accessoryImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock([UIColor stk_stackColor]);
+    CGFloat inset = -12.5f;
+    self.accessoryImageNode.hitTestSlop = UIEdgeInsetsMake(inset, inset, inset, inset);
 
     [self.accessoryContainerNode addSubnode:self.accessoryImageNode];
 }
@@ -187,6 +198,19 @@
     self.accessorySwitchNode.placeholderEnabled = YES;
 
     [self.accessoryContainerNode addSubnode:self.accessorySwitchNode];
+}
+
+- (void)setupObservers {
+    NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
+
+    __weak __typeof(self) wself = self;
+
+    [self.KVOController observe:self.accessoryImageNode keyPath:RZDB_KP(ASImageNode, highlighted) options:options block:^(id observer, id object, NSDictionary *change) {
+        NSNumber *highlighted = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+        CGFloat alpha = highlighted.boolValue ? 0.5f : 1.0f;
+        wself.accessoryImageNode.alpha = alpha;
+    }];
 }
 
 - (void)configureAccessoryContainerNodeWithType:(STKSettingsItemType)type {
@@ -206,13 +230,25 @@
             self.accessorySwitchNode.hidden = NO;
             self.accessorySwitchNodeFrame = CGRectMake(0.0f, 0.0f, 51.0f, 31.0f);
             break;
+
+        case STKSettingsItemTypeDetail:
+            self.accessoryImageNode.hidden = NO;
+            UIImage *image = [UIImage imageNamed:@"Info Icon"];
+            self.accessoryImageNode.image = image;
+            self.accessoryImageNodeFrame = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);
+            [self.accessoryImageNode addTarget:self action:@selector(didTapAccessoryImageNode) forControlEvents:ASControlNodeEventTouchUpInside];
+            break;
     }
 }
 
 #pragma mark - Actions
 
 - (void)accessorySwitchNodeValueChanged:(STKSwitchNode *)switchNode {
-    [self.delegate settingsItemNode:self didChangeValue:switchNode.on];
+    [self.delegate settingsItemNodeDidTapSwitch:self];
+}
+
+- (void)didTapAccessoryImageNode {
+    [self.delegate settingsItemNodeDidTapAccessoryItem:self];
 }
 
 #pragma mark - Setters
