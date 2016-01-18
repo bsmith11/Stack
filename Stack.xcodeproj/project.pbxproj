@@ -150,6 +150,7 @@
 		064865BB1C31E4EC0087A41E /* STKSwitchNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BA1C31E4EC0087A41E /* STKSwitchNode.m */; };
 		064865BE1C322E3C0087A41E /* STKMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BD1C322E3C0087A41E /* STKMailViewController.m */; };
 		064865C01C323B310087A41E /* Assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 064865BF1C323B310087A41E /* Assets.bundle */; };
+		0694CD471C4C66AA0089A424 /* STKNetworkImageNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0694CD461C4C66AA0089A424 /* STKNetworkImageNode.m */; };
 		06A4967A1C3CD0370057209E /* STKUnavailableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A496791C3CD0370057209E /* STKUnavailableNode.m */; };
 		06C7CF201C478BD50012BEFC /* STKPost+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C7CF1F1C478BD50012BEFC /* STKPost+CoreDataProperties.m */; };
 		42A03B5B6B623051BF2CFD19 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */; };
@@ -449,6 +450,8 @@
 		064865BC1C322E3C0087A41E /* STKMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKMailViewController.h; sourceTree = "<group>"; };
 		064865BD1C322E3C0087A41E /* STKMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKMailViewController.m; sourceTree = "<group>"; };
 		064865BF1C323B310087A41E /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
+		0694CD451C4C66AA0089A424 /* STKNetworkImageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKNetworkImageNode.h; sourceTree = "<group>"; };
+		0694CD461C4C66AA0089A424 /* STKNetworkImageNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKNetworkImageNode.m; sourceTree = "<group>"; };
 		06A496781C3CD0370057209E /* STKUnavailableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKUnavailableNode.h; sourceTree = "<group>"; };
 		06A496791C3CD0370057209E /* STKUnavailableNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKUnavailableNode.m; sourceTree = "<group>"; };
 		06C7CF1E1C478BD50012BEFC /* STKPost+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKPost+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -748,6 +751,8 @@
 				064865901C2D0B310087A41E /* STKListBackgroundDefaultContentView.m */,
 				064865991C307EC20087A41E /* STKSearchField.h */,
 				0648659A1C307EC20087A41E /* STKSearchField.m */,
+				0694CD451C4C66AA0089A424 /* STKNetworkImageNode.h */,
+				0694CD461C4C66AA0089A424 /* STKNetworkImageNode.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1541,6 +1546,7 @@
 				E3BD7801A2ED3DAE8F1DFFD5 /* LaunchScreen.xib in Sources */,
 				064864851C2797700087A41E /* UIBarButtonItem+STKExtensions.m in Sources */,
 				0648654D1C2928930087A41E /* STKBookmarksViewModel.m in Sources */,
+				0694CD471C4C66AA0089A424 /* STKNetworkImageNode.m in Sources */,
 				0648643D1C276CB80087A41E /* STKPostSection+CoreDataProperties.m in Sources */,
 				064865461C291FF50087A41E /* STKSourceListNode.m in Sources */,
 				064864341C276CB80087A41E /* STKAttachment.m in Sources */,

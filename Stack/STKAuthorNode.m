@@ -13,6 +13,7 @@
 #import "STKImageCache.h"
 #import "STKImageDownloader.h"
 
+#import "STKNetworkImageNode.h"
 #import "STKAttributes.h"
 #import "ASImageNode+STKModificationBlocks.h"
 #import "UIColor+STKStyle.h"
@@ -20,13 +21,12 @@
 
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
 #import <RZUtils/UIImage+RZSolidColor.h>
-#import <pop/POP.h>
 
-@interface STKAuthorNode () <ASTextNodeDelegate, ASNetworkImageNodeDelegate>
+@interface STKAuthorNode () <ASTextNodeDelegate>
 
 @property (strong, nonatomic) ASImageNode *sourceBannerImageNode;
 @property (strong, nonatomic) ASImageNode *authorBorderImageNode;
-@property (strong, nonatomic) ASNetworkImageNode *authorNetworkImageNode;
+@property (strong, nonatomic) STKNetworkImageNode *authorNetworkImageNode;
 @property (strong, nonatomic) ASTextNode *authorTextNode;
 @property (strong, nonatomic) ASTextNode *summaryTextNode;
 
@@ -69,7 +69,8 @@
 
     CGSize authorBorderSize = CGSizeMake(112.5f, 112.5f);
 
-    CGSize authorNetworkImageSize = CGSizeMake(100.0f, 100.0f);
+    self.authorNetworkImageNode.staticImageSize = CGSizeMake(100.0f, 100.0f);
+    CGSize authorNetworkImageSize = [self.authorNetworkImageNode measure:constrainedSize];
 
     UIFont *font = [STKAttributes stk_authorNameAttributes][NSFontAttributeName];
     CGFloat authorAvailableWidth = constrainedSize.width - ((3 * 12.5f) + authorBorderSize.width);
@@ -135,9 +136,6 @@
         self.authorNetworkImageNode.URL = URL;
     }
 
-    UIColor *color = [STKSource colorForType:author.sourceType.integerValue];
-    self.authorNetworkImageNode.defaultImage = [UIImage rz_solidColorImageWithSize:CGSizeMake(2 * 50.0f, 2 * 50.0f) color:color];
-
     NSString *authorName = author.name ?: @"No name";
     authorName = [authorName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSAttributedString *attributedName = [[NSAttributedString alloc] initWithString:authorName attributes:[STKAttributes stk_authorNameAttributes]];
@@ -173,12 +171,10 @@
 }
 
 - (void)setupAuthorNetworkImageNode {
-    self.authorNetworkImageNode = [[ASNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
+    self.authorNetworkImageNode = [[STKNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
     self.authorNetworkImageNode.layerBacked = YES;
     self.authorNetworkImageNode.contentMode = UIViewContentModeScaleAspectFit;
     self.authorNetworkImageNode.imageModificationBlock = STKImageNodeCornerRadiusModificationBlock(100.0f);
-    self.authorNetworkImageNode.placeholderEnabled = YES;
-    self.authorNetworkImageNode.delegate = self;
 
     [self addSubnode:self.authorNetworkImageNode];
 }
@@ -214,25 +210,6 @@
 
 - (BOOL)textNode:(ASTextNode *)textNode shouldHighlightLinkAttribute:(NSString *)attribute value:(id)value atPoint:(CGPoint)point {
     return [attribute isEqualToString:@"STKLink"];
-}
-
-#pragma mark - Network Image Node Delegate
-
-- (void)imageNode:(ASNetworkImageNode *)imageNode didLoadImage:(UIImage *)image {
-    imageNode.alpha = 0.0f;
-}
-
-- (void)imageNodeDidFinishDecoding:(ASNetworkImageNode *)imageNode {
-    POPBasicAnimation *animation = [imageNode pop_animationForKey:@"fade_animation"];
-    if (!animation) {
-        animation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
-    }
-
-    animation.fromValue = @(imageNode.alpha);
-    animation.toValue = @1.0f;
-    animation.duration = 1.0;
-    
-    [imageNode pop_addAnimation:animation forKey:@"fade_animation"];
 }
 
 @end

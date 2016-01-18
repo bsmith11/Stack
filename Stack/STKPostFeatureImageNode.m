@@ -12,17 +12,15 @@
 #import "STKImageDownloader.h"
 #import "STKAttachment.h"
 
+#import "STKNetworkImageNode.h"
 #import "NSNumber+STKCGFloat.h"
 
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
-#import <pop/POP.h>
-#import <RZUtils/UIImage+RZSolidColor.h>
 
-@interface STKPostFeatureImageNode () <ASNetworkImageNodeDelegate>
+@interface STKPostFeatureImageNode ()
 
-@property (strong, nonatomic) ASNetworkImageNode *featureNetworkImageNode;
+@property (strong, nonatomic) STKNetworkImageNode *featureNetworkImageNode;
 
-@property (assign, nonatomic) CGSize attachmentSize;
 @property (assign, nonatomic) CGRect featureNetworkImageFrame;
 
 @end
@@ -46,9 +44,7 @@
 
 - (CGSize)calculateSizeThatFits:(CGSize)constrainedSize {
     //Sizing
-    CGFloat ratio = (self.attachmentSize.width / constrainedSize.width) ?: 1.0f;
-    CGFloat height = self.attachmentSize.height / ratio;
-    CGSize featureNetworkImageSize = CGSizeMake(constrainedSize.width, height);
+    CGSize featureNetworkImageSize = [self.featureNetworkImageNode measure:constrainedSize];
 
     //Positioning
     CGFloat x = 0.0f;
@@ -66,15 +62,14 @@
 #pragma mark - Setup
 
 - (void)setupWithAttachment:(STKAttachment *)attachment {
-    self.attachmentSize = CGSizeMake(attachment.width.CGFloatValue, attachment.height.CGFloatValue);
+    self.featureNetworkImageNode.originalImageSize = CGSizeMake(attachment.width.CGFloatValue, attachment.height.CGFloatValue);
 
     NSURL *URL = attachment.sourceURL ? [NSURL URLWithString:attachment.sourceURL] : nil;
     self.featureNetworkImageNode.URL = URL;
 }
 
 - (void)setupFeatureNetworkImageNode {
-    self.featureNetworkImageNode = [[ASNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
-    self.featureNetworkImageNode.delegate = self;
+    self.featureNetworkImageNode = [[STKNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
     self.featureNetworkImageNode.contentMode = UIViewContentModeScaleAspectFill;
     [self.featureNetworkImageNode addTarget:self action:@selector(didSelectFeatureNetworkImageNode) forControlEvents:ASControlNodeEventTouchUpInside];
 
@@ -87,25 +82,6 @@
     if ([self.delegate respondsToSelector:@selector(postFeatureImageNodeDidSelectAttachment:)]) {
         [self.delegate postFeatureImageNodeDidSelectAttachment:self];
     }
-}
-
-#pragma mark - Network Image Node Delegate
-
-- (void)imageNode:(ASNetworkImageNode *)imageNode didLoadImage:(UIImage *)image {
-    imageNode.alpha = 0.0f;
-}
-
-- (void)imageNodeDidFinishDecoding:(ASNetworkImageNode *)imageNode {
-    POPBasicAnimation *animation = [imageNode pop_animationForKey:@"fade_animation"];
-    if (!animation) {
-        animation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
-    }
-
-    animation.fromValue = @(imageNode.alpha);
-    animation.toValue = @1.0f;
-    animation.duration = 1.0;
-
-    [imageNode pop_addAnimation:animation forKey:@"fade_animation"];
 }
 
 @end

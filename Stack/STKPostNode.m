@@ -14,6 +14,7 @@
 #import "STKImageCache.h"
 #import "STKImageDownloader.h"
 
+#import "STKNetworkImageNode.h"
 #import "ASImageNode+STKModificationBlocks.h"
 #import "STKAttributes.h"
 #import "NSDate+STKTimeSince.h"
@@ -21,13 +22,12 @@
 #import "UIColor+STKStyle.h"
 
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
-#import <pop/POP.h>
 #import <tgmath.h>
 
-@interface STKPostNode () <ASNetworkImageNodeDelegate>
+@interface STKPostNode ()
 
 @property (strong, nonatomic) ASDisplayNode *containerNode;
-@property (strong, nonatomic) ASNetworkImageNode *featureNetworkImageNode;
+@property (strong, nonatomic) STKNetworkImageNode *featureNetworkImageNode;
 @property (strong, nonatomic) ASDisplayNode *infoContainerNode;
 @property (strong, nonatomic) ASDisplayNode *textContainerNode;
 @property (strong, nonatomic) ASTextNode *titleTextNode;
@@ -75,7 +75,8 @@
     CGFloat containerWidth = constrainedSize.width;
 
     CGFloat featureImageHeight = self.hasFeatureImage ? 150.0f : 0.0f;
-    CGSize featureImageSize = CGSizeMake(containerWidth, featureImageHeight);
+    self.featureNetworkImageNode.staticImageSize = CGSizeMake(containerWidth, featureImageHeight);
+    CGSize featureImageSize = [self.featureNetworkImageNode measure:constrainedSize];
 
     CGFloat infoContainerWidth = containerWidth - 25.0f;
 
@@ -188,11 +189,10 @@
 }
 
 - (void)setupFeatureNetworkImageNode {
-    self.featureNetworkImageNode = [[ASNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
+    self.featureNetworkImageNode = [[STKNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
     self.featureNetworkImageNode.layerBacked = YES;
     self.featureNetworkImageNode.contentMode = UIViewContentModeScaleAspectFill;
     self.featureNetworkImageNode.backgroundColor = [UIColor whiteColor];
-    self.featureNetworkImageNode.delegate = self;
 
     [self.containerNode addSubnode:self.featureNetworkImageNode];
 }
@@ -236,25 +236,6 @@
     self.sourceImageNode.placeholderEnabled = YES;
 
     [self.infoContainerNode addSubnode:self.sourceImageNode];
-}
-
-#pragma mark - Network Image Node Delegate
-
-- (void)imageNode:(ASNetworkImageNode *)imageNode didLoadImage:(UIImage *)image {
-    imageNode.alpha = 0.0f;
-}
-
-- (void)imageNodeDidFinishDecoding:(ASNetworkImageNode *)imageNode {
-    POPBasicAnimation *animation = [imageNode pop_animationForKey:@"fade_animation"];
-    if (!animation) {
-        animation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
-    }
-
-    animation.fromValue = @(imageNode.alpha);
-    animation.toValue = @1.0f;
-    animation.duration = 1.0;
-
-    [imageNode pop_addAnimation:animation forKey:@"fade_animation"];
 }
 
 #pragma mark - Getters

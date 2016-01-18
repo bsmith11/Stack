@@ -14,6 +14,7 @@
 #import "STKImageCache.h"
 #import "STKImageDownloader.h"
 
+#import "STKNetworkImageNode.h"
 #import "STKAttributes.h"
 #import "ASImageNode+STKModificationBlocks.h"
 #import "NSMutableAttributedString+STKHTML.h"
@@ -22,12 +23,11 @@
 #import "UIColor+STKStyle.h"
 
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
-#import <RZUtils/UIImage+RZSolidColor.h>
 
 @interface STKPostCommentNode () <ASTextNodeDelegate>
 
 @property (strong, nonatomic) ASDisplayNode *containerNode;
-@property (strong, nonatomic) ASNetworkImageNode *authorNetworkImageNode;
+@property (strong, nonatomic) STKNetworkImageNode *authorNetworkImageNode;
 @property (strong, nonatomic) ASTextNode *authorTextNode;
 @property (strong, nonatomic) ASTextNode *bodyTextNode;
 
@@ -62,7 +62,8 @@
     //Sizing
     CGFloat containerWidth = constrainedSize.width - 50.0f;
 
-    CGSize authorNetworkImageSize = CGSizeMake(50.0f, 50.0f);
+    self.authorNetworkImageNode.staticImageSize = CGSizeMake(50.0f, 50.0f);
+    CGSize authorNetworkImageSize = [self.authorNetworkImageNode measure:constrainedSize];
 
     CGSize authorTextConstrainedSize = CGSizeMake(containerWidth - authorNetworkImageSize.width - 12.5f, constrainedSize.height);
     CGSize authorTextSize = [self.authorTextNode measure:authorTextConstrainedSize];
@@ -114,11 +115,10 @@
 }
 
 - (void)setupAuthorNetworkImageNode {
-    self.authorNetworkImageNode = [[ASNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
+    self.authorNetworkImageNode = [[STKNetworkImageNode alloc] initWithCache:[STKImageCache sharedInstance] downloader:[STKImageDownloader sharedInstance]];
     self.authorNetworkImageNode.layerBacked = YES;
     self.authorNetworkImageNode.contentMode = UIViewContentModeScaleAspectFill;
     self.authorNetworkImageNode.imageModificationBlock = STKImageNodeCornerRadiusModificationBlock(50.0f);
-    self.authorNetworkImageNode.placeholderEnabled = YES;
 
     [self.containerNode addSubnode:self.authorNetworkImageNode];
 }
@@ -142,10 +142,6 @@
 }
 
 - (void)setupWithComment:(STKComment *)comment {
-    UIColor *color = [STKSource colorForType:comment.post.sourceType.integerValue];
-    UIImage *image = [UIImage rz_solidColorImageWithSize:CGSizeMake(50.0f, 50.0f) color:color];
-    self.authorNetworkImageNode.defaultImage = image;
-
     NSURL *URL = comment.authorAvatarImageURL ? [NSURL URLWithString:comment.authorAvatarImageURL] : nil;
     self.authorNetworkImageNode.URL = URL;
 
