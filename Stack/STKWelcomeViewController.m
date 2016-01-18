@@ -75,7 +75,11 @@
         CGFloat scaleY = 150.0f / height;
         self.imageContainerView.transform = CGAffineTransformMakeScale(scaleX, scaleY);
 
-        [self animateObjects];
+        int64_t delay = (int64_t)(0.5 * NSEC_PER_SEC);
+        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay);
+        dispatch_after(time, dispatch_get_main_queue(), ^{
+            [self animateObjects];
+        });
     }
 }
 
@@ -86,7 +90,7 @@
     [self.view addSubview:self.imageContainerView];
 
     //construct it at original size of vector asset
-    CGFloat cornerRadius = 50.0f;
+    CGFloat cornerRadius = 62.5f;
     UIColor *backgroundColor = [UIColor stk_stackColor];
     CGRect frame = CGRectMake(162.0f, 104.0f, 400.0f, 125.0f);
     NSArray *horizontalOffsets = @[@(0.0f),
