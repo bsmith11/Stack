@@ -114,9 +114,8 @@
     self.actionButton.contentEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset);
 
     [self.actionButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
-    [self.actionButton.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
-    [self.actionButton.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
     [self.actionButton.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor].active = YES;
+    [self.actionButton.centerXAnchor constraintEqualToAnchor:self.containerView.centerXAnchor].active = YES;
 }
 
 - (void)setupAcceptedLabel {
