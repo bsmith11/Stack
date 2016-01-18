@@ -50,6 +50,18 @@
 
 #pragma mark - Onboarding
 
++ (NSDictionary *)stk_welcomeTitleAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_stackColor],
+                                 NSFontAttributeName:[UIFont stk_welcomeTitleFont],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+
+    return attributes;
+}
+
 + (NSDictionary *)stk_onboardingTitleAttributes {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = kSTKDefaultFontLineSpacing;

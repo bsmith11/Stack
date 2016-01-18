@@ -16,6 +16,7 @@ pod 'RZUtils', '~> 2.5'
 pod 'AFNetworking', '~> 2.5'
 pod 'AsyncDisplayKit', :git => "https://github.com/knopp/AsyncDisplayKit", :commit => "1223cb28d7b2408cae0d6342d189e0f96dbeba81"
 pod 'pop', '~> 1.0'
+pod 'POP+MCAnimate', '~> 2.0'
 pod 'KVOController', '~> 1.0'
 pod 'DTCoreText', '~> 1.6'
 pod 'PINRemoteImage', '~> 1.0'

@@ -35,6 +35,10 @@ static NSString * const kSTKDefaultFontNameBold = @"Gotham-Bold";
 
 #pragma mark - Onboarding
 
++ (UIFont *)stk_welcomeTitleFont {
+    return [UIFont fontWithName:kSTKDefaultFontName size:48.0f];
+}
+
 + (UIFont *)stk_onboardingTitleFont {
     return [UIFont fontWithName:kSTKDefaultFontNameBold size:24.0f];
 }

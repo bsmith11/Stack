@@ -8,6 +8,7 @@
 
 #import "STKOnboardingPageViewController.h"
 #import "STKPermissionViewController.h"
+#import "STKWelcomeViewController.h"
 
 #import "STKAnalyticsManager.h"
 
@@ -16,8 +17,10 @@
 
 @interface STKOnboardingPageViewController () <UIPageViewControllerDataSource, STKPermissionViewControllerDelegate>
 
-@property (strong, nonatomic) UILabel *skipLabel;
+@property (strong, nonatomic) UIView *coverView;
 @property (strong, nonatomic) UIButton *skipButton;
+
+@property (strong, nonatomic) NSArray *onboardingViewControllers;
 
 @end
 
@@ -44,17 +47,46 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
 
-    STKPermissionViewController *notificationsPermissionViewController = [[STKPermissionViewController alloc] init];
-    notificationsPermissionViewController.delegate = self;
-    NSArray *viewControllers = @[notificationsPermissionViewController];
+    STKWelcomeViewController *welcomeViewController = [[STKWelcomeViewController alloc] init];
+    STKPermissionViewController *permissionViewController = [[STKPermissionViewController alloc] init];
+    permissionViewController.delegate = self;
+
+    self.onboardingViewControllers = @[welcomeViewController, permissionViewController];
+
+    NSArray *viewControllers = @[self.onboardingViewControllers.firstObject];
     [self setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 
     self.dataSource = self;
 
+    [self setupCoverView];
     [self setupSkipButton];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    // Cover up the default tap gesture on page control
+    [self.view bringSubviewToFront:self.coverView];
+    [self.view bringSubviewToFront:self.skipButton];
+}
+
 #pragma mark - Setup
+
+- (void)setupCoverView {
+    self.coverView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.coverView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.coverView];
+
+    self.coverView.userInteractionEnabled = YES;
+    self.coverView.backgroundColor = [UIColor clearColor];
+
+    NSArray *constraints = @[[self.coverView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+                             [self.view.bottomAnchor constraintEqualToAnchor:self.coverView.bottomAnchor],
+                             [self.view.trailingAnchor constraintEqualToAnchor:self.coverView.trailingAnchor],
+                             [self.coverView.heightAnchor constraintEqualToConstant:37.0f]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
+}
 
 - (void)setupSkipButton {
     self.skipButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -86,19 +118,33 @@
 #pragma mark - Page View Controller Data Source
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    return nil;
+    UIViewController *previousViewController = nil;
+    NSUInteger index = [self.onboardingViewControllers indexOfObject:viewController];
+
+    if (index != NSNotFound && index > 0) {
+        previousViewController = self.onboardingViewControllers[index - 1];
+    }
+
+    return previousViewController;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    return nil;
+    UIViewController *nextViewController = nil;
+    NSUInteger index = [self.onboardingViewControllers indexOfObject:viewController];
+
+    if (index != NSNotFound && index < self.onboardingViewControllers.count - 1) {
+        nextViewController = self.onboardingViewControllers[index + 1];
+    }
+
+    return nextViewController;
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
-    return 1;
+    return 0;
 }
 
 #pragma mark - Permission View Controller Delegate

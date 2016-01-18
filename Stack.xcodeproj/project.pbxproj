@@ -151,6 +151,7 @@
 		064865BE1C322E3C0087A41E /* STKMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064865BD1C322E3C0087A41E /* STKMailViewController.m */; };
 		064865C01C323B310087A41E /* Assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 064865BF1C323B310087A41E /* Assets.bundle */; };
 		0694CD471C4C66AA0089A424 /* STKNetworkImageNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0694CD461C4C66AA0089A424 /* STKNetworkImageNode.m */; };
+		0694CD4A1C4CCF970089A424 /* STKWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0694CD491C4CCF970089A424 /* STKWelcomeViewController.m */; };
 		06A4967A1C3CD0370057209E /* STKUnavailableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A496791C3CD0370057209E /* STKUnavailableNode.m */; };
 		06C7CF201C478BD50012BEFC /* STKPost+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C7CF1F1C478BD50012BEFC /* STKPost+CoreDataProperties.m */; };
 		42A03B5B6B623051BF2CFD19 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */; };
@@ -452,6 +453,8 @@
 		064865BF1C323B310087A41E /* Assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Assets.bundle; sourceTree = "<group>"; };
 		0694CD451C4C66AA0089A424 /* STKNetworkImageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKNetworkImageNode.h; sourceTree = "<group>"; };
 		0694CD461C4C66AA0089A424 /* STKNetworkImageNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKNetworkImageNode.m; sourceTree = "<group>"; };
+		0694CD481C4CCF970089A424 /* STKWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKWelcomeViewController.h; sourceTree = "<group>"; };
+		0694CD491C4CCF970089A424 /* STKWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKWelcomeViewController.m; sourceTree = "<group>"; };
 		06A496781C3CD0370057209E /* STKUnavailableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKUnavailableNode.h; sourceTree = "<group>"; };
 		06A496791C3CD0370057209E /* STKUnavailableNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKUnavailableNode.m; sourceTree = "<group>"; };
 		06C7CF1E1C478BD50012BEFC /* STKPost+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKPost+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -509,6 +512,8 @@
 			children = (
 				064863DC1C2685840087A41E /* STKOnboardingPageViewController.h */,
 				064863DD1C2685840087A41E /* STKOnboardingPageViewController.m */,
+				0694CD481C4CCF970089A424 /* STKWelcomeViewController.h */,
+				0694CD491C4CCF970089A424 /* STKWelcomeViewController.m */,
 				064863DF1C2685BE0087A41E /* STKPermissionViewController.h */,
 				064863E01C2685BE0087A41E /* STKPermissionViewController.m */,
 			);
@@ -1501,6 +1506,7 @@
 				0648657C1C29D5C20087A41E /* STKAuthorViewModel.m in Sources */,
 				064864901C279E7A0087A41E /* STKPost+Analytical.m in Sources */,
 				064865631C2936B90087A41E /* STKPostParagraphSectionNode.m in Sources */,
+				0694CD4A1C4CCF970089A424 /* STKWelcomeViewController.m in Sources */,
 				064864DD1C287D670087A41E /* STKWordpressComment+CoreDataProperties.m in Sources */,
 				0648655A1C2934BC0087A41E /* STKPostInfoNode.m in Sources */,
 				064864661C27786D0087A41E /* STKHTMLVideoSection.m in Sources */,

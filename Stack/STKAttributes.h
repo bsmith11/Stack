@@ -15,6 +15,7 @@
 + (NSDictionary *)stk_errorTitleAttributes;
 + (NSDictionary *)stk_errorMessageAttributes;
 
++ (NSDictionary *)stk_welcomeTitleAttributes;
 + (NSDictionary *)stk_onboardingTitleAttributes;
 + (NSDictionary *)stk_onboardingMessageAttributes;
 + (NSDictionary *)stk_onboardingActionAttributes;

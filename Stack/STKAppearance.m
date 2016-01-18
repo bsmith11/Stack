@@ -25,6 +25,9 @@
     [UITabBar appearance].shadowImage = [[UIImage alloc] init];
     [UITabBar appearance].backgroundImage = [[UIImage alloc] init];
     [UITabBar appearance].tintColor = [UIColor stk_stackColor];
+
+    [UIPageControl appearance].pageIndicatorTintColor = [UIColor lightGrayColor];
+    [UIPageControl appearance].currentPageIndicatorTintColor = [UIColor stk_stackColor];
 }
 
 @end

@@ -77,6 +77,28 @@ PODS:
     - FLAnimatedImage (>= 1.0)
     - PINRemoteImage/Core
   - pop (1.0.8)
+  - POP+MCAnimate (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Animations (= 2.0.1)
+    - POP+MCAnimate/Group (= 2.0.1)
+    - POP+MCAnimate/Internal (= 2.0.1)
+    - POP+MCAnimate/Shorthand (= 2.0.1)
+    - POP+MCAnimate/Velocity (= 2.0.1)
+  - POP+MCAnimate/Animations (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Group
+    - POP+MCAnimate/Internal
+    - POP+MCAnimate/Shorthand
+    - POP+MCAnimate/Velocity
+  - POP+MCAnimate/Group (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Internal (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Shorthand (2.0.1):
+    - pop (~> 1.0)
+  - POP+MCAnimate/Velocity (2.0.1):
+    - pop (~> 1.0)
+    - POP+MCAnimate/Internal
   - RZCollectionList (0.7.2)
   - RZDataBinding (2.0.2)
   - RZImport (1.3.0)
@@ -174,6 +196,7 @@ DEPENDENCIES:
   - ParseCrashReporting (~> 1.9)
   - PINRemoteImage (~> 1.0)
   - pop (~> 1.0)
+  - POP+MCAnimate (~> 2.0)
   - RZCollectionList (~> 0.7)
   - RZDataBinding (~> 2.0)
   - RZImport (~> 1.2)
@@ -220,6 +243,7 @@ SPEC CHECKSUMS:
   PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
   PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
+  POP+MCAnimate: a99e209148c602512de487f1160a44bf78572024
   RZCollectionList: 0a68ff56f07fc56212ab0a8258fa103b90e91e11
   RZDataBinding: cee51c9865c82e37adc4639fe408a6f81abe79ad
   RZImport: b28a0e94be0603ab23acd6fc3fbdb77421439c3f

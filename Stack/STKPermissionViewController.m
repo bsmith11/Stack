@@ -22,7 +22,7 @@
 @property (strong, nonatomic) UILabel *messageLabel;
 @property (strong, nonatomic) UIButton *actionButton;
 @property (strong, nonatomic) UILabel *acceptedLabel;
-@property (strong, nonatomic) UIButton *deniedButton;
+@property (strong, nonatomic) UILabel *deniedLabel;
 
 @end
 
@@ -39,7 +39,7 @@
     [self setupMessageLabel];
     [self setupActionButton];
     [self setupAcceptedLabel];
-    [self setupDeniedButton];
+    [self setupDeniedLabel];
 }
 
 #pragma mark - Setup
@@ -60,8 +60,9 @@
     [self.containerView addSubview:self.imageView];
 
     UIImage *image = [UIImage imageNamed:@"Notification Large"];
-    self.imageView.image = image;
+    self.imageView.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.imageView.contentMode = UIViewContentModeCenter;
+    self.imageView.tintColor = [UIColor stk_stackColor];
 
     [self.imageView.centerXAnchor constraintEqualToAnchor:self.containerView.centerXAnchor].active = YES;
     [self.imageView.topAnchor constraintEqualToAnchor:self.containerView.topAnchor].active = YES;
@@ -109,6 +110,8 @@
     NSString *actionTitle = @"Enable";
     NSAttributedString *attributedActionTitle = [[NSAttributedString alloc] initWithString:actionTitle attributes:[STKAttributes stk_onboardingActionAttributes]];
     [self.actionButton setAttributedTitle:attributedActionTitle forState:UIControlStateNormal];
+    CGFloat inset = 12.5f;
+    self.actionButton.contentEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset);
 
     [self.actionButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
     [self.actionButton.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
@@ -135,24 +138,23 @@
     self.acceptedLabel.alpha = 0.0f;
 }
 
-- (void)setupDeniedButton {
-    self.deniedButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.deniedButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.containerView addSubview:self.deniedButton];
+- (void)setupDeniedLabel {
+    self.deniedLabel = [[UILabel alloc] init];
+    self.deniedLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.containerView addSubview:self.deniedLabel];
 
-    [self.deniedButton addTarget:self action:@selector(didTapDeniedButton) forControlEvents:UIControlEventTouchUpInside];
+    NSString *deniedTitle = @"Denied";
+    NSMutableDictionary *attributes = [[STKAttributes stk_onboardingActionAttributes] mutableCopy];
+    attributes[NSForegroundColorAttributeName] = [UIColor stk_mluColor];
+    NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:deniedTitle attributes:attributes];
+    self.deniedLabel.attributedText = attributedTitle;
 
-    NSString *deniedTitle = @"Enable in Settings";
-    NSAttributedString *attributedDeniedTitle = [[NSAttributedString alloc] initWithString:deniedTitle attributes:[STKAttributes stk_onboardingActionAttributes]];
-    [self.deniedButton setAttributedTitle:attributedDeniedTitle forState:UIControlStateNormal];
+    [self.deniedLabel.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
+    [self.deniedLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
+    [self.deniedLabel.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
+    [self.deniedLabel.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor].active = YES;
 
-    [self.deniedButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
-    [self.deniedButton.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
-    [self.deniedButton.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
-    [self.deniedButton.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor].active = YES;
-
-    self.deniedButton.alpha = 0.0f;
-    self.deniedButton.userInteractionEnabled = NO;
+    self.deniedLabel.alpha = 0.0f;
 }
 
 #pragma mark - Actions
@@ -180,24 +182,14 @@
         }
         else {
             [UIView animateWithDuration:0.3 animations:^{
-                self.deniedButton.alpha = 1.0f;
+                self.deniedLabel.alpha = 1.0f;
             } completion:^(BOOL finished) {
-                self.deniedButton.userInteractionEnabled = YES;
-
                 if ([self.delegate respondsToSelector:@selector(permissionViewControllerDidFinish:)]) {
                     [self.delegate permissionViewControllerDidFinish:self];
                 }
             }];
         }
     }];
-}
-
-- (void)didTapDeniedButton {
-    NSURL *URL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-
-    if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-        [[UIApplication sharedApplication] openURL:URL];
-    }
 }
 
 @end

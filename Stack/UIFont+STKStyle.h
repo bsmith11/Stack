@@ -18,6 +18,7 @@ OBJC_EXTERN CGFloat const kSTKDefaultFontLineSpacing;
 + (UIFont *)stk_errorTitleFont;
 + (UIFont *)stk_errorMessageFont;
 
++ (UIFont *)stk_welcomeTitleFont;
 + (UIFont *)stk_onboardingTitleFont;
 + (UIFont *)stk_onboardingMessageFont;
 + (UIFont *)stk_onboardingActionFont;
