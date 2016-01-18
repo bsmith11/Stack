@@ -26,6 +26,7 @@
     self = [super initWithCache:cache downloader:downloader];
 
     if (self) {
+        self.stk_placeholderEnabled = YES;
         self.delegate = self;
     }
 
@@ -34,9 +35,19 @@
 
 - (void)didLoad {
     [super didLoad];
-    
-    self.stk_placeholderLayer = [CALayer layer];
-    self.stk_placeholderLayer.zPosition = 9999.0f;
+
+    if (self.stk_placeholderEnabled) {
+        self.stk_placeholderLayer = [CALayer layer];
+        self.stk_placeholderLayer.zPosition = 9999.0f;
+    }
+}
+
+- (UIColor *)stk_placeholderColor {
+    if (!_stk_placeholderColor) {
+        _stk_placeholderColor = [UIColor whiteColor];
+    }
+
+    return _stk_placeholderColor;
 }
 
 #pragma mark - Layout
@@ -54,9 +65,9 @@
         calculatedSize = CGSizeMake(constrainedSize.width, height);
     }
 
-    if (calculatedSize.width > 0.0f && calculatedSize.height > 0.0f) {
+    if (self.stk_placeholderEnabled && calculatedSize.width > 0.0f && calculatedSize.height > 0.0f) {
         if (!self.stk_placeholderImage) {
-            UIImage *image = [UIImage rz_solidColorImageWithSize:calculatedSize color:[UIColor grayColor]];
+            UIImage *image = [UIImage rz_solidColorImageWithSize:calculatedSize color:self.stk_placeholderColor];
             if (self.imageModificationBlock) {
                 image = self.imageModificationBlock(image);
             }
@@ -73,13 +84,15 @@
 }
 
 - (void)layout {
-    self.stk_placeholderLayer.frame = self.bounds;
+    if (self.stk_placeholderEnabled) {
+        self.stk_placeholderLayer.frame = self.bounds;
+    }
 }
 
 - (void)displayWillStart {
     [super displayWillStart];
 
-    if (self.stk_placeholderImage && self.stk_placeholderLayer && self.layer.contents == nil) {
+    if (self.stk_placeholderEnabled && self.stk_placeholderImage && self.stk_placeholderLayer && self.layer.contents == nil) {
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
         self.stk_placeholderLayer.contents = (id)self.stk_placeholderImage.CGImage;
@@ -104,21 +117,23 @@
 }
 
 - (void)imageNodeDidFinishDecoding:(ASNetworkImageNode *)imageNode {
-    POPBasicAnimation *animation = [self.stk_placeholderLayer pop_animationForKey:@"fade_animation"];
-    if (!animation) {
-        animation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
+    if (self.stk_placeholderEnabled) {
+        POPBasicAnimation *animation = [self.stk_placeholderLayer pop_animationForKey:@"fade_animation"];
+        if (!animation) {
+            animation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerOpacity];
+        }
+
+        animation.fromValue = @(self.stk_placeholderLayer.opacity);
+        animation.toValue = @0.0f;
+        animation.duration = 0.75;
+        animation.completionBlock = ^(POPAnimation *popAnimation, BOOL finished) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.stk_placeholderLayer removeFromSuperlayer];
+            });
+        };
+
+        [self.stk_placeholderLayer pop_addAnimation:animation forKey:@"fade_animation"];
     }
-
-    animation.fromValue = @(self.stk_placeholderLayer.opacity);
-    animation.toValue = @0.0f;
-    animation.duration = 0.5;
-    animation.completionBlock = ^(POPAnimation *popAnimation, BOOL finished) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.stk_placeholderLayer removeFromSuperlayer];
-        });
-    };
-
-    [self.stk_placeholderLayer pop_addAnimation:animation forKey:@"fade_animation"];
 }
 
 @end

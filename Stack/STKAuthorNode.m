@@ -126,6 +126,8 @@
 #pragma mark - Setup
 
 - (void)setupWithAuthor:(STKAuthor *)author {
+    self.authorNetworkImageNode.stk_placeholderColor = [STKSource colorForType:author.sourceType.integerValue];
+
     NSString *imageName = [STKSource bannerImageNameForType:author.sourceType.integerValue];
     UIImage *image = [UIImage imageNamed:imageName];
     self.bannerImageSize = image.size;

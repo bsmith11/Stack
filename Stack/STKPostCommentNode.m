@@ -142,6 +142,8 @@
 }
 
 - (void)setupWithComment:(STKComment *)comment {
+    self.authorNetworkImageNode.stk_placeholderColor = [STKSource colorForType:comment.post.sourceType.integerValue];
+
     NSURL *URL = comment.authorAvatarImageURL ? [NSURL URLWithString:comment.authorAvatarImageURL] : nil;
     self.authorNetworkImageNode.URL = URL;
 

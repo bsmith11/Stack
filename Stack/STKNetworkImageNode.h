@@ -13,4 +13,7 @@
 @property (assign, nonatomic) CGSize staticImageSize;
 @property (assign, nonatomic) CGSize originalImageSize;
 
+@property (strong, nonatomic) UIColor *stk_placeholderColor;
+@property (assign, nonatomic) BOOL stk_placeholderEnabled;
+
 @end

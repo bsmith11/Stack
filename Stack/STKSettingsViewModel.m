@@ -178,7 +178,7 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 }
 
 - (void)didTapFeedbackItemAccessory {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Feedback" message:@"Info Here" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Feedback" message:@"Let us know how you feel about the app! What do you like? What do you dislike? What do you wish we had?" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:action];
 
@@ -188,7 +188,7 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 }
 
 - (void)didTapClearCacheItem {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Message Here" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"This will remove any articles which are not bookmarked from the local cache." preferredStyle:UIAlertControllerStyleAlert];
     __weak typeof(self) wself = self;
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Clear" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [wself clearCache];
@@ -203,7 +203,7 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 }
 
 - (void)didTapClearCacheItemAccessory {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Info Here" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Clearing the cache will remove all non-bookmarked locally stored articles on your device. This can sometimes fix any inconsistancies within the feed." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:action];
 
