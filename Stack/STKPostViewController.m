@@ -48,6 +48,7 @@
 @property (strong, nonatomic) ASTableView *tableView;
 @property (strong, nonatomic) UIToolbar *toolbar;
 @property (strong, nonatomic) UIBarButtonItem *bookmarkToolbarItem;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) ASCellNode *selectedNode;
 
 @property (assign, nonatomic) CGPoint previousContentOffset;
@@ -132,31 +133,43 @@
 }
 
 - (void)setupToolbarItems {
-    CGFloat interitemSpacing = 50.0f;
     CGFloat width = (25.0f - 16.0f);
     UIBarButtonItem *leftFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:width];
 
     UIImage *backImage = [UIImage imageNamed:@"Back Icon"];
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBackBarButtonItem)];
 
-    UIBarButtonItem *middleLeftFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:interitemSpacing];
-
     UIImage *commentsImage = [UIImage imageNamed:@"Comments Off Icon"];
     UIBarButtonItem *commentsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:commentsImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapCommentsBarButtonItem)];
-
-    UIBarButtonItem *middleRightFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:interitemSpacing];
 
     UIImage *bookmarkImage = [UIImage imageNamed:@"Bookmark Off Icon"];
     self.bookmarkToolbarItem = [[UIBarButtonItem alloc] initWithImage:bookmarkImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBookmarkBarButtonItem)];
     self.bookmarkToolbarItem.imageInsets = UIEdgeInsetsMake(3.0f, 0.0f, 0.0f, 0.0f);
 
-    UIBarButtonItem *rightFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:interitemSpacing];
-
     UIBarButtonItem *shareToolbarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(didTapShareBarButtonItem)];
     shareToolbarItem.imageInsets = UIEdgeInsetsMake(0.0f, 0.0f, 3.0f, 0.0f);
     shareToolbarItem.enabled = (self.viewModel.post.link != nil);
 
-    [self.toolbar setItems:@[leftFixedSpaceToolbarItem, backBarButtonItem, middleLeftFixedSpaceToolbarItem, commentsBarButtonItem, middleRightFixedSpaceToolbarItem, self.bookmarkToolbarItem, rightFixedSpaceToolbarItem, shareToolbarItem] animated:NO];
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.spinner.color = self.toolbar.tintColor;
+    self.spinner.hidesWhenStopped = YES;
+
+    UIBarButtonItem *spinnerToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:self.spinner];
+    UIBarButtonItem *rightFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:width];
+
+    NSArray *items = @[leftFixedSpaceToolbarItem,
+                       backBarButtonItem,
+                       [UIBarButtonItem stk_flexibleSpaceBarButtonItem],
+                       commentsBarButtonItem,
+                       [UIBarButtonItem stk_flexibleSpaceBarButtonItem],
+                       self.bookmarkToolbarItem,
+                       [UIBarButtonItem stk_flexibleSpaceBarButtonItem],
+                       shareToolbarItem,
+                       [UIBarButtonItem stk_flexibleSpaceBarButtonItem],
+                       spinnerToolbarItem,
+                       rightFixedSpaceToolbarItem];
+
+    [self.toolbar setItems:items animated:NO];
 }
 
 - (void)setupObservers {
@@ -176,6 +189,19 @@
         }
 
         wself.bookmarkToolbarItem.image = image;
+    }];
+
+    [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, downloading) options:options block:^(id observer, id object, NSDictionary *change) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSNumber *downloading = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+            if (downloading.boolValue) {
+                [wself.spinner startAnimating];
+            }
+            else {
+                [wself.spinner stopAnimating];
+            }
+        });
     }];
 }
 

@@ -21,4 +21,6 @@
 
 @property (strong, nonatomic, readonly) STKPost *post;
 
+@property (assign, nonatomic, readonly) BOOL downloading;
+
 @end

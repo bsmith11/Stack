@@ -23,6 +23,8 @@
 #import "STKAnalyticsManager.h"
 #import "UIViewController+STKMail.h"
 #import "NSURL+STKExtensions.h"
+#import "UIView+STKShadow.h"
+#import "UIBarButtonItem+STKExtensions.h"
 
 #import <AsyncDisplayKit/ASTableView.h>
 #import <KVOController/FBKVOController.h>
@@ -36,6 +38,8 @@
 @property (strong, nonatomic) STKAuthorViewModel *viewModel;
 @property (strong, nonatomic) ASTableView *tableView;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
+@property (strong, nonatomic) UIToolbar *toolbar;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -58,6 +62,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
 
     [self setupTableView];
+    [self setupToolbar];
+    [self setupToolbarItems];
 }
 
 - (void)viewDidLoad {
@@ -76,6 +82,11 @@
 
         self.tableView.frame = self.view.bounds;
         [self setupRefreshView];
+
+        CGFloat toolbarHeight = 49.0f;
+        self.toolbar.frame = CGRectMake(0.0f, CGRectGetHeight(self.view.bounds) - toolbarHeight, CGRectGetWidth(self.view.bounds), toolbarHeight);
+
+        [self.toolbar stk_setupShadow];
     }
 }
 
@@ -85,7 +96,8 @@
     self.tableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:YES];
     self.tableView.backgroundColor = [UIColor stk_backgroundColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 6.25f, 0.0f);
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 49.0f + 6.25f, 0.0f);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, 49.0f, 0.0f);
     self.tableView.asyncDelegate = self;
     self.tableView.alwaysBounceVertical = YES;
 
@@ -102,6 +114,35 @@
     }
 }
 
+- (void)setupToolbar {
+    self.toolbar = [[UIToolbar alloc] init];
+    self.toolbar.translucent = NO;
+    self.toolbar.tintColor = [UIColor whiteColor];
+    self.toolbar.barTintColor = [STKSource colorForType:self.viewModel.author.sourceType.integerValue];
+    [self.toolbar setShadowImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny];
+    [self.toolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+
+    [self.view addSubview:self.toolbar];
+}
+
+- (void)setupToolbarItems {
+    CGFloat width = (25.0f - 16.0f);
+    UIBarButtonItem *leftFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:width];
+
+    UIImage *backImage = [UIImage imageNamed:@"Back Icon"];
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBackBarButtonItem)];
+
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.spinner.color = self.toolbar.tintColor;
+    self.spinner.hidesWhenStopped = YES;
+
+    UIBarButtonItem *spinnerToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:self.spinner];
+    UIBarButtonItem *rightFixedSpaceToolbarItem = [UIBarButtonItem stk_fixedSpaceBarButtonItemWithWidth:width];
+    UIBarButtonItem *flexibleSpaceToolbarItem = [UIBarButtonItem stk_flexibleSpaceBarButtonItem];
+
+    [self.toolbar setItems:@[leftFixedSpaceToolbarItem, backBarButtonItem, flexibleSpaceToolbarItem, spinnerToolbarItem, rightFixedSpaceToolbarItem] animated:NO];
+}
+
 - (void)setupObservers {
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
 
@@ -112,10 +153,10 @@
             NSNumber *downloading = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
 
             if (downloading.boolValue) {
-//                [wself.spinner startAnimating];
+                [wself.spinner startAnimating];
             }
             else {
-//                [wself.spinner stopAnimating];
+                [wself.spinner stopAnimating];
 
                 if (wself.refreshView.state == SSPullToRefreshViewStateLoading) {
                     [wself.refreshView finishLoadingAnimated:YES completion:nil];
@@ -123,6 +164,12 @@
             }
         });
     }];
+}
+
+#pragma mark - Actions
+
+- (void)didTapBackBarButtonItem {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Collection List Data Source Delegate
