@@ -180,6 +180,8 @@
     [contentView setActionTitle:@"Try again" forState:STKListBackgroundViewStateError];
 
     self.listBackgroundView.contentView = contentView;
+
+    self.viewModel.listBackgroundView = self.listBackgroundView;
 }
 
 - (void)setupRefreshView {
@@ -319,7 +321,7 @@
 }
 
 - (void)tableViewDidChangeContent:(ASTableView *)tableView {
-    [self.listBackgroundView tableViewDidChangeContent];
+
 }
 
 #pragma mark - Table View Delegate

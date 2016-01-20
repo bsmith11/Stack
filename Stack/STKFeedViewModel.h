@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, STKViewModelFetchResult) {
 typedef void (^STKViewModelFetchCompletion)(STKViewModelFetchResult result);
 
 @protocol STKTableViewDataSourceDelegate;
-@class ASTableView;
+@class ASTableView, STKListBackgroundView;
 
 @interface STKFeedViewModel : NSObject
 
@@ -36,6 +36,8 @@ typedef void (^STKViewModelFetchCompletion)(STKViewModelFetchResult result);
 @property (strong, nonatomic, readonly) NSError *networkError;
 
 @property (copy, nonatomic, readonly) NSString *title;
+
+@property (weak, nonatomic) STKListBackgroundView *listBackgroundView;
 
 @property (assign, nonatomic, readonly) STKSourceType sourceType;
 @property (assign, nonatomic, readonly) BOOL downloading;

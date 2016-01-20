@@ -14,6 +14,7 @@
 #import "STKNotificationsManager.h"
 #import "STKAnalyticsManager.h"
 #import "STKContentManager.h"
+#import "STKPost.h"
 
 #import <Keys/StackKeys.h>
 #import <Parse/Parse.h>
@@ -83,15 +84,37 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 #ifdef DEBUG
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertTitle = @"Background Fetch";
-    notification.alertBody = @"Performing background fetch...";
+    UILocalNotification *fetchNotification = [[UILocalNotification alloc] init];
+    fetchNotification.alertTitle = @"Background Fetch";
+    fetchNotification.alertBody = @"Performing background fetch...";
 
-    [application scheduleLocalNotification:notification];
+    [application scheduleLocalNotification:fetchNotification];
 #endif
 
+    NSArray *fetchedPosts = [STKPost fetchPostsBeforePost:nil
+                                                   author:nil
+                                               sourceType:-1];
+
     [STKContentManager downloadPostsBeforePosts:nil completion:^(NSArray * _Nullable posts, NSError * _Nullable error) {
-        completionHandler(UIBackgroundFetchResultNewData);
+        UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
+
+        for (STKPost *post in posts) {
+            if (![fetchedPosts containsObject:post]) {
+                result = UIBackgroundFetchResultNewData;
+                break;
+            }
+        }
+
+#ifdef DEBUG
+        UILocalNotification *resultNotification = [[UILocalNotification alloc] init];
+        resultNotification.alertTitle = @"Background Fetch";
+        NSString *resultString = (result == UIBackgroundFetchResultNewData) ? @"New data" : @"No data";
+        resultNotification.alertBody = [NSString stringWithFormat:@"%@ fetched", resultString];
+
+        [application scheduleLocalNotification:resultNotification];
+#endif
+
+        completionHandler(result);
     }];
 }
 

@@ -10,6 +10,7 @@
 
 #import "STKPost.h"
 
+#import "STKListBackgroundView.h"
 #import "STKCoreDataStack.h"
 #import "STKSettingsViewModel.h"
 #import "STKTableViewDataSource.h"
@@ -88,25 +89,6 @@
                                             author:nil
                                         sourceType:sourceType];
 
-//    __weak __typeof(self) wself = self;
-//    [STKPost fetchPostsBeforePost:nil
-//                           author:nil
-//                       sourceType:sourceType
-//                       completion:^(NSAsynchronousFetchResult * _Nonnull result) {
-//                           NSArray *posts = result.finalResult;
-//
-//                           BOOL previousValue = wself.dataSource.tableView.automaticallyAdjustsContentOffset;
-//                           wself.dataSource.tableView.automaticallyAdjustsContentOffset = NO;
-//
-//                           [wself.dataSource replaceAllObjectsWithObjects:posts completion:^{
-//                               CGPoint contentOffset = wself.dataSource.tableView.contentOffset;
-//                               contentOffset.y = -wself.dataSource.tableView.contentInset.top;
-//                               [wself.dataSource.tableView setContentOffset:contentOffset animated:NO];
-//                               
-//                               wself.dataSource.tableView.automaticallyAdjustsContentOffset = previousValue;
-//                           }];
-//                       }];
-
     BOOL previousValue = self.dataSource.tableView.automaticallyAdjustsContentOffset;
     self.dataSource.tableView.automaticallyAdjustsContentOffset = NO;
 
@@ -117,6 +99,8 @@
         [wself.dataSource.tableView setContentOffset:contentOffset animated:NO];
 
         wself.dataSource.tableView.automaticallyAdjustsContentOffset = previousValue;
+
+        [wself.listBackgroundView tableViewDidChangeContent];
     }];
 
     [self fetchNewPostsWithCompletion:completion];
@@ -183,6 +167,8 @@
                     if (completion) {
                         completion(result);
                     }
+
+                    [wself.listBackgroundView tableViewDidChangeContent];
                 }];
             }
             else {
@@ -214,6 +200,8 @@
     __weak __typeof(self) wself = self;
     [self.dataSource replaceAllObjectsWithObjects:nil completion:^{
         [wself fetchNewPostsWithCompletion:nil];
+
+        [wself.listBackgroundView tableViewDidChangeContent];
     }];
 }
 

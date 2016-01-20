@@ -37,6 +37,7 @@
         [self setupObservers];
 
         self.state = STKListBackgroundViewStateEmpty;
+        self.hidden = YES;
     }
 
     return self;
@@ -102,6 +103,8 @@
 
     self.hidden = (rowCount > self.emptyThreshold);
     tableView.scrollEnabled = (rowCount > self.emptyThreshold);
+
+    self.state = (rowCount > self.emptyThreshold) ? STKListBackgroundViewStateNone : STKListBackgroundViewStateEmpty;
 }
 
 #pragma mark - Setters
@@ -119,6 +122,9 @@
         _loading = loading;
 
         self.contentView.loading = loading;
+        if (loading) {
+            self.state = STKListBackgroundViewStateNone;
+        }
     }
 }
 
