@@ -19,6 +19,10 @@ typedef void (^ _Nullable STKPostDownloadCompletion)(NSError * _Nullable error);
 + (NSArray * _Nullable)fetchPostsBeforePost:(STKPost * _Nullable)post
                                      author:(STKAuthor * _Nullable)author
                                  sourceType:(STKSourceType)sourceType;
++ (void)fetchPostsBeforePost:(STKPost * _Nullable)post
+                      author:(STKAuthor * _Nullable)author
+                  sourceType:(STKSourceType)sourceType
+                  completion:(NSPersistentStoreAsynchronousFetchResultCompletionBlock _Nullable)completion;
 
 + (NSSortDescriptor * _Nonnull)createDateSortDescriptor;
 + (NSPredicate * _Nonnull)predicateWithSourceType:(STKSourceType)sourceType;

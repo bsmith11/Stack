@@ -193,10 +193,18 @@
 
 #pragma mark - Page View Controller Delegate
 
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
+    self.nextButton.userInteractionEnabled = NO;
+    self.skipButton.userInteractionEnabled = NO;
+}
+
 - (void)pageViewController:(UIPageViewController *)pageViewController
         didFinishAnimating:(BOOL)finished
    previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers
        transitionCompleted:(BOOL)completed {
+    self.nextButton.userInteractionEnabled = YES;
+    self.skipButton.userInteractionEnabled = YES;
+
     if (![pageViewController.viewControllers.firstObject isEqual:previousViewControllers.firstObject]) {
         if ([previousViewControllers.firstObject isEqual:self.onboardingViewControllers.firstObject]) {
             self.skipButton.hidden = !completed;

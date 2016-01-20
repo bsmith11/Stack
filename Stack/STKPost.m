@@ -71,6 +71,33 @@
     return posts;
 }
 
++ (void)fetchPostsBeforePost:(STKPost *)post
+                      author:(STKAuthor *)author
+                  sourceType:(STKSourceType)sourceType
+                  completion:(NSPersistentStoreAsynchronousFetchResultCompletionBlock)completion {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[self rzv_entityName]];
+    request.sortDescriptors = @[[self createDateSortDescriptor]];
+    NSMutableArray *subPredicates = [@[[self beforePostPredicate:post]] mutableCopy];
+    if (author) {
+        [subPredicates addObject:[self predicateWithAuthor:author]];
+    }
+
+    if (sourceType >= 0) {
+        [subPredicates addObject:[self predicateWithSourceType:sourceType]];
+    }
+
+    request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:subPredicates];
+    request.fetchLimit = 10;
+
+    NSAsynchronousFetchRequest *asyncRequest = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:request
+                                                                                        completionBlock:completion];
+    NSManagedObjectContext *context = [STKCoreDataStack defaultStack].mainManagedObjectContext;
+
+    [context performBlock:^{
+        [context executeRequest:asyncRequest error:nil];
+    }];
+}
+
 + (RZFetchedCollectionList *)fetchedListOfBookmarkedPosts {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[self rzv_entityName]];
     request.sortDescriptors = @[[self createDateSortDescriptor]];

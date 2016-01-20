@@ -11,6 +11,7 @@
 @interface STKSettingsItem ()
 
 @property (strong, nonatomic, readwrite) UIImage *image;
+// TODO: Use MapTable, check out ADK ASControl implemention for example
 @property (strong, nonatomic) NSMutableDictionary *targets;
 @property (strong, nonatomic) NSMutableDictionary *actions;
 

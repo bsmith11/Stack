@@ -10,17 +10,26 @@
 #import "STKOnboardingPageViewController.h"
 #import "STKTabBarController.h"
 
+#import "STKLaunchImageView.h"
+
 static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.stack.userDefaults.shownOnboarding";
 
 @interface STKRootViewController () <STKOnboardingPageViewControllerDelegate>
 
 @property (strong, nonatomic) UIViewController *currentViewController;
+@property (strong, nonatomic) STKLaunchImageView *launchImageView;
 
 @property (assign, nonatomic) BOOL shownOnboarding;
+@property (assign, nonatomic) BOOL didLayoutSubviews;
+@property (assign, nonatomic) BOOL didAppearInitially;
 
 @end
 
 @implementation STKRootViewController
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 - (UIViewController *)childViewControllerForStatusBarHidden {
     return self.currentViewController;
@@ -35,11 +44,46 @@ static NSString * const kSTKUserDefaultsKeyShownOnboarding = @"com.bradsmith.sta
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (!self.shownOnboarding) {
-        [self showOnboardingPageViewController];
+    self.launchImageView = [[STKLaunchImageView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:self.launchImageView];
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+
+    if (!self.didLayoutSubviews) {
+        self.didLayoutSubviews = YES;
+
+        CGFloat width = 150.0f;
+        CGFloat height = 150.0f;
+        CGFloat x = (CGRectGetWidth(self.view.bounds) - width) / 2;
+        CGFloat y = (CGRectGetHeight(self.view.bounds) - height) / 2;
+
+        self.launchImageView.frame = CGRectMake(x, y, width, height);
     }
-    else {
-        [self showTabBarController];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if (!self.didAppearInitially) {
+        self.didAppearInitially = YES;
+
+        __weak __typeof(self) wself = self;
+        int64_t delay = (int64_t)(0.1 * NSEC_PER_SEC);
+        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay);
+        dispatch_after(time, dispatch_get_main_queue(), ^{
+            [wself.launchImageView animateWithCompletion:^(BOOL finished) {
+                if (!wself.shownOnboarding) {
+                    [wself showOnboardingPageViewController];
+                }
+                else {
+                    [wself showTabBarController];
+                }
+
+                [wself.launchImageView removeFromSuperview];
+            }];
+        });
     }
 }
 

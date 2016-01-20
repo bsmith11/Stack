@@ -88,6 +88,25 @@
                                             author:nil
                                         sourceType:sourceType];
 
+//    __weak __typeof(self) wself = self;
+//    [STKPost fetchPostsBeforePost:nil
+//                           author:nil
+//                       sourceType:sourceType
+//                       completion:^(NSAsynchronousFetchResult * _Nonnull result) {
+//                           NSArray *posts = result.finalResult;
+//
+//                           BOOL previousValue = wself.dataSource.tableView.automaticallyAdjustsContentOffset;
+//                           wself.dataSource.tableView.automaticallyAdjustsContentOffset = NO;
+//
+//                           [wself.dataSource replaceAllObjectsWithObjects:posts completion:^{
+//                               CGPoint contentOffset = wself.dataSource.tableView.contentOffset;
+//                               contentOffset.y = -wself.dataSource.tableView.contentInset.top;
+//                               [wself.dataSource.tableView setContentOffset:contentOffset animated:NO];
+//                               
+//                               wself.dataSource.tableView.automaticallyAdjustsContentOffset = previousValue;
+//                           }];
+//                       }];
+
     BOOL previousValue = self.dataSource.tableView.automaticallyAdjustsContentOffset;
     self.dataSource.tableView.automaticallyAdjustsContentOffset = NO;
 

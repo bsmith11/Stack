@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		063B03EE1C4F17EE000D99DD /* STKLaunchImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B03ED1C4F17EE000D99DD /* STKLaunchImageView.m */; };
 		064863DE1C2685840087A41E /* STKOnboardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064863DD1C2685840087A41E /* STKOnboardingPageViewController.m */; };
 		064863E11C2685BE0087A41E /* STKPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064863E01C2685BE0087A41E /* STKPermissionViewController.m */; };
 		064863E41C26875D0087A41E /* STKAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 064863E31C26875D0087A41E /* STKAnalyticsManager.m */; };
@@ -173,6 +174,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		063B03EC1C4F17EE000D99DD /* STKLaunchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKLaunchImageView.h; sourceTree = "<group>"; };
+		063B03ED1C4F17EE000D99DD /* STKLaunchImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKLaunchImageView.m; sourceTree = "<group>"; };
 		064863DC1C2685840087A41E /* STKOnboardingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKOnboardingPageViewController.h; sourceTree = "<group>"; };
 		064863DD1C2685840087A41E /* STKOnboardingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKOnboardingPageViewController.m; sourceTree = "<group>"; };
 		064863DF1C2685BE0087A41E /* STKPermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKPermissionViewController.h; sourceTree = "<group>"; };
@@ -936,6 +939,8 @@
 				064865121C28A6BD0087A41E /* STKInteractiveViewController.m */,
 				064865BC1C322E3C0087A41E /* STKMailViewController.h */,
 				064865BD1C322E3C0087A41E /* STKMailViewController.m */,
+				063B03EC1C4F17EE000D99DD /* STKLaunchImageView.h */,
+				063B03ED1C4F17EE000D99DD /* STKLaunchImageView.m */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -1490,6 +1495,7 @@
 				064864AE1C27AACC0087A41E /* STKWordpressSessionManager.m in Sources */,
 				064864821C2796F20087A41E /* NSNumber+STKCGFloat.m in Sources */,
 				064864331C276CB80087A41E /* STKAttachment+CoreDataProperties.m in Sources */,
+				063B03EE1C4F17EE000D99DD /* STKLaunchImageView.m in Sources */,
 				064865031C289EBD0087A41E /* STKAppDelegate.m in Sources */,
 				064865291C28AC350087A41E /* UIView+STKShadow.m in Sources */,
 				064865861C29F4320087A41E /* UIViewController+STKMail.m in Sources */,
