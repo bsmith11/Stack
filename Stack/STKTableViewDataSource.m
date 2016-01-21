@@ -180,7 +180,11 @@
         }];
     }
     else {
+        __weak __typeof(self) wself = self;
+
         [self.queue addOperationWithBlock:^{
+            [wself.delegate tableViewDidChangeContent:wself.tableView];
+
             if (completion) {
                 completion(nil);
             }
@@ -221,7 +225,11 @@
         }];
     }
     else {
+        __weak __typeof(self) wself = self;
+
         [self.queue addOperationWithBlock:^{
+            [wself.delegate tableViewDidChangeContent:wself.tableView];
+
             if (completion) {
                 completion(nil);
             }

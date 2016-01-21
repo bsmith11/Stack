@@ -125,7 +125,7 @@
 
         animation.fromValue = @(self.stk_placeholderLayer.opacity);
         animation.toValue = @0.0f;
-        animation.duration = 0.75;
+        animation.duration = 0.5;
         animation.completionBlock = ^(POPAnimation *popAnimation, BOOL finished) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.stk_placeholderLayer removeFromSuperlayer];
