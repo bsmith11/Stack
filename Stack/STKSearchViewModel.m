@@ -75,13 +75,8 @@
 
                 STKContentManagerDownloadCompletion completion = ^(NSArray *results, NSError *error) {
                     if ([wself.searchIDs containsObject:searchID]) {
-                        if (error) {
-                            if (error.code == NSURLErrorCancelled) {
-                                NSLog(@"Cancelled search for \"%@\"", text);
-                            }
-                            else {                                
-                                NSLog(@"Failed to search for \"%@\" with error: %@", text, error);
-                            }
+                        if (error && error.code == NSURLErrorCancelled) {
+                            NSLog(@"Cancelled search for \"%@\"", text);
                         }
                         else {
                             [wself.dataSource addObjects:results completion:nil];

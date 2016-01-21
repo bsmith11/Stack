@@ -16,13 +16,11 @@
 @property (strong, nonatomic) NSMutableDictionary *images;
 @property (strong, nonatomic) NSMutableDictionary *titles;
 @property (strong, nonatomic) NSMutableDictionary *messages;
-@property (strong, nonatomic) NSMutableDictionary *actionTitles;
 
 @property (strong, nonatomic) UIView *containerView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *messageLabel;
-@property (strong, nonatomic) UIButton *actionButton;
 
 @property (assign, nonatomic) STKListBackgroundViewState state;
 
@@ -39,13 +37,11 @@
         self.images = [NSMutableDictionary dictionary];
         self.titles = [NSMutableDictionary dictionary];
         self.messages = [NSMutableDictionary dictionary];
-        self.actionTitles = [NSMutableDictionary dictionary];
 
         [self setupContainerView];
         [self setupImageView];
         [self setupTitleLabel];
         [self setupMessageLabel];
-        [self setupActionButton];
     }
 
     return self;
@@ -97,27 +93,7 @@
     [self.messageLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:12.5f].active = YES;
     [self.messageLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.containerView.trailingAnchor constraintEqualToAnchor:self.messageLabel.trailingAnchor].active = YES;
-}
-
-- (void)setupActionButton {
-    self.actionButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.actionButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.containerView addSubview:self.actionButton];
-
-    [self.actionButton addTarget:self action:@selector(didTapActionButton) forControlEvents:UIControlEventTouchUpInside];
-
-    [self.actionButton.heightAnchor constraintEqualToConstant:44.0f].active = YES;
-    [self.actionButton.centerXAnchor constraintEqualToAnchor:self.containerView.centerXAnchor].active = YES;
-    [self.actionButton.topAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor constant:25.0f].active = YES;
-    [self.containerView.bottomAnchor constraintEqualToAnchor:self.actionButton.bottomAnchor].active = YES;
-}
-
-#pragma mark - Actions
-
-- (void)didTapActionButton {
-    if ([self.delegate respondsToSelector:@selector(listBackgroundDefaultContentView:didTapActionButtonWithState:)]) {
-        [self.delegate listBackgroundDefaultContentView:self didTapActionButtonWithState:self.state];
-    }
+    [self.containerView.bottomAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor].active = YES;
 }
 
 #pragma mark - State Attributes
@@ -132,10 +108,6 @@
 
 - (NSString *)messageForState:(STKListBackgroundViewState)state {
     return self.messages[@(state)];
-}
-
-- (NSString *)actionTitleForState:(STKListBackgroundViewState)state {
-    return self.actionTitles[@(state)];
 }
 
 - (void)setImage:(UIImage *)image forState:(STKListBackgroundViewState)state {
@@ -165,15 +137,6 @@
     }
 }
 
-- (void)setActionTitle:(NSString *)actionTitle forState:(STKListBackgroundViewState)state {
-    if (actionTitle) {
-        self.actionTitles[@(state)] = actionTitle;
-    }
-    else {
-        [self.actionTitles removeObjectForKey:@(state)];
-    }
-}
-
 #pragma mark - List Background View Content View Protocol
 
 - (void)updateState:(STKListBackgroundViewState)state {
@@ -188,10 +151,6 @@
     NSString *message = self.messages[@(state)] ?: @"";
     NSAttributedString *attributedMessage = [[NSAttributedString alloc] initWithString:message attributes:[STKAttributes stk_emptyStateMessageAttributes]];
     self.messageLabel.attributedText = attributedMessage;
-
-    NSString *actionTitle = self.actionTitles[@(state)] ?: @"";
-    NSAttributedString *attributedActionTitle = [[NSAttributedString alloc] initWithString:actionTitle attributes:[STKAttributes stk_emptyStateActionAttributes]];
-    [self.actionButton setAttributedTitle:attributedActionTitle forState:UIControlStateNormal];
 }
 
 @end

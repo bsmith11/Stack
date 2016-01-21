@@ -21,7 +21,7 @@
 
 #import <AsyncDisplayKit/ASTableView.h>
 
-@interface STKBookmarksViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, STKListBackgroundDefaultContentViewDelegate>
+@interface STKBookmarksViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate>
 
 @property (strong, nonatomic) STKBookmarksViewModel *viewModel;
 @property (strong, nonatomic) ASTableView *tableView;
@@ -90,8 +90,6 @@
     self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.tableView];
 
     STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
-    contentView.delegate = self;
-
     [contentView setImage:[UIImage imageNamed:@"Bookmark Large"] forState:STKListBackgroundViewStateEmpty];
     [contentView setTitle:@"No Bookmarks" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"Bookmark posts to access them offline" forState:STKListBackgroundViewStateEmpty];
@@ -129,12 +127,6 @@
     postViewController.transitioningDelegate = postViewController;
 
     [self presentViewController:postViewController animated:YES completion:nil];
-}
-
-#pragma mark - List Background Default Content View Delegate
-
-- (void)listBackgroundDefaultContentView:(STKListBackgroundDefaultContentView *)contentView didTapActionButtonWithState:(STKListBackgroundViewState)state {
-    
 }
 
 @end

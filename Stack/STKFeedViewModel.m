@@ -138,40 +138,33 @@
     __weak __typeof(self) wself = self;
 
     STKContentManagerDownloadCompletion fetchCompletion = ^(NSArray *fetchedPosts, NSError *error) {
-        if (!error) {
-            if ([wself.fetchIDs containsObject:fetchID]) {
-                [wself.fetchIDs removeObject:fetchID];
+        if ([wself.fetchIDs containsObject:fetchID]) {
+            [wself.fetchIDs removeObject:fetchID];
 
-                [wself.dataSource addObjects:fetchedPosts completion:^(NSArray *newObjects) {
-                    STKViewModelFetchResult result;
-                    if (newObjects.count > 0) {
-                        if (posts || newObjects.count < 10) {
-                            NSLog(@"Success New");
-                            result = STKViewModelFetchResultSuccessNew;
-                        }
-                        else {
-                            NSLog(@"Success Gap");
-                            result = STKViewModelFetchResultSuccessNewGap;
-                        }
+            [wself.dataSource addObjects:fetchedPosts completion:^(NSArray *newObjects) {
+                STKViewModelFetchResult result;
+                if (newObjects.count > 0) {
+                    if (posts || newObjects.count < 10) {
+                        NSLog(@"Success New");
+                        result = STKViewModelFetchResultSuccessNew;
                     }
                     else {
-                        result = STKViewModelFetchResultSuccessNone;
+                        NSLog(@"Success Gap");
+                        result = STKViewModelFetchResultSuccessNewGap;
                     }
-
-                    if (completion) {
-                        completion(result);
-                    }
-                }];
-            }
-            else {
-                if (completion) {
-                    completion(STKViewModelFetchResultCancelled);
                 }
-            }
+                else {
+                    result = STKViewModelFetchResultSuccessNone;
+                }
+
+                if (completion) {
+                    completion(result);
+                }
+            }];
         }
         else {
             if (completion) {
-                completion(STKViewModelFetchResultFailed);
+                completion(STKViewModelFetchResultCancelled);
             }
         }
 

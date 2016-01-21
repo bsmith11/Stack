@@ -31,7 +31,7 @@
 #import <KVOController/FBKVOController.h>
 #import <RZUtils/RZCommonUtils.h>
 
-@interface STKSearchViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, STKListBackgroundDefaultContentViewDelegate>
+@interface STKSearchViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate>
 
 @property (strong, nonatomic) STKSourceListViewModel *sourceListViewModel;
 @property (strong, nonatomic) STKSearchViewModel *searchViewModel;
@@ -152,8 +152,6 @@
     self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.searchTableView];
 
     STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
-    contentView.delegate = self;
-
     [contentView setImage:[UIImage imageNamed:@"Search Large"] forState:STKListBackgroundViewStateEmpty];
     [contentView setTitle:@"Search" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"Find articles based on keywords" forState:STKListBackgroundViewStateEmpty];
@@ -305,12 +303,6 @@
 
         [self presentViewController:postViewController animated:YES completion:nil];
     }
-}
-
-#pragma mark - List Background Default Content View Delegate
-
-- (void)listBackgroundDefaultContentView:(STKListBackgroundDefaultContentView *)contentView didTapActionButtonWithState:(STKListBackgroundViewState)state {
-
 }
 
 @end

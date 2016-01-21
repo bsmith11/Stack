@@ -32,7 +32,7 @@
 #import <SSPullToRefresh/SSPullToRefresh.h>
 #import <pop/POP.h>
 
-@interface STKFeedViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, STKSourceListViewControllerDelegate, STKListBackgroundDefaultContentViewDelegate>
+@interface STKFeedViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, STKSourceListViewControllerDelegate>
 
 @property (strong, nonatomic) STKSourceListViewController *sourceListViewController;
 @property (strong, nonatomic) STKFeedViewModel *viewModel;
@@ -168,8 +168,6 @@
     self.listBackgroundView = [[STKListBackgroundView alloc] initWithTableView:self.tableView];
 
     STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
-    contentView.delegate = self;
-
     [contentView setImage:[UIImage imageNamed:@"Feed Large"] forState:STKListBackgroundViewStateEmpty];
     [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
@@ -377,12 +375,6 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.navigationController popViewControllerAnimated:YES];
     });
-}
-
-#pragma mark - List Background Default Content View Delegate
-
-- (void)listBackgroundDefaultContentView:(STKListBackgroundDefaultContentView *)contentView didTapActionButtonWithState:(STKListBackgroundViewState)state {
-    
 }
 
 @end
