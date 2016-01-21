@@ -269,10 +269,7 @@
 }
 
 - (void)handleNewFetchCompletionWithResult:(STKViewModelFetchResult)result {
-    if (result == STKViewModelFetchResultSuccessNew) {
-        [self showNewContentView];
-    }
-    else if (result == STKViewModelFetchResultSuccessNewGap) {
+    if (result == STKViewModelFetchResultSuccessNewGap) {
         self.shouldRemovePostsBeforeGap = YES;
 
         [self showNewContentView];

@@ -104,6 +104,7 @@
 
 - (void)removePostsBeforeGap {
     NSLog(@"Removing posts before gap...");
+    
     if (self.dataSource.objects.count > 10) {
         [self.fetchIDs removeAllObjects];
         self.downloading = NO;
@@ -144,7 +145,7 @@
             [wself.dataSource addObjects:fetchedPosts completion:^(NSArray *newObjects) {
                 STKViewModelFetchResult result;
                 if (newObjects.count > 0) {
-                    if (posts || newObjects.count < 10) {
+                    if (posts) {
                         NSLog(@"Success New");
                         result = STKViewModelFetchResultSuccessNew;
                     }
