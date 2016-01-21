@@ -95,6 +95,8 @@
     [contentView setMessage:@"Bookmark posts to access them offline" forState:STKListBackgroundViewStateEmpty];
 
     self.listBackgroundView.contentView = contentView;
+
+    self.listBackgroundView.hidden = YES;
 }
 
 #pragma mark - Collection List Data Source Delegate
@@ -113,6 +115,8 @@
 }
 
 - (void)tableViewDidChangeContent:(ASTableView *)tableView {
+    self.listBackgroundView.hidden = NO;
+
     [self.listBackgroundView tableViewDidChangeContent];
 }
 

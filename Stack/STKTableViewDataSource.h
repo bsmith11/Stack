@@ -10,7 +10,7 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
-@protocol STKTableViewDataSourceDelegate
+@protocol STKTableViewDataSourceDelegate <NSObject>
 
 @required
 - (ASCellNode *)tableView:(ASTableView *)tableView nodeForObject:(id)object atIndexPath:(NSIndexPath *)indexPath;

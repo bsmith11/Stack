@@ -170,7 +170,7 @@
                         }
                     }
                 }
-
+                
                 [wself.delegate tableViewDidChangeContent:wself.tableView];
 
                 if (completion) {

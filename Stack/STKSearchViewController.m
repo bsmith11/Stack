@@ -153,8 +153,6 @@
 
     STKListBackgroundDefaultContentView *contentView = [[STKListBackgroundDefaultContentView alloc] init];
     [contentView setImage:[UIImage imageNamed:@"Search Large"] forState:STKListBackgroundViewStateEmpty];
-    [contentView setTitle:@"Search" forState:STKListBackgroundViewStateEmpty];
-    [contentView setMessage:@"Find articles based on keywords" forState:STKListBackgroundViewStateEmpty];
 
     self.listBackgroundView.contentView = contentView;
 }

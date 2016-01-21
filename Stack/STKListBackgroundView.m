@@ -32,7 +32,7 @@
     self = [super init];
 
     if (self) {
-        self.baseInsets = tableView.contentInset;//UIEdgeInsetsZero;
+        self.baseInsets = tableView.contentInset;
         self.emptyThreshold = 0;
 
         [self setupWithTableView:tableView];

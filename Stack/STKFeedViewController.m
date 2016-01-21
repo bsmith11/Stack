@@ -173,6 +173,8 @@
     [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
 
     self.listBackgroundView.contentView = contentView;
+
+    self.listBackgroundView.hidden = YES;
 }
 
 - (void)setupRefreshView {
@@ -300,6 +302,8 @@
 }
 
 - (void)tableViewDidChangeContent:(ASTableView *)tableView {
+    self.listBackgroundView.hidden = NO;
+
     [self.listBackgroundView tableViewDidChangeContent];
 }
 

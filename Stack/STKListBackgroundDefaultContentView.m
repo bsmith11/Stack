@@ -20,7 +20,9 @@
 @property (strong, nonatomic) UIView *containerView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) NSLayoutConstraint *titleLabelTop;
 @property (strong, nonatomic) UILabel *messageLabel;
+@property (strong, nonatomic) NSLayoutConstraint *messageLabelTop;
 
 @property (assign, nonatomic) STKListBackgroundViewState state;
 
@@ -64,6 +66,7 @@
     self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView addSubview:self.imageView];
 
+    self.imageView.tintColor = [UIColor stk_stackColor];
     self.imageView.contentMode = UIViewContentModeCenter;
 
     [self.imageView.topAnchor constraintEqualToAnchor:self.containerView.topAnchor].active = YES;
@@ -78,7 +81,8 @@
 
     self.titleLabel.numberOfLines = 0;
 
-    [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:50.0f].active = YES;
+    self.titleLabelTop = [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageView.bottomAnchor constant:50.0f];
+    self.titleLabelTop.active = YES;
     [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.containerView.trailingAnchor constraintEqualToAnchor:self.titleLabel.trailingAnchor].active = YES;
 }
@@ -90,7 +94,8 @@
 
     self.messageLabel.numberOfLines = 0;
 
-    [self.messageLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:12.5f].active = YES;
+    self.messageLabelTop = [self.messageLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:12.5f];
+    self.messageLabelTop.active = YES;
     [self.messageLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor].active = YES;
     [self.containerView.trailingAnchor constraintEqualToAnchor:self.messageLabel.trailingAnchor].active = YES;
     [self.containerView.bottomAnchor constraintEqualToAnchor:self.messageLabel.bottomAnchor].active = YES;
@@ -142,15 +147,19 @@
 - (void)updateState:(STKListBackgroundViewState)state {
     self.state = state;
 
-    self.imageView.image = self.images[@(state)];
+    self.imageView.image = [self.images[@(state)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     NSString *title = self.titles[@(state)] ?: @"";
     NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:[STKAttributes stk_emptyStateTitleAttributes]];
     self.titleLabel.attributedText = attributedTitle;
 
+    self.titleLabelTop.constant = (title.length > 0) ? 50.0f : 0.0f;
+
     NSString *message = self.messages[@(state)] ?: @"";
     NSAttributedString *attributedMessage = [[NSAttributedString alloc] initWithString:message attributes:[STKAttributes stk_emptyStateMessageAttributes]];
     self.messageLabel.attributedText = attributedMessage;
+
+    self.messageLabelTop.constant = (message.length > 0) ? 12.5f : 0.0f;
 }
 
 @end
