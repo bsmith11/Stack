@@ -10,10 +10,10 @@
 
 #import <RZUtils/UIImage+RZSolidColor.h>
 #import <pop/POP.h>
+#import <tgmath.h>
 
 @interface STKNetworkImageNode () <ASNetworkImageNodeDelegate>
 
-@property (strong, nonatomic) UIImage *stk_placeholderImage;
 @property (strong, nonatomic) CALayer *stk_placeholderLayer;
 
 @end
@@ -62,7 +62,7 @@
         CGFloat ratio = (self.originalImageSize.width / constrainedSize.width) ?: 1.0f;
         CGFloat height = (self.originalImageSize.height / ratio) ?: 200.0f;
 
-        calculatedSize = CGSizeMake(constrainedSize.width, height);
+        calculatedSize = CGSizeMake(constrainedSize.width, __tg_ceil(height));
     }
 
     if (self.stk_placeholderEnabled && calculatedSize.width > 0.0f && calculatedSize.height > 0.0f) {
