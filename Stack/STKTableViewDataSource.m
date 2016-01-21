@@ -179,6 +179,13 @@
             }];
         }];
     }
+    else {
+        [self.queue addOperationWithBlock:^{
+            if (completion) {
+                completion(nil);
+            }
+        }];
+    }
 }
 
 - (void)removeObjects:(NSArray *)objects completion:(void (^)(NSArray *))completion {
@@ -211,6 +218,13 @@
                     completion([removedIndexPaths copy]);
                 }
             }];
+        }];
+    }
+    else {
+        [self.queue addOperationWithBlock:^{
+            if (completion) {
+                completion(nil);
+            }
         }];
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2015 Brad Smith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 //TODO: Abstract out this enum
 
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, STKViewModelFetchResult) {
 typedef void (^STKViewModelFetchCompletion)(STKViewModelFetchResult result);
 
 @protocol STKTableViewDataSourceDelegate;
-@class ASTableView, STKListBackgroundView;
+@class ASTableView;
 
 @interface STKFeedViewModel : NSObject
 
@@ -33,11 +33,7 @@ typedef void (^STKViewModelFetchCompletion)(STKViewModelFetchResult result);
 - (void)updatePostsForSourceType:(STKSourceType)sourceType completion:(STKViewModelFetchCompletion)completion;
 - (void)removePostsBeforeGap;
 
-@property (strong, nonatomic, readonly) NSError *networkError;
-
 @property (copy, nonatomic, readonly) NSString *title;
-
-@property (weak, nonatomic) STKListBackgroundView *listBackgroundView;
 
 @property (assign, nonatomic, readonly) STKSourceType sourceType;
 @property (assign, nonatomic, readonly) BOOL downloading;

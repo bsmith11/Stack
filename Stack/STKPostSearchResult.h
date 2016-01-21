@@ -6,7 +6,7 @@
 //  Copyright © 2015 Brad Smith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 typedef void (^STKPostSearchResultCompletion)(NSArray *results, NSError *error);
 

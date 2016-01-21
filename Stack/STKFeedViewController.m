@@ -174,14 +174,7 @@
     [contentView setTitle:@"No Content" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"There doesn't seem to be anything here..." forState:STKListBackgroundViewStateEmpty];
 
-    [contentView setImage:[UIImage imageNamed:@"Error Large"] forState:STKListBackgroundViewStateError];
-    [contentView setTitle:@"Network Error" forState:STKListBackgroundViewStateError];
-    [contentView setMessage:@"There seems to be a malfunction with the hyperdrive..." forState:STKListBackgroundViewStateError];
-    [contentView setActionTitle:@"Try again" forState:STKListBackgroundViewStateError];
-
     self.listBackgroundView.contentView = contentView;
-
-    self.viewModel.listBackgroundView = self.listBackgroundView;
 }
 
 - (void)setupRefreshView {
@@ -205,8 +198,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSNumber *downloading = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
 
-            wself.listBackgroundView.loading = downloading.boolValue;
-
             if (downloading.boolValue) {
                 [wself.spinner startAnimating];
             }
@@ -217,16 +208,6 @@
                     BOOL animated = wself.navigationController.topViewController == wself;
                     [wself.refreshView finishLoadingAnimated:animated completion:nil];
                 }
-            }
-        });
-    }];
-
-    [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, networkError) options:options block:^(id observer, id object, NSDictionary *change) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *error = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
-
-            if (error) {
-                wself.listBackgroundView.state = STKListBackgroundViewStateError;
             }
         });
     }];
@@ -321,7 +302,7 @@
 }
 
 - (void)tableViewDidChangeContent:(ASTableView *)tableView {
-
+    [self.listBackgroundView tableViewDidChangeContent];
 }
 
 #pragma mark - Table View Delegate
@@ -343,7 +324,7 @@
         NSLog(@"Fetching additional posts...");
 
         [wself.viewModel fetchOlderPostsWithCompletion:^(STKViewModelFetchResult result) {
-            NSLog(@"Received additional posts with result: %ld", result);
+            NSLog(@"Received additional posts with result: %@", @(result));
 
             [context completeBatchFetching:YES];
 //TODO: Do more testing to stop false negatives 
@@ -401,9 +382,7 @@
 #pragma mark - List Background Default Content View Delegate
 
 - (void)listBackgroundDefaultContentView:(STKListBackgroundDefaultContentView *)contentView didTapActionButtonWithState:(STKListBackgroundViewState)state {
-    if (state == STKListBackgroundViewStateError) {
-        [self.viewModel fetchNewPostsWithCompletion:nil];
-    }
+    
 }
 
 @end

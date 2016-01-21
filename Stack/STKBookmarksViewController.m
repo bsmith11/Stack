@@ -15,13 +15,13 @@
 
 #import "STKListBackgroundView.h"
 #import "STKListBackgroundDefaultContentView.h"
-#import "STKCollectionListTableViewDataSource.h"
+#import "STKTableViewDataSource.h"
 #import "UIColor+STKStyle.h"
 #import "STKAnalyticsManager.h"
 
 #import <AsyncDisplayKit/ASTableView.h>
 
-@interface STKBookmarksViewController () <ASTableViewDelegate, STKCollectionListTableViewDelegate, STKListBackgroundDefaultContentViewDelegate>
+@interface STKBookmarksViewController () <ASTableViewDelegate, STKTableViewDataSourceDelegate, STKListBackgroundDefaultContentViewDelegate>
 
 @property (strong, nonatomic) STKBookmarksViewModel *viewModel;
 @property (strong, nonatomic) ASTableView *tableView;
@@ -57,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.viewModel setupCollectionListDataSourceWithTableView:self.tableView delegate:self];
+    [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -68,9 +68,6 @@
 
         self.tableView.frame = self.view.bounds;
         [self setupListBackgroundView];
-
-        self.listBackgroundView.hidden = !self.viewModel.empty;
-        self.tableView.scrollEnabled = !self.viewModel.empty;
     }
 }
 
@@ -117,7 +114,7 @@
     [node setupWithPost:post];
 }
 
-- (void)tableView:(ASTableView *)tableView didFinishUpdatingCompleted:(BOOL)completed {
+- (void)tableViewDidChangeContent:(ASTableView *)tableView {
     [self.listBackgroundView tableViewDidChangeContent];
 }
 

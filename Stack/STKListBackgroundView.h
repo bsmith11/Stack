@@ -6,12 +6,11 @@
 //  Copyright © 2015 Brad Smith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 typedef NS_ENUM(NSInteger, STKListBackgroundViewState) {
     STKListBackgroundViewStateNone,
     STKListBackgroundViewStateEmpty,
-    STKListBackgroundViewStateError
 };
 
 @class ASTableView;
@@ -20,20 +19,19 @@ typedef NS_ENUM(NSInteger, STKListBackgroundViewState) {
 
 - (void)updateState:(STKListBackgroundViewState)state;
 
-@property (assign, nonatomic) BOOL loading;
-
 @end
 
 @interface STKListBackgroundView : UIView
 
 - (instancetype)initWithTableView:(ASTableView *)tableView;
-- (void)tableViewDidChangeContent;
 
 @property (strong, nonatomic) UIView <STKListBackgroundContentViewProtocol> *contentView;
 
-@property (assign, nonatomic) STKListBackgroundViewState state;
-@property (assign, nonatomic) BOOL loading;
 @property (assign, nonatomic) UIEdgeInsets baseInsets;
 @property (assign, nonatomic) NSInteger emptyThreshold;
+@property (assign, nonatomic, readonly) STKListBackgroundViewState state;
+
+
+- (void)tableViewDidChangeContent;
 
 @end

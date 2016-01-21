@@ -18,7 +18,6 @@
 @property (strong, nonatomic) STKTableViewDataSource *dataSource;
 @property (strong, nonatomic) NSMutableArray *searchIDs;
 @property (strong, nonatomic) NSUUID *currentSearchID;
-@property (strong, nonatomic, readwrite) NSError *networkError;
 
 @property (assign, nonatomic, readwrite) BOOL searching;
 
@@ -80,9 +79,7 @@
                             if (error.code == NSURLErrorCancelled) {
                                 NSLog(@"Cancelled search for \"%@\"", text);
                             }
-                            else {
-                                wself.networkError = error;
-                                
+                            else {                                
                                 NSLog(@"Failed to search for \"%@\" with error: %@", text, error);
                             }
                         }

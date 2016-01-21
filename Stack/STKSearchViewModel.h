@@ -6,7 +6,7 @@
 //  Copyright © 2015 Brad Smith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @protocol STKTableViewDataSourceDelegate;
 @class ASTableView;
@@ -17,8 +17,6 @@
 - (void)searchPostsWithText:(NSString *)text;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
-
-@property (strong, nonatomic, readonly) NSError *networkError;
 
 @property (assign, nonatomic) STKSourceType sourceType;
 @property (assign, nonatomic, readonly) BOOL searching;

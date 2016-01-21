@@ -6,18 +6,16 @@
 //  Copyright © 2015 Brad Smith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-@protocol STKCollectionListTableViewDelegate;
+@protocol STKTableViewDataSourceDelegate;
 @class ASTableView;
 
 @interface STKBookmarksViewModel : NSObject
 
-- (void)setupCollectionListDataSourceWithTableView:(ASTableView *)tableView delegate:(id <STKCollectionListTableViewDelegate>)delegate;
+- (void)setupDataSourceWithTableView:(ASTableView *)tableView delegate:(id <STKTableViewDataSourceDelegate>)delegate;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
-
-@property (assign, nonatomic, readonly) BOOL empty;
 
 @end

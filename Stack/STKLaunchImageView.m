@@ -9,6 +9,7 @@
 #import "STKLaunchImageView.h"
 
 #import "UIColor+STKStyle.h"
+#import "NSNumber+STKCGFloat.h"
 
 #import <pop/POP.h>
 #import <POP+MCAnimate/POP+MCAnimate.h>
@@ -65,7 +66,7 @@
         CAShapeLayer *item = [CAShapeLayer layer];
         frame.origin.x += [horizontalOffsets[i] doubleValue];
         if (i > 0) {
-            frame.origin.y = CGRectGetMaxY(frame) + [verticalOffsets[i] doubleValue];
+            frame.origin.y = CGRectGetMaxY(frame) + [verticalOffsets[i] CGFloatValue];
         }
         item.frame = frame;
         item.backgroundColor = backgroundColor.CGColor;

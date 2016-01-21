@@ -10,17 +10,16 @@
 
 #import "STKPost.h"
 
-#import "STKCollectionListTableViewDataSource.h"
+#import "STKTableViewDataSource.h"
 
 #import <RZCollectionList/RZCollectionList.h>
 
 @interface STKBookmarksViewModel () <RZCollectionListObserver>
 
 @property (strong, nonatomic) RZFetchedCollectionList *posts;
-@property (strong, nonatomic, readwrite) UITabBarItem *tabBarItem;
-@property (strong, nonatomic) STKCollectionListTableViewDataSource *dataSource;
-
-@property (assign, nonatomic, readwrite) BOOL empty;
+@property (strong, nonatomic) STKTableViewDataSource *dataSource;
+@property (strong, nonatomic) NSMutableArray *addedObjects;
+@property (strong, nonatomic) NSMutableArray *removedObjects;
 
 @end
 
@@ -32,6 +31,9 @@
     self = [super init];
 
     if (self) {
+        self.addedObjects = [NSMutableArray array];
+        self.removedObjects = [NSMutableArray array];
+
         [self setupPosts];
     }
 
@@ -43,13 +45,17 @@
 - (void)setupPosts {
     self.posts = [STKPost fetchedListOfBookmarkedPosts];
     [self.posts addCollectionListObserver:self];
-    [self collectionListDidChangeContent:self.posts];
 }
 
-- (void)setupCollectionListDataSourceWithTableView:(ASTableView *)tableView delegate:(id<STKCollectionListTableViewDelegate>)delegate {
-    self.dataSource = [[STKCollectionListTableViewDataSource alloc] initWithTableView:tableView
-                                                                       collectionList:self.posts
-                                                                             delegate:delegate];
+- (void)setupDataSourceWithTableView:(ASTableView *)tableView delegate:(id<STKTableViewDataSourceDelegate>)delegate {
+    self.dataSource = [[STKTableViewDataSource alloc] initWithTableView:tableView
+                                                                objects:[NSArray array]
+                                                        sortDescriptors:@[[STKPost createDateSortDescriptor]]
+                                                               delegate:delegate];
+
+    self.dataSource.animateChanges = NO;
+
+    [self.dataSource addObjects:self.posts.listObjects completion:nil];
 }
 
 #pragma mark - Actions
@@ -65,7 +71,8 @@
 #pragma mark - Collection List Observer
 
 - (void)collectionListWillChangeContent:(id<RZCollectionList>)collectionList {
-
+    [self.addedObjects removeAllObjects];
+    [self.removedObjects removeAllObjects];
 }
 
 - (void)collectionList:(id<RZCollectionList>)collectionList didChangeSection:(id<RZCollectionListSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(RZCollectionListChangeType)type {
@@ -73,11 +80,17 @@
 }
 
 - (void)collectionList:(id<RZCollectionList>)collectionList didChangeObject:(id)object atIndexPath:(NSIndexPath *)indexPath forChangeType:(RZCollectionListChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-
+    if (type == RZCollectionListChangeInsert) {
+        [self.addedObjects addObject:object];
+    }
+    else if (type == RZCollectionListChangeDelete) {
+        [self.removedObjects addObject:object];
+    }
 }
 
 - (void)collectionListDidChangeContent:(id<RZCollectionList>)collectionList {
-    self.empty = (collectionList.listObjects.count == 0);
+    [self.dataSource addObjects:[self.addedObjects copy] completion:nil];
+    [self.dataSource removeObjects:[self.removedObjects copy] completion:nil];
 }
 
 @end

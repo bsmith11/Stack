@@ -158,11 +158,6 @@
     [contentView setTitle:@"Search" forState:STKListBackgroundViewStateEmpty];
     [contentView setMessage:@"Find articles based on keywords" forState:STKListBackgroundViewStateEmpty];
 
-    [contentView setImage:[UIImage imageNamed:@"Error Large"] forState:STKListBackgroundViewStateError];
-    [contentView setTitle:@"Network Error" forState:STKListBackgroundViewStateError];
-    [contentView setMessage:@"Something seems to have gone with the servers..." forState:STKListBackgroundViewStateError];
-    [contentView setActionTitle:@"Try again" forState:STKListBackgroundViewStateError];
-
     self.listBackgroundView.contentView = contentView;
 }
 
@@ -171,21 +166,10 @@
 
     __weak __typeof(self) wself = self;
 
-    [self.KVOController observe:self.searchViewModel keyPath:RZDB_KP_OBJ(self.searchViewModel, networkError) options:options block:^(id observer, id object, NSDictionary *change) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *error = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
-
-            if (error) {
-                wself.listBackgroundView.state = STKListBackgroundViewStateError;
-            }
-        });
-    }];
-
     [self.KVOController observe:self.searchViewModel keyPath:RZDB_KP_OBJ(self.searchViewModel, searching) options:options block:^(id observer, id object, NSDictionary *change) {
         NSNumber *searching = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
 
         wself.searchField.loading = searching.boolValue;
-        wself.listBackgroundView.loading = searching.boolValue;
     }];
 
     [self.searchViewModel rz_bindKey:RZDB_KP_OBJ(self.searchViewModel, sourceType) toKeyPath:RZDB_KP_OBJ(self.sourceListViewModel, sourceType) ofObject:self.sourceListViewModel];
@@ -228,8 +212,6 @@
 
     [self.searchField resignFirstResponder];
     [self hideCancelBarButtonItems];
-
-    self.listBackgroundView.state = STKListBackgroundViewStateEmpty;
 }
 
 - (void)showCancelBarButtonItems {
@@ -328,9 +310,7 @@
 #pragma mark - List Background Default Content View Delegate
 
 - (void)listBackgroundDefaultContentView:(STKListBackgroundDefaultContentView *)contentView didTapActionButtonWithState:(STKListBackgroundViewState)state {
-    if (state == STKListBackgroundViewStateError) {
-        [self.searchViewModel searchPostsWithText:self.searchField.text];
-    }
+
 }
 
 @end

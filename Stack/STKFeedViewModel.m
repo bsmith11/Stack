@@ -10,7 +10,6 @@
 
 #import "STKPost.h"
 
-#import "STKListBackgroundView.h"
 #import "STKCoreDataStack.h"
 #import "STKSettingsViewModel.h"
 #import "STKTableViewDataSource.h"
@@ -21,7 +20,6 @@
 
 @property (strong, nonatomic) STKTableViewDataSource *dataSource;
 @property (strong, nonatomic, readwrite) UITabBarItem *tabBarItem;
-@property (strong, nonatomic, readwrite) NSError *networkError;
 @property (strong, nonatomic) NSMutableArray *fetchIDs;
 
 @property (copy, nonatomic, readwrite) NSString *title;
@@ -99,8 +97,6 @@
         [wself.dataSource.tableView setContentOffset:contentOffset animated:NO];
 
         wself.dataSource.tableView.automaticallyAdjustsContentOffset = previousValue;
-
-        [wself.listBackgroundView tableViewDidChangeContent];
     }];
 
     [self fetchNewPostsWithCompletion:completion];
@@ -142,8 +138,6 @@
     __weak __typeof(self) wself = self;
 
     STKContentManagerDownloadCompletion fetchCompletion = ^(NSArray *fetchedPosts, NSError *error) {
-        wself.networkError = error;
-
         if (!error) {
             if ([wself.fetchIDs containsObject:fetchID]) {
                 [wself.fetchIDs removeObject:fetchID];
@@ -167,8 +161,6 @@
                     if (completion) {
                         completion(result);
                     }
-
-                    [wself.listBackgroundView tableViewDidChangeContent];
                 }];
             }
             else {
@@ -200,8 +192,6 @@
     __weak __typeof(self) wself = self;
     [self.dataSource replaceAllObjectsWithObjects:nil completion:^{
         [wself fetchNewPostsWithCompletion:nil];
-
-        [wself.listBackgroundView tableViewDidChangeContent];
     }];
 }
 

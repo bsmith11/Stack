@@ -6,7 +6,7 @@
 //  Copyright © 2016 Brad Smith. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface STKWelcomeViewController : UIViewController
 

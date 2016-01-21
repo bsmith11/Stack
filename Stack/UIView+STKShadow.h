@@ -6,7 +6,7 @@
 //  Copyright © 2015 Brad Smith. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UIView (STKShadow)
 

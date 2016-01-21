@@ -20,6 +20,8 @@
 
 @property (weak, nonatomic) ASTableView *tableView;
 
+@property (assign, nonatomic, readwrite) STKListBackgroundViewState state;
+
 @end
 
 @implementation STKListBackgroundView
@@ -35,9 +37,6 @@
 
         [self setupWithTableView:tableView];
         [self setupObservers];
-
-        self.state = STKListBackgroundViewStateEmpty;
-        self.hidden = YES;
     }
 
     return self;
@@ -52,7 +51,7 @@
 
     self.frame = tableView.bounds;
 
-    [self tableViewDidChangeContent];
+    [self updateRowCountForTableView:tableView];
 }
 
 - (void)addConstraintsForContentView:(UIView <STKListBackgroundContentViewProtocol> *)contentView {
@@ -101,7 +100,7 @@
         rowCount += [tableView numberOfRowsInSection:section];
     }
 
-    self.hidden = (rowCount > self.emptyThreshold);
+    self.contentView.hidden = (rowCount > self.emptyThreshold);
     tableView.scrollEnabled = (rowCount > self.emptyThreshold);
 
     self.state = (rowCount > self.emptyThreshold) ? STKListBackgroundViewStateNone : STKListBackgroundViewStateEmpty;
@@ -110,22 +109,9 @@
 #pragma mark - Setters
 
 - (void)setState:(STKListBackgroundViewState)state {
-    if (_state != state) {
-        _state = state;
+    _state = state;
 
-        [self.contentView updateState:state];
-    }
-}
-
-- (void)setLoading:(BOOL)loading {
-    if (_loading != loading) {
-        _loading = loading;
-
-        self.contentView.loading = loading;
-        if (loading) {
-            self.state = STKListBackgroundViewStateNone;
-        }
-    }
+    [self.contentView updateState:state];
 }
 
 - (void)setBaseInsets:(UIEdgeInsets)baseInsets {
@@ -143,9 +129,9 @@
 - (void)setEmptyThreshold:(NSInteger)emptyThreshold {
     if (_emptyThreshold != emptyThreshold) {
         _emptyThreshold = emptyThreshold;
-    }
 
-    [self tableViewDidChangeContent];
+        [self updateRowCountForTableView:self.tableView];
+    }
 }
 
 - (void)setContentView:(UIView<STKListBackgroundContentViewProtocol> *)contentView {

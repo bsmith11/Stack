@@ -24,8 +24,6 @@
 @property (strong, nonatomic) UILabel *messageLabel;
 @property (strong, nonatomic) UIButton *actionButton;
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
-
 @property (assign, nonatomic) STKListBackgroundViewState state;
 
 @end
@@ -48,8 +46,6 @@
         [self setupTitleLabel];
         [self setupMessageLabel];
         [self setupActionButton];
-
-        [self setupActivityIndicatorView];
     }
 
     return self;
@@ -116,18 +112,6 @@
     [self.containerView.bottomAnchor constraintEqualToAnchor:self.actionButton.bottomAnchor].active = YES;
 }
 
-- (void)setupActivityIndicatorView {
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:self.activityIndicatorView];
-
-    self.activityIndicatorView.hidesWhenStopped = YES;
-    self.activityIndicatorView.color = [UIColor stk_stackColor];
-
-    [self.activityIndicatorView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
-    [self.activityIndicatorView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
-}
-
 #pragma mark - Actions
 
 - (void)didTapActionButton {
@@ -187,25 +171,6 @@
     }
     else {
         [self.actionTitles removeObjectForKey:@(state)];
-    }
-}
-
-#pragma mark - Getters
-
-- (BOOL)loading {
-    return self.containerView.hidden;
-}
-
-#pragma mark - Setters
-
-- (void)setLoading:(BOOL)loading {
-    self.containerView.hidden = loading;
-
-    if (loading) {
-        [self.activityIndicatorView startAnimating];
-    }
-    else {
-        [self.activityIndicatorView stopAnimating];
     }
 }
 
