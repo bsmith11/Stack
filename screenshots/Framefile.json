@@ -1,0 +1,43 @@
+{
+  "default": {
+    "title": {
+      "font": "Gotham-Book.ttf",
+      "color": "#2E4046"
+    },
+    "background": "./background.jpg",
+    "padding": 50
+  },
+    
+  "data": [
+    {
+      "filter": "Feed",
+      "title": {
+        "text": "The latest content"    
+      }
+    },
+    {
+      "filter": "Article",
+      "title": {
+        "text": "Sleek article pages"    
+      }    
+    },
+    {
+      "filter": "Author",
+      "title": {
+        "text": "The best authors"    
+      }
+    },
+    {
+      "filter": "Source",
+      "title": {
+        "text": "Biggest content providers"    
+      }
+    },
+    {
+      "filter": "Search",
+      "title": {
+        "text": "Find any article"    
+      }
+    }
+  ]    
+}
