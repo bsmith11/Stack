@@ -1,3 +1,5 @@
+![Stack](/Stack/Resources/Images.xcassets/AppIcon.appiconset/stack_app_icon60@3x.png "Stack")
+
 # Stack #
 
 Stack is an Ultimate news iOS app that aggregates news from the biggest digital content providers.
@@ -10,6 +12,22 @@ Stack is an Ultimate news iOS app that aggregates news from the biggest digital 
 2. run `pod install`
  
 In order to retrieve posts from Blogger backed blogs, you will need to register with Blogger and obtain an API key. Then install https://github.com/orta/cocoapods-keys and create a `BloggerAPIKey` key that uses your previously generated API key.
+
+## Supported Backends
+
+#### WordPress
+
+The [WordPress REST API](https://github.com/WP-API/WP-API) plugin is being used to consume content.
+
+The [Simple Parse Push Service](https://wordpress.org/plugins/simple-parse-push-service/) plugin is being used to provide push notification services
+
+#### RSS
+
+Push notifications are not supported for RSS backends
+
+#### Blogger
+
+Push notifications are not supported for Blogger backends
 
 ## Contributing
 
