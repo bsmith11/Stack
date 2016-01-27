@@ -4,7 +4,7 @@
 
 # Stack #
 
-Stack is an Ultimate news iOS app that aggregates news from the biggest digital content providers.
+Stack is an Ultimate Frisbee news iOS app that aggregates news from the biggest digital content providers.
 
 [App Store download](https://itunes.apple.com/us/app/stack./id1076823318?ls=1&mt=8)
 
