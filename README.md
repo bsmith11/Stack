@@ -9,7 +9,7 @@ Stack is an Ultimate news iOS app that aggregates news from the biggest digital 
 1. Clone repo
 2. run `pod install`
  
-In order to retrieve posts from Blogger backed blogs, you will need to register Blogger and obtain an API key. Then install https://github.com/orta/cocoapods-keys and create a `BloggerAPIKey` key that uses your previously API key.
+In order to retrieve posts from Blogger backed blogs, you will need to register with Blogger and obtain an API key. Then install https://github.com/orta/cocoapods-keys and create a `BloggerAPIKey` key that uses your previously generated API key.
 
 ## Contributing
 
