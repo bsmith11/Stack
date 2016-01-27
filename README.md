@@ -1,19 +1,15 @@
 # Stack #
 
-## Setup ##
+Stack is an Ultimate news iOS app that aggregates news from the biggest digital content providers.
 
-Run `bin/setup`
+## Contributing
 
-This will:
+Issues and pull requests are welcome!
 
- - Install the gem dependencies
- - Install the pod dependencies
+## Author
 
-## Testing ##
+Bradley Smith: [@bsmithers11](https://twitter.com/bsmithers11)
 
-Run `bin/test`
+## License
 
-This will run the tests from the command line, and pipe the result through
-[XCPretty][].
-
-[XCPretty]: https://github.com/supermarin/xcpretty
+Stack is available under the MIT license. See the LICENSE file for more info.
