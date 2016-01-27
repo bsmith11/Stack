@@ -1,5 +1,7 @@
 ![Stack](/Stack/Resources/Images.xcassets/AppIcon.appiconset/stack_app_icon60@3x.png "Stack")
 
+![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+
 # Stack #
 
 Stack is an Ultimate news iOS app that aggregates news from the biggest digital content providers.
