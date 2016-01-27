@@ -203,7 +203,7 @@ static NSString * const kSTKSettingsViewModelHeaderTitleNotificationsDisabled = 
 }
 
 - (void)didTapClearCacheItemAccessory {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Clearing the cache will remove all non-bookmarked locally stored articles on your device. This can sometimes fix any inconsistancies within the feed." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Clear Cache" message:@"Clearing the cache will remove all locally stored articles on your device. This will not delete your bookmarked articles. This can sometimes fix any inconsistancies within the feed." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:action];
 

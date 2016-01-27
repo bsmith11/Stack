@@ -83,13 +83,13 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-#ifdef DEBUG
-    UILocalNotification *fetchNotification = [[UILocalNotification alloc] init];
-    fetchNotification.alertTitle = @"Background Fetch";
-    fetchNotification.alertBody = @"Performing background fetch...";
-
-    [application scheduleLocalNotification:fetchNotification];
-#endif
+//#ifdef DEBUG
+//    UILocalNotification *fetchNotification = [[UILocalNotification alloc] init];
+//    fetchNotification.alertTitle = @"Background Fetch";
+//    fetchNotification.alertBody = @"Performing background fetch...";
+//
+//    [application scheduleLocalNotification:fetchNotification];
+//#endif
 
     NSArray *fetchedPosts = [STKPost fetchPostsBeforePost:nil
                                                    author:nil
@@ -105,14 +105,14 @@
             }
         }
 
-#ifdef DEBUG
-        UILocalNotification *resultNotification = [[UILocalNotification alloc] init];
-        resultNotification.alertTitle = @"Background Fetch";
-        NSString *resultString = (result == UIBackgroundFetchResultNewData) ? @"New data" : @"No data";
-        resultNotification.alertBody = [NSString stringWithFormat:@"%@ fetched", resultString];
-
-        [application scheduleLocalNotification:resultNotification];
-#endif
+//#ifdef DEBUG
+//        UILocalNotification *resultNotification = [[UILocalNotification alloc] init];
+//        resultNotification.alertTitle = @"Background Fetch";
+//        NSString *resultString = (result == UIBackgroundFetchResultNewData) ? @"New data" : @"No data";
+//        resultNotification.alertBody = [NSString stringWithFormat:@"%@ fetched", resultString];
+//
+//        [application scheduleLocalNotification:resultNotification];
+//#endif
 
         completionHandler(result);
     }];
