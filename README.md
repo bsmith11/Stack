@@ -2,7 +2,7 @@
 
 Stack is an Ultimate news iOS app that aggregates news from the biggest digital content providers.
 
-https://itunes.apple.com/us/app/stack./id1076823318?ls=1&mt=8
+[App Store download](https://itunes.apple.com/us/app/stack./id1076823318?ls=1&mt=8)
 
 ## Contributing
 
