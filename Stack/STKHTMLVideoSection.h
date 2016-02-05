@@ -15,11 +15,12 @@ typedef NS_ENUM(NSInteger, STKHTMLVideoSectionType) {
     STKHTMLVideoSectionTypeOther
 };
 
-@class DTIframeTextAttachment, DTObjectTextAttachment;
+@class DTIframeTextAttachment, DTObjectTextAttachment, DTVideoTextAttachment;
 
 @interface STKHTMLVideoSection : STKHTMLMediaSection
 
 + (instancetype)videoSectionWithIframeTextAttachment:(DTIframeTextAttachment *)iframeTextAttachment;
++ (instancetype)videoSectionWithVideoTextAttachment:(DTVideoTextAttachment *)videoTextAttachment;
 + (instancetype)videoSectionWithObjectTextAttachment:(DTObjectTextAttachment *)objectTextAttachment;
 + (instancetype)videoSectionWithVideoURLString:(NSString *)URLString;
 

@@ -175,4 +175,10 @@ static NSString * const kSTKDefaultFontNameBold = @"Gotham-Bold";
     return [UIFont fontWithName:kSTKDefaultFontName size:14.0f];
 }
 
+#pragma mark - Events
+
++ (UIFont *)stk_eventsFilterTitleFont {
+    return [UIFont fontWithName:kSTKDefaultFontName size:18.0f];
+}
+
 @end

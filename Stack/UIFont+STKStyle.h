@@ -59,4 +59,6 @@ OBJC_EXTERN CGFloat const kSTKDefaultFontLineSpacing;
 + (UIFont *)stk_settingsItemTitleFont;
 + (UIFont *)stk_settingsHeaderTitleFont;
 
++ (UIFont *)stk_eventsFilterTitleFont;
+
 @end

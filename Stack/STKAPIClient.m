@@ -96,4 +96,19 @@
     }
 }
 
+- (void)getEventsWithCompletion:(void (^)(id, NSError *))completion {
+    STKBaseURLSessionManager *sessionManager = [[STKBaseURLSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://play.usaultimate.org/"]];
+
+    NSDictionary *parameters = @{@"f":@"GETALLEVENTS"};
+    [sessionManager GET:@"/ajax/api.aspx" parameters:parameters completion:completion];
+}
+
+- (void)getEventWithID:(NSNumber *)eventID completion:(void (^)(id, NSError *))completion {
+    STKBaseURLSessionManager *sessionManager = [[STKBaseURLSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://play.usaultimate.org/"]];
+
+    NSDictionary *parameters = @{@"f":@"GETGAMESBYEVENT",
+                                 @"EventId":eventID};
+    [sessionManager GET:@"/ajax/api.aspx" parameters:parameters completion:completion];
+}
+
 @end

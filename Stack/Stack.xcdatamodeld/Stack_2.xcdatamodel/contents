@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+    <entity name="STKAttachment" representedClassName="STKAttachment" syncable="YES">
+        <attribute name="attachmentID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sourceURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKPost" inverseName="attachment" inverseEntity="STKPost" syncable="YES"/>
+    </entity>
+    <entity name="STKAuthor" representedClassName="STKAuthor" syncable="YES">
+        <attribute name="authorID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="avatarImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourceType" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="STKPost" inverseName="author" inverseEntity="STKPost" syncable="YES"/>
+    </entity>
+    <entity name="STKBloggerComment" representedClassName="STKBloggerComment" parentEntity="STKComment" syncable="YES"/>
+    <entity name="STKBloggerPost" representedClassName="STKBloggerPost" parentEntity="STKPost" syncable="YES"/>
+    <entity name="STKComment" representedClassName="STKComment" syncable="YES">
+        <attribute name="authorAvatarImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="createDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKPost" inverseName="comments" inverseEntity="STKPost" syncable="YES"/>
+    </entity>
+    <entity name="STKEvent" representedClassName="STKEvent" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eventID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventGroup" inverseName="event" inverseEntity="STKEventGroup" syncable="YES"/>
+    </entity>
+    <entity name="STKEventBracket" representedClassName="STKEventBracket" syncable="YES">
+        <attribute name="bracketID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="round" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventRound" inverseName="brackets" inverseEntity="STKEventRound" syncable="YES"/>
+    </entity>
+    <entity name="STKEventGame" representedClassName="STKEventGame" syncable="YES">
+        <attribute name="awayTeamName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="awayTeamScore" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fieldName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="homeTeamName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="homeTeamScore" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="pool" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventPool" inverseName="games" inverseEntity="STKEventPool" syncable="YES"/>
+    </entity>
+    <entity name="STKEventGroup" representedClassName="STKEventGroup" syncable="YES">
+        <attribute name="division" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="divisionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventGroupID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teamCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEvent" inverseName="groups" inverseEntity="STKEvent" syncable="YES"/>
+        <relationship name="rounds" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventRound" inverseName="group" inverseEntity="STKEventRound" syncable="YES"/>
+    </entity>
+    <entity name="STKEventPool" representedClassName="STKEventPool" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="poolID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="games" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventGame" inverseName="pool" inverseEntity="STKEventGame" syncable="YES"/>
+        <relationship name="round" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventRound" inverseName="pools" inverseEntity="STKEventRound" syncable="YES"/>
+        <relationship name="standings" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventStanding" inverseName="pool" inverseEntity="STKEventStanding" syncable="YES"/>
+    </entity>
+    <entity name="STKEventRound" representedClassName="STKEventRound" syncable="YES">
+        <attribute name="roundID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="brackets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventBracket" inverseName="round" inverseEntity="STKEventBracket" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventGroup" inverseName="rounds" inverseEntity="STKEventGroup" syncable="YES"/>
+        <relationship name="pools" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventPool" inverseName="round" inverseEntity="STKEventPool" syncable="YES"/>
+    </entity>
+    <entity name="STKEventStanding" representedClassName="STKEventStanding" syncable="YES">
+        <attribute name="losses" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="teamName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wins" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="pool" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventPool" inverseName="standings" inverseEntity="STKEventPool" syncable="YES"/>
+    </entity>
+    <entity name="STKPost" representedClassName="STKPost" syncable="YES">
+        <attribute name="bookmarked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="createDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastSaveDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modifyDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="postID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="sourceType" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="attachment" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="STKAttachment" inverseName="post" inverseEntity="STKAttachment" syncable="YES"/>
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKAuthor" inverseName="posts" inverseEntity="STKAuthor" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKComment" inverseName="post" inverseEntity="STKComment" syncable="YES"/>
+        <relationship name="sections" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKPostSection" inverseName="post" inverseEntity="STKPostSection" syncable="YES"/>
+    </entity>
+    <entity name="STKPostImageSection" representedClassName="STKPostImageSection" parentEntity="STKPostMediaSection" syncable="YES"/>
+    <entity name="STKPostMediaSection" representedClassName="STKPostMediaSection" parentEntity="STKPostSection" syncable="YES">
+        <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="linkURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourceURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="STKPostParagraphSection" representedClassName="STKPostParagraphSection" parentEntity="STKPostSection" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
+    <entity name="STKPostSection" representedClassName="STKPostSection" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKPost" inverseName="sections" inverseEntity="STKPost" syncable="YES"/>
+    </entity>
+    <entity name="STKPostVideoSection" representedClassName="STKPostVideoSection" parentEntity="STKPostMediaSection" syncable="YES">
+        <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="STKRSSComment" representedClassName="STKRSSComment" parentEntity="STKComment" syncable="YES"/>
+    <entity name="STKRSSPost" representedClassName="STKRSSPost" parentEntity="STKPost" syncable="YES">
+        <attribute name="commentsRSS" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="STKWordpressComment" representedClassName="STKWordpressComment" parentEntity="STKComment" syncable="YES"/>
+    <entity name="STKWordpressPost" representedClassName="STKWordpressPost" parentEntity="STKPost" syncable="YES"/>
+    <elements>
+        <element name="STKAttachment" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="STKAuthor" positionX="-54" positionY="-9" width="128" height="135"/>
+        <element name="STKBloggerComment" positionX="36" positionY="144" width="128" height="45"/>
+        <element name="STKBloggerPost" positionX="36" positionY="81" width="128" height="45"/>
+        <element name="STKComment" positionX="-36" positionY="9" width="128" height="135"/>
+        <element name="STKPost" positionX="-18" positionY="27" width="128" height="225"/>
+        <element name="STKPostImageSection" positionX="27" positionY="126" width="128" height="45"/>
+        <element name="STKPostMediaSection" positionX="9" positionY="108" width="128" height="105"/>
+        <element name="STKPostParagraphSection" positionX="0" positionY="99" width="128" height="60"/>
+        <element name="STKPostSection" positionX="-9" positionY="81" width="128" height="75"/>
+        <element name="STKPostVideoSection" positionX="18" positionY="117" width="128" height="60"/>
+        <element name="STKRSSComment" positionX="-9" positionY="99" width="128" height="45"/>
+        <element name="STKRSSPost" positionX="18" positionY="63" width="128" height="60"/>
+        <element name="STKWordpressComment" positionX="45" positionY="153" width="128" height="45"/>
+        <element name="STKWordpressPost" positionX="0" positionY="45" width="128" height="45"/>
+        <element name="STKEvent" positionX="-9" positionY="99" width="128" height="195"/>
+        <element name="STKEventGroup" positionX="0" positionY="117" width="128" height="165"/>
+        <element name="STKEventRound" positionX="9" positionY="144" width="128" height="105"/>
+        <element name="STKEventPool" positionX="18" positionY="153" width="128" height="120"/>
+        <element name="STKEventGame" positionX="27" positionY="162" width="128" height="165"/>
+        <element name="STKEventStanding" positionX="36" positionY="180" width="128" height="120"/>
+        <element name="STKEventBracket" positionX="45" positionY="189" width="128" height="90"/>
+    </elements>
+</model>

@@ -437,4 +437,17 @@
     return attributes;
 }
 
+#pragma mark - Events
+
++ (NSDictionary *)stk_eventsFilterTitleAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],
+                                 NSFontAttributeName:[UIFont stk_eventsFilterTitleFont],
+                                 NSParagraphStyleAttributeName:paragraphStyle};
+
+    return attributes;
+}
+
 @end

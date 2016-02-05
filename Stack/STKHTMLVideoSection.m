@@ -27,6 +27,19 @@
     return section;
 }
 
++ (instancetype)videoSectionWithVideoTextAttachment:(DTVideoTextAttachment *)videoTextAttachment {
+    STKHTMLVideoSection *section = [[STKHTMLVideoSection alloc] init];
+
+    section.sourceURL = videoTextAttachment.contentURL.absoluteString;
+    section.width = @(videoTextAttachment.originalSize.width);
+    section.height = @(videoTextAttachment.originalSize.height);
+    section.linkURL = videoTextAttachment.hyperLinkURL.absoluteString;
+
+    section.type = [self typeForSourceURL:section.sourceURL];
+
+    return section;
+}
+
 + (instancetype)videoSectionWithObjectTextAttachment:(DTObjectTextAttachment *)objectTextAttachment {
     STKHTMLVideoSection *section = [[STKHTMLVideoSection alloc] init];
 

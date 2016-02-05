@@ -28,6 +28,17 @@
 
     [UIPageControl appearance].pageIndicatorTintColor = [UIColor lightGrayColor];
     [UIPageControl appearance].currentPageIndicatorTintColor = [UIColor stk_stackColor];
+
+    [UIToolbar appearance].tintColor = [UIColor whiteColor];
+    [UIToolbar appearance].barTintColor = [UIColor stk_stackColor];
+    [UIToolbar appearance].translucent = NO;
+    [[UIToolbar appearance] setShadowImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny];
+    [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+
+    [UISearchBar appearance].tintColor = [UIColor whiteColor];
+    [UISearchBar appearance].barTintColor = [UIColor stk_stackColor];
+    [UISearchBar appearance].translucent = NO;
+    [UISearchBar appearance].backgroundImage = [[UIImage alloc] init];
 }
 
 @end

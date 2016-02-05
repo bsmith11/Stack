@@ -13,5 +13,6 @@
 + (NSDateFormatter *)wordpressDateFormatter;
 + (NSDateFormatter *)twitterDateFormatter;
 + (NSDateFormatter *)bloggerDateFormatter;
++ (NSDateFormatter *)scoreReporterDateFormatter;
 
 @end

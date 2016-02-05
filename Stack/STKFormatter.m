@@ -11,6 +11,7 @@
 static NSString * const kSTKWordpressAPIDateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 static NSString * const kSTKTwitterAPIDateFormat = @"eee MMM dd HH:mm:ss ZZZZ yyyy";
 static NSString * const kSTKBloggerAPIDateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ";
+static NSString * const kSTKScoreReporterAPIDateFormat = @"M/d/y h:mm:ss a";
 
 @implementation STKFormatter
 
@@ -45,6 +46,18 @@ static NSString * const kSTKBloggerAPIDateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'
     dispatch_once(&onceToken, ^{
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:kSTKBloggerAPIDateFormat];
+    });
+
+    return dateFormatter;
+}
+
++ (NSDateFormatter *)scoreReporterDateFormatter {
+    static NSDateFormatter *dateFormatter = nil;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:kSTKScoreReporterAPIDateFormat];
     });
 
     return dateFormatter;

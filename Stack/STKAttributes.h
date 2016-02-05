@@ -61,4 +61,6 @@
 + (NSDictionary *)stk_settingsItemTitleAttributes;
 + (NSDictionary *)stk_settingsHeaderTitleAttributes;
 
++ (NSDictionary *)stk_eventsFilterTitleAttributes;
+
 @end
