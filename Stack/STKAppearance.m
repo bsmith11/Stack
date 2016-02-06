@@ -39,6 +39,8 @@
     [UISearchBar appearance].barTintColor = [UIColor stk_stackColor];
     [UISearchBar appearance].translucent = NO;
     [UISearchBar appearance].backgroundImage = [[UIImage alloc] init];
+
+    [UISegmentedControl appearance].tintColor = [UIColor whiteColor];
 }
 
 @end

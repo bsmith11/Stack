@@ -62,5 +62,6 @@
 + (NSDictionary *)stk_settingsHeaderTitleAttributes;
 
 + (NSDictionary *)stk_eventsFilterTitleAttributes;
++ (NSDictionary *)stk_eventsGameWinnerAttributes;
 
 @end

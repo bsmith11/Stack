@@ -35,7 +35,9 @@
             self.pools = pools;
         }
         else {
-            self.pools = nil;
+            for (STKEventPool *pool in self.pools) {
+                [context deleteObject:pool];
+            }
         }
 
         return NO;
@@ -46,7 +48,9 @@
             self.brackets = brackets;
         }
         else {
-            self.brackets = nil;
+            for (STKEventBracket *bracket in self.brackets) {
+                [context deleteObject:bracket];
+            }
         }
 
         return NO;

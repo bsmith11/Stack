@@ -7,6 +7,7 @@
 //
 
 #import "STKEventGroup+RZImport.h"
+#import "STKEventRound.h"
 
 #import <RZVinyl/RZVinyl.h>
 #import <RZDataBinding/RZDBMacros.h>
@@ -23,6 +24,7 @@
 
 + (NSDictionary *)rzi_customMappings {
     return @{@"EventGroupId":RZDB_KP(STKEventGroup, eventGroupID),
+             @"EventGroupName":RZDB_KP(STKEventGroup, name),
              @"GroupName":RZDB_KP(STKEventGroup, name),
              @"DivisionName":RZDB_KP(STKEventGroup, divisionName),
              @"TeamCount":RZDB_KP(STKEventGroup, teamCount)};
@@ -38,6 +40,19 @@
             self.type = @(STKEventGroupTypeUnknown);
             self.division = @(STKEventGroupDivisionUnknown);
         }
+    }
+    else if ([key isEqualToString:@"EventRounds"]) {
+        if ([value isKindOfClass:[NSArray class]]) {
+            NSSet *rounds = [NSSet setWithArray:[STKEventRound rzi_objectsFromArray:value inContext:context]];
+            self.rounds = rounds;
+        }
+        else {
+            for (STKEventRound *round in self.rounds) {
+                [context deleteObject:round];
+            }
+        }
+
+        return NO;
     }
 
     return [super rzi_shouldImportValue:value forKey:key inContext:context];

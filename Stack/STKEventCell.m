@@ -16,7 +16,6 @@
 
 @interface STKEventCell ()
 
-@property (strong, nonatomic) UIView *containerView;
 @property (strong, nonatomic) UIView *infoContainerView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *locationLabel;

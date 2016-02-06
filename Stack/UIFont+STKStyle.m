@@ -181,4 +181,8 @@ static NSString * const kSTKDefaultFontNameBold = @"Gotham-Bold";
     return [UIFont fontWithName:kSTKDefaultFontName size:18.0f];
 }
 
++ (UIFont *)stk_eventsGameWinnerFont {
+    return [UIFont fontWithName:kSTKDefaultFontNameBold size:16.0f];
+}
+
 @end

@@ -14,6 +14,8 @@
 @implementation STKEventGame (CoreDataProperties)
 
 @dynamic startDate;
+@dynamic startDateFull;
+@dynamic startTime;
 @dynamic homeTeamName;
 @dynamic homeTeamScore;
 @dynamic awayTeamName;

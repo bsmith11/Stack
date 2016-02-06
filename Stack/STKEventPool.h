@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class STKEventRound;
+@class STKEventRound, STKEventGroup, RZFetchedCollectionList;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STKEventPool : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
++ (RZFetchedCollectionList *)fetchedListOfPoolsForGroup:(STKEventGroup *)group;
 
 @end
 

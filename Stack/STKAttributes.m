@@ -450,4 +450,11 @@
     return attributes;
 }
 
++ (NSDictionary *)stk_eventsGameWinnerAttributes {
+    NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor stk_stackColor],
+                                 NSFontAttributeName:[UIFont stk_eventsGameWinnerFont]};
+
+    return attributes;
+}
+
 @end

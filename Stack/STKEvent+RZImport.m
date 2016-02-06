@@ -10,6 +10,8 @@
 
 #import "STKEventGroup.h"
 
+#import "STKFormatter.h"
+
 #import <RZVinyl/RZVinyl.h>
 #import <RZDataBinding/RZDBMacros.h>
 
@@ -30,13 +32,7 @@
              @"EventType":RZDB_KP(STKEvent, type),
              @"EventTypeName":RZDB_KP(STKEvent, typeName),
              @"City":RZDB_KP(STKEvent, city),
-             @"State":RZDB_KP(STKEvent, state),
-             @"StartDate":RZDB_KP(STKEvent, startDate),
-             @"EndDate":RZDB_KP(STKEvent, endDate)};
-}
-
-+ (NSString *)rzi_dateFormatForKey:(NSString *)key {
-    return @"M/d/y h:mm:ss a";
+             @"State":RZDB_KP(STKEvent, state)};
 }
 
 - (BOOL)rzi_shouldImportValue:(id)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
@@ -46,7 +42,29 @@
             self.groups = groups;
         }
         else {
-            self.groups = nil;
+            for (STKEventGroup *group in self.groups) {
+                [context deleteObject:group];
+            }
+        }
+
+        return NO;
+    }
+    else if ([key isEqualToString:@"StartDate"]) {
+        if ([value isKindOfClass:[NSString class]]) {
+            self.startDate = [[STKFormatter eventDateFormatter] dateFromString:value];
+        }
+        else {
+            self.startDate = nil;
+        }
+
+        return NO;
+    }
+    else if ([key isEqualToString:@"EndDate"]) {
+        if ([value isKindOfClass:[NSString class]]) {
+            self.endDate = [[STKFormatter eventDateFormatter] dateFromString:value];
+        }
+        else {
+            self.endDate = nil;
         }
 
         return NO;

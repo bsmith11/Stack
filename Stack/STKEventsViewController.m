@@ -7,6 +7,7 @@
 //
 
 #import "STKEventsViewController.h"
+#import "STKEventDetailViewController.h"
 
 #import "STKEventsViewModel.h"
 
@@ -15,7 +16,6 @@
 
 #import "STKEventCell.h"
 #import "STKEventHeader.h"
-#import "STKSearchController.h"
 
 #import "UIColor+STKStyle.h"
 #import "UIBarButtonItem+STKExtensions.h"
@@ -262,16 +262,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    STKEvent *event = [self.viewModel objectAtIndexPath:indexPath];
-//
-//    [STKEvent downloadDetailsForEvent:event completion:^(NSError * _Nonnull error) {
-//        NSLog(@"Error: %@", error);
-//
-//        NSArray *groups = [STKEventGroup allEventGroups];
-//        NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]];
-//        NSArray *names = [[groups valueForKey:@"name"] sortedArrayUsingDescriptors:sortDescriptors];
-//        NSLog(@"Names: %@", names);
-//    }];
+    STKEvent *event = [self.viewModel objectAtIndexPath:indexPath];
+    STKEventGroup *group = [event groupWithType:self.viewModel.type division:self.viewModel.division];
+
+    if (group) {
+        STKEventDetailViewController *eventDetailViewController = [[STKEventDetailViewController alloc] initWithEventGroup:group];
+        [self.navigationController pushViewController:eventDetailViewController animated:YES];
+    }
+    else {
+        NSLog(@"No group exists on event: %@ for type: %@ and division: %@", event, @(self.viewModel.type), @(self.viewModel.division));
+    }
 }
 
 #pragma mark - Pull To Refresh Delegate

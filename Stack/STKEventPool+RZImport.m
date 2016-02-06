@@ -11,6 +11,8 @@
 #import "STKEventStanding.h"
 #import "STKEventGame.h"
 
+#import "NSDate+STKTimeSince.h"
+
 #import <RZVinyl/RZVinyl.h>
 #import <RZDataBinding/RZDBMacros.h>
 
@@ -31,23 +33,29 @@
 
 - (BOOL)rzi_shouldImportValue:(id)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
     if ([key isEqualToString:@"Games"]) {
+        for (STKEventGame *game in self.games) {
+            [context deleteObject:game];
+        }
+
         if ([value isKindOfClass:[NSArray class]]) {
             NSSet *games = [NSSet setWithArray:[STKEventGame rzi_objectsFromArray:value inContext:context]];
+            for (STKEventGame *game in games) {
+                game.startDateFull = [NSDate stk_dateWithDate:game.startDate time:game.startTime];
+            }
+
             self.games = games;
-        }
-        else {
-            self.games = nil;
         }
 
         return NO;
     }
     else if ([key isEqualToString:@"Standings"]) {
+        for (STKEventStanding *standing in self.standings) {
+            [context deleteObject:standing];
+        }
+
         if ([value isKindOfClass:[NSArray class]]) {
             NSSet *standings = [NSSet setWithArray:[STKEventStanding rzi_objectsFromArray:value inContext:context]];
             self.standings = standings;
-        }
-        else {
-            self.standings = nil;
         }
 
         return NO;

@@ -17,6 +17,10 @@
     return YES;
 }
 
++ (NSArray *)rzi_ignoredKeys {
+    return @[@"Points", @"TieBreaker", @"GoalsFor", @"GoalDifferential", @"Ties", @"GoalsAgainst"];
+}
+
 + (NSDictionary *)rzi_customMappings {
     return @{@"TeamName":RZDB_KP(STKEventStanding, teamName),
              @"Wins":RZDB_KP(STKEventStanding, wins),

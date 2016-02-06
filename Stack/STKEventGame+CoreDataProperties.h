@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface STKEventGame (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSDate *startDate;
+@property (nullable, nonatomic, retain) NSDate *startDateFull;
+@property (nullable, nonatomic, retain) NSDate *startTime;
 @property (nullable, nonatomic, retain) NSString *homeTeamName;
 @property (nullable, nonatomic, retain) NSString *homeTeamScore;
 @property (nullable, nonatomic, retain) NSString *awayTeamName;

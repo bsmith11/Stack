@@ -49,6 +49,8 @@
         <attribute name="homeTeamName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="homeTeamScore" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDateFull" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pool" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventPool" inverseName="games" inverseEntity="STKEventPool" syncable="YES"/>
     </entity>
@@ -125,6 +127,13 @@
         <element name="STKBloggerComment" positionX="36" positionY="144" width="128" height="45"/>
         <element name="STKBloggerPost" positionX="36" positionY="81" width="128" height="45"/>
         <element name="STKComment" positionX="-36" positionY="9" width="128" height="135"/>
+        <element name="STKEvent" positionX="-9" positionY="99" width="128" height="195"/>
+        <element name="STKEventBracket" positionX="45" positionY="189" width="128" height="90"/>
+        <element name="STKEventGame" positionX="27" positionY="162" width="128" height="195"/>
+        <element name="STKEventGroup" positionX="0" positionY="117" width="128" height="165"/>
+        <element name="STKEventPool" positionX="18" positionY="153" width="128" height="120"/>
+        <element name="STKEventRound" positionX="9" positionY="144" width="128" height="105"/>
+        <element name="STKEventStanding" positionX="36" positionY="180" width="128" height="120"/>
         <element name="STKPost" positionX="-18" positionY="27" width="128" height="225"/>
         <element name="STKPostImageSection" positionX="27" positionY="126" width="128" height="45"/>
         <element name="STKPostMediaSection" positionX="9" positionY="108" width="128" height="105"/>
@@ -135,12 +144,5 @@
         <element name="STKRSSPost" positionX="18" positionY="63" width="128" height="60"/>
         <element name="STKWordpressComment" positionX="45" positionY="153" width="128" height="45"/>
         <element name="STKWordpressPost" positionX="0" positionY="45" width="128" height="45"/>
-        <element name="STKEvent" positionX="-9" positionY="99" width="128" height="195"/>
-        <element name="STKEventGroup" positionX="0" positionY="117" width="128" height="165"/>
-        <element name="STKEventRound" positionX="9" positionY="144" width="128" height="105"/>
-        <element name="STKEventPool" positionX="18" positionY="153" width="128" height="120"/>
-        <element name="STKEventGame" positionX="27" positionY="162" width="128" height="165"/>
-        <element name="STKEventStanding" positionX="36" positionY="180" width="128" height="120"/>
-        <element name="STKEventBracket" positionX="45" positionY="189" width="128" height="90"/>
     </elements>
 </model>

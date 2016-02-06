@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)downloadEventsWithCompletion:(void (^)(NSError *error))completion;
 + (void)downloadDetailsForEvent:(STKEvent *)event completion:(void (^)(NSError *error))completion;
 
+- (STKEventGroup *)groupWithType:(STKEventGroupType)type division:(STKEventGroupDivision)division;
+
 @end
 
 NS_ASSUME_NONNULL_END
