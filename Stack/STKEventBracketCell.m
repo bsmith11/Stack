@@ -17,7 +17,6 @@
 
 @interface STKEventBracketCell ()
 
-@property (strong, nonatomic) UIView *separatorView;
 @property (strong, nonatomic) UIStackView *contentStackView;
 @property (strong, nonatomic) UIStackView *teamsStackView;
 @property (strong, nonatomic) UIStackView *homeStackView;
@@ -44,7 +43,6 @@
     if (self) {
         self.contentView.backgroundColor = [UIColor whiteColor];
 
-        [self setupSeparatorView];
         [self setupContentStackView];
         [self setupDateLabel];
         [self setupTeamsStackView];
@@ -58,19 +56,6 @@
 
 #pragma mark - Setup
 
-- (void)setupSeparatorView {
-    self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.separatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView addSubview:self.separatorView];
-
-    self.separatorView.backgroundColor = [UIColor stk_backgroundColor];
-
-    [self.separatorView.heightAnchor constraintEqualToConstant:1.0f].active = YES;
-    [self.separatorView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
-    [self.separatorView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
-    [self.contentView.trailingAnchor constraintEqualToAnchor:self.separatorView.trailingAnchor].active = YES;
-}
-
 - (void)setupContentStackView {
     self.contentStackView = [[UIStackView alloc] initWithFrame:CGRectZero];
     self.contentStackView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -79,7 +64,7 @@
     self.contentStackView.axis = UILayoutConstraintAxisVertical;
     self.contentStackView.spacing = 12.5f;
 
-    [self.contentStackView.topAnchor constraintEqualToAnchor:self.separatorView.bottomAnchor constant:12.5f].active = YES;
+    [self.contentStackView.topAnchor constraintEqualToAnchor:self.self.contentView.topAnchor constant:12.5f].active = YES;
     [self.contentStackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:12.5f].active = YES;
     [self.contentView.trailingAnchor constraintEqualToAnchor:self.contentStackView.trailingAnchor constant:12.5f].active = YES;
     [self.contentView.bottomAnchor constraintEqualToAnchor:self.contentStackView.bottomAnchor constant:12.5f].active = YES;

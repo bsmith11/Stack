@@ -47,7 +47,7 @@
 
     [self.titleLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:12.5f].active = YES;
     [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:12.5f].active = YES;
-    [self.bottomAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:12.5f].active = YES;
+    [self.bottomAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:0.0f].active = YES;
     [self.trailingAnchor constraintEqualToAnchor:self.titleLabel.trailingAnchor constant:12.5f].active = YES;
 }
 
@@ -65,7 +65,7 @@
 
 + (CGFloat)height {
     CGFloat titleHeight = [UIFont stk_settingsHeaderTitleFont].lineHeight;
-    CGFloat height = 12.5f + titleHeight + 12.5f;
+    CGFloat height = 12.5f + titleHeight;
     
     return height;
 }
