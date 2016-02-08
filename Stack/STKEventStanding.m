@@ -23,7 +23,8 @@
 
     NSSortDescriptor *poolNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pool.name" ascending:YES];
     NSSortDescriptor *orderSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:RZDB_KP(STKEventStanding, sortOrder) ascending:YES];
-    request.sortDescriptors = @[poolNameSortDescriptor, orderSortDescriptor];
+    NSSortDescriptor *seedSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:RZDB_KP(STKEventStanding, seed) ascending:YES];
+    request.sortDescriptors = @[poolNameSortDescriptor, orderSortDescriptor, seedSortDescriptor];
 
     NSPredicate *groupPredicate = [NSPredicate predicateWithFormat:@"%K == %@", @"pool.round.group", group];
     request.predicate = groupPredicate;

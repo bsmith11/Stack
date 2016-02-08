@@ -10,6 +10,7 @@
 
 #import "STKEventPool.h"
 #import "STKEventBracket.h"
+#import "STKEventCluster.h"
 
 #import <RZVinyl/RZVinyl.h>
 #import <RZDataBinding/RZDBMacros.h>
@@ -44,12 +45,30 @@
     }
     else if ([key isEqualToString:@"Brackets"]) {
         if ([value isKindOfClass:[NSArray class]]) {
-            NSSet *brackets = [NSSet setWithArray:[STKEventBracket rzi_objectsFromArray:value inContext:context]];
-            self.brackets = brackets;
+            NSArray *bracketsArray = [STKEventBracket rzi_objectsFromArray:value inContext:context];
+
+            [bracketsArray enumerateObjectsUsingBlock:^(STKEventBracket *bracket, NSUInteger idx, BOOL *stop) {
+                bracket.sortOrder = @(idx);
+            }];
+
+            self.brackets = [NSSet setWithArray:bracketsArray];
         }
         else {
             for (STKEventBracket *bracket in self.brackets) {
                 [context deleteObject:bracket];
+            }
+        }
+
+        return NO;
+    }
+    else if ([key isEqualToString:@"Clusters"]) {
+        if ([value isKindOfClass:[NSArray class]]) {
+            NSSet *clusters = [NSSet setWithArray:[STKEventCluster rzi_objectsFromArray:value inContext:context]];
+            self.clusters = clusters;
+        }
+        else {
+            for (STKEventCluster *cluster in self.clusters) {
+                [context deleteObject:cluster];
             }
         }
 

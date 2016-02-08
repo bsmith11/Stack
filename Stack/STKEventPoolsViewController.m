@@ -70,7 +70,7 @@
 
     self.tableView.backgroundColor = [UIColor stk_backgroundColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.estimatedRowHeight = 300.0f;
+    self.tableView.estimatedRowHeight = 42.0f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
 

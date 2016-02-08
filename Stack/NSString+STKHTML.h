@@ -34,5 +34,6 @@
 - (BOOL)stk_isSoundCloudURL;
 
 - (NSString *)stk_youtubeVideoID;
+- (NSString *)stk_stringMatchingRegexPattern:(NSString *)pattern;
 
 @end

@@ -9,8 +9,10 @@
 #import "STKEventCrossoversViewController.h"
 #import "STKEventCrossoversViewModel.h"
 
-#import "STKEvent.h"
 #import "STKEventGroup.h"
+
+#import "STKEventPoolDetailCell.h"
+#import "STKEventPoolDetailHeader.h"
 
 #import "UITableViewCell+STKReuse.h"
 #import "UITableViewHeaderFooterView+STKReuse.h"
@@ -33,7 +35,7 @@
     self = [super init];
 
     if (self) {
-//        self.viewModel = [[STKEventBracketsViewModel alloc] initWithEventGroup:group];
+        self.viewModel = [[STKEventCrossoversViewModel alloc] initWithEventGroup:group];
     }
 
     return self;
@@ -49,7 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
+    [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
 }
 
 #pragma mark - Setup
@@ -61,12 +63,12 @@
 
     self.tableView.backgroundColor = [UIColor stk_backgroundColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.estimatedRowHeight = 300.0f;
+    self.tableView.estimatedRowHeight = 89.0f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
 
-//    [self.tableView registerClass:[STKPoolCell class] forCellReuseIdentifier:[STKPoolCell stk_reuseIdentifier]];
-//    [self.tableView registerClass:[STKPoolHeader class] forHeaderFooterViewReuseIdentifier:[STKPoolHeader stk_reuseIdentifier]];
+    [self.tableView registerClass:[STKEventPoolDetailCell class] forCellReuseIdentifier:[STKEventPoolDetailCell stk_reuseIdentifier]];
+    [self.tableView registerClass:[STKEventPoolDetailHeader class] forHeaderFooterViewReuseIdentifier:[STKEventPoolDetailHeader stk_reuseIdentifier]];
 
     [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
     [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
@@ -76,31 +78,31 @@
 
 #pragma mark - Collection List Table View Data Source Delegate
 
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
-//    STKPoolCell *cell = [tableView dequeueReusableCellWithIdentifier:[STKPoolCell stk_reuseIdentifier] forIndexPath:indexPath];
-//
-//    [cell setupWithStanding:object];
-//
-//    return cell;
-//}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+    STKEventPoolDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:[STKEventPoolDetailCell stk_reuseIdentifier] forIndexPath:indexPath];
+
+    [cell setupWithGame:object];
+
+    return cell;
+}
 
 #pragma mark - Table View Delegate
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    STKPoolHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[STKPoolHeader stk_reuseIdentifier]];
-//    STKEventPool *pool = [self.viewModel poolForSection:(NSUInteger)section];
-//
-//    [header setupWithPool:pool];
-//
-//    return header;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return [STKPoolHeader height];
-//}
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    STKEventPoolDetailHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[STKEventPoolDetailHeader stk_reuseIdentifier]];
+    NSDate *date = [self.viewModel dateForSection:section];
+
+    [header setupWithDate:date];
+
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return [STKEventPoolDetailHeader height];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 
 @end

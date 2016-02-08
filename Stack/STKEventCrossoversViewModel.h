@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RZCollectionListTableViewDataSourceDelegate;
+@class STKEventCluster, STKEventGame, STKEventGroup;
+
 @interface STKEventCrossoversViewModel : NSObject
+
+- (instancetype)initWithEventGroup:(STKEventGroup *)group;
+
+- (void)setupDataSourceWithTableView:(UITableView *)tableView delegate:(id <RZCollectionListTableViewDataSourceDelegate>)delegate;
+
+- (NSDate *)dateForSection:(NSInteger)section;
+- (STKEventGame *)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

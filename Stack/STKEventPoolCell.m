@@ -12,6 +12,7 @@
 
 #import "STKAttributes.h"
 #import "UIColor+STKStyle.h"
+#import "UIFont+STKStyle.h"
 
 @interface STKEventPoolCell ()
 

@@ -50,6 +50,20 @@
 		061B898F1C65B04300B2BAA2 /* STKEventPoolDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B898E1C65B04300B2BAA2 /* STKEventPoolDetailViewModel.m */; };
 		061B89921C65B1B000B2BAA2 /* STKEventPoolDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89911C65B1B000B2BAA2 /* STKEventPoolDetailHeader.m */; };
 		061B89951C65B20F00B2BAA2 /* STKEventPoolDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89941C65B20F00B2BAA2 /* STKEventPoolDetailCell.m */; };
+		061B899B1C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89981C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.m */; };
+		061B899C1C66569300B2BAA2 /* STKEventCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B899A1C66569300B2BAA2 /* STKEventCluster.m */; };
+		061B899F1C6656AD00B2BAA2 /* STKEventCluster+RZImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B899E1C6656AD00B2BAA2 /* STKEventCluster+RZImport.m */; };
+		061B89A51C668A9D00B2BAA2 /* NSArray+STKEquality.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89A41C668A9D00B2BAA2 /* NSArray+STKEquality.m */; };
+		061B89AB1C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89A81C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.m */; };
+		061B89AC1C67D3C100B2BAA2 /* STKEventStage.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89AA1C67D3C100B2BAA2 /* STKEventStage.m */; };
+		061B89AF1C67D3EA00B2BAA2 /* STKEventStage+RZImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89AE1C67D3EA00B2BAA2 /* STKEventStage+RZImport.m */; };
+		061B89B21C67E5B700B2BAA2 /* STKBracketLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89B11C67E5B700B2BAA2 /* STKBracketLayout.m */; };
+		061B89B51C67F70900B2BAA2 /* STKEventBracketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89B41C67F70900B2BAA2 /* STKEventBracketCell.m */; };
+		061B89B81C67F73400B2BAA2 /* STKEventBracketHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89B71C67F73400B2BAA2 /* STKEventBracketHeader.m */; };
+		061B89BB1C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89BA1C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.m */; };
+		061B89BE1C6859CC00B2BAA2 /* STKEventBracketsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89BD1C6859CC00B2BAA2 /* STKEventBracketsListViewController.m */; };
+		061B89C21C6859FE00B2BAA2 /* STKEventBracketsListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89C11C6859FE00B2BAA2 /* STKEventBracketsListViewModel.m */; };
+		061B89C51C685E3800B2BAA2 /* STKEventBracketsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89C41C685E3800B2BAA2 /* STKEventBracketsListCell.m */; };
 		063B03EE1C4F17EE000D99DD /* STKLaunchImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B03ED1C4F17EE000D99DD /* STKLaunchImageView.m */; };
 		064863DE1C2685840087A41E /* STKOnboardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064863DD1C2685840087A41E /* STKOnboardingPageViewController.m */; };
 		064863E11C2685BE0087A41E /* STKPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064863E01C2685BE0087A41E /* STKPermissionViewController.m */; };
@@ -303,6 +317,34 @@
 		061B89911C65B1B000B2BAA2 /* STKEventPoolDetailHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventPoolDetailHeader.m; sourceTree = "<group>"; };
 		061B89931C65B20F00B2BAA2 /* STKEventPoolDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventPoolDetailCell.h; sourceTree = "<group>"; };
 		061B89941C65B20F00B2BAA2 /* STKEventPoolDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventPoolDetailCell.m; sourceTree = "<group>"; };
+		061B89971C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKEventCluster+CoreDataProperties.h"; sourceTree = "<group>"; };
+		061B89981C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKEventCluster+CoreDataProperties.m"; sourceTree = "<group>"; };
+		061B89991C66569300B2BAA2 /* STKEventCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventCluster.h; sourceTree = "<group>"; };
+		061B899A1C66569300B2BAA2 /* STKEventCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventCluster.m; sourceTree = "<group>"; };
+		061B899D1C6656AD00B2BAA2 /* STKEventCluster+RZImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKEventCluster+RZImport.h"; sourceTree = "<group>"; };
+		061B899E1C6656AD00B2BAA2 /* STKEventCluster+RZImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKEventCluster+RZImport.m"; sourceTree = "<group>"; };
+		061B89A31C668A9D00B2BAA2 /* NSArray+STKEquality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+STKEquality.h"; sourceTree = "<group>"; };
+		061B89A41C668A9D00B2BAA2 /* NSArray+STKEquality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+STKEquality.m"; sourceTree = "<group>"; };
+		061B89A71C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKEventStage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		061B89A81C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKEventStage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		061B89A91C67D3C100B2BAA2 /* STKEventStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventStage.h; sourceTree = "<group>"; };
+		061B89AA1C67D3C100B2BAA2 /* STKEventStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventStage.m; sourceTree = "<group>"; };
+		061B89AD1C67D3EA00B2BAA2 /* STKEventStage+RZImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKEventStage+RZImport.h"; sourceTree = "<group>"; };
+		061B89AE1C67D3EA00B2BAA2 /* STKEventStage+RZImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKEventStage+RZImport.m"; sourceTree = "<group>"; };
+		061B89B01C67E5B700B2BAA2 /* STKBracketLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKBracketLayout.h; sourceTree = "<group>"; };
+		061B89B11C67E5B700B2BAA2 /* STKBracketLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKBracketLayout.m; sourceTree = "<group>"; };
+		061B89B31C67F70900B2BAA2 /* STKEventBracketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventBracketCell.h; sourceTree = "<group>"; };
+		061B89B41C67F70900B2BAA2 /* STKEventBracketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventBracketCell.m; sourceTree = "<group>"; };
+		061B89B61C67F73400B2BAA2 /* STKEventBracketHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventBracketHeader.h; sourceTree = "<group>"; };
+		061B89B71C67F73400B2BAA2 /* STKEventBracketHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventBracketHeader.m; sourceTree = "<group>"; };
+		061B89B91C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionReusableView+STKReuse.h"; sourceTree = "<group>"; };
+		061B89BA1C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionReusableView+STKReuse.m"; sourceTree = "<group>"; };
+		061B89BC1C6859CC00B2BAA2 /* STKEventBracketsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventBracketsListViewController.h; sourceTree = "<group>"; };
+		061B89BD1C6859CC00B2BAA2 /* STKEventBracketsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventBracketsListViewController.m; sourceTree = "<group>"; };
+		061B89C01C6859FE00B2BAA2 /* STKEventBracketsListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventBracketsListViewModel.h; sourceTree = "<group>"; };
+		061B89C11C6859FE00B2BAA2 /* STKEventBracketsListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventBracketsListViewModel.m; sourceTree = "<group>"; };
+		061B89C31C685E3800B2BAA2 /* STKEventBracketsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventBracketsListCell.h; sourceTree = "<group>"; };
+		061B89C41C685E3800B2BAA2 /* STKEventBracketsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventBracketsListCell.m; sourceTree = "<group>"; };
 		063B03EC1C4F17EE000D99DD /* STKLaunchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKLaunchImageView.h; sourceTree = "<group>"; };
 		063B03ED1C4F17EE000D99DD /* STKLaunchImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKLaunchImageView.m; sourceTree = "<group>"; };
 		064863DC1C2685840087A41E /* STKOnboardingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKOnboardingPageViewController.h; sourceTree = "<group>"; };
@@ -769,10 +811,17 @@
 		061B897B1C65A8A000B2BAA2 /* Event Brackets */ = {
 			isa = PBXGroup;
 			children = (
+				061B89BF1C6859D000B2BAA2 /* Event Brackets List */,
 				061B897C1C65A8BF00B2BAA2 /* STKEventBracketsViewController.h */,
 				061B897D1C65A8BF00B2BAA2 /* STKEventBracketsViewController.m */,
 				061B897F1C65A91E00B2BAA2 /* STKEventBracketsViewModel.h */,
 				061B89801C65A91E00B2BAA2 /* STKEventBracketsViewModel.m */,
+				061B89B01C67E5B700B2BAA2 /* STKBracketLayout.h */,
+				061B89B11C67E5B700B2BAA2 /* STKBracketLayout.m */,
+				061B89B31C67F70900B2BAA2 /* STKEventBracketCell.h */,
+				061B89B41C67F70900B2BAA2 /* STKEventBracketCell.m */,
+				061B89B61C67F73400B2BAA2 /* STKEventBracketHeader.h */,
+				061B89B71C67F73400B2BAA2 /* STKEventBracketHeader.m */,
 			);
 			name = "Event Brackets";
 			sourceTree = "<group>";
@@ -801,6 +850,45 @@
 				061B89941C65B20F00B2BAA2 /* STKEventPoolDetailCell.m */,
 			);
 			name = "Event Pool Detail";
+			sourceTree = "<group>";
+		};
+		061B89961C6655CD00B2BAA2 /* Event Cluster */ = {
+			isa = PBXGroup;
+			children = (
+				061B89971C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.h */,
+				061B89981C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.m */,
+				061B89991C66569300B2BAA2 /* STKEventCluster.h */,
+				061B899A1C66569300B2BAA2 /* STKEventCluster.m */,
+				061B899D1C6656AD00B2BAA2 /* STKEventCluster+RZImport.h */,
+				061B899E1C6656AD00B2BAA2 /* STKEventCluster+RZImport.m */,
+			);
+			name = "Event Cluster";
+			sourceTree = "<group>";
+		};
+		061B89A61C67D29700B2BAA2 /* Event Stage */ = {
+			isa = PBXGroup;
+			children = (
+				061B89A71C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.h */,
+				061B89A81C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.m */,
+				061B89A91C67D3C100B2BAA2 /* STKEventStage.h */,
+				061B89AA1C67D3C100B2BAA2 /* STKEventStage.m */,
+				061B89AD1C67D3EA00B2BAA2 /* STKEventStage+RZImport.h */,
+				061B89AE1C67D3EA00B2BAA2 /* STKEventStage+RZImport.m */,
+			);
+			name = "Event Stage";
+			sourceTree = "<group>";
+		};
+		061B89BF1C6859D000B2BAA2 /* Event Brackets List */ = {
+			isa = PBXGroup;
+			children = (
+				061B89BC1C6859CC00B2BAA2 /* STKEventBracketsListViewController.h */,
+				061B89BD1C6859CC00B2BAA2 /* STKEventBracketsListViewController.m */,
+				061B89C01C6859FE00B2BAA2 /* STKEventBracketsListViewModel.h */,
+				061B89C11C6859FE00B2BAA2 /* STKEventBracketsListViewModel.m */,
+				061B89C31C685E3800B2BAA2 /* STKEventBracketsListCell.h */,
+				061B89C41C685E3800B2BAA2 /* STKEventBracketsListCell.m */,
+			);
+			name = "Event Brackets List";
 			sourceTree = "<group>";
 		};
 		064863DA1C2685300087A41E /* App Delegate */ = {
@@ -872,6 +960,8 @@
 		064863F91C2692870087A41E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				061B89A61C67D29700B2BAA2 /* Event Stage */,
+				061B89961C6655CD00B2BAA2 /* Event Cluster */,
 				061B894C1C62866B00B2BAA2 /* Event Bracket */,
 				061B89421C62844800B2BAA2 /* Event Game */,
 				061B89381C62833D00B2BAA2 /* Event Standing */,
@@ -1129,6 +1219,10 @@
 				061B895D1C64780700B2BAA2 /* UITableViewCell+STKReuse.m */,
 				061B895F1C64781700B2BAA2 /* UITableViewHeaderFooterView+STKReuse.h */,
 				061B89601C64781700B2BAA2 /* UITableViewHeaderFooterView+STKReuse.m */,
+				061B89A31C668A9D00B2BAA2 /* NSArray+STKEquality.h */,
+				061B89A41C668A9D00B2BAA2 /* NSArray+STKEquality.m */,
+				061B89B91C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.h */,
+				061B89BA1C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1782,6 +1876,7 @@
 				061B89411C62836700B2BAA2 /* STKEventStanding+RZImport.m in Sources */,
 				06C7CF201C478BD50012BEFC /* STKPost+CoreDataProperties.m in Sources */,
 				064864321C276CB80087A41E /* STKPostImageSection.m in Sources */,
+				061B899C1C66569300B2BAA2 /* STKEventCluster.m in Sources */,
 				064865541C292FAF0087A41E /* STKPostViewModel.m in Sources */,
 				064865661C2937B90087A41E /* STKPostImageSectionNode.m in Sources */,
 				064865361C29135C0087A41E /* STKPostNode.m in Sources */,
@@ -1791,6 +1886,8 @@
 				061B89371C62828200B2BAA2 /* STKEventPool+RZImport.m in Sources */,
 				064865601C2936190087A41E /* STKPostSectionNode.m in Sources */,
 				0648659B1C307EC20087A41E /* STKSearchField.m in Sources */,
+				061B899F1C6656AD00B2BAA2 /* STKEventCluster+RZImport.m in Sources */,
+				061B89C51C685E3800B2BAA2 /* STKEventBracketsListCell.m in Sources */,
 				064865331C28ADB70087A41E /* STKFeedViewModel.m in Sources */,
 				061B897E1C65A8BF00B2BAA2 /* STKEventBracketsViewController.m in Sources */,
 				064865431C291B050087A41E /* STKSourceListViewModel.m in Sources */,
@@ -1813,6 +1910,7 @@
 				064865AC1C31CDB80087A41E /* STKSettingsViewModel.m in Sources */,
 				064864961C279F920087A41E /* STKSource.m in Sources */,
 				0648650A1C28A4DF0087A41E /* STKTabBarController.m in Sources */,
+				061B89B81C67F73400B2BAA2 /* STKEventBracketHeader.m in Sources */,
 				061B89511C62868000B2BAA2 /* STKEventBracket+CoreDataProperties.m in Sources */,
 				064865B51C31E31F0087A41E /* STKSettingsHeader.m in Sources */,
 				064864381C276CB80087A41E /* STKPostVideoSection.m in Sources */,
@@ -1839,6 +1937,7 @@
 				064864751C2794650087A41E /* STKImageCache.m in Sources */,
 				064865231C28AB580087A41E /* STKCollectionListTableViewDataSource.m in Sources */,
 				061B893D1C62835500B2BAA2 /* STKEventStanding+CoreDataProperties.m in Sources */,
+				061B89B21C67E5B700B2BAA2 /* STKBracketLayout.m in Sources */,
 				064865691C2938590087A41E /* STKPostVideoSectionNode.m in Sources */,
 				0648652C1C28AC6F0087A41E /* ASDisplayNode+STKShadow.m in Sources */,
 				064864371C276CB80087A41E /* STKPostVideoSection+CoreDataProperties.m in Sources */,
@@ -1860,9 +1959,12 @@
 				0648658E1C2B9EB80087A41E /* STKListBackgroundView.m in Sources */,
 				064864781C2794DE0087A41E /* STKImageDownloader.m in Sources */,
 				064864311C276CB80087A41E /* STKPostImageSection+CoreDataProperties.m in Sources */,
+				061B89AC1C67D3C100B2BAA2 /* STKEventStage.m in Sources */,
+				061B89BE1C6859CC00B2BAA2 /* STKEventBracketsListViewController.m in Sources */,
 				064865AF1C31E3000087A41E /* STKSettingsItem.m in Sources */,
 				064863E11C2685BE0087A41E /* STKPermissionViewController.m in Sources */,
 				061B898F1C65B04300B2BAA2 /* STKEventPoolDetailViewModel.m in Sources */,
+				061B899B1C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.m in Sources */,
 				0648651D1C28A9790087A41E /* STKModalAnimationController.m in Sources */,
 				064865BB1C31E4EC0087A41E /* STKSwitchNode.m in Sources */,
 				064864B41C27AB100087A41E /* STKBloggerSessionManager.m in Sources */,
@@ -1874,6 +1976,7 @@
 				064864431C276CB80087A41E /* STKRSSPost+CoreDataProperties.m in Sources */,
 				064864931C279EE40087A41E /* STKAuthor+Analytical.m in Sources */,
 				061B89711C6506DA00B2BAA2 /* STKEventPoolCell.m in Sources */,
+				061B89B51C67F70900B2BAA2 /* STKEventBracketCell.m in Sources */,
 				0648643F1C276CB80087A41E /* STKComment+CoreDataProperties.m in Sources */,
 				064864E71C287DB50087A41E /* STKRSSComment+RZImport.m in Sources */,
 				064865131C28A6BD0087A41E /* STKInteractiveViewController.m in Sources */,
@@ -1916,8 +2019,10 @@
 				064864721C2790830087A41E /* NSParagraphStyle+STKHTML.m in Sources */,
 				064865A51C31101F0087A41E /* STKBloggerPostSearchResult.m in Sources */,
 				064863E41C26875D0087A41E /* STKAnalyticsManager.m in Sources */,
+				061B89A51C668A9D00B2BAA2 /* NSArray+STKEquality.m in Sources */,
 				064865571C2934390087A41E /* STKPostTitleNode.m in Sources */,
 				0648657F1C29D5D50087A41E /* STKAuthorNode.m in Sources */,
+				061B89BB1C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.m in Sources */,
 				061B895E1C64780700B2BAA2 /* UITableViewCell+STKReuse.m in Sources */,
 				064865981C2F02EE0087A41E /* STKSearchViewModel.m in Sources */,
 				061B893E1C62835500B2BAA2 /* STKEventStanding.m in Sources */,
@@ -1935,6 +2040,7 @@
 				061B891A1C61C5C900B2BAA2 /* STKEventsViewController.m in Sources */,
 				064863FE1C2763380087A41E /* Stack.xcdatamodeld in Sources */,
 				0648659E1C31070F0087A41E /* STKPostSearchResult.m in Sources */,
+				061B89AB1C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.m in Sources */,
 				0648648B1C2798930087A41E /* STKTableViewDataSource.m in Sources */,
 				061B89951C65B20F00B2BAA2 /* STKEventPoolDetailCell.m in Sources */,
 				064863F81C268F270087A41E /* STKAppearance.m in Sources */,
@@ -1942,12 +2048,14 @@
 				064865751C293DAC0087A41E /* STKPostFeatureImageNode.m in Sources */,
 				064864FE1C2896E20087A41E /* NSAttributedString+STKHTML.m in Sources */,
 				06A4967A1C3CD0370057209E /* STKUnavailableNode.m in Sources */,
+				061B89C21C6859FE00B2BAA2 /* STKEventBracketsListViewModel.m in Sources */,
 				061B89811C65A91E00B2BAA2 /* STKEventBracketsViewModel.m in Sources */,
 				064864601C2778450087A41E /* STKHTMLMediaSection.m in Sources */,
 				0648646C1C278F630087A41E /* NSString+STKHTML.m in Sources */,
 				064865B81C31E32D0087A41E /* STKSettingsHeaderNode.m in Sources */,
 				061B894B1C62846900B2BAA2 /* STKEventGame+RZImport.m in Sources */,
 				061B89881C65AC3000B2BAA2 /* STKEventCrossoversViewController.m in Sources */,
+				061B89AF1C67D3EA00B2BAA2 /* STKEventStage+RZImport.m in Sources */,
 				9D60CEB768CB6ACA2BB8299C /* main.m in Sources */,
 				064863DE1C2685840087A41E /* STKOnboardingPageViewController.m in Sources */,
 				064864361C276CB80087A41E /* STKPostParagraphSection.m in Sources */,

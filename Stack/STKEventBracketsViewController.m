@@ -9,19 +9,21 @@
 #import "STKEventBracketsViewController.h"
 #import "STKEventBracketsViewModel.h"
 
-#import "STKEvent.h"
-#import "STKEventGroup.h"
+#import "STKEventBracket.h"
 
-#import "UITableViewCell+STKReuse.h"
-#import "UITableViewHeaderFooterView+STKReuse.h"
+#import "STKBracketLayout.h"
+#import "STKEventBracketHeader.h"
+#import "STKEventBracketCell.h"
+
 #import "UIColor+STKStyle.h"
+#import "UICollectionReusableView+STKReuse.h"
 
 #import <RZCollectionList/RZCollectionList.h>
 
-@interface STKEventBracketsViewController () <UITableViewDelegate, RZCollectionListTableViewDataSourceDelegate>
+@interface STKEventBracketsViewController () <RZCollectionListCollectionViewDataSourceDelegate>
 
 @property (strong, nonatomic) STKEventBracketsViewModel *viewModel;
-@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UICollectionView *collectionView;
 
 @end
 
@@ -29,11 +31,12 @@
 
 #pragma mark - Lifecycle
 
-- (instancetype)initWithEventGroup:(STKEventGroup *)group {
+- (instancetype)initWithEventBracket:(STKEventBracket *)bracket {
     self = [super init];
 
     if (self) {
-//        self.viewModel = [[STKEventBracketsViewModel alloc] initWithEventGroup:group];
+        self.viewModel = [[STKEventBracketsViewModel alloc] initWithEventBracket:bracket];
+        self.title = bracket.name;
     }
 
     return self;
@@ -43,64 +46,62 @@
     self.view = [[UIView alloc] init];
     self.view.backgroundColor = [UIColor stk_backgroundColor];
 
-    [self setupTableView];
+    [self setupCollectionView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
+    [self.navigationItem setHidesBackButton:NO animated:YES];
+
+    [self.viewModel setupDataSourceWithCollectionView:self.collectionView delegate:self];
 }
 
 #pragma mark - Setup
 
-- (void)setupTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.tableView];
+- (void)setupCollectionView {
+    STKBracketLayout *layout = [[STKBracketLayout alloc] init];
+    layout.itemHeight = [STKEventBracketCell height];
+    layout.minimumItemSpacing = 12.5f;
+    layout.headerHeight = [STKEventBracketHeader height];
 
-    self.tableView.backgroundColor = [UIColor stk_backgroundColor];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.estimatedRowHeight = 300.0f;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.delegate = self;
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.collectionView];
 
-//    [self.tableView registerClass:[STKPoolCell class] forCellReuseIdentifier:[STKPoolCell stk_reuseIdentifier]];
-//    [self.tableView registerClass:[STKPoolHeader class] forHeaderFooterViewReuseIdentifier:[STKPoolHeader stk_reuseIdentifier]];
+    self.collectionView.backgroundColor = [UIColor stk_backgroundColor];
+    self.collectionView.alwaysBounceHorizontal = YES;
+    CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
+    CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.bounds);
+    self.collectionView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
 
-    [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
-    [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [self.view.trailingAnchor constraintEqualToAnchor:self.tableView.trailingAnchor].active = YES;
-    [self.view.bottomAnchor constraintEqualToAnchor:self.tableView.bottomAnchor].active = YES;
+    [self.collectionView registerClass:[STKEventBracketCell class] forCellWithReuseIdentifier:[STKEventBracketCell stk_reuseIdentifier]];
+    [self.collectionView registerClass:[STKEventBracketHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[STKEventBracketHeader stk_reuseIdentifier]];
+
+    [self.collectionView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [self.collectionView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.view.trailingAnchor constraintEqualToAnchor:self.collectionView.trailingAnchor].active = YES;
+    [self.view.bottomAnchor constraintEqualToAnchor:self.collectionView.bottomAnchor].active = YES;
 }
 
-#pragma mark - Collection List Table View Data Source Delegate
+#pragma mark - Collection List Collection View Data Source Delegate
 
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
-//    STKPoolCell *cell = [tableView dequeueReusableCellWithIdentifier:[STKPoolCell stk_reuseIdentifier] forIndexPath:indexPath];
-//
-//    [cell setupWithStanding:object];
-//
-//    return cell;
-//}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+    STKEventBracketCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[STKEventBracketCell stk_reuseIdentifier] forIndexPath:indexPath];
 
-#pragma mark - Table View Delegate
+    [cell setupWithGame:object];
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    STKPoolHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[STKPoolHeader stk_reuseIdentifier]];
-//    STKEventPool *pool = [self.viewModel poolForSection:(NSUInteger)section];
-//
-//    [header setupWithPool:pool];
-//
-//    return header;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return [STKPoolHeader height];
-//}
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
+    return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    STKEventBracketHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[STKEventBracketHeader stk_reuseIdentifier] forIndexPath:indexPath];
+    STKEventStage *stage = [self.viewModel stageForSection:indexPath.section];
+
+    [header setupWithStage:stage];
+
+    return header;
+}
 
 @end

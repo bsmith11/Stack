@@ -8,7 +8,7 @@
 
 #import "STKEventDetailViewController.h"
 #import "STKEventPoolsViewController.h"
-#import "STKEventBracketsViewController.h"
+#import "STKEventBracketsListViewController.h"
 #import "STKEventCrossoversViewController.h"
 
 #import "STKEventDetailViewModel.h"
@@ -16,6 +16,7 @@
 #import "STKEvent.h"
 #import "STKEventGroup.h"
 
+#import "STKAttributes.h"
 #import "UIColor+STKStyle.h"
 #import "UIBarButtonItem+STKExtensions.h"
 
@@ -27,10 +28,12 @@
 
 @property (strong, nonatomic) UIViewController *currentViewController;
 @property (strong, nonatomic) STKEventPoolsViewController *poolsViewController;
-@property (strong, nonatomic) STKEventBracketsViewController *bracketsViewController;
+@property (strong, nonatomic) STKEventBracketsListViewController *bracketsListViewController;
 @property (strong, nonatomic) STKEventCrossoversViewController *crossoversViewController;
 @property (strong, nonatomic) STKEventDetailViewModel *viewModel;
 @property (strong, nonatomic) UIView *containerView;
+@property (strong, nonatomic) NSLayoutConstraint *containerViewHeight;
+@property (strong, nonatomic) UILabel *roundLabel;
 @property (strong, nonatomic) UISegmentedControl *roundSegmentedControl;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 
@@ -46,7 +49,7 @@
     if (self) {
         self.viewModel = [[STKEventDetailViewModel alloc] initWithEventGroup:group];
         self.poolsViewController = [[STKEventPoolsViewController alloc] initWithEventGroup:self.viewModel.group];
-        self.bracketsViewController = [[STKEventBracketsViewController alloc] initWithEventGroup:self.viewModel.group];
+        self.bracketsListViewController = [[STKEventBracketsListViewController alloc] initWithEventGroup:self.viewModel.group];
         self.crossoversViewController = [[STKEventCrossoversViewController alloc] initWithEventGroup:self.viewModel.group];
 
         self.title = group.event.name;
@@ -60,7 +63,11 @@
     self.view.backgroundColor = [UIColor stk_backgroundColor];
 
     [self setupBarButtonItems];
+    [self setupContainerView];
+    [self setupRoundLabel];
     [self setupRoundSegmentedControl];
+
+    [self updateSegmentedControlWithSegmentTypes:self.viewModel.segmentTypes];
 }
 
 - (void)viewDidLoad {
@@ -69,8 +76,6 @@
     [self.navigationItem setHidesBackButton:NO animated:YES];
 
     [self setupObservers];
-
-    [self didTapSegmentedControl:self.roundSegmentedControl];
 }
 
 #pragma mark - Setup
@@ -84,32 +89,45 @@
     self.navigationItem.rightBarButtonItem = spinnerBarButtonItem;
 }
 
-- (void)setupRoundSegmentedControl {
+- (void)setupContainerView {
     self.containerView = [[UIView alloc] initWithFrame:CGRectZero];
     self.containerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.containerView];
 
     self.containerView.backgroundColor = [UIColor stk_stackColor];
 
+    self.containerViewHeight = [self.containerView.heightAnchor constraintEqualToConstant:44.0f];
+    self.containerViewHeight.active = YES;
+
     CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
     [self.containerView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:topInset].active = YES;
     [self.containerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [self.view.trailingAnchor constraintEqualToAnchor:self.containerView.trailingAnchor].active = YES;
+}
 
+- (void)setupRoundLabel {
+    self.roundLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.roundLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.containerView addSubview:self.roundLabel];
+
+    [self.roundLabel.centerXAnchor constraintEqualToAnchor:self.containerView.centerXAnchor].active = YES;
+    [self.roundLabel.centerYAnchor constraintEqualToAnchor:self.containerView.centerYAnchor].active = YES;
+}
+
+- (void)setupRoundSegmentedControl {
     self.roundSegmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectZero];
     self.roundSegmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView addSubview:self.roundSegmentedControl];
 
-    [self.roundSegmentedControl insertSegmentWithTitle:@"Pools" atIndex:0 animated:NO];
-    [self.roundSegmentedControl insertSegmentWithTitle:@"Crossovers" atIndex:1 animated:NO];
-    [self.roundSegmentedControl insertSegmentWithTitle:@"Brackets" atIndex:2 animated:NO];
-    self.roundSegmentedControl.selectedSegmentIndex = 0;
     [self.roundSegmentedControl addTarget:self action:@selector(didTapSegmentedControl:) forControlEvents:UIControlEventValueChanged];
 
-    [self.roundSegmentedControl.topAnchor constraintEqualToAnchor:self.containerView.topAnchor constant:7.5f].active = YES;
-    [self.roundSegmentedControl.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor constant:7.5f].active = YES;
-    [self.containerView.trailingAnchor constraintEqualToAnchor:self.roundSegmentedControl.trailingAnchor constant:7.5f].active = YES;
-    [self.containerView.bottomAnchor constraintEqualToAnchor:self.roundSegmentedControl.bottomAnchor constant:7.5f].active = YES;
+    NSArray *constraints = @[[self.roundSegmentedControl.heightAnchor constraintEqualToConstant:29.0f],
+                             [self.roundSegmentedControl.topAnchor constraintLessThanOrEqualToAnchor:self.containerView.topAnchor constant:7.5f],
+                             [self.roundSegmentedControl.leadingAnchor constraintLessThanOrEqualToAnchor:self.containerView.leadingAnchor constant:7.5f],
+                             [self.containerView.trailingAnchor constraintLessThanOrEqualToAnchor:self.roundSegmentedControl.trailingAnchor constant:7.5f],
+                             [self.containerView.bottomAnchor constraintLessThanOrEqualToAnchor:self.roundSegmentedControl.bottomAnchor constant:7.5f]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 - (void)setupObservers {
@@ -129,28 +147,78 @@
             }
         });
     }];
+
+    [self.KVOController observe:self.viewModel keyPath:RZDB_KP_OBJ(self.viewModel, segmentTypes) options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+        NSArray *segmentTypes = RZNSNullToNil(change[NSKeyValueChangeNewKey]);
+
+        [wself updateSegmentedControlWithSegmentTypes:segmentTypes];
+    }];
 }
 
 #pragma mark - Actions
 
-- (void)didTapSegmentedControl:(UISegmentedControl *)segmentedControl {
-    UIViewController *viewController = nil;
+- (void)updateSegmentedControlWithSegmentTypes:(NSArray *)segmentTypes {
+    [self.roundSegmentedControl removeAllSegments];
 
-    switch (segmentedControl.selectedSegmentIndex) {
-        case 0:
-            viewController = self.poolsViewController;
-            break;
+    [segmentTypes enumerateObjectsUsingBlock:^(NSNumber *type, NSUInteger idx, BOOL *stop) {
+        NSString *title = [self.viewModel titleForSegmentType:type.integerValue];
+        [self.roundSegmentedControl insertSegmentWithTitle:title atIndex:idx animated:NO];
+    }];
 
-        case 1:
-            viewController = self.crossoversViewController;
-            break;
+    if (segmentTypes.count > 1) {
+        self.roundLabel.hidden = YES;
+        self.roundLabel.attributedText = nil;
 
-        case 2:
-            viewController = self.bracketsViewController;
-            break;
+        self.roundSegmentedControl.hidden = NO;
+    }
+    else if (segmentTypes.count == 1) {
+        self.roundLabel.hidden = NO;
+
+        NSString *title = [self.viewModel titleForSegmentType:[segmentTypes.firstObject integerValue]];
+        NSDictionary *attributes = [STKAttributes stk_eventsFilterTitleAttributes];
+
+        self.roundLabel.attributedText = [[NSAttributedString alloc] initWithString:title attributes:attributes];
+
+        self.roundSegmentedControl.hidden = YES;
+    }
+    else {
+        self.roundLabel.hidden = YES;
+        self.roundLabel.attributedText = nil;
+
+        self.roundSegmentedControl.hidden = YES;
     }
 
-    [self showViewController:viewController];
+//    self.containerViewHeight.constant = (segmentTypes.count > 0) ? 44.0f : 0.0f;
+
+    self.roundSegmentedControl.selectedSegmentIndex = 0;
+    [self didTapSegmentedControl:self.roundSegmentedControl];
+}
+
+- (void)didTapSegmentedControl:(UISegmentedControl *)segmentedControl {
+    NSUInteger index = (NSUInteger)segmentedControl.selectedSegmentIndex;
+
+    if (index < self.viewModel.segmentTypes.count) {
+        STKEventDetailSegmentType type = [self.viewModel.segmentTypes[index] integerValue];
+        UIViewController *viewController = nil;
+
+        switch (type) {
+            case STKEventDetailSegmentTypePools:
+                viewController = self.poolsViewController;
+                break;
+
+            case STKEventDetailSegmentTypeCrossovers:
+                viewController = self.crossoversViewController;
+                break;
+
+            case STKEventDetailSegmentTypeBrackets:
+                viewController = self.bracketsListViewController;
+                break;
+        }
+
+        if (viewController) {
+            [self showViewController:viewController];
+        }
+    }
 }
 
 - (void)showViewController:(UIViewController *)viewController {
@@ -170,7 +238,7 @@
     [viewController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [self.view.trailingAnchor constraintEqualToAnchor:viewController.view.trailingAnchor].active = YES;
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
-    [self.view.bottomAnchor constraintEqualToAnchor:viewController.view.bottomAnchor constant:bottomInset].active = YES;
+    [self.view.bottomAnchor constraintLessThanOrEqualToAnchor:viewController.view.bottomAnchor constant:bottomInset].active = YES;
 
     [viewController didMoveToParentViewController:self];
 }

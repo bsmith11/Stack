@@ -155,7 +155,7 @@
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, bottomInset, 0.0f);
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, bottomInset, 0.0f);
-    self.tableView.estimatedRowHeight = 100.0f;
+    self.tableView.estimatedRowHeight = 60.5f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
 
@@ -298,15 +298,12 @@
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    self.filterBarButtonItem.enabled = YES;
-
-    [searchBar setShowsCancelButton:NO animated:YES];
-}
-
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     searchBar.text = @"";
+
+    self.filterBarButtonItem.enabled = YES;
+    [searchBar setShowsCancelButton:NO animated:YES];
 
     [self searchBar:searchBar textDidChange:searchBar.text];
 }

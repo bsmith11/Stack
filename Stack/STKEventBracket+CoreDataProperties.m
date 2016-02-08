@@ -2,7 +2,7 @@
 //  STKEventBracket+CoreDataProperties.m
 //  Stack
 //
-//  Created by Bradley Smith on 2/3/16.
+//  Created by Bradley Smith on 2/8/16.
 //  Copyright © 2016 Brad Smith. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,6 +15,8 @@
 
 @dynamic bracketID;
 @dynamic name;
+@dynamic sortOrder;
 @dynamic round;
+@dynamic stages;
 
 @end

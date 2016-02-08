@@ -19,6 +19,7 @@
 @interface STKEventPoolHeader : UITableViewHeaderFooterView
 
 + (CGFloat)height;
+
 - (void)setupWithPool:(STKEventPool *)pool section:(NSInteger)section;
 
 @property (weak, nonatomic) id <STKEventPoolHeaderDelegate> delegate;

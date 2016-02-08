@@ -9,13 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class STKEventPool, RZFetchedCollectionList;
+@class STKEventPool, STKEventCluster, STKEventGroup, STKEventBracket, RZFetchedCollectionList;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STKEventGame : NSManagedObject
 
 + (RZFetchedCollectionList *)fetchedListOfGamesForPool:(STKEventPool *)pool;
++ (RZFetchedCollectionList *)fetchedListOfGamesForCluster:(STKEventCluster *)cluster;
++ (RZFetchedCollectionList *)fetchedListOfGamesForBracket:(STKEventBracket *)bracket;
++ (RZFetchedCollectionList *)fetchedListOfClusterGamesForGroup:(STKEventGroup *)group;
 
 @end
 

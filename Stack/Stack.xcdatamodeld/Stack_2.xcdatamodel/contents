@@ -40,7 +40,15 @@
     <entity name="STKEventBracket" representedClassName="STKEventBracket" syncable="YES">
         <attribute name="bracketID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="round" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventRound" inverseName="brackets" inverseEntity="STKEventRound" syncable="YES"/>
+        <relationship name="stages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventStage" inverseName="bracket" inverseEntity="STKEventStage" syncable="YES"/>
+    </entity>
+    <entity name="STKEventCluster" representedClassName="STKEventCluster" syncable="YES">
+        <attribute name="clusterID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="games" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventGame" inverseName="cluster" inverseEntity="STKEventGame" syncable="YES"/>
+        <relationship name="round" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventRound" inverseName="clusters" inverseEntity="STKEventRound" syncable="YES"/>
     </entity>
     <entity name="STKEventGame" representedClassName="STKEventGame" syncable="YES">
         <attribute name="awayTeamName" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,11 +56,14 @@
         <attribute name="fieldName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="homeTeamName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="homeTeamScore" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startDateFull" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="cluster" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventCluster" inverseName="games" inverseEntity="STKEventCluster" syncable="YES"/>
         <relationship name="pool" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventPool" inverseName="games" inverseEntity="STKEventPool" syncable="YES"/>
+        <relationship name="stage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventStage" inverseName="games" inverseEntity="STKEventStage" syncable="YES"/>
     </entity>
     <entity name="STKEventGroup" representedClassName="STKEventGroup" syncable="YES">
         <attribute name="division" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -74,11 +85,19 @@
     <entity name="STKEventRound" representedClassName="STKEventRound" syncable="YES">
         <attribute name="roundID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="brackets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventBracket" inverseName="round" inverseEntity="STKEventBracket" syncable="YES"/>
+        <relationship name="clusters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventCluster" inverseName="round" inverseEntity="STKEventCluster" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventGroup" inverseName="rounds" inverseEntity="STKEventGroup" syncable="YES"/>
         <relationship name="pools" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventPool" inverseName="round" inverseEntity="STKEventPool" syncable="YES"/>
     </entity>
+    <entity name="STKEventStage" representedClassName="STKEventStage" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stageID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="bracket" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STKEventBracket" inverseName="stages" inverseEntity="STKEventBracket" syncable="YES"/>
+        <relationship name="games" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="STKEventGame" inverseName="stage" inverseEntity="STKEventGame" syncable="YES"/>
+    </entity>
     <entity name="STKEventStanding" representedClassName="STKEventStanding" syncable="YES">
         <attribute name="losses" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="seed" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="teamName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wins" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -128,12 +147,12 @@
         <element name="STKBloggerPost" positionX="36" positionY="81" width="128" height="45"/>
         <element name="STKComment" positionX="-36" positionY="9" width="128" height="135"/>
         <element name="STKEvent" positionX="-9" positionY="99" width="128" height="195"/>
-        <element name="STKEventBracket" positionX="45" positionY="189" width="128" height="90"/>
-        <element name="STKEventGame" positionX="27" positionY="162" width="128" height="195"/>
+        <element name="STKEventBracket" positionX="45" positionY="189" width="128" height="120"/>
+        <element name="STKEventGame" positionX="27" positionY="162" width="128" height="240"/>
         <element name="STKEventGroup" positionX="0" positionY="117" width="128" height="165"/>
         <element name="STKEventPool" positionX="18" positionY="153" width="128" height="120"/>
-        <element name="STKEventRound" positionX="9" positionY="144" width="128" height="105"/>
-        <element name="STKEventStanding" positionX="36" positionY="180" width="128" height="120"/>
+        <element name="STKEventRound" positionX="9" positionY="144" width="128" height="120"/>
+        <element name="STKEventStanding" positionX="36" positionY="180" width="128" height="135"/>
         <element name="STKPost" positionX="-18" positionY="27" width="128" height="225"/>
         <element name="STKPostImageSection" positionX="27" positionY="126" width="128" height="45"/>
         <element name="STKPostMediaSection" positionX="9" positionY="108" width="128" height="105"/>
@@ -144,5 +163,7 @@
         <element name="STKRSSPost" positionX="18" positionY="63" width="128" height="60"/>
         <element name="STKWordpressComment" positionX="45" positionY="153" width="128" height="45"/>
         <element name="STKWordpressPost" positionX="0" positionY="45" width="128" height="45"/>
+        <element name="STKEventCluster" positionX="-9" positionY="135" width="128" height="105"/>
+        <element name="STKEventStage" positionX="0" positionY="144" width="128" height="105"/>
     </elements>
 </model>

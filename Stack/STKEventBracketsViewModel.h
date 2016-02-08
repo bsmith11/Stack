@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RZCollectionListCollectionViewDataSourceDelegate;
+@class STKEventBracket, STKEventStage, STKEventGame;
+
 @interface STKEventBracketsViewModel : NSObject
+
+- (instancetype)initWithEventBracket:(STKEventBracket *)bracket;
+
+- (void)setupDataSourceWithCollectionView:(UICollectionView *)collectionView delegate:(id <RZCollectionListCollectionViewDataSourceDelegate>)delegate;
+
+- (STKEventStage *)stageForSection:(NSInteger)section;
+- (STKEventGame *)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

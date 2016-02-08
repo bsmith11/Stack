@@ -14,6 +14,7 @@
 @interface STKEventPoolDetailViewModel : NSObject
 
 - (instancetype)initWithEventPool:(STKEventPool *)pool;
+
 - (void)setupDataSourceWithTableView:(UITableView *)tableView delegate:(id <RZCollectionListTableViewDataSourceDelegate>)delegate;
 
 - (NSDate *)dateForSection:(NSInteger)section;

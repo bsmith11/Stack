@@ -74,10 +74,10 @@
     self.tableView.backgroundColor = [UIColor stk_backgroundColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
-    CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
+    CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.bounds);
     self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
-    self.tableView.estimatedRowHeight = 200.0f;
+    self.tableView.estimatedRowHeight = 89.0f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
 

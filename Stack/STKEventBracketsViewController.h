@@ -8,10 +8,10 @@
 
 #import "STKBaseViewController.h"
 
-@class STKEventGroup;
+@class STKEventBracket;
 
 @interface STKEventBracketsViewController : STKBaseViewController
 
-- (instancetype)initWithEventGroup:(STKEventGroup *)group;
+- (instancetype)initWithEventBracket:(STKEventBracket *)bracket;
 
 @end
