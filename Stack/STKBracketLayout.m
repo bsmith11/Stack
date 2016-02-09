@@ -44,6 +44,9 @@
 }
 
 - (void)prepareLayout {
+    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.collectionView.directionalLockEnabled = YES;
+
     [self calculateMaxItemCount];
     [self calculateContentHeight];
 
@@ -101,11 +104,9 @@
 
     if (height <= collectionViewAvailableHeight) {
         self.contentHeight = collectionViewAvailableHeight;
-        self.collectionView.pagingEnabled = YES;
     }
     else {
         self.contentHeight = height;
-        self.collectionView.pagingEnabled = NO;
     }
 }
 
@@ -114,8 +115,9 @@
 
     NSInteger previousItemCount = 0;
     NSArray *sortedItemCounts = [self.itemCounts sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO]]];
+    NSOrderedSet *uniqueItemCounts = [NSOrderedSet orderedSetWithArray:sortedItemCounts];
 
-    for (NSNumber *itemCountNumber in sortedItemCounts) {
+    for (NSNumber *itemCountNumber in uniqueItemCounts) {
         NSInteger itemCount = itemCountNumber.integerValue;
 
         if (itemCount == self.maxItemCount) {
@@ -205,25 +207,24 @@
     [self.itemlayoutAttributesCache removeAllObjects];
 }
 
-//- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
-//    CGFloat currentContentOffsetX = self.collectionView.contentOffset.x;
-//
-//    CGPoint newContentOffset = CGPointMake(0.0f, proposedContentOffset.y);
-//    CGFloat collectionViewAvailableWidth = CGRectGetWidth(self.collectionView.bounds) - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
-//    CGFloat value = currentContentOffsetX / collectionViewAvailableWidth;
-//    NSInteger nextPageIndex = (NSInteger)__tg_ceil(value);
-//    NSInteger previousPageIndex = (NSInteger)__tg_floor(value);
-//
-//    NSLog(@"Velocity: %@", @(velocity.x));
-//
-//    if (velocity.x > 0) {
-//        newContentOffset.x = nextPageIndex * collectionViewAvailableWidth;
-//    }
-//    else {
-//        newContentOffset.x = previousPageIndex * collectionViewAvailableWidth;
-//    }
-//
-//    return newContentOffset;
-//}
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+    CGFloat collectionViewWidth = (CGRectGetWidth(self.collectionView.bounds) - self.collectionView.contentInset.left - self.collectionView.contentInset.right);
+    CGFloat value = self.collectionView.contentOffset.x / collectionViewWidth;
+    NSInteger index = 0;
+
+    if (velocity.x > 0) {
+        index = MIN((NSInteger)__tg_ceil(value), self.collectionView.numberOfSections - 1);
+    }
+    else if (velocity.x < 0) {
+        index = MAX((NSInteger)__tg_floor(value), 0);
+    }
+    else {
+        index = MAX((NSInteger)__tg_round(value), 0);
+    }
+
+    proposedContentOffset.x = index * collectionViewWidth;
+
+    return proposedContentOffset;
+}
 
 @end
