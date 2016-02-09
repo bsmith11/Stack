@@ -13,5 +13,9 @@
 + (NSDateFormatter *)wordpressDateFormatter;
 + (NSDateFormatter *)twitterDateFormatter;
 + (NSDateFormatter *)bloggerDateFormatter;
++ (NSDateFormatter *)eventDateFormatter;
++ (NSDateFormatter *)gameDateDateFormatter;
++ (NSDateFormatter *)gameTimeDateFormatter;
++ (NSDateFormatter *)gameDisplayDateFormatter;
 
 @end

@@ -42,4 +42,16 @@
     return timeSinceNowString;
 }
 
++ (NSDate *)stk_dateWithDate:(NSDate *)date time:(NSDate *)time {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    calendar.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSDateComponents *timeComponents = [calendar components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:time];
+
+    dateComponents.hour = timeComponents.hour;
+    dateComponents.minute = timeComponents.minute;
+
+    return [calendar dateFromComponents:dateComponents];
+}
+
 @end

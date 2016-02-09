@@ -123,11 +123,8 @@
 
 - (void)setupToolbar {
     self.toolbar = [[UIToolbar alloc] init];
-    self.toolbar.translucent = NO;
     self.toolbar.tintColor = [UIColor whiteColor];
     self.toolbar.barTintColor = [STKSource colorForType:self.viewModel.post.sourceType.integerValue];
-    [self.toolbar setShadowImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny];
-    [self.toolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
     [self.view addSubview:self.toolbar];
 }

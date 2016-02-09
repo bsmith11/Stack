@@ -14,7 +14,6 @@
 #import "STKSettingsViewModel.h"
 #import "STKTableViewDataSource.h"
 #import "STKContentManager.h"
-#import "STKAPIClient.h"
 
 @interface STKFeedViewModel ()
 

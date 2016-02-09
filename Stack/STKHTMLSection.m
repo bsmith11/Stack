@@ -92,6 +92,17 @@ NSString * kSTKHTMLOptionsKeyTextColor = @"STKTextColor";
                     *stopBool = YES;
                     didFindAttachment = YES;
                 }
+                else if ([value isKindOfClass:[DTVideoTextAttachment class]]) {
+                    DTVideoTextAttachment *videoTextAttachment = (DTVideoTextAttachment *)value;
+                    STKHTMLVideoSection *section = [STKHTMLVideoSection videoSectionWithVideoTextAttachment:videoTextAttachment];
+
+                    [sections addObject:section];
+                    section.index = @(index);
+                    index++;
+
+                    *stopBool = YES;
+                    didFindAttachment = YES;
+                }
             }];
 
             if (!didFindAttachment) {

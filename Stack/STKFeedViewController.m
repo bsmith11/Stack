@@ -212,7 +212,7 @@
         });
     }];
 
-    [self rz_bindKey:RZDB_KP_SELF(title) toKeyPath:RZDB_KP_OBJ(self.viewModel, title) ofObject:self.viewModel];
+    [self.navigationItem rz_bindKey:RZDB_KP_OBJ(self.navigationItem, title) toKeyPath:RZDB_KP_OBJ(self.viewModel, title) ofObject:self.viewModel];
 }
 
 - (void)setupSourceListViewController {

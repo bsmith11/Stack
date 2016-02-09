@@ -30,4 +30,7 @@
 - (void)getCommentsForPost:(STKPost *)post
                 completion:(STKAPICompletion)completion;
 
+- (void)getEventsWithCompletion:(void (^)(id responseObject, NSError *error))completion;
+- (void)getEventWithID:(NSNumber *)eventID completion:(void (^)(id, NSError *))completion;
+
 @end

@@ -57,7 +57,7 @@
                              }];
     }
 
-    return [strings firstObject];
+    return strings.firstObject;
 }
 
 @end
