@@ -12,7 +12,7 @@
 
 #import <tgmath.h>
 
-@interface STKBracketLayout ()
+@interface STKBracketLayout () <UICollectionViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *itemlayoutAttributesCache;
 @property (strong, nonatomic) NSMutableArray *headerLayoutAttributesCache;
@@ -27,6 +27,8 @@
 @property (assign, nonatomic) CGFloat itemWidth;
 
 @property (assign, nonatomic) NSInteger maxItemCount;
+
+@property (assign, nonatomic) CGPoint initialContentOffset;
 
 @end
 
@@ -44,8 +46,9 @@
 }
 
 - (void)prepareLayout {
-    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     self.collectionView.directionalLockEnabled = YES;
+    self.collectionView.delegate = self;
+    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
 
     [self calculateMaxItemCount];
     [self calculateContentHeight];
@@ -246,6 +249,26 @@
     proposedContentOffset.x = index * collectionViewWidth;
 
     return proposedContentOffset;
+}
+
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.initialContentOffset = scrollView.contentOffset;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.initialContentOffset.x != scrollView.contentOffset.x &&
+        self.initialContentOffset.y != scrollView.contentOffset.y) {
+        CGPoint newOffset;
+        if (fabs(scrollView.contentOffset.x) > fabs(scrollView.contentOffset.y)) {
+            newOffset = CGPointMake(scrollView.contentOffset.x, self.initialContentOffset.y);
+        } else {
+            newOffset = CGPointMake(self.initialContentOffset.x, scrollView.contentOffset.y);
+        }
+
+        [scrollView setContentOffset:newOffset animated:NO];
+    }
 }
 
 @end

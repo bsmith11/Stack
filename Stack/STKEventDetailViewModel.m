@@ -37,9 +37,7 @@
         [self updateSegmentTypes];
 
         __weak __typeof(self) wself = self;
-        [self downloadEventDetailsWithCompletion:^(NSError *error) {
-            [wself updateSegmentTypes];
-        }];
+        [self downloadEventDetailsWithCompletion:nil];
     }
 
     return self;
@@ -97,6 +95,8 @@
 
     __weak __typeof(self) wself = self;
     [STKEvent downloadDetailsForEvent:self.group.event completion:^(NSError * _Nonnull error) {
+        [wself updateSegmentTypes];
+
         wself.downloading = NO;
 
         if (completion) {

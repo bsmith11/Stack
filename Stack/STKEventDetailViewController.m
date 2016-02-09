@@ -19,6 +19,7 @@
 #import "STKAttributes.h"
 #import "UIColor+STKStyle.h"
 #import "UIBarButtonItem+STKExtensions.h"
+#import "STKListBackgroundDefaultContentView.h"
 
 #import <KVOController/FBKVOController.h>
 #import <RZUtils/RZCommonUtils.h>
@@ -35,7 +36,9 @@
 @property (strong, nonatomic) NSLayoutConstraint *containerViewHeight;
 @property (strong, nonatomic) UILabel *roundLabel;
 @property (strong, nonatomic) UISegmentedControl *roundSegmentedControl;
+@property (strong, nonatomic) UIActivityIndicatorView *navigationBarSpinner;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) STKListBackgroundDefaultContentView *emptyStateView;
 
 @end
 
@@ -66,6 +69,8 @@
     [self setupContainerView];
     [self setupRoundLabel];
     [self setupRoundSegmentedControl];
+    [self setupEmptyStateView];
+    [self setupSpinner];
 
     [self updateSegmentedControlWithSegmentTypes:self.viewModel.segmentTypes];
 }
@@ -81,11 +86,11 @@
 #pragma mark - Setup
 
 - (void)setupBarButtonItems {
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.color = [UIColor whiteColor];
-    self.spinner.hidesWhenStopped = YES;
+    self.navigationBarSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationBarSpinner.color = [UIColor whiteColor];
+    self.navigationBarSpinner.hidesWhenStopped = YES;
 
-    UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.spinner];
+    UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navigationBarSpinner];
     self.navigationItem.rightBarButtonItem = spinnerBarButtonItem;
 }
 
@@ -130,6 +135,37 @@
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
+- (void)setupEmptyStateView {
+    self.emptyStateView = [[STKListBackgroundDefaultContentView alloc] init];
+    self.emptyStateView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.emptyStateView];
+
+    [self.emptyStateView setTitle:@"No Schedule Available" forState:STKListBackgroundViewStateEmpty];
+    [self.emptyStateView setMessage:@"Pools, Crossovers, and Brackets have not yet been created for this event" forState:STKListBackgroundViewStateEmpty];
+    [self.emptyStateView setImage:[UIImage imageNamed:@"Events Large"] forState:STKListBackgroundViewStateEmpty];
+    [self.emptyStateView updateState:STKListBackgroundViewStateEmpty];
+    self.emptyStateView.hidden = YES;
+
+    CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
+    CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.bounds);
+    [self.emptyStateView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:topInset].active = YES;
+    [self.emptyStateView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.view.trailingAnchor constraintEqualToAnchor:self.emptyStateView.trailingAnchor].active = YES;
+    [self.view.bottomAnchor constraintEqualToAnchor:self.emptyStateView.bottomAnchor constant:bottomInset].active = YES;
+}
+
+- (void)setupSpinner {
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.spinner.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.spinner];
+
+    self.spinner.color = [UIColor stk_stackColor];
+    self.spinner.hidesWhenStopped = YES;
+
+    [self.spinner.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [self.spinner.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+}
+
 - (void)setupObservers {
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew;
 
@@ -141,9 +177,12 @@
 
             if (downloading.boolValue) {
                 [wself.spinner startAnimating];
+                [wself.navigationBarSpinner startAnimating];
             }
             else {
                 [wself.spinner stopAnimating];
+                [wself.navigationBarSpinner stopAnimating];
+                [wself updateEmptyState];
             }
         });
     }];
@@ -156,6 +195,10 @@
 }
 
 #pragma mark - Actions
+
+- (void)updateEmptyState {
+    self.emptyStateView.hidden = (self.viewModel.segmentTypes.count > 0);
+}
 
 - (void)updateSegmentedControlWithSegmentTypes:(NSArray *)segmentTypes {
     [self.roundSegmentedControl removeAllSegments];
@@ -188,7 +231,7 @@
         self.roundSegmentedControl.hidden = YES;
     }
 
-//    self.containerViewHeight.constant = (segmentTypes.count > 0) ? 44.0f : 0.0f;
+    self.containerViewHeight.constant = (segmentTypes.count > 0) ? 44.0f : 0.0f;
 
     self.roundSegmentedControl.selectedSegmentIndex = 0;
     [self didTapSegmentedControl:self.roundSegmentedControl];

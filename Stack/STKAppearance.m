@@ -41,6 +41,8 @@
     [UISearchBar appearance].backgroundImage = [[UIImage alloc] init];
 
     [UISegmentedControl appearance].tintColor = [UIColor whiteColor];
+
+    [UITextField appearance].tintColor = [UIColor stk_stackColor];
 }
 
 @end
