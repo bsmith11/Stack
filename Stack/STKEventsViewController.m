@@ -7,7 +7,7 @@
 //
 
 #import "STKEventsViewController.h"
-#import "STKEventDetailViewController.h"
+#import "STKEventGroupsListViewController.h"
 
 #import "STKEventsViewModel.h"
 
@@ -32,14 +32,10 @@
 @interface STKEventsViewController () <UITableViewDelegate, RZCollectionListTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) STKEventsViewModel *viewModel;
-@property (strong, nonatomic) UIBarButtonItem *filterBarButtonItem;
-@property (strong, nonatomic) UIBarButtonItem *cancelBarButtonItem;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 @property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) UITextField *pickerTextField;
-@property (strong, nonatomic) UIPickerView *pickerView;
 
 @end
 
@@ -55,6 +51,7 @@
         UIImage *image = [UIImage imageNamed:@"Events Off Icon"];
         UIImage *selectedImage = [UIImage imageNamed:@"Events On Icon"];
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Events" image:image selectedImage:selectedImage];
+        self.navigationItem.title = @"Events";
     }
 
     return self;
@@ -65,7 +62,6 @@
     self.view.backgroundColor = [UIColor stk_backgroundColor];
 
     [self setupBarButtonItems];
-    [self setupPickerView];
     [self setupSearchBar];
     [self setupTableView];
 }
@@ -101,33 +97,7 @@
     self.spinner.hidesWhenStopped = YES;
 
     UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.spinner];
-    self.navigationItem.leftBarButtonItem = spinnerBarButtonItem;
-
-    UIImage *filterImage = [UIImage imageNamed:@"Filter Icon"];
-    self.filterBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapFilterBarButtonItem)];
-
-    UIImage *cancelImage = [UIImage imageNamed:@"Cancel Off Icon"];
-    self.cancelBarButtonItem = [[UIBarButtonItem alloc] initWithImage:cancelImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapCancelBarButtonItem)];
-
-    self.navigationItem.rightBarButtonItem = self.filterBarButtonItem;
-}
-
-- (void)setupPickerView {
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectZero];
-    self.pickerView.dataSource = self.viewModel;
-    self.pickerView.delegate = self.viewModel;
-    self.pickerView.backgroundColor = [UIColor stk_stackColor];
-
-    NSIndexPath *typeIndexPath = [self.viewModel indexPathForSelectedType];
-    NSIndexPath *divisionIndexPath = [self.viewModel indexPathForSelectedDivision];
-
-    [self.pickerView selectRow:typeIndexPath.row inComponent:typeIndexPath.section animated:NO];
-    [self.pickerView selectRow:divisionIndexPath.row inComponent:divisionIndexPath.section animated:NO];
-
-    self.pickerTextField = [[UITextField alloc] initWithFrame:CGRectZero];
-    [self.view addSubview:self.pickerTextField];
-    self.pickerTextField.hidden = YES;
-    self.pickerTextField.inputView = self.pickerView;
+    self.navigationItem.rightBarButtonItem = spinnerBarButtonItem;
 }
 
 - (void)setupSearchBar {
@@ -202,8 +172,6 @@
             }
         });
     }];
-
-    [self.navigationItem rz_bindKey:RZDB_KP_OBJ(self.navigationItem, title) toKeyPath:RZDB_KP_OBJ(self.viewModel, title) ofObject:self.viewModel];
 }
 
 - (void)setupKeyboardObserver {
@@ -224,18 +192,6 @@
     [self rz_watchKeyboardShowWithAnimations:animations animated:YES];
 }
 
-#pragma mark - Actions
-
-- (void)didTapFilterBarButtonItem {
-    [self.navigationItem setRightBarButtonItem:self.cancelBarButtonItem animated:YES];
-    [self.pickerTextField becomeFirstResponder];
-}
-
-- (void)didTapCancelBarButtonItem {
-    [self.navigationItem setRightBarButtonItem:self.filterBarButtonItem animated:YES];
-    [self.pickerTextField resignFirstResponder];
-}
-
 #pragma mark - Collection List Table View Data Source Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
@@ -250,9 +206,9 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     STKEventHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[STKEventHeader stk_reuseIdentifier]];
-    id object = [self.viewModel sectionObjectForSection:(NSUInteger)section];
+    NSDate *date = [self.viewModel dateForSection:(NSUInteger)section];
 
-    [header setupWithDate:object];
+    [header setupWithDate:date];
 
     return header;
 }
@@ -263,15 +219,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     STKEvent *event = [self.viewModel objectAtIndexPath:indexPath];
-    STKEventGroup *group = [event groupWithType:self.viewModel.type division:self.viewModel.division];
+    STKEventGroupsListViewController *groupsListViewController = [[STKEventGroupsListViewController alloc] initWithEvent:event];
 
-    if (group) {
-        STKEventDetailViewController *eventDetailViewController = [[STKEventDetailViewController alloc] initWithEventGroup:group];
-        [self.navigationController pushViewController:eventDetailViewController animated:YES];
-    }
-    else {
-        NSLog(@"No group exists on event: %@ for type: %@ and division: %@", event, @(self.viewModel.type), @(self.viewModel.division));
-    }
+    [self.navigationController pushViewController:groupsListViewController animated:YES];
 }
 
 #pragma mark - Pull To Refresh Delegate
@@ -292,17 +242,12 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self.filterBarButtonItem.enabled = NO;
-    [self didTapCancelBarButtonItem];
-
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     searchBar.text = @"";
-
-    self.filterBarButtonItem.enabled = YES;
     [searchBar setShowsCancelButton:NO animated:YES];
 
     [self searchBar:searchBar textDidChange:searchBar.text];

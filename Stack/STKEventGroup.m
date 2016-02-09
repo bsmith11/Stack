@@ -9,12 +9,25 @@
 #import "STKEventGroup.h"
 #import "STKEvent.h"
 
+#import "STKCoreDataStack.h"
+
 #import <RZVinyl/RZVinyl.h>
+#import <RZCollectionList/RZCollectionList.h>
+#import <RZDataBinding/RZDataBinding.h>
 
 @implementation STKEventGroup
 
-+ (NSArray *)allEventGroups {
-    return  [STKEventGroup rzv_all];
++ (RZFetchedCollectionList *)fetchedListOfGroupsForEvent:(STKEvent *)event {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[self rzv_entityName]];
+    NSSortDescriptor *groupIDSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:RZDB_KP(STKEventGroup, eventGroupID) ascending:YES];
+    request.sortDescriptors = @[groupIDSortDescriptor];
+    request.predicate = [NSPredicate predicateWithFormat:@"%K == %@", RZDB_KP(STKEventGroup, event), event];
+
+    RZFetchedCollectionList *fetchedList = [[RZFetchedCollectionList alloc] initWithFetchRequest:request
+                                                                            managedObjectContext:[STKCoreDataStack defaultStack].mainManagedObjectContext
+                                                                              sectionNameKeyPath:nil
+                                                                                       cacheName:nil];
+    return fetchedList;
 }
 
 + (NSString *)titleForType:(STKEventGroupType)type {

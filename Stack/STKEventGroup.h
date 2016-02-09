@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class STKEvent;
+@class STKEvent, RZFetchedCollectionList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, STKEventGroupDivision) {
 
 @interface STKEventGroup : NSManagedObject
 
-+ (NSArray *)allEventGroups;
++ (RZFetchedCollectionList *)fetchedListOfGroupsForEvent:(STKEvent *)event;
 
 + (NSString *)titleForType:(STKEventGroupType)type;
 + (NSString *)titleForDivision:(STKEventGroupDivision)division;

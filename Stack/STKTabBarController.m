@@ -12,6 +12,7 @@
 #import "STKBookmarksViewController.h"
 #import "STKSettingsViewController.h"
 #import "STKEventsViewController.h"
+#import "STKEventsNavigationController.h"
 
 #import "STKAnalyticsManager.h"
 #import "UIView+STKShadow.h"
@@ -48,7 +49,7 @@
     STKNavigationController *bookmarksNavigationController = [[STKNavigationController alloc] initWithRootViewController:bookmarksViewController];
 
     STKEventsViewController *eventsViewController = [[STKEventsViewController alloc] init];
-    STKNavigationController *eventsNavigationController = [[STKNavigationController alloc] initWithRootViewController:eventsViewController];
+    STKEventsNavigationController *eventsNavigationController = [[STKEventsNavigationController alloc] initWithRootViewController:eventsViewController];
 
     STKSettingsViewController *settingsViewController = [[STKSettingsViewController alloc] init];
     STKNavigationController *settingsNavigationController = [[STKNavigationController alloc] initWithRootViewController:settingsViewController];

@@ -79,7 +79,7 @@
             [segmentTypesSet addObject:@(STKEventDetailSegmentTypeCrossovers)];
         }
 
-        if (round.brackets > 0) {
+        if (round.brackets.count > 0) {
             [segmentTypesSet addObject:@(STKEventDetailSegmentTypeBrackets)];
         }
     }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06140F401C699F5A00C38138 /* STKEventsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06140F3F1C699F5A00C38138 /* STKEventsNavigationController.m */; };
+		06140F441C69A00500C38138 /* STKEventGroupsListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06140F431C69A00500C38138 /* STKEventGroupsListViewModel.m */; };
+		06140F471C69A2F300C38138 /* STKEventGroupsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06140F461C69A2F300C38138 /* STKEventGroupsListCell.m */; };
+		06140F4A1C69A39D00C38138 /* STKEventGroupsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06140F491C69A39D00C38138 /* STKEventGroupsListViewController.m */; };
 		061B89081C61BF1D00B2BAA2 /* STKEvent+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89051C61BF1D00B2BAA2 /* STKEvent+CoreDataProperties.m */; };
 		061B89091C61BF1D00B2BAA2 /* STKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B89071C61BF1D00B2BAA2 /* STKEvent.m */; };
 		061B890E1C61BF2E00B2BAA2 /* STKEventGroup+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B890B1C61BF2E00B2BAA2 /* STKEventGroup+CoreDataProperties.m */; };
@@ -231,6 +235,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06140F3E1C699F5A00C38138 /* STKEventsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventsNavigationController.h; sourceTree = "<group>"; };
+		06140F3F1C699F5A00C38138 /* STKEventsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventsNavigationController.m; sourceTree = "<group>"; };
+		06140F421C69A00500C38138 /* STKEventGroupsListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventGroupsListViewModel.h; sourceTree = "<group>"; };
+		06140F431C69A00500C38138 /* STKEventGroupsListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventGroupsListViewModel.m; sourceTree = "<group>"; };
+		06140F451C69A2F300C38138 /* STKEventGroupsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventGroupsListCell.h; sourceTree = "<group>"; };
+		06140F461C69A2F300C38138 /* STKEventGroupsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventGroupsListCell.m; sourceTree = "<group>"; };
+		06140F481C69A39D00C38138 /* STKEventGroupsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STKEventGroupsListViewController.h; sourceTree = "<group>"; };
+		06140F491C69A39D00C38138 /* STKEventGroupsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STKEventGroupsListViewController.m; sourceTree = "<group>"; };
 		061B89011C61BD2500B2BAA2 /* Stack_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack_2.xcdatamodel; sourceTree = "<group>"; };
 		061B89041C61BF1D00B2BAA2 /* STKEvent+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STKEvent+CoreDataProperties.h"; sourceTree = "<group>"; };
 		061B89051C61BF1D00B2BAA2 /* STKEvent+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STKEvent+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -672,6 +684,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06140F411C699FED00C38138 /* Event Groups List */ = {
+			isa = PBXGroup;
+			children = (
+				06140F481C69A39D00C38138 /* STKEventGroupsListViewController.h */,
+				06140F491C69A39D00C38138 /* STKEventGroupsListViewController.m */,
+				06140F421C69A00500C38138 /* STKEventGroupsListViewModel.h */,
+				06140F431C69A00500C38138 /* STKEventGroupsListViewModel.m */,
+				06140F451C69A2F300C38138 /* STKEventGroupsListCell.h */,
+				06140F461C69A2F300C38138 /* STKEventGroupsListCell.m */,
+			);
+			name = "Event Groups List";
+			sourceTree = "<group>";
+		};
 		061B89021C61BEE500B2BAA2 /* Event */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,6 +726,7 @@
 		061B89171C61C5B100B2BAA2 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				06140F411C699FED00C38138 /* Event Groups List */,
 				061B89181C61C5C900B2BAA2 /* STKEventsViewController.h */,
 				061B89191C61C5C900B2BAA2 /* STKEventsViewController.m */,
 				061B891B1C61C68300B2BAA2 /* STKEventsViewModel.h */,
@@ -1340,6 +1366,8 @@
 				064865091C28A4DF0087A41E /* STKTabBarController.m */,
 				0648650B1C28A5B20087A41E /* STKNavigationController.h */,
 				0648650C1C28A5B20087A41E /* STKNavigationController.m */,
+				06140F3E1C699F5A00C38138 /* STKEventsNavigationController.h */,
+				06140F3F1C699F5A00C38138 /* STKEventsNavigationController.m */,
 				0648650E1C28A65D0087A41E /* STKBaseViewController.h */,
 				0648650F1C28A65D0087A41E /* STKBaseViewController.m */,
 				064865111C28A6BD0087A41E /* STKInteractiveViewController.h */,
@@ -1886,6 +1914,7 @@
 				061B89371C62828200B2BAA2 /* STKEventPool+RZImport.m in Sources */,
 				064865601C2936190087A41E /* STKPostSectionNode.m in Sources */,
 				0648659B1C307EC20087A41E /* STKSearchField.m in Sources */,
+				06140F4A1C69A39D00C38138 /* STKEventGroupsListViewController.m in Sources */,
 				061B899F1C6656AD00B2BAA2 /* STKEventCluster+RZImport.m in Sources */,
 				061B89C51C685E3800B2BAA2 /* STKEventBracketsListCell.m in Sources */,
 				064865331C28ADB70087A41E /* STKFeedViewModel.m in Sources */,
@@ -1932,6 +1961,7 @@
 				061B890E1C61BF2E00B2BAA2 /* STKEventGroup+CoreDataProperties.m in Sources */,
 				061B89791C65731A00B2BAA2 /* STKEventPoolsViewModel.m in Sources */,
 				064865861C29F4320087A41E /* UIViewController+STKMail.m in Sources */,
+				06140F401C699F5A00C38138 /* STKEventsNavigationController.m in Sources */,
 				064864A81C27A8220087A41E /* STKAPIClient.m in Sources */,
 				064865261C28ABD50087A41E /* NSDate+STKTimeSince.m in Sources */,
 				064864751C2794650087A41E /* STKImageCache.m in Sources */,
@@ -1974,6 +2004,7 @@
 				064865391C29164B0087A41E /* ASImageNode+STKModificationBlocks.m in Sources */,
 				0648656F1C2939680087A41E /* STKYoutubeNode.m in Sources */,
 				064864431C276CB80087A41E /* STKRSSPost+CoreDataProperties.m in Sources */,
+				06140F471C69A2F300C38138 /* STKEventGroupsListCell.m in Sources */,
 				064864931C279EE40087A41E /* STKAuthor+Analytical.m in Sources */,
 				061B89711C6506DA00B2BAA2 /* STKEventPoolCell.m in Sources */,
 				061B89B51C67F70900B2BAA2 /* STKEventBracketCell.m in Sources */,
@@ -2015,6 +2046,7 @@
 				061B89131C61BF5000B2BAA2 /* STKEvent+RZImport.m in Sources */,
 				0648646F1C278F810087A41E /* NSMutableAttributedString+STKHTML.m in Sources */,
 				061B898C1C65B03400B2BAA2 /* STKEventPoolDetailViewController.m in Sources */,
+				06140F441C69A00500C38138 /* STKEventGroupsListViewModel.m in Sources */,
 				064864E41C287DA50087A41E /* STKBloggerComment+RZImport.m in Sources */,
 				064864721C2790830087A41E /* NSParagraphStyle+STKHTML.m in Sources */,
 				064865A51C31101F0087A41E /* STKBloggerPostSearchResult.m in Sources */,
