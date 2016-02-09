@@ -32,8 +32,8 @@
 @interface STKEventsViewController () <UITableViewDelegate, RZCollectionListTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) STKEventsViewModel *viewModel;
-@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 @property (strong, nonatomic) UISearchBar *searchBar;
 
@@ -61,8 +61,8 @@
     self.view = [[UIView alloc] init];
     self.view.backgroundColor = [UIColor stk_backgroundColor];
 
-    [self setupBarButtonItems];
     [self setupSearchBar];
+    [self setupSpinner];
     [self setupTableView];
 }
 
@@ -85,34 +85,41 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        if (self.searchBar.showsCancelButton) {
+            [self.searchBar becomeFirstResponder];
+        }
+    }];
+}
+
 - (void)dealloc {
     [self rz_unwatchKeyboard];
 }
 
 #pragma mark - Setup
 
-- (void)setupBarButtonItems {
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.color = [UIColor whiteColor];
-    self.spinner.hidesWhenStopped = YES;
-
-    UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.spinner];
-    self.navigationItem.rightBarButtonItem = spinnerBarButtonItem;
-}
-
 - (void)setupSearchBar {
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
-    self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.searchBar];
+    self.navigationItem.titleView = self.searchBar;
 
     self.searchBar.delegate = self;
     self.searchBar.returnKeyType = UIReturnKeyDone;
     self.searchBar.placeholder = @"Find events";
+}
 
-    CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
-    [self.searchBar.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:topInset].active = YES;
-    [self.searchBar.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [self.view.trailingAnchor constraintEqualToAnchor:self.searchBar.trailingAnchor].active = YES;
+- (void)setupSpinner {
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.spinner.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.spinner];
+
+    self.spinner.hidesWhenStopped = YES;
+    self.spinner.color = [UIColor stk_stackColor];
+
+    [self.spinner.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [self.spinner.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
 }
 
 - (void)setupTableView {
@@ -122,9 +129,10 @@
 
     self.tableView.backgroundColor = [UIColor stk_backgroundColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    CGFloat topInset = self.statusBarHeight + self.navigationBarHeight;
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, bottomInset, 0.0f);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, bottomInset, 0.0f);
+    self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
     self.tableView.estimatedRowHeight = 60.5f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
@@ -132,7 +140,7 @@
     [self.tableView registerClass:[STKEventCell class] forCellReuseIdentifier:[STKEventCell stk_reuseIdentifier]];
     [self.tableView registerClass:[STKEventHeader class] forHeaderFooterViewReuseIdentifier:[STKEventHeader stk_reuseIdentifier]];
 
-    [self.tableView.topAnchor constraintEqualToAnchor:self.searchBar.bottomAnchor].active = YES;
+    [self.tableView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
     [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [self.view.trailingAnchor constraintEqualToAnchor:self.tableView.trailingAnchor].active = YES;
     [self.view.bottomAnchor constraintEqualToAnchor:self.tableView.bottomAnchor].active = YES;
@@ -161,9 +169,11 @@
 
             if (downloading.boolValue) {
                 [wself.spinner startAnimating];
+                wself.tableView.hidden = (wself.tableView.numberOfSections == 0);
             }
             else {
                 [wself.spinner stopAnimating];
+                wself.tableView.hidden = NO;
 
                 if (wself.refreshView.state == SSPullToRefreshViewStateLoading) {
                     BOOL animated = wself.navigationController.topViewController == wself;
@@ -218,6 +228,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.searchBar resignFirstResponder];
+
     STKEvent *event = [self.viewModel objectAtIndexPath:indexPath];
     STKEventGroupsListViewController *groupsListViewController = [[STKEventGroupsListViewController alloc] initWithEvent:event];
 

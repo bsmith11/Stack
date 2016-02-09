@@ -61,7 +61,7 @@
         //Header
         NSIndexPath *headerIndexPath = [NSIndexPath indexPathForItem:0 inSection:(NSInteger)idx];
         UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:headerIndexPath];
-        CGRect headerFrame = CGRectMake(self.headerWidth * idx, 0.0f, self.headerWidth, self.headerHeight);
+        CGRect headerFrame = CGRectMake(self.headerWidth * idx, self.collectionView.contentOffset.y + self.collectionView.contentInset.top, self.headerWidth, self.headerHeight);
 
         headerAttributes.frame = headerFrame;
         [self.headerLayoutAttributesCache addObject:headerAttributes];
@@ -96,7 +96,7 @@
 
 - (void)calculateContentHeight {
     CGFloat height = 0.0f;
-    height += self.headerHeight;
+    height += (self.headerHeight - self.minimumItemSpacing);
     height += (self.itemHeight * self.maxItemCount);
     height += (self.minimumItemSpacing * (self.maxItemCount + 1));
 
@@ -121,9 +121,9 @@
         NSInteger itemCount = itemCountNumber.integerValue;
 
         if (itemCount == self.maxItemCount) {
-            CGFloat totalSpacing = self.contentHeight - self.headerHeight - (itemCount * self.itemHeight);
+            CGFloat totalSpacing = self.contentHeight - (self.headerHeight - self.minimumItemSpacing) - (itemCount * self.itemHeight);
             CGFloat itemSpacing = totalSpacing / (itemCount + 1);
-            CGFloat yOffset = self.headerHeight + itemSpacing;
+            CGFloat yOffset = (self.headerHeight - self.minimumItemSpacing) + itemSpacing;
 
             NSMutableArray *itemOriginYs = [NSMutableArray array];
 
@@ -193,6 +193,10 @@
 
     if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
         attributes = self.headerLayoutAttributesCache[(NSUInteger)indexPath.section];
+        CGRect frame = attributes.frame;
+        frame.origin.y = self.collectionView.contentOffset.y + self.collectionView.contentInset.top;
+        attributes.frame = frame;
+        attributes.zIndex = 999;
     }
 
     return attributes;
@@ -202,9 +206,26 @@
     return self.itemlayoutAttributesCache[(NSUInteger)indexPath.section][(NSUInteger)indexPath.item];
 }
 
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    [self invalidateLayoutWithContext:[self invalidationContextForBoundsChange:newBounds]];
+
+    return [super shouldInvalidateLayoutForBoundsChange:newBounds];
+}
+
+- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
+    UICollectionViewLayoutInvalidationContext *context = [super invalidationContextForBoundsChange:newBounds];
+
+    NSArray *headerIndexPaths = [self.headerLayoutAttributesCache valueForKey:@"indexPath"];
+    [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:headerIndexPaths];
+
+    return context;
+}
+
 - (void)invalidateLayout {
     [self.headerLayoutAttributesCache removeAllObjects];
     [self.itemlayoutAttributesCache removeAllObjects];
+
+    [super invalidateLayout];
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {

@@ -38,6 +38,8 @@
 
     if (self) {
         self.viewModel = [[STKEventGroupsListViewModel alloc] initWithEvent:event];
+
+        self.title = event.name;
     }
 
     return self;
