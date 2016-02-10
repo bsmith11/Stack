@@ -22,9 +22,9 @@
       }    
     },
     {
-      "filter": "Author",
+      "filter": "Events",
       "title": {
-        "text": "The best authors"    
+        "text": "Browse tournaments"    
       }
     },
     {
