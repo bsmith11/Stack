@@ -160,7 +160,10 @@
     self.awayTeamLabel.attributedText = [[NSAttributedString alloc] initWithString:awayTeam attributes:awayAttributes];
     self.awayScoreLabel.attributedText = [[NSAttributedString alloc] initWithString:awayScore attributes:awayAttributes];
 
-    NSDictionary *infoAttributes = [STKAttributes stk_postNodeDateAttributes];
+    NSMutableDictionary *infoAttributes = [[STKAttributes stk_postNodeDateAttributes] mutableCopy];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    infoAttributes[NSParagraphStyleAttributeName] = paragraphStyle;
 
     NSString *field = game.fieldName ?: @"TBD";
     NSString *status = game.status ?: @"";

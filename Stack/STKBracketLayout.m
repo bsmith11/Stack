@@ -46,9 +46,9 @@
 }
 
 - (void)prepareLayout {
-    self.collectionView.directionalLockEnabled = YES;
-    self.collectionView.delegate = self;
-    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+//    self.collectionView.directionalLockEnabled = YES;
+//    self.collectionView.delegate = self;
+//    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
 
     [self calculateMaxItemCount];
     [self calculateContentHeight];
@@ -56,7 +56,7 @@
     CGFloat collectionViewAvailableWidth = CGRectGetWidth(self.collectionView.bounds) - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
     self.contentWidth = collectionViewAvailableWidth * self.collectionView.numberOfSections;
     self.headerWidth = collectionViewAvailableWidth;
-    self.itemWidth = collectionViewAvailableWidth - (4 * self.minimumItemSpacing);
+    self.itemWidth = collectionViewAvailableWidth - (2 * self.minimumItemSpacing);
 
     [self calculateItemOriginYs];
 
@@ -76,7 +76,7 @@
             UICollectionViewLayoutAttributes *itemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
 
             CGFloat yOffset = [self.itemCountOriginYs[itemCountNumber][(NSUInteger)item] CGFloatValue];
-            itemAttributes.frame = CGRectMake((collectionViewAvailableWidth * idx) + (2 * self.minimumItemSpacing), yOffset, self.itemWidth, self.itemHeight);
+            itemAttributes.frame = CGRectMake((collectionViewAvailableWidth * idx) + self.minimumItemSpacing, yOffset, self.itemWidth, self.itemHeight);
             [itemLayoutAttributes addObject:itemAttributes];
         }
 
@@ -107,9 +107,11 @@
 
     if (height <= collectionViewAvailableHeight) {
         self.contentHeight = collectionViewAvailableHeight;
+        self.collectionView.pagingEnabled = YES;
     }
     else {
         self.contentHeight = height;
+        self.collectionView.pagingEnabled = NO;
     }
 }
 
@@ -231,48 +233,48 @@
     [super invalidateLayout];
 }
 
-- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
-    CGFloat collectionViewWidth = (CGRectGetWidth(self.collectionView.bounds) - self.collectionView.contentInset.left - self.collectionView.contentInset.right);
-    CGFloat value = self.collectionView.contentOffset.x / collectionViewWidth;
-    NSInteger index = 0;
-
-    if (velocity.x > 0) {
-        index = MIN((NSInteger)__tg_ceil(value), self.collectionView.numberOfSections - 1);
-    }
-    else if (velocity.x < 0) {
-        index = MAX((NSInteger)__tg_floor(value), 0);
-    }
-    else {
-        index = MAX((NSInteger)__tg_round(value), 0);
-    }
-
-    proposedContentOffset.x = index * collectionViewWidth;
-
-    return proposedContentOffset;
-}
-
-#pragma mark - Scroll View Delegate
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    self.initialContentOffset = scrollView.contentOffset;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.initialContentOffset.x != scrollView.contentOffset.x &&
-        self.initialContentOffset.y != scrollView.contentOffset.y) {
-        CGPoint newOffset;
-
-        if (fabs(scrollView.contentOffset.x) > fabs(scrollView.contentOffset.y)) {
-            newOffset = CGPointMake(scrollView.contentOffset.x, self.initialContentOffset.y);
-        }
-        else {
-            newOffset = CGPointMake(self.initialContentOffset.x, scrollView.contentOffset.y);
-        }
-
-        scrollView.contentOffset = newOffset;
-    }
-
-    self.initialContentOffset = scrollView.contentOffset;
-}
+//- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+//    CGFloat collectionViewWidth = (CGRectGetWidth(self.collectionView.bounds) - self.collectionView.contentInset.left - self.collectionView.contentInset.right);
+//    CGFloat value = self.collectionView.contentOffset.x / collectionViewWidth;
+//    NSInteger index = 0;
+//
+//    if (velocity.x > 0) {
+//        index = MIN((NSInteger)__tg_ceil(value), self.collectionView.numberOfSections - 1);
+//    }
+//    else if (velocity.x < 0) {
+//        index = MAX((NSInteger)__tg_floor(value), 0);
+//    }
+//    else {
+//        index = MAX((NSInteger)__tg_round(value), 0);
+//    }
+//
+//    proposedContentOffset.x = index * collectionViewWidth;
+//
+//    return proposedContentOffset;
+//}
+//
+//#pragma mark - Scroll View Delegate
+//
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+//    self.initialContentOffset = scrollView.contentOffset;
+//}
+//
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    if (self.initialContentOffset.x != scrollView.contentOffset.x &&
+//        self.initialContentOffset.y != scrollView.contentOffset.y) {
+//        CGPoint newOffset;
+//
+//        if (fabs(scrollView.contentOffset.x) > fabs(scrollView.contentOffset.y)) {
+//            newOffset = CGPointMake(scrollView.contentOffset.x, self.initialContentOffset.y);
+//        }
+//        else {
+//            newOffset = CGPointMake(self.initialContentOffset.x, scrollView.contentOffset.y);
+//        }
+//
+//        scrollView.contentOffset = newOffset;
+//    }
+//
+//    self.initialContentOffset = scrollView.contentOffset;
+//}
 
 @end
