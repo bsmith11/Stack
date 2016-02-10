@@ -45,6 +45,10 @@
     RZFetchedCollectionList *fetchedList = [STKEvent fetchedListOfEvents];
     self.events = [[RZFilteredCollectionList alloc] initWithSourceList:fetchedList predicate:nil filterOutEmptySections:YES];
     [self.events addCollectionListObserver:self];
+
+//    [STKEvent fetchEventsWithCompletion:^(NSAsynchronousFetchResult * _Nonnull result) {
+//        NSLog(@"");
+//    }];
 }
 
 #pragma mark - Actions

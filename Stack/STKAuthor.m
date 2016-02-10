@@ -9,7 +9,18 @@
 #import "STKAuthor.h"
 #import "STKPost.h"
 
+#import <RZVinyl/RZVinyl.h>
+#import <RZDataBinding/RZDataBinding.h>
+
 @implementation STKAuthor
+
+#pragma mark - RZVinyl
+
++ (NSPredicate *)rzv_stalenessPredicate {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"posts.@count == %@", @0];
+
+    return predicate;
+}
 
 - (NSAttributedString *)attributedSummary {
     NSAttributedString *attributedSummary = nil;

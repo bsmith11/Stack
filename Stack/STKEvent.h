@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface STKEvent : NSManagedObject
 
++ (void)fetchEventsWithCompletion:(NSPersistentStoreAsynchronousFetchResultCompletionBlock)completion;
 + (NSFetchedResultsController *)fetchedResultsController;
 + (RZFetchedCollectionList *)fetchedListOfEvents;
 + (RZFetchedCollectionList *)fetchedListOfEventsWithGroupType:(STKEventGroupType)groupType groupDivision:(STKEventGroupDivision)groupDivision;
