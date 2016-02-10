@@ -10,18 +10,18 @@
 
 @class STKEvent;
 
-@protocol RZCollectionListTableViewDataSourceDelegate;
-
 @interface STKEventsViewModel : NSObject
 
-- (void)setupDataSourceWithTableView:(UITableView *)tableView delegate:(id <RZCollectionListTableViewDataSourceDelegate>)delegate;
-
+- (NSInteger)numberOfSections;
+- (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (STKEvent *)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSDate *)dateForSection:(NSUInteger)section;
 - (NSInteger)sectionForDate:(NSDate *)date;
 
 - (void)searchForText:(NSString *)text;
 - (void)downloadEventsWithCompletion:(void (^)(NSError *))completion;
+
+@property (weak, nonatomic) UITableView *tableView;
 
 @property (assign, nonatomic, readonly) BOOL downloading;
 

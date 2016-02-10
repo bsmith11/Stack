@@ -14,12 +14,13 @@
 #import "STKAttributes.h"
 #import "UIColor+STKStyle.h"
 
+#import <tgmath.h>
+
 @interface STKEventCell ()
 
 @property (strong, nonatomic) UIView *infoContainerView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *locationLabel;
-@property (strong, nonatomic) UILabel *divisionLabel;
 
 @end
 
@@ -37,7 +38,6 @@
         [self setupInfoContainerView];
         [self setupNameLabel];
         [self setupLocationLabel];
-        [self setupDivisionLabel];
     }
 
     return self;
@@ -80,23 +80,11 @@
     [self.locationLabel.topAnchor constraintEqualToAnchor:self.nameLabel.bottomAnchor constant:6.25f].active = YES;
     [self.locationLabel.leadingAnchor constraintEqualToAnchor:self.infoContainerView.leadingAnchor constant:12.5f].active = YES;
     [self.infoContainerView.bottomAnchor constraintEqualToAnchor:self.locationLabel.bottomAnchor constant:12.5f].active = YES;
-}
-
-- (void)setupDivisionLabel {
-    self.divisionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.divisionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.infoContainerView addSubview:self.divisionLabel];
-
-    self.divisionLabel.numberOfLines = 1;
-
-    [self.divisionLabel.topAnchor constraintEqualToAnchor:self.nameLabel.bottomAnchor constant:6.25f].active = YES;
-    [self.divisionLabel.leadingAnchor constraintEqualToAnchor:self.locationLabel.trailingAnchor constant:6.25f].active = YES;
-    [self.infoContainerView.trailingAnchor constraintEqualToAnchor:self.divisionLabel.trailingAnchor constant:12.5f].active = YES;
-    [self.infoContainerView.bottomAnchor constraintEqualToAnchor:self.divisionLabel.bottomAnchor constant:12.5f].active = YES;
+    [self.infoContainerView.trailingAnchor constraintEqualToAnchor:self.locationLabel.trailingAnchor constant:12.5f].active = YES;
 }
 
 - (void)setupWithEvent:(STKEvent *)event {
-    NSString *name = event.name;
+    NSString *name = event.name ?: @"No name";
     NSDictionary *nameAttributes = [STKAttributes stk_postNodeTitleAttributes];
     self.nameLabel.attributedText = [[NSAttributedString alloc] initWithString:name attributes:nameAttributes];
 
@@ -123,6 +111,47 @@
 
     NSDictionary *locationAttributes = [STKAttributes stk_postNodeDateAttributes];
     self.locationLabel.attributedText = [[NSAttributedString alloc] initWithString:location attributes:locationAttributes];
+}
+
+#pragma mark - Height
+
++ (CGFloat)heightWithEvent:(STKEvent *)event width:(CGFloat)width {
+    CGSize size = CGSizeMake(width - (2 * 12.5f), CGFLOAT_MAX);
+    NSStringDrawingOptions options = NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin;
+
+    NSString *name = event.name ?: @"No name";
+    NSDictionary *nameAttributes = [STKAttributes stk_postNodeTitleAttributes];
+    NSAttributedString *nameAttributedString = [[NSAttributedString alloc] initWithString:name attributes:nameAttributes];
+    CGRect nameBoundingRect = [nameAttributedString boundingRectWithSize:size options:options context:nil];
+    CGFloat nameHeight = __tg_ceil(CGRectGetHeight(nameBoundingRect));
+
+    NSString *city = event.city;
+    NSString *state = event.state;
+    NSMutableString *location = [NSMutableString string];
+
+    if ([state isEqualToString:@"UM"]) {
+        [location appendString:@"TBD"];
+    }
+    else {
+        if (city.length > 0) {
+            [location appendString:city];
+        }
+
+        if (location.length > 0) {
+            [location appendString:@", "];
+        }
+
+        if (state.length > 0) {
+            [location appendString:state];
+        }
+    }
+
+    NSDictionary *locationAttributes = [STKAttributes stk_postNodeDateAttributes];
+    NSAttributedString *locationAttributedString = [[NSAttributedString alloc] initWithString:location attributes:locationAttributes];
+    CGRect locationBoundingRect = [locationAttributedString boundingRectWithSize:size options:options context:nil];
+    CGFloat locationHeight = __tg_ceil(CGRectGetHeight(locationBoundingRect));
+
+    return 1.0f + 12.5f + nameHeight + 6.25f + locationHeight + 12.5f;
 }
 
 @end

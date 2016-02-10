@@ -12,6 +12,8 @@
 
 @interface STKEventCell : UITableViewCell
 
++ (CGFloat)heightWithEvent:(STKEvent *)event width:(CGFloat)width;
+
 - (void)setupWithEvent:(STKEvent *)event;
 
 @end

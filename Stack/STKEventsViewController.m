@@ -29,13 +29,15 @@
 #import <RZDataBinding/RZDataBinding.h>
 #import <RZCollectionList/RZCollectionList.h>
 
-@interface STKEventsViewController () <UITableViewDelegate, RZCollectionListTableViewDataSourceDelegate, SSPullToRefreshViewDelegate, UISearchBarDelegate>
+@interface STKEventsViewController () <UITableViewDelegate, UITableViewDataSource, SSPullToRefreshViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) STKEventsViewModel *viewModel;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) SSPullToRefreshView *refreshView;
 @property (strong, nonatomic) UISearchBar *searchBar;
+
+@property (assign, nonatomic) BOOL viewDidAppear;
 
 @end
 
@@ -71,8 +73,6 @@
 
     [self setupObservers];
     [self setupKeyboardObserver];
-
-    [self.viewModel setupDataSourceWithTableView:self.tableView delegate:self];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -93,6 +93,17 @@
             [self.searchBar becomeFirstResponder];
         }
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    if (!self.viewDidAppear) {
+        self.viewDidAppear = YES;
+
+        CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
+        [self.tableView setContentOffset:top animated:NO];
+    }
 }
 
 - (void)dealloc {
@@ -133,9 +144,9 @@
     CGFloat bottomInset = CGRectGetHeight(self.tabBarController.tabBar.frame);
     self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topInset, 0.0f, bottomInset, 0.0f);
-    self.tableView.estimatedRowHeight = 60.5f;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.viewModel.tableView = self.tableView;
 
     [self.tableView registerClass:[STKEventCell class] forCellReuseIdentifier:[STKEventCell stk_reuseIdentifier]];
     [self.tableView registerClass:[STKEventHeader class] forHeaderFooterViewReuseIdentifier:[STKEventHeader stk_reuseIdentifier]];
@@ -202,12 +213,21 @@
     [self rz_watchKeyboardShowWithAnimations:animations animated:YES];
 }
 
-#pragma mark - Collection List Table View Data Source Delegate
+#pragma mark - Table View Data Source
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.viewModel numberOfSections];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.viewModel numberOfRowsInSection:section];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     STKEventCell *cell = [tableView dequeueReusableCellWithIdentifier:[STKEventCell stk_reuseIdentifier] forIndexPath:indexPath];
+    STKEvent *event = [self.viewModel objectAtIndexPath:indexPath];
 
-    [cell setupWithEvent:object];
+    [cell setupWithEvent:event];
 
     return cell;
 }
@@ -225,6 +245,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return [STKEventHeader height];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    STKEvent *event = [self.viewModel objectAtIndexPath:indexPath];
+    
+    return [STKEventCell heightWithEvent:event width:CGRectGetWidth(tableView.bounds)];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

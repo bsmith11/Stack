@@ -16,9 +16,8 @@
 #import <RZCollectionList/RZCollectionList.h>
 #import <RZDataBinding/RZDataBinding.h>
 
-@interface STKEventsViewModel ()
+@interface STKEventsViewModel () <RZCollectionListObserver>
 
-@property (strong, nonatomic) RZCollectionListTableViewDataSource *dataSource;
 @property (strong, nonatomic) RZFilteredCollectionList *events;
 
 @property (assign, nonatomic, readwrite) BOOL downloading;
@@ -45,17 +44,21 @@
 - (void)setupEvents {
     RZFetchedCollectionList *fetchedList = [STKEvent fetchedListOfEvents];
     self.events = [[RZFilteredCollectionList alloc] initWithSourceList:fetchedList predicate:nil filterOutEmptySections:YES];
-}
-
-- (void)setupDataSourceWithTableView:(UITableView *)tableView delegate:(id<RZCollectionListTableViewDataSourceDelegate>)delegate {
-    self.dataSource = [[RZCollectionListTableViewDataSource alloc] initWithTableView:tableView collectionList:self.events delegate:delegate];
-    self.dataSource.animateTableChanges = NO;
+    [self.events addCollectionListObserver:self];
 }
 
 #pragma mark - Actions
 
+- (NSInteger)numberOfSections {
+    return (NSInteger)self.events.sections.count;
+}
+
+- (NSInteger)numberOfRowsInSection:(NSInteger)section {
+    return (NSInteger)[self.events.sections[(NSUInteger)section] numberOfObjects];
+}
+
 - (STKEvent *)objectAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.dataSource.collectionList objectAtIndexPath:indexPath];
+    return [self.events objectAtIndexPath:indexPath];
 }
 
 - (NSDate *)dateForSection:(NSUInteger)section {
@@ -83,10 +86,6 @@
 }
 
 - (void)searchForText:(NSString *)text {
-    UITableView *tableView = self.dataSource.tableView;
-    CGPoint top = CGPointMake(0.0f, -tableView.contentInset.top);
-    [tableView setContentOffset:top animated:NO];
-
     NSPredicate *predicate;
 
     if (text.length > 0) {
@@ -110,6 +109,27 @@
             completion(error);
         }
     }];
+}
+
+#pragma mark - Collection List Observer
+
+- (void)collectionListWillChangeContent:(id<RZCollectionList>)collectionList {
+
+}
+
+- (void)collectionList:(id<RZCollectionList>)collectionList didChangeSection:(id<RZCollectionListSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(RZCollectionListChangeType)type {
+
+}
+
+- (void)collectionList:(id<RZCollectionList>)collectionList didChangeObject:(id)object atIndexPath:(NSIndexPath *)indexPath forChangeType:(RZCollectionListChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+
+}
+
+- (void)collectionListDidChangeContent:(id<RZCollectionList>)collectionList {
+    [self.tableView reloadData];
+
+    CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
+    [self.tableView setContentOffset:top animated:NO];
 }
 
 @end
