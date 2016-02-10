@@ -101,8 +101,15 @@
     if (!self.viewDidAppear) {
         self.viewDidAppear = YES;
 
-        CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
-        [self.tableView setContentOffset:top animated:NO];
+        NSInteger section = [self.viewModel sectionForDate:[NSDate date]];
+        if (section < self.tableView.numberOfSections && [self.tableView numberOfRowsInSection:section] > 0) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        }
+        else {
+            CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
+            [self.tableView setContentOffset:top animated:NO];
+        }
     }
 }
 

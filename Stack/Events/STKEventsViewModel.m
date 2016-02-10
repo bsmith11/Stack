@@ -21,6 +21,7 @@
 @property (strong, nonatomic) RZFilteredCollectionList *events;
 
 @property (assign, nonatomic, readwrite) BOOL downloading;
+@property (assign, nonatomic) BOOL shouldResetContentOffset;
 
 @end
 
@@ -45,10 +46,6 @@
     RZFetchedCollectionList *fetchedList = [STKEvent fetchedListOfEvents];
     self.events = [[RZFilteredCollectionList alloc] initWithSourceList:fetchedList predicate:nil filterOutEmptySections:YES];
     [self.events addCollectionListObserver:self];
-
-//    [STKEvent fetchEventsWithCompletion:^(NSAsynchronousFetchResult * _Nonnull result) {
-//        NSLog(@"");
-//    }];
 }
 
 #pragma mark - Actions
@@ -99,6 +96,7 @@
         predicate = nil;
     }
 
+    self.shouldResetContentOffset = YES;
     self.events.predicate = predicate;
 }
 
@@ -130,9 +128,13 @@
 }
 
 - (void)collectionListDidChangeContent:(id<RZCollectionList>)collectionList {
-    CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
-    [self.tableView setContentOffset:top animated:NO];
-    
+    if (self.shouldResetContentOffset) {
+        self.shouldResetContentOffset = NO;
+
+        CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
+        [self.tableView setContentOffset:top animated:NO];
+    }
+
     [self.tableView reloadData];
 }
 
