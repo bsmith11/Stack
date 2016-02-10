@@ -17,6 +17,23 @@
 
 @implementation STKEvent
 
++ (NSFetchedResultsController *)fetchedResultsController {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[self rzv_entityName]];
+
+    NSSortDescriptor *dateSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:RZDB_KP(STKEvent, startDate) ascending:NO];
+    NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:RZDB_KP(STKEvent, name) ascending:YES];
+    request.sortDescriptors = @[dateSortDescriptor, nameSortDescriptor];
+
+    NSPredicate *typePredicate = [NSPredicate predicateWithFormat:@"%K == %@", RZDB_KP(STKEvent, type), @"Tournament"];
+    request.predicate = typePredicate;
+
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                            managedObjectContext:[STKCoreDataStack defaultStack].mainManagedObjectContext
+                                                                              sectionNameKeyPath:RZDB_KP(STKEvent, startDate)
+                                                                                       cacheName:nil];
+    return frc;
+}
+
 + (RZFetchedCollectionList *)fetchedListOfEvents {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[self rzv_entityName]];
 

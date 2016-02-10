@@ -48,7 +48,7 @@
 - (void)prepareLayout {
     self.collectionView.directionalLockEnabled = YES;
     self.collectionView.delegate = self;
-//    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
 
     [self calculateMaxItemCount];
     [self calculateContentHeight];
@@ -231,25 +231,25 @@
     [super invalidateLayout];
 }
 
-//- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
-//    CGFloat collectionViewWidth = (CGRectGetWidth(self.collectionView.bounds) - self.collectionView.contentInset.left - self.collectionView.contentInset.right);
-//    CGFloat value = self.collectionView.contentOffset.x / collectionViewWidth;
-//    NSInteger index = 0;
-//
-//    if (velocity.x > 0) {
-//        index = MIN((NSInteger)__tg_ceil(value), self.collectionView.numberOfSections - 1);
-//    }
-//    else if (velocity.x < 0) {
-//        index = MAX((NSInteger)__tg_floor(value), 0);
-//    }
-//    else {
-//        index = MAX((NSInteger)__tg_round(value), 0);
-//    }
-//
-//    proposedContentOffset.x = index * collectionViewWidth;
-//
-//    return proposedContentOffset;
-//}
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+    CGFloat collectionViewWidth = (CGRectGetWidth(self.collectionView.bounds) - self.collectionView.contentInset.left - self.collectionView.contentInset.right);
+    CGFloat value = self.collectionView.contentOffset.x / collectionViewWidth;
+    NSInteger index = 0;
+
+    if (velocity.x > 0) {
+        index = MIN((NSInteger)__tg_ceil(value), self.collectionView.numberOfSections - 1);
+    }
+    else if (velocity.x < 0) {
+        index = MAX((NSInteger)__tg_floor(value), 0);
+    }
+    else {
+        index = MAX((NSInteger)__tg_round(value), 0);
+    }
+
+    proposedContentOffset.x = index * collectionViewWidth;
+
+    return proposedContentOffset;
+}
 
 #pragma mark - Scroll View Delegate
 
@@ -261,14 +261,18 @@
     if (self.initialContentOffset.x != scrollView.contentOffset.x &&
         self.initialContentOffset.y != scrollView.contentOffset.y) {
         CGPoint newOffset;
+
         if (fabs(scrollView.contentOffset.x) > fabs(scrollView.contentOffset.y)) {
             newOffset = CGPointMake(scrollView.contentOffset.x, self.initialContentOffset.y);
-        } else {
+        }
+        else {
             newOffset = CGPointMake(self.initialContentOffset.x, scrollView.contentOffset.y);
         }
 
-        [scrollView setContentOffset:newOffset animated:NO];
+        scrollView.contentOffset = newOffset;
     }
+
+    self.initialContentOffset = scrollView.contentOffset;
 }
 
 @end
