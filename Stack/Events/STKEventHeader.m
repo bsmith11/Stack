@@ -53,7 +53,7 @@
 - (void)setupWithDate:(NSDate *)date {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    NSString *string = [dateFormatter stringFromDate:date];
+    NSString *string = [dateFormatter stringFromDate:date] ?: @"Date Unavailable";
     NSDictionary *attributes = [STKAttributes stk_settingsHeaderTitleAttributes];
 
     self.titleLabel.attributedText = [[NSAttributedString alloc] initWithString:string attributes:attributes];
