@@ -36,7 +36,6 @@
 @property (strong, nonatomic) NSLayoutConstraint *containerViewHeight;
 @property (strong, nonatomic) UILabel *roundLabel;
 @property (strong, nonatomic) UISegmentedControl *roundSegmentedControl;
-@property (strong, nonatomic) UIActivityIndicatorView *navigationBarSpinner;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) STKListBackgroundDefaultContentView *emptyStateView;
 
@@ -55,7 +54,7 @@
         self.bracketsListViewController = [[STKEventBracketsListViewController alloc] initWithEventGroup:self.viewModel.group];
         self.crossoversViewController = [[STKEventCrossoversViewController alloc] initWithEventGroup:self.viewModel.group];
 
-        self.title = group.event.name;
+        self.title = group.name;
     }
 
     return self;
@@ -65,7 +64,6 @@
     self.view = [[UIView alloc] init];
     self.view.backgroundColor = [UIColor stk_backgroundColor];
 
-    [self setupBarButtonItems];
     [self setupContainerView];
     [self setupRoundLabel];
     [self setupRoundSegmentedControl];
@@ -84,15 +82,6 @@
 }
 
 #pragma mark - Setup
-
-- (void)setupBarButtonItems {
-    self.navigationBarSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationBarSpinner.color = [UIColor whiteColor];
-    self.navigationBarSpinner.hidesWhenStopped = YES;
-
-    UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navigationBarSpinner];
-    self.navigationItem.rightBarButtonItem = spinnerBarButtonItem;
-}
 
 - (void)setupContainerView {
     self.containerView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -177,11 +166,9 @@
 
             if (downloading.boolValue) {
                 [wself.spinner startAnimating];
-                [wself.navigationBarSpinner startAnimating];
             }
             else {
                 [wself.spinner stopAnimating];
-                [wself.navigationBarSpinner stopAnimating];
                 [wself updateEmptyState];
             }
         });

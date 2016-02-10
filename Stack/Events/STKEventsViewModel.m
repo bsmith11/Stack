@@ -130,10 +130,10 @@
 }
 
 - (void)collectionListDidChangeContent:(id<RZCollectionList>)collectionList {
-    [self.tableView reloadData];
-
     CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
     [self.tableView setContentOffset:top animated:NO];
+    
+    [self.tableView reloadData];
 }
 
 @end
