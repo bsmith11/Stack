@@ -55,10 +55,15 @@
     CGFloat x = 25.0f;
     CGFloat y = 12.5f;
 
-    self.authorTextNodeFrame = CGRectMake(x, y, authorNameSize.width, authorNameSize.height);
+    if (self.authorTextNode.attributedString.length > 0) {
+        self.authorTextNodeFrame = CGRectMake(x, y, authorNameSize.width, authorNameSize.height);
 
-    x = CGRectGetMaxX(self.authorTextNodeFrame) + 12.5f;
-    y = CGRectGetMidY(self.authorTextNodeFrame) - (dateSize.height / 2);
+        x = CGRectGetMaxX(self.authorTextNodeFrame) + 12.5f;
+        y = CGRectGetMidY(self.authorTextNodeFrame) - (dateSize.height / 2);
+    }
+    else {
+        self.authorTextNodeFrame = CGRectZero;
+    }
 
     self.dateTextNodeFrame = CGRectMake(x, y, dateSize.width, dateSize.height);
 
@@ -74,10 +79,16 @@
 #pragma mark - Setup
 
 - (void)setupWithPost:(STKPost *)post {
-    NSString *name = [post.author.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] ?: @"No name";
+    NSString *name = [post.author.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSMutableDictionary *authorAttributes = [[STKAttributes stk_postAuthorAttributes] mutableCopy];
     authorAttributes[NSForegroundColorAttributeName] = [STKSource colorForType:post.sourceType.integerValue];
-    self.authorTextNode.attributedString = [[NSAttributedString alloc] initWithString:name attributes:authorAttributes];
+
+    if (name.length > 0) {
+        self.authorTextNode.attributedString = [[NSAttributedString alloc] initWithString:name attributes:authorAttributes];
+    }
+    else {
+        self.authorTextNode.attributedString = nil;
+    }
 
     NSString *date = [post.createDate stk_timeSinceNow] ?: @"No timestamp";
     self.dateTextNode.attributedString = [[NSAttributedString alloc] initWithString:date attributes:[STKAttributes stk_postDateAttributes]];
