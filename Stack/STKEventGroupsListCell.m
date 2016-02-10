@@ -12,7 +12,6 @@
 
 #import "STKAttributes.h"
 #import "UIColor+STKStyle.h"
-#import "UIFont+STKStyle.h"
 
 @interface STKEventGroupsListCell ()
 
@@ -70,7 +69,7 @@
 
 - (void)setupWithGroup:(STKEventGroup *)group {
     NSString *name = group.name ?: @"No name";
-    NSDictionary *attributes = [STKAttributes stk_settingsHeaderTitleAttributes];
+    NSDictionary *attributes = [STKAttributes stk_postNodeTitleAttributes];
 
     self.titleLabel.attributedText = [[NSAttributedString alloc] initWithString:name attributes:attributes];
 }

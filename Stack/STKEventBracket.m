@@ -21,8 +21,9 @@
 + (RZFetchedCollectionList *)fetchedListOfBracketsForGroup:(STKEventGroup *)group {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[self rzv_entityName]];
 
+    NSSortDescriptor *roundSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"round.roundID" ascending:YES];
     NSSortDescriptor *sortOrderSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:RZDB_KP(STKEventBracket, sortOrder) ascending:YES];
-    request.sortDescriptors = @[sortOrderSortDescriptor];
+    request.sortDescriptors = @[roundSortDescriptor, sortOrderSortDescriptor];
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"round.group", group];
     request.predicate = predicate;

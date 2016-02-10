@@ -141,7 +141,7 @@
     [self.view addSubview:self.emptyStateView];
 
     [self.emptyStateView setTitle:@"No Schedule Available" forState:STKListBackgroundViewStateEmpty];
-    [self.emptyStateView setMessage:@"Pools, Crossovers, and Brackets have not yet been created for this event" forState:STKListBackgroundViewStateEmpty];
+    [self.emptyStateView setMessage:@"Pools, crossovers, and brackets have not yet been created for this event" forState:STKListBackgroundViewStateEmpty];
     [self.emptyStateView setImage:[UIImage imageNamed:@"Events Large"] forState:STKListBackgroundViewStateEmpty];
     [self.emptyStateView updateState:STKListBackgroundViewStateEmpty];
     self.emptyStateView.hidden = YES;

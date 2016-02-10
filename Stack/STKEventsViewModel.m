@@ -83,6 +83,10 @@
 }
 
 - (void)searchForText:(NSString *)text {
+    UITableView *tableView = self.dataSource.tableView;
+    CGPoint top = CGPointMake(0.0f, -tableView.contentInset.top);
+    [tableView setContentOffset:top animated:NO];
+
     NSPredicate *predicate;
 
     if (text.length > 0) {

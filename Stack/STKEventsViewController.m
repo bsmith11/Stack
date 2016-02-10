@@ -248,9 +248,6 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [self.viewModel searchForText:searchText];
-
-    CGPoint top = CGPointMake(0.0f, -self.tableView.contentInset.top);
-    [self.tableView setContentOffset:top animated:NO];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {

@@ -36,7 +36,6 @@
 
         [self updateSegmentTypes];
 
-        __weak __typeof(self) wself = self;
         [self downloadEventDetailsWithCompletion:nil];
     }
 
