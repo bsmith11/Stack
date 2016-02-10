@@ -648,17 +648,17 @@
 		230706168BFA7CD67B35EE05 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		287BF6C62C7F2E32F8A7DDB9 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		35D58FAA5187E5B8EDA647CA /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
-		4C844A16ABC8114B3FACECD6 /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Other-Sources/main.m"; sourceTree = "<group>"; };
+		4C844A16ABC8114B3FACECD6 /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DC8BE816EFD96785C766EA6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C62A0C1FC6CF5D38FEDDB2B /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C1B140832BF2A49009059D0 /* libPods-unit_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-unit_tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7CA155BD9F096C834D9B1CA1 /* LaunchScreen.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = Nibs/LaunchScreen.xib; sourceTree = "<group>"; };
+		7CA155BD9F096C834D9B1CA1 /* LaunchScreen.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		82A556A90F2D580236D3E39D /* Pods-unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-unit_tests/Pods-unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A3A52D4C2CB8B474526B7563 /* Stack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A42A75EDA365BD5D1EDC5012 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		A8B72ECC29D3C09B00CD52F4 /* Stack-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Stack-Prefix.pch"; path = "Other-Sources/Stack-Prefix.pch"; sourceTree = "<group>"; };
+		A8B72ECC29D3C09B00CD52F4 /* Stack-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Stack-Prefix.pch"; sourceTree = "<group>"; };
 		A97D4CD85A6D0DFC1065098F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		AA81B22FC1E507596CAD5B23 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Other-Sources/Info.plist"; sourceTree = "<group>"; };
+		AA81B22FC1E507596CAD5B23 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E12A95AE96C7960F38B4631B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -687,14 +687,14 @@
 		06140F411C699FED00C38138 /* Event Groups List */ = {
 			isa = PBXGroup;
 			children = (
+				06140F451C69A2F300C38138 /* STKEventGroupsListCell.h */,
+				06140F461C69A2F300C38138 /* STKEventGroupsListCell.m */,
 				06140F481C69A39D00C38138 /* STKEventGroupsListViewController.h */,
 				06140F491C69A39D00C38138 /* STKEventGroupsListViewController.m */,
 				06140F421C69A00500C38138 /* STKEventGroupsListViewModel.h */,
 				06140F431C69A00500C38138 /* STKEventGroupsListViewModel.m */,
-				06140F451C69A2F300C38138 /* STKEventGroupsListCell.h */,
-				06140F461C69A2F300C38138 /* STKEventGroupsListCell.m */,
 			);
-			name = "Event Groups List";
+			path = "Event Groups List";
 			sourceTree = "<group>";
 		};
 		061B89021C61BEE500B2BAA2 /* Event */ = {
@@ -702,12 +702,12 @@
 			children = (
 				061B89041C61BF1D00B2BAA2 /* STKEvent+CoreDataProperties.h */,
 				061B89051C61BF1D00B2BAA2 /* STKEvent+CoreDataProperties.m */,
-				061B89061C61BF1D00B2BAA2 /* STKEvent.h */,
-				061B89071C61BF1D00B2BAA2 /* STKEvent.m */,
 				061B89111C61BF5000B2BAA2 /* STKEvent+RZImport.h */,
 				061B89121C61BF5000B2BAA2 /* STKEvent+RZImport.m */,
+				061B89061C61BF1D00B2BAA2 /* STKEvent.h */,
+				061B89071C61BF1D00B2BAA2 /* STKEvent.m */,
 			);
-			name = Event;
+			path = Event;
 			sourceTree = "<group>";
 		};
 		061B89031C61BEEB00B2BAA2 /* Event Group */ = {
@@ -715,28 +715,28 @@
 			children = (
 				061B890A1C61BF2E00B2BAA2 /* STKEventGroup+CoreDataProperties.h */,
 				061B890B1C61BF2E00B2BAA2 /* STKEventGroup+CoreDataProperties.m */,
-				061B890C1C61BF2E00B2BAA2 /* STKEventGroup.h */,
-				061B890D1C61BF2E00B2BAA2 /* STKEventGroup.m */,
 				061B89141C61C0B100B2BAA2 /* STKEventGroup+RZImport.h */,
 				061B89151C61C0B100B2BAA2 /* STKEventGroup+RZImport.m */,
+				061B890C1C61BF2E00B2BAA2 /* STKEventGroup.h */,
+				061B890D1C61BF2E00B2BAA2 /* STKEventGroup.m */,
 			);
-			name = "Event Group";
+			path = "Event Group";
 			sourceTree = "<group>";
 		};
 		061B89171C61C5B100B2BAA2 /* Events */ = {
 			isa = PBXGroup;
 			children = (
 				06140F411C699FED00C38138 /* Event Groups List */,
-				061B89181C61C5C900B2BAA2 /* STKEventsViewController.h */,
-				061B89191C61C5C900B2BAA2 /* STKEventsViewController.m */,
-				061B891B1C61C68300B2BAA2 /* STKEventsViewModel.h */,
-				061B891C1C61C68300B2BAA2 /* STKEventsViewModel.m */,
 				061B891E1C62576E00B2BAA2 /* STKEventCell.h */,
 				061B891F1C62576E00B2BAA2 /* STKEventCell.m */,
 				061B89211C6269E800B2BAA2 /* STKEventHeader.h */,
 				061B89221C6269E800B2BAA2 /* STKEventHeader.m */,
+				061B89181C61C5C900B2BAA2 /* STKEventsViewController.h */,
+				061B89191C61C5C900B2BAA2 /* STKEventsViewController.m */,
+				061B891B1C61C68300B2BAA2 /* STKEventsViewModel.h */,
+				061B891C1C61C68300B2BAA2 /* STKEventsViewModel.m */,
 			);
-			name = Events;
+			path = Events;
 			sourceTree = "<group>";
 		};
 		061B89241C6280D200B2BAA2 /* Event Round */ = {
@@ -744,12 +744,12 @@
 			children = (
 				061B89251C6280F200B2BAA2 /* STKEventRound+CoreDataProperties.h */,
 				061B89261C6280F200B2BAA2 /* STKEventRound+CoreDataProperties.m */,
-				061B89271C6280F200B2BAA2 /* STKEventRound.h */,
-				061B89281C6280F200B2BAA2 /* STKEventRound.m */,
 				061B892B1C62810800B2BAA2 /* STKEventRound+RZImport.h */,
 				061B892C1C62810800B2BAA2 /* STKEventRound+RZImport.m */,
+				061B89271C6280F200B2BAA2 /* STKEventRound.h */,
+				061B89281C6280F200B2BAA2 /* STKEventRound.m */,
 			);
-			name = "Event Round";
+			path = "Event Round";
 			sourceTree = "<group>";
 		};
 		061B892E1C62825F00B2BAA2 /* Event Pool */ = {
@@ -757,12 +757,12 @@
 			children = (
 				061B892F1C62827200B2BAA2 /* STKEventPool+CoreDataProperties.h */,
 				061B89301C62827200B2BAA2 /* STKEventPool+CoreDataProperties.m */,
-				061B89311C62827200B2BAA2 /* STKEventPool.h */,
-				061B89321C62827200B2BAA2 /* STKEventPool.m */,
 				061B89351C62828200B2BAA2 /* STKEventPool+RZImport.h */,
 				061B89361C62828200B2BAA2 /* STKEventPool+RZImport.m */,
+				061B89311C62827200B2BAA2 /* STKEventPool.h */,
+				061B89321C62827200B2BAA2 /* STKEventPool.m */,
 			);
-			name = "Event Pool";
+			path = "Event Pool";
 			sourceTree = "<group>";
 		};
 		061B89381C62833D00B2BAA2 /* Event Standing */ = {
@@ -770,12 +770,12 @@
 			children = (
 				061B89391C62835500B2BAA2 /* STKEventStanding+CoreDataProperties.h */,
 				061B893A1C62835500B2BAA2 /* STKEventStanding+CoreDataProperties.m */,
-				061B893B1C62835500B2BAA2 /* STKEventStanding.h */,
-				061B893C1C62835500B2BAA2 /* STKEventStanding.m */,
 				061B893F1C62836700B2BAA2 /* STKEventStanding+RZImport.h */,
 				061B89401C62836700B2BAA2 /* STKEventStanding+RZImport.m */,
+				061B893B1C62835500B2BAA2 /* STKEventStanding.h */,
+				061B893C1C62835500B2BAA2 /* STKEventStanding.m */,
 			);
-			name = "Event Standing";
+			path = "Event Standing";
 			sourceTree = "<group>";
 		};
 		061B89421C62844800B2BAA2 /* Event Game */ = {
@@ -783,12 +783,12 @@
 			children = (
 				061B89431C62845A00B2BAA2 /* STKEventGame+CoreDataProperties.h */,
 				061B89441C62845A00B2BAA2 /* STKEventGame+CoreDataProperties.m */,
-				061B89451C62845A00B2BAA2 /* STKEventGame.h */,
-				061B89461C62845A00B2BAA2 /* STKEventGame.m */,
 				061B89491C62846900B2BAA2 /* STKEventGame+RZImport.h */,
 				061B894A1C62846900B2BAA2 /* STKEventGame+RZImport.m */,
+				061B89451C62845A00B2BAA2 /* STKEventGame.h */,
+				061B89461C62845A00B2BAA2 /* STKEventGame.m */,
 			);
-			name = "Event Game";
+			path = "Event Game";
 			sourceTree = "<group>";
 		};
 		061B894C1C62866B00B2BAA2 /* Event Bracket */ = {
@@ -796,60 +796,60 @@
 			children = (
 				061B894D1C62868000B2BAA2 /* STKEventBracket+CoreDataProperties.h */,
 				061B894E1C62868000B2BAA2 /* STKEventBracket+CoreDataProperties.m */,
-				061B894F1C62868000B2BAA2 /* STKEventBracket.h */,
-				061B89501C62868000B2BAA2 /* STKEventBracket.m */,
 				061B89531C62869200B2BAA2 /* STKEventBracket+RZImport.h */,
 				061B89541C62869200B2BAA2 /* STKEventBracket+RZImport.m */,
+				061B894F1C62868000B2BAA2 /* STKEventBracket.h */,
+				061B89501C62868000B2BAA2 /* STKEventBracket.m */,
 			);
-			name = "Event Bracket";
+			path = "Event Bracket";
 			sourceTree = "<group>";
 		};
 		061B89681C65034000B2BAA2 /* Event Details */ = {
 			isa = PBXGroup;
 			children = (
-				061B89821C65AC0500B2BAA2 /* Event Crossovers */,
 				061B897B1C65A8A000B2BAA2 /* Event Brackets */,
+				061B89821C65AC0500B2BAA2 /* Event Crossovers */,
 				061B897A1C65A7E000B2BAA2 /* Event Pools */,
 				061B89621C64FA2500B2BAA2 /* STKEventDetailViewController.h */,
 				061B89631C64FA2500B2BAA2 /* STKEventDetailViewController.m */,
 				061B89651C6501E900B2BAA2 /* STKEventDetailViewModel.h */,
 				061B89661C6501E900B2BAA2 /* STKEventDetailViewModel.m */,
 			);
-			name = "Event Details";
+			path = "Event Details";
 			sourceTree = "<group>";
 		};
 		061B897A1C65A7E000B2BAA2 /* Event Pools */ = {
 			isa = PBXGroup;
 			children = (
 				061B89891C65AFE800B2BAA2 /* Event Pool Detail */,
+				061B896F1C6506DA00B2BAA2 /* STKEventPoolCell.h */,
+				061B89701C6506DA00B2BAA2 /* STKEventPoolCell.m */,
+				061B89691C65060C00B2BAA2 /* STKEventPoolHeader.h */,
+				061B896A1C65060C00B2BAA2 /* STKEventPoolHeader.m */,
 				061B89741C6570F400B2BAA2 /* STKEventPoolsViewController.h */,
 				061B89751C6570F400B2BAA2 /* STKEventPoolsViewController.m */,
 				061B89771C65731A00B2BAA2 /* STKEventPoolsViewModel.h */,
 				061B89781C65731A00B2BAA2 /* STKEventPoolsViewModel.m */,
-				061B89691C65060C00B2BAA2 /* STKEventPoolHeader.h */,
-				061B896A1C65060C00B2BAA2 /* STKEventPoolHeader.m */,
-				061B896F1C6506DA00B2BAA2 /* STKEventPoolCell.h */,
-				061B89701C6506DA00B2BAA2 /* STKEventPoolCell.m */,
 			);
-			name = "Event Pools";
+			path = "Event Pools";
 			sourceTree = "<group>";
 		};
 		061B897B1C65A8A000B2BAA2 /* Event Brackets */ = {
 			isa = PBXGroup;
 			children = (
 				061B89BF1C6859D000B2BAA2 /* Event Brackets List */,
-				061B897C1C65A8BF00B2BAA2 /* STKEventBracketsViewController.h */,
-				061B897D1C65A8BF00B2BAA2 /* STKEventBracketsViewController.m */,
-				061B897F1C65A91E00B2BAA2 /* STKEventBracketsViewModel.h */,
-				061B89801C65A91E00B2BAA2 /* STKEventBracketsViewModel.m */,
 				061B89B01C67E5B700B2BAA2 /* STKBracketLayout.h */,
 				061B89B11C67E5B700B2BAA2 /* STKBracketLayout.m */,
 				061B89B31C67F70900B2BAA2 /* STKEventBracketCell.h */,
 				061B89B41C67F70900B2BAA2 /* STKEventBracketCell.m */,
 				061B89B61C67F73400B2BAA2 /* STKEventBracketHeader.h */,
 				061B89B71C67F73400B2BAA2 /* STKEventBracketHeader.m */,
+				061B897C1C65A8BF00B2BAA2 /* STKEventBracketsViewController.h */,
+				061B897D1C65A8BF00B2BAA2 /* STKEventBracketsViewController.m */,
+				061B897F1C65A91E00B2BAA2 /* STKEventBracketsViewModel.h */,
+				061B89801C65A91E00B2BAA2 /* STKEventBracketsViewModel.m */,
 			);
-			name = "Event Brackets";
+			path = "Event Brackets";
 			sourceTree = "<group>";
 		};
 		061B89821C65AC0500B2BAA2 /* Event Crossovers */ = {
@@ -860,22 +860,22 @@
 				061B89831C65AC1600B2BAA2 /* STKEventCrossoversViewModel.h */,
 				061B89841C65AC1600B2BAA2 /* STKEventCrossoversViewModel.m */,
 			);
-			name = "Event Crossovers";
+			path = "Event Crossovers";
 			sourceTree = "<group>";
 		};
 		061B89891C65AFE800B2BAA2 /* Event Pool Detail */ = {
 			isa = PBXGroup;
 			children = (
+				061B89931C65B20F00B2BAA2 /* STKEventPoolDetailCell.h */,
+				061B89941C65B20F00B2BAA2 /* STKEventPoolDetailCell.m */,
+				061B89901C65B1B000B2BAA2 /* STKEventPoolDetailHeader.h */,
+				061B89911C65B1B000B2BAA2 /* STKEventPoolDetailHeader.m */,
 				061B898A1C65B03400B2BAA2 /* STKEventPoolDetailViewController.h */,
 				061B898B1C65B03400B2BAA2 /* STKEventPoolDetailViewController.m */,
 				061B898D1C65B04300B2BAA2 /* STKEventPoolDetailViewModel.h */,
 				061B898E1C65B04300B2BAA2 /* STKEventPoolDetailViewModel.m */,
-				061B89901C65B1B000B2BAA2 /* STKEventPoolDetailHeader.h */,
-				061B89911C65B1B000B2BAA2 /* STKEventPoolDetailHeader.m */,
-				061B89931C65B20F00B2BAA2 /* STKEventPoolDetailCell.h */,
-				061B89941C65B20F00B2BAA2 /* STKEventPoolDetailCell.m */,
 			);
-			name = "Event Pool Detail";
+			path = "Event Pool Detail";
 			sourceTree = "<group>";
 		};
 		061B89961C6655CD00B2BAA2 /* Event Cluster */ = {
@@ -883,12 +883,12 @@
 			children = (
 				061B89971C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.h */,
 				061B89981C66569300B2BAA2 /* STKEventCluster+CoreDataProperties.m */,
-				061B89991C66569300B2BAA2 /* STKEventCluster.h */,
-				061B899A1C66569300B2BAA2 /* STKEventCluster.m */,
 				061B899D1C6656AD00B2BAA2 /* STKEventCluster+RZImport.h */,
 				061B899E1C6656AD00B2BAA2 /* STKEventCluster+RZImport.m */,
+				061B89991C66569300B2BAA2 /* STKEventCluster.h */,
+				061B899A1C66569300B2BAA2 /* STKEventCluster.m */,
 			);
-			name = "Event Cluster";
+			path = "Event Cluster";
 			sourceTree = "<group>";
 		};
 		061B89A61C67D29700B2BAA2 /* Event Stage */ = {
@@ -896,25 +896,25 @@
 			children = (
 				061B89A71C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.h */,
 				061B89A81C67D3C100B2BAA2 /* STKEventStage+CoreDataProperties.m */,
-				061B89A91C67D3C100B2BAA2 /* STKEventStage.h */,
-				061B89AA1C67D3C100B2BAA2 /* STKEventStage.m */,
 				061B89AD1C67D3EA00B2BAA2 /* STKEventStage+RZImport.h */,
 				061B89AE1C67D3EA00B2BAA2 /* STKEventStage+RZImport.m */,
+				061B89A91C67D3C100B2BAA2 /* STKEventStage.h */,
+				061B89AA1C67D3C100B2BAA2 /* STKEventStage.m */,
 			);
-			name = "Event Stage";
+			path = "Event Stage";
 			sourceTree = "<group>";
 		};
 		061B89BF1C6859D000B2BAA2 /* Event Brackets List */ = {
 			isa = PBXGroup;
 			children = (
+				061B89C31C685E3800B2BAA2 /* STKEventBracketsListCell.h */,
+				061B89C41C685E3800B2BAA2 /* STKEventBracketsListCell.m */,
 				061B89BC1C6859CC00B2BAA2 /* STKEventBracketsListViewController.h */,
 				061B89BD1C6859CC00B2BAA2 /* STKEventBracketsListViewController.m */,
 				061B89C01C6859FE00B2BAA2 /* STKEventBracketsListViewModel.h */,
 				061B89C11C6859FE00B2BAA2 /* STKEventBracketsListViewModel.m */,
-				061B89C31C685E3800B2BAA2 /* STKEventBracketsListCell.h */,
-				061B89C41C685E3800B2BAA2 /* STKEventBracketsListCell.m */,
 			);
-			name = "Event Brackets List";
+			path = "Event Brackets List";
 			sourceTree = "<group>";
 		};
 		064863DA1C2685300087A41E /* App Delegate */ = {
@@ -923,7 +923,7 @@
 				064865011C289EBD0087A41E /* STKAppDelegate.h */,
 				064865021C289EBD0087A41E /* STKAppDelegate.m */,
 			);
-			name = "App Delegate";
+			path = "App Delegate";
 			sourceTree = "<group>";
 		};
 		064863DB1C26853B0087A41E /* Onboarding */ = {
@@ -931,23 +931,23 @@
 			children = (
 				064863DC1C2685840087A41E /* STKOnboardingPageViewController.h */,
 				064863DD1C2685840087A41E /* STKOnboardingPageViewController.m */,
-				0694CD481C4CCF970089A424 /* STKWelcomeViewController.h */,
-				0694CD491C4CCF970089A424 /* STKWelcomeViewController.m */,
 				064863DF1C2685BE0087A41E /* STKPermissionViewController.h */,
 				064863E01C2685BE0087A41E /* STKPermissionViewController.m */,
+				0694CD481C4CCF970089A424 /* STKWelcomeViewController.h */,
+				0694CD491C4CCF970089A424 /* STKWelcomeViewController.m */,
 			);
-			name = Onboarding;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		064863E51C2687C60087A41E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				064864B91C27B8CC0087A41E /* Content */,
 				064864A51C27A8140087A41E /* API */,
-				064863E71C2688040087A41E /* Notifications */,
 				064863E61C2687E10087A41E /* Analytics */,
+				064864B91C27B8CC0087A41E /* Content */,
+				064863E71C2688040087A41E /* Notifications */,
 			);
-			name = Managers;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		064863E61C2687E10087A41E /* Analytics */ = {
@@ -956,7 +956,7 @@
 				064863E21C26875D0087A41E /* STKAnalyticsManager.h */,
 				064863E31C26875D0087A41E /* STKAnalyticsManager.m */,
 			);
-			name = Analytics;
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		064863E71C2688040087A41E /* Notifications */ = {
@@ -965,49 +965,49 @@
 				064863E81C2688140087A41E /* STKNotificationsManager.h */,
 				064863E91C2688140087A41E /* STKNotificationsManager.m */,
 			);
-			name = Notifications;
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		064863EB1C268A680087A41E /* Style */ = {
 			isa = PBXGroup;
 			children = (
+				064863F61C268F270087A41E /* STKAppearance.h */,
+				064863F71C268F270087A41E /* STKAppearance.m */,
+				064863F31C268F0E0087A41E /* STKAttributes.h */,
+				064863F41C268F0E0087A41E /* STKAttributes.m */,
 				064863ED1C268D430087A41E /* UIColor+STKStyle.h */,
 				064863EE1C268D440087A41E /* UIColor+STKStyle.m */,
 				064863F01C268DC40087A41E /* UIFont+STKStyle.h */,
 				064863F11C268DC40087A41E /* UIFont+STKStyle.m */,
-				064863F31C268F0E0087A41E /* STKAttributes.h */,
-				064863F41C268F0E0087A41E /* STKAttributes.m */,
-				064863F61C268F270087A41E /* STKAppearance.h */,
-				064863F71C268F270087A41E /* STKAppearance.m */,
 			);
-			name = Style;
+			path = Style;
 			sourceTree = "<group>";
 		};
 		064863F91C2692870087A41E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				061B89A61C67D29700B2BAA2 /* Event Stage */,
-				061B89961C6655CD00B2BAA2 /* Event Cluster */,
+				064864521C276D7B0087A41E /* Attachment */,
+				064864501C276D6A0087A41E /* Author */,
+				064864511C276D710087A41E /* Comment */,
+				061B89021C61BEE500B2BAA2 /* Event */,
 				061B894C1C62866B00B2BAA2 /* Event Bracket */,
+				061B89961C6655CD00B2BAA2 /* Event Cluster */,
 				061B89421C62844800B2BAA2 /* Event Game */,
-				061B89381C62833D00B2BAA2 /* Event Standing */,
+				061B89031C61BEEB00B2BAA2 /* Event Group */,
 				061B892E1C62825F00B2BAA2 /* Event Pool */,
 				061B89241C6280D200B2BAA2 /* Event Round */,
-				061B89031C61BEEB00B2BAA2 /* Event Group */,
-				061B89021C61BEE500B2BAA2 /* Event */,
-				0648659F1C310BF10087A41E /* Post Search Result */,
-				064864521C276D7B0087A41E /* Attachment */,
-				064864511C276D710087A41E /* Comment */,
-				064864501C276D6A0087A41E /* Author */,
-				0648644B1C276D160087A41E /* Post Section */,
+				061B89A61C67D29700B2BAA2 /* Event Stage */,
+				061B89381C62833D00B2BAA2 /* Event Standing */,
 				064864471C276CC70087A41E /* Post */,
-				064863FC1C2763380087A41E /* Stack.xcdatamodeld */,
+				0648659F1C310BF10087A41E /* Post Search Result */,
+				0648644B1C276D160087A41E /* Post Section */,
 				064864531C276DB00087A41E /* STKCoreDataStack.h */,
 				064864541C276DB00087A41E /* STKCoreDataStack.m */,
 				064864941C279F920087A41E /* STKSource.h */,
 				064864951C279F920087A41E /* STKSource.m */,
+				064863FC1C2763380087A41E /* Stack.xcdatamodeld */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		064864471C276CC70087A41E /* Post */ = {
@@ -1016,14 +1016,14 @@
 				0648644A1C276CFC0087A41E /* Blogger */,
 				064864491C276CF70087A41E /* RSS */,
 				064864481C276CF00087A41E /* Wordpress */,
+				0648648E1C279E7A0087A41E /* STKPost+Analytical.h */,
+				0648648F1C279E7A0087A41E /* STKPost+Analytical.m */,
 				06C7CF1E1C478BD50012BEFC /* STKPost+CoreDataProperties.h */,
 				06C7CF1F1C478BD50012BEFC /* STKPost+CoreDataProperties.m */,
 				064864151C276CB80087A41E /* STKPost.h */,
 				064864161C276CB80087A41E /* STKPost.m */,
-				0648648E1C279E7A0087A41E /* STKPost+Analytical.h */,
-				0648648F1C279E7A0087A41E /* STKPost+Analytical.m */,
 			);
-			name = Post;
+			path = Post;
 			sourceTree = "<group>";
 		};
 		064864481C276CF00087A41E /* Wordpress */ = {
@@ -1034,7 +1034,7 @@
 				064864011C276CB80087A41E /* STKWordpressPost.h */,
 				064864021C276CB80087A41E /* STKWordpressPost.m */,
 			);
-			name = Wordpress;
+			path = Wordpress;
 			sourceTree = "<group>";
 		};
 		064864491C276CF70087A41E /* RSS */ = {
@@ -1045,7 +1045,7 @@
 				064864291C276CB80087A41E /* STKRSSPost.h */,
 				0648642A1C276CB80087A41E /* STKRSSPost.m */,
 			);
-			name = RSS;
+			path = RSS;
 			sourceTree = "<group>";
 		};
 		0648644A1C276CFC0087A41E /* Blogger */ = {
@@ -1056,20 +1056,20 @@
 				064864251C276CB80087A41E /* STKBloggerPost.h */,
 				064864261C276CB80087A41E /* STKBloggerPost.m */,
 			);
-			name = Blogger;
+			path = Blogger;
 			sourceTree = "<group>";
 		};
 		0648644B1C276D160087A41E /* Post Section */ = {
 			isa = PBXGroup;
 			children = (
+				0648644D1C276D460087A41E /* Media */,
+				0648644C1C276D3B0087A41E /* Paragraph */,
 				0648641B1C276CB80087A41E /* STKPostSection+CoreDataProperties.h */,
 				0648641C1C276CB80087A41E /* STKPostSection+CoreDataProperties.m */,
 				0648641D1C276CB80087A41E /* STKPostSection.h */,
 				0648641E1C276CB80087A41E /* STKPostSection.m */,
-				0648644D1C276D460087A41E /* Media */,
-				0648644C1C276D3B0087A41E /* Paragraph */,
 			);
-			name = "Post Section";
+			path = "Post Section";
 			sourceTree = "<group>";
 		};
 		0648644C1C276D3B0087A41E /* Paragraph */ = {
@@ -1080,20 +1080,20 @@
 				0648640D1C276CB80087A41E /* STKPostParagraphSection.h */,
 				0648640E1C276CB80087A41E /* STKPostParagraphSection.m */,
 			);
-			name = Paragraph;
+			path = Paragraph;
 			sourceTree = "<group>";
 		};
 		0648644D1C276D460087A41E /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				0648644F1C276D4F0087A41E /* Image */,
+				0648644E1C276D4B0087A41E /* VIdeo */,
 				0648642B1C276CB80087A41E /* STKPostMediaSection+CoreDataProperties.h */,
 				0648642C1C276CB80087A41E /* STKPostMediaSection+CoreDataProperties.m */,
 				0648642D1C276CB80087A41E /* STKPostMediaSection.h */,
 				0648642E1C276CB80087A41E /* STKPostMediaSection.m */,
-				0648644F1C276D4F0087A41E /* Image */,
-				0648644E1C276D4B0087A41E /* VIdeo */,
 			);
-			name = Media;
+			path = Media;
 			sourceTree = "<group>";
 		};
 		0648644E1C276D4B0087A41E /* VIdeo */ = {
@@ -1104,7 +1104,7 @@
 				064864111C276CB80087A41E /* STKPostVideoSection.h */,
 				064864121C276CB80087A41E /* STKPostVideoSection.m */,
 			);
-			name = VIdeo;
+			path = VIdeo;
 			sourceTree = "<group>";
 		};
 		0648644F1C276D4F0087A41E /* Image */ = {
@@ -1115,22 +1115,22 @@
 				064864051C276CB80087A41E /* STKPostImageSection.h */,
 				064864061C276CB80087A41E /* STKPostImageSection.m */,
 			);
-			name = Image;
+			path = Image;
 			sourceTree = "<group>";
 		};
 		064864501C276D6A0087A41E /* Author */ = {
 			isa = PBXGroup;
 			children = (
-				064864171C276CB80087A41E /* STKAuthor+CoreDataProperties.h */,
-				064864181C276CB80087A41E /* STKAuthor+CoreDataProperties.m */,
-				064864191C276CB80087A41E /* STKAuthor.h */,
-				0648641A1C276CB80087A41E /* STKAuthor.m */,
 				064864911C279EE40087A41E /* STKAuthor+Analytical.h */,
 				064864921C279EE40087A41E /* STKAuthor+Analytical.m */,
+				064864171C276CB80087A41E /* STKAuthor+CoreDataProperties.h */,
+				064864181C276CB80087A41E /* STKAuthor+CoreDataProperties.m */,
 				064864C71C2877200087A41E /* STKAuthor+RZImport.h */,
 				064864C81C2877200087A41E /* STKAuthor+RZImport.m */,
+				064864191C276CB80087A41E /* STKAuthor.h */,
+				0648641A1C276CB80087A41E /* STKAuthor.m */,
 			);
-			name = Author;
+			path = Author;
 			sourceTree = "<group>";
 		};
 		064864511C276D710087A41E /* Comment */ = {
@@ -1144,7 +1144,7 @@
 				064864211C276CB80087A41E /* STKComment.h */,
 				064864221C276CB80087A41E /* STKComment.m */,
 			);
-			name = Comment;
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		064864521C276D7B0087A41E /* Attachment */ = {
@@ -1152,105 +1152,105 @@
 			children = (
 				064864071C276CB80087A41E /* STKAttachment+CoreDataProperties.h */,
 				064864081C276CB80087A41E /* STKAttachment+CoreDataProperties.m */,
-				064864091C276CB80087A41E /* STKAttachment.h */,
-				0648640A1C276CB80087A41E /* STKAttachment.m */,
 				064864C41C2875680087A41E /* STKAttachment+RZImport.h */,
 				064864C51C2875680087A41E /* STKAttachment+RZImport.m */,
+				064864091C276CB80087A41E /* STKAttachment.h */,
+				0648640A1C276CB80087A41E /* STKAttachment.m */,
 			);
-			name = Attachment;
+			path = Attachment;
 			sourceTree = "<group>";
 		};
 		064864561C2770E10087A41E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				064864571C2770EB0087A41E /* HTML */,
+				064865211C28AB580087A41E /* STKCollectionListTableViewDataSource.h */,
+				064865221C28AB580087A41E /* STKCollectionListTableViewDataSource.m */,
+				0648647D1C27964B0087A41E /* STKFormatter.h */,
+				0648647E1C27964B0087A41E /* STKFormatter.m */,
 				064864731C2794650087A41E /* STKImageCache.h */,
 				064864741C2794650087A41E /* STKImageCache.m */,
 				064864761C2794DE0087A41E /* STKImageDownloader.h */,
 				064864771C2794DE0087A41E /* STKImageDownloader.m */,
-				0648647D1C27964B0087A41E /* STKFormatter.h */,
-				0648647E1C27964B0087A41E /* STKFormatter.m */,
+				0648658F1C2D0B310087A41E /* STKListBackgroundDefaultContentView.h */,
+				064865901C2D0B310087A41E /* STKListBackgroundDefaultContentView.m */,
+				0648658C1C2B9EB80087A41E /* STKListBackgroundView.h */,
+				0648658D1C2B9EB80087A41E /* STKListBackgroundView.m */,
+				0694CD451C4C66AA0089A424 /* STKNetworkImageNode.h */,
+				0694CD461C4C66AA0089A424 /* STKNetworkImageNode.m */,
+				064865991C307EC20087A41E /* STKSearchField.h */,
+				0648659A1C307EC20087A41E /* STKSearchField.m */,
 				064864891C2798930087A41E /* STKTableViewDataSource.h */,
 				0648648A1C2798930087A41E /* STKTableViewDataSource.m */,
-				064865211C28AB580087A41E /* STKCollectionListTableViewDataSource.h */,
-				064865221C28AB580087A41E /* STKCollectionListTableViewDataSource.m */,
 				0648656A1C29390E0087A41E /* STKWebNode.h */,
 				0648656B1C29390E0087A41E /* STKWebNode.m */,
 				0648656D1C2939680087A41E /* STKYoutubeNode.h */,
 				0648656E1C2939680087A41E /* STKYoutubeNode.m */,
-				0648658C1C2B9EB80087A41E /* STKListBackgroundView.h */,
-				0648658D1C2B9EB80087A41E /* STKListBackgroundView.m */,
-				0648658F1C2D0B310087A41E /* STKListBackgroundDefaultContentView.h */,
-				064865901C2D0B310087A41E /* STKListBackgroundDefaultContentView.m */,
-				064865991C307EC20087A41E /* STKSearchField.h */,
-				0648659A1C307EC20087A41E /* STKSearchField.m */,
-				0694CD451C4C66AA0089A424 /* STKNetworkImageNode.h */,
-				0694CD461C4C66AA0089A424 /* STKNetworkImageNode.m */,
 			);
-			name = Utilities;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		064864571C2770EB0087A41E /* HTML */ = {
 			isa = PBXGroup;
 			children = (
-				064864BD1C27BD820087A41E /* STKHTML.h */,
-				0648646A1C278F630087A41E /* NSString+STKHTML.h */,
-				0648646B1C278F630087A41E /* NSString+STKHTML.m */,
-				064864981C27A4AF0087A41E /* NSMutableString+STKHTML.h */,
-				064864991C27A4AF0087A41E /* NSMutableString+STKHTML.m */,
 				064864FC1C2896E20087A41E /* NSAttributedString+STKHTML.h */,
 				064864FD1C2896E20087A41E /* NSAttributedString+STKHTML.m */,
 				0648646D1C278F810087A41E /* NSMutableAttributedString+STKHTML.h */,
 				0648646E1C278F810087A41E /* NSMutableAttributedString+STKHTML.m */,
+				064864981C27A4AF0087A41E /* NSMutableString+STKHTML.h */,
+				064864991C27A4AF0087A41E /* NSMutableString+STKHTML.m */,
 				064864701C2790830087A41E /* NSParagraphStyle+STKHTML.h */,
 				064864711C2790830087A41E /* NSParagraphStyle+STKHTML.m */,
-				064864581C27710A0087A41E /* STKHTMLSection.h */,
-				064864591C27710A0087A41E /* STKHTMLSection.m */,
-				0648645B1C2777D80087A41E /* STKHTMLParagraphSection.h */,
-				0648645C1C2777D80087A41E /* STKHTMLParagraphSection.m */,
-				0648645E1C2778450087A41E /* STKHTMLMediaSection.h */,
-				0648645F1C2778450087A41E /* STKHTMLMediaSection.m */,
+				0648646A1C278F630087A41E /* NSString+STKHTML.h */,
+				0648646B1C278F630087A41E /* NSString+STKHTML.m */,
+				064864BD1C27BD820087A41E /* STKHTML.h */,
 				064864611C27785B0087A41E /* STKHTMLImageSection.h */,
 				064864621C27785B0087A41E /* STKHTMLImageSection.m */,
+				0648645E1C2778450087A41E /* STKHTMLMediaSection.h */,
+				0648645F1C2778450087A41E /* STKHTMLMediaSection.m */,
+				0648645B1C2777D80087A41E /* STKHTMLParagraphSection.h */,
+				0648645C1C2777D80087A41E /* STKHTMLParagraphSection.m */,
+				064864581C27710A0087A41E /* STKHTMLSection.h */,
+				064864591C27710A0087A41E /* STKHTMLSection.m */,
 				064864641C27786D0087A41E /* STKHTMLVideoSection.h */,
 				064864651C27786D0087A41E /* STKHTMLVideoSection.m */,
 			);
-			name = HTML;
+			path = HTML;
 			sourceTree = "<group>";
 		};
 		064864791C2795D90087A41E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				0648647A1C2795EB0087A41E /* UIImage+STKResize.h */,
-				0648647B1C2795EB0087A41E /* UIImage+STKResize.m */,
-				064864801C2796F20087A41E /* NSNumber+STKCGFloat.h */,
-				064864811C2796F20087A41E /* NSNumber+STKCGFloat.m */,
-				064864831C2797700087A41E /* UIBarButtonItem+STKExtensions.h */,
-				064864841C2797700087A41E /* UIBarButtonItem+STKExtensions.m */,
-				064864C11C27CE9B0087A41E /* RSSItem+STKImport.h */,
-				064864C21C27CE9B0087A41E /* RSSItem+STKImport.m */,
-				064865241C28ABD50087A41E /* NSDate+STKTimeSince.h */,
-				064865251C28ABD50087A41E /* NSDate+STKTimeSince.m */,
-				064865271C28AC350087A41E /* UIView+STKShadow.h */,
-				064865281C28AC350087A41E /* UIView+STKShadow.m */,
 				0648652A1C28AC6F0087A41E /* ASDisplayNode+STKShadow.h */,
 				0648652B1C28AC6F0087A41E /* ASDisplayNode+STKShadow.m */,
 				064865371C29164B0087A41E /* ASImageNode+STKModificationBlocks.h */,
 				064865381C29164B0087A41E /* ASImageNode+STKModificationBlocks.m */,
-				064865841C29F4320087A41E /* UIViewController+STKMail.h */,
-				064865851C29F4320087A41E /* UIViewController+STKMail.m */,
+				061B89A31C668A9D00B2BAA2 /* NSArray+STKEquality.h */,
+				061B89A41C668A9D00B2BAA2 /* NSArray+STKEquality.m */,
+				064865241C28ABD50087A41E /* NSDate+STKTimeSince.h */,
+				064865251C28ABD50087A41E /* NSDate+STKTimeSince.m */,
+				064864801C2796F20087A41E /* NSNumber+STKCGFloat.h */,
+				064864811C2796F20087A41E /* NSNumber+STKCGFloat.m */,
 				064865871C29F4CF0087A41E /* NSURL+STKExtensions.h */,
 				064865881C29F4CF0087A41E /* NSURL+STKExtensions.m */,
+				064864C11C27CE9B0087A41E /* RSSItem+STKImport.h */,
+				064864C21C27CE9B0087A41E /* RSSItem+STKImport.m */,
+				064864831C2797700087A41E /* UIBarButtonItem+STKExtensions.h */,
+				064864841C2797700087A41E /* UIBarButtonItem+STKExtensions.m */,
+				061B89B91C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.h */,
+				061B89BA1C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.m */,
+				0648647A1C2795EB0087A41E /* UIImage+STKResize.h */,
+				0648647B1C2795EB0087A41E /* UIImage+STKResize.m */,
 				061B895C1C64780700B2BAA2 /* UITableViewCell+STKReuse.h */,
 				061B895D1C64780700B2BAA2 /* UITableViewCell+STKReuse.m */,
 				061B895F1C64781700B2BAA2 /* UITableViewHeaderFooterView+STKReuse.h */,
 				061B89601C64781700B2BAA2 /* UITableViewHeaderFooterView+STKReuse.m */,
-				061B89A31C668A9D00B2BAA2 /* NSArray+STKEquality.h */,
-				061B89A41C668A9D00B2BAA2 /* NSArray+STKEquality.m */,
-				061B89B91C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.h */,
-				061B89BA1C67F78400B2BAA2 /* UICollectionReusableView+STKReuse.m */,
+				064865271C28AC350087A41E /* UIView+STKShadow.h */,
+				064865281C28AC350087A41E /* UIView+STKShadow.m */,
+				064865841C29F4320087A41E /* UIViewController+STKMail.h */,
+				064865851C29F4320087A41E /* UIViewController+STKMail.m */,
 			);
-			name = Categories;
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		0648648C1C279E1E0087A41E /* Protocols */ = {
@@ -1259,22 +1259,22 @@
 				0648648D1C279E3D0087A41E /* STKAnalytical.h */,
 				064864B51C27AB730087A41E /* STKSessionManagerProtocol.h */,
 			);
-			name = Protocols;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		0648649B1C27A5C00087A41E /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				0648649C1C27A6020087A41E /* STKAPIConstants.h */,
-				0648649D1C27A6020087A41E /* STKAPIConstants.m */,
-				064864B61C27AD670087A41E /* STKAPIWordpressConstants.h */,
-				064864B71C27AD670087A41E /* STKAPIWordpressConstants.m */,
 				064864A21C27A7B60087A41E /* STKAPIBloggerConstants.h */,
 				064864A31C27A7B60087A41E /* STKAPIBloggerConstants.m */,
+				0648649C1C27A6020087A41E /* STKAPIConstants.h */,
+				0648649D1C27A6020087A41E /* STKAPIConstants.m */,
 				064864BE1C27CE370087A41E /* STKAPIRSSConstants.h */,
 				064864BF1C27CE370087A41E /* STKAPIRSSConstants.m */,
+				064864B61C27AD670087A41E /* STKAPIWordpressConstants.h */,
+				064864B71C27AD670087A41E /* STKAPIWordpressConstants.m */,
 			);
-			name = Constants;
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		064864A51C27A8140087A41E /* API */ = {
@@ -1284,14 +1284,14 @@
 				064864A71C27A8220087A41E /* STKAPIClient.m */,
 				064864A91C27A9700087A41E /* STKBaseURLSessionManager.h */,
 				064864AA1C27A9700087A41E /* STKBaseURLSessionManager.m */,
-				064864AC1C27AACC0087A41E /* STKWordpressSessionManager.h */,
-				064864AD1C27AACC0087A41E /* STKWordpressSessionManager.m */,
-				064864AF1C27AAF00087A41E /* STKRSSSessionManager.h */,
-				064864B01C27AAF00087A41E /* STKRSSSessionManager.m */,
 				064864B21C27AB100087A41E /* STKBloggerSessionManager.h */,
 				064864B31C27AB100087A41E /* STKBloggerSessionManager.m */,
+				064864AF1C27AAF00087A41E /* STKRSSSessionManager.h */,
+				064864B01C27AAF00087A41E /* STKRSSSessionManager.m */,
+				064864AC1C27AACC0087A41E /* STKWordpressSessionManager.h */,
+				064864AD1C27AACC0087A41E /* STKWordpressSessionManager.m */,
 			);
-			name = API;
+			path = API;
 			sourceTree = "<group>";
 		};
 		064864B91C27B8CC0087A41E /* Content */ = {
@@ -1300,7 +1300,7 @@
 				064864BA1C27B8E30087A41E /* STKContentManager.h */,
 				064864BB1C27B8E30087A41E /* STKContentManager.m */,
 			);
-			name = Content;
+			path = Content;
 			sourceTree = "<group>";
 		};
 		064864DF1C287D6B0087A41E /* Wordpress */ = {
@@ -1308,12 +1308,12 @@
 			children = (
 				064864D51C287D670087A41E /* STKWordpressComment+CoreDataProperties.h */,
 				064864D61C287D670087A41E /* STKWordpressComment+CoreDataProperties.m */,
-				064864D71C287D670087A41E /* STKWordpressComment.h */,
-				064864D81C287D670087A41E /* STKWordpressComment.m */,
 				064864E81C287DC80087A41E /* STKWordpressComment+RZImport.h */,
 				064864E91C287DC80087A41E /* STKWordpressComment+RZImport.m */,
+				064864D71C287D670087A41E /* STKWordpressComment.h */,
+				064864D81C287D670087A41E /* STKWordpressComment.m */,
 			);
-			name = Wordpress;
+			path = Wordpress;
 			sourceTree = "<group>";
 		};
 		064864E01C287D700087A41E /* RSS */ = {
@@ -1321,12 +1321,12 @@
 			children = (
 				064864CD1C287D670087A41E /* STKRSSComment+CoreDataProperties.h */,
 				064864CE1C287D670087A41E /* STKRSSComment+CoreDataProperties.m */,
-				064864CF1C287D670087A41E /* STKRSSComment.h */,
-				064864D01C287D670087A41E /* STKRSSComment.m */,
 				064864E51C287DB50087A41E /* STKRSSComment+RZImport.h */,
 				064864E61C287DB50087A41E /* STKRSSComment+RZImport.m */,
+				064864CF1C287D670087A41E /* STKRSSComment.h */,
+				064864D01C287D670087A41E /* STKRSSComment.m */,
 			);
-			name = RSS;
+			path = RSS;
 			sourceTree = "<group>";
 		};
 		064864E11C287D740087A41E /* Blogger */ = {
@@ -1334,52 +1334,52 @@
 			children = (
 				064864D11C287D670087A41E /* STKBloggerComment+CoreDataProperties.h */,
 				064864D21C287D670087A41E /* STKBloggerComment+CoreDataProperties.m */,
-				064864D31C287D670087A41E /* STKBloggerComment.h */,
-				064864D41C287D670087A41E /* STKBloggerComment.m */,
 				064864E21C287DA50087A41E /* STKBloggerComment+RZImport.h */,
 				064864E31C287DA50087A41E /* STKBloggerComment+RZImport.m */,
+				064864D31C287D670087A41E /* STKBloggerComment.h */,
+				064864D41C287D670087A41E /* STKBloggerComment.m */,
 			);
-			name = Blogger;
+			path = Blogger;
 			sourceTree = "<group>";
 		};
 		064864FB1C2893A20087A41E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				064864EB1C28938D0087A41E /* Gotham-Medium.ttf */,
-				064864EC1C28938D0087A41E /* Gotham-MediumItalic.ttf */,
-				064864ED1C28938D0087A41E /* Gotham-Light.ttf */,
-				064864EE1C28938D0087A41E /* Gotham-LightItalic.ttf */,
-				064864EF1C28938D0087A41E /* Gotham-Book.ttf */,
-				064864F01C28938D0087A41E /* Gotham-BookItalic.ttf */,
 				064864F11C28938D0087A41E /* Gotham-Bold.ttf */,
 				064864F21C28938D0087A41E /* Gotham-BoldItalic.ttf */,
+				064864EF1C28938D0087A41E /* Gotham-Book.ttf */,
+				064864F01C28938D0087A41E /* Gotham-BookItalic.ttf */,
+				064864ED1C28938D0087A41E /* Gotham-Light.ttf */,
+				064864EE1C28938D0087A41E /* Gotham-LightItalic.ttf */,
+				064864EB1C28938D0087A41E /* Gotham-Medium.ttf */,
+				064864EC1C28938D0087A41E /* Gotham-MediumItalic.ttf */,
 			);
-			name = Fonts;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		064865041C28A43F0087A41E /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				064865051C28A4560087A41E /* STKRootViewController.h */,
-				064865061C28A4560087A41E /* STKRootViewController.m */,
-				064865081C28A4DF0087A41E /* STKTabBarController.h */,
-				064865091C28A4DF0087A41E /* STKTabBarController.m */,
-				0648650B1C28A5B20087A41E /* STKNavigationController.h */,
-				0648650C1C28A5B20087A41E /* STKNavigationController.m */,
-				06140F3E1C699F5A00C38138 /* STKEventsNavigationController.h */,
-				06140F3F1C699F5A00C38138 /* STKEventsNavigationController.m */,
 				0648650E1C28A65D0087A41E /* STKBaseViewController.h */,
 				0648650F1C28A65D0087A41E /* STKBaseViewController.m */,
+				06140F3E1C699F5A00C38138 /* STKEventsNavigationController.h */,
+				06140F3F1C699F5A00C38138 /* STKEventsNavigationController.m */,
 				064865111C28A6BD0087A41E /* STKInteractiveViewController.h */,
 				064865121C28A6BD0087A41E /* STKInteractiveViewController.m */,
-				064865BC1C322E3C0087A41E /* STKMailViewController.h */,
-				064865BD1C322E3C0087A41E /* STKMailViewController.m */,
 				063B03EC1C4F17EE000D99DD /* STKLaunchImageView.h */,
 				063B03ED1C4F17EE000D99DD /* STKLaunchImageView.m */,
+				064865BC1C322E3C0087A41E /* STKMailViewController.h */,
+				064865BD1C322E3C0087A41E /* STKMailViewController.m */,
+				0648650B1C28A5B20087A41E /* STKNavigationController.h */,
+				0648650C1C28A5B20087A41E /* STKNavigationController.m */,
+				064865051C28A4560087A41E /* STKRootViewController.h */,
+				064865061C28A4560087A41E /* STKRootViewController.m */,
 				061B89591C63C63800B2BAA2 /* STKSearchController.h */,
 				061B895A1C63C63800B2BAA2 /* STKSearchController.m */,
+				064865081C28A4DF0087A41E /* STKTabBarController.h */,
+				064865091C28A4DF0087A41E /* STKTabBarController.m */,
 			);
-			name = Root;
+			path = Root;
 			sourceTree = "<group>";
 		};
 		064865141C28A78D0087A41E /* Animation Controllers */ = {
@@ -1387,14 +1387,14 @@
 			children = (
 				064865151C28A8180087A41E /* STKBaseAnimationController.h */,
 				064865161C28A8180087A41E /* STKBaseAnimationController.m */,
-				064865181C28A8830087A41E /* STKSlideAnimationController.h */,
-				064865191C28A8830087A41E /* STKSlideAnimationController.m */,
-				0648651B1C28A9790087A41E /* STKModalAnimationController.h */,
-				0648651C1C28A9790087A41E /* STKModalAnimationController.m */,
 				0648651E1C28AACD0087A41E /* STKImageAnimationController.h */,
 				0648651F1C28AACD0087A41E /* STKImageAnimationController.m */,
+				0648651B1C28A9790087A41E /* STKModalAnimationController.h */,
+				0648651C1C28A9790087A41E /* STKModalAnimationController.m */,
+				064865181C28A8830087A41E /* STKSlideAnimationController.h */,
+				064865191C28A8830087A41E /* STKSlideAnimationController.m */,
 			);
-			name = "Animation Controllers";
+			path = "Animation Controllers";
 			sourceTree = "<group>";
 		};
 		0648652D1C28AD000087A41E /* Feed */ = {
@@ -1407,20 +1407,20 @@
 				064865341C29135C0087A41E /* STKPostNode.h */,
 				064865351C29135C0087A41E /* STKPostNode.m */,
 			);
-			name = Feed;
+			path = Feed;
 			sourceTree = "<group>";
 		};
 		0648653A1C2918C50087A41E /* Source List */ = {
 			isa = PBXGroup;
 			children = (
+				064865441C291FF50087A41E /* STKSourceListNode.h */,
+				064865451C291FF50087A41E /* STKSourceListNode.m */,
 				0648653B1C2918E60087A41E /* STKSourceListViewController.h */,
 				0648653C1C2918E60087A41E /* STKSourceListViewController.m */,
 				064865411C291B050087A41E /* STKSourceListViewModel.h */,
 				064865421C291B050087A41E /* STKSourceListViewModel.m */,
-				064865441C291FF50087A41E /* STKSourceListNode.h */,
-				064865451C291FF50087A41E /* STKSourceListNode.m */,
 			);
-			name = "Source List";
+			path = "Source List";
 			sourceTree = "<group>";
 		};
 		064865471C2928580087A41E /* Bookmarks */ = {
@@ -1431,7 +1431,7 @@
 				0648654B1C2928930087A41E /* STKBookmarksViewModel.h */,
 				0648654C1C2928930087A41E /* STKBookmarksViewModel.m */,
 			);
-			name = Bookmarks;
+			path = Bookmarks;
 			sourceTree = "<group>";
 		};
 		0648654E1C292F8E0087A41E /* Post */ = {
@@ -1443,22 +1443,22 @@
 				064865521C292FAF0087A41E /* STKPostViewModel.h */,
 				064865531C292FAF0087A41E /* STKPostViewModel.m */,
 			);
-			name = Post;
+			path = Post;
 			sourceTree = "<group>";
 		};
 		064865761C29D58C0087A41E /* Author */ = {
 			isa = PBXGroup;
 			children = (
+				0648657D1C29D5D50087A41E /* STKAuthorNode.h */,
+				0648657E1C29D5D50087A41E /* STKAuthorNode.m */,
 				064865771C29D5B20087A41E /* STKAuthorViewController.h */,
 				064865781C29D5B20087A41E /* STKAuthorViewController.m */,
 				0648657A1C29D5C20087A41E /* STKAuthorViewModel.h */,
 				0648657B1C29D5C20087A41E /* STKAuthorViewModel.m */,
-				0648657D1C29D5D50087A41E /* STKAuthorNode.h */,
-				0648657E1C29D5D50087A41E /* STKAuthorNode.m */,
 				06A496781C3CD0370057209E /* STKUnavailableNode.h */,
 				06A496791C3CD0370057209E /* STKUnavailableNode.m */,
 			);
-			name = Author;
+			path = Author;
 			sourceTree = "<group>";
 		};
 		064865801C29EF7E0087A41E /* Image */ = {
@@ -1467,32 +1467,32 @@
 				064865811C29EF9E0087A41E /* STKImageViewController.h */,
 				064865821C29EF9E0087A41E /* STKImageViewController.m */,
 			);
-			name = Image;
+			path = Image;
 			sourceTree = "<group>";
 		};
 		0648658A1C2A797E0087A41E /* Cell Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				064865551C2934390087A41E /* STKPostTitleNode.h */,
-				064865561C2934390087A41E /* STKPostTitleNode.m */,
-				064865581C2934BC0087A41E /* STKPostInfoNode.h */,
-				064865591C2934BC0087A41E /* STKPostInfoNode.m */,
-				0648655B1C2935B10087A41E /* STKPostSeparatorNode.h */,
-				0648655C1C2935B10087A41E /* STKPostSeparatorNode.m */,
-				0648655E1C2936190087A41E /* STKPostSectionNode.h */,
-				0648655F1C2936190087A41E /* STKPostSectionNode.m */,
-				064865611C2936B90087A41E /* STKPostParagraphSectionNode.h */,
-				064865621C2936B90087A41E /* STKPostParagraphSectionNode.m */,
-				064865641C2937B90087A41E /* STKPostImageSectionNode.h */,
-				064865651C2937B90087A41E /* STKPostImageSectionNode.m */,
-				064865671C2938590087A41E /* STKPostVideoSectionNode.h */,
-				064865681C2938590087A41E /* STKPostVideoSectionNode.m */,
 				064865701C293B580087A41E /* STKPostCommentNode.h */,
 				064865711C293B580087A41E /* STKPostCommentNode.m */,
 				064865731C293DAC0087A41E /* STKPostFeatureImageNode.h */,
 				064865741C293DAC0087A41E /* STKPostFeatureImageNode.m */,
+				064865641C2937B90087A41E /* STKPostImageSectionNode.h */,
+				064865651C2937B90087A41E /* STKPostImageSectionNode.m */,
+				064865581C2934BC0087A41E /* STKPostInfoNode.h */,
+				064865591C2934BC0087A41E /* STKPostInfoNode.m */,
+				064865611C2936B90087A41E /* STKPostParagraphSectionNode.h */,
+				064865621C2936B90087A41E /* STKPostParagraphSectionNode.m */,
+				0648655E1C2936190087A41E /* STKPostSectionNode.h */,
+				0648655F1C2936190087A41E /* STKPostSectionNode.m */,
+				0648655B1C2935B10087A41E /* STKPostSeparatorNode.h */,
+				0648655C1C2935B10087A41E /* STKPostSeparatorNode.m */,
+				064865551C2934390087A41E /* STKPostTitleNode.h */,
+				064865561C2934390087A41E /* STKPostTitleNode.m */,
+				064865671C2938590087A41E /* STKPostVideoSectionNode.h */,
+				064865681C2938590087A41E /* STKPostVideoSectionNode.m */,
 			);
-			name = "Cell Nodes";
+			path = "Cell Nodes";
 			sourceTree = "<group>";
 		};
 		064865921C2F02C00087A41E /* Search */ = {
@@ -1503,51 +1503,51 @@
 				064865961C2F02EE0087A41E /* STKSearchViewModel.h */,
 				064865971C2F02EE0087A41E /* STKSearchViewModel.m */,
 			);
-			name = Search;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		0648659F1C310BF10087A41E /* Post Search Result */ = {
 			isa = PBXGroup;
 			children = (
+				064865A31C31101F0087A41E /* STKBloggerPostSearchResult.h */,
+				064865A41C31101F0087A41E /* STKBloggerPostSearchResult.m */,
 				0648659C1C31070F0087A41E /* STKPostSearchResult.h */,
 				0648659D1C31070F0087A41E /* STKPostSearchResult.m */,
 				064865A01C310C130087A41E /* STKWordpressPostSearchResult.h */,
 				064865A11C310C130087A41E /* STKWordpressPostSearchResult.m */,
-				064865A31C31101F0087A41E /* STKBloggerPostSearchResult.h */,
-				064865A41C31101F0087A41E /* STKBloggerPostSearchResult.m */,
 			);
-			name = "Post Search Result";
+			path = "Post Search Result";
 			sourceTree = "<group>";
 		};
 		064865A61C31CCC60087A41E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				064865A71C31CCEC0087A41E /* STKSettingsViewController.h */,
-				064865A81C31CCEC0087A41E /* STKSettingsViewController.m */,
-				064865AA1C31CDB80087A41E /* STKSettingsViewModel.h */,
-				064865AB1C31CDB80087A41E /* STKSettingsViewModel.m */,
-				064865AD1C31E3000087A41E /* STKSettingsItem.h */,
-				064865AE1C31E3000087A41E /* STKSettingsItem.m */,
-				064865B01C31E30F0087A41E /* STKSettingsItemNode.h */,
-				064865B11C31E30F0087A41E /* STKSettingsItemNode.m */,
 				064865B31C31E31F0087A41E /* STKSettingsHeader.h */,
 				064865B41C31E31F0087A41E /* STKSettingsHeader.m */,
 				064865B61C31E32D0087A41E /* STKSettingsHeaderNode.h */,
 				064865B71C31E32D0087A41E /* STKSettingsHeaderNode.m */,
+				064865AD1C31E3000087A41E /* STKSettingsItem.h */,
+				064865AE1C31E3000087A41E /* STKSettingsItem.m */,
+				064865B01C31E30F0087A41E /* STKSettingsItemNode.h */,
+				064865B11C31E30F0087A41E /* STKSettingsItemNode.m */,
+				064865A71C31CCEC0087A41E /* STKSettingsViewController.h */,
+				064865A81C31CCEC0087A41E /* STKSettingsViewController.m */,
+				064865AA1C31CDB80087A41E /* STKSettingsViewModel.h */,
+				064865AB1C31CDB80087A41E /* STKSettingsViewModel.m */,
 				064865B91C31E4EC0087A41E /* STKSwitchNode.h */,
 				064865BA1C31E4EC0087A41E /* STKSwitchNode.m */,
 			);
-			name = Settings;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		174A13054CF2376E088EECE5 = {
 			isa = PBXGroup;
 			children = (
+				E230D056F929A925630B12A9 /* Frameworks */,
+				53C365F93549B9779FEC62BA /* Pods */,
+				F0C879ECCA69720B405FFDED /* Products */,
 				B2507770EDFAB98B2E027B13 /* Stack */,
 				D3E53538C08DF95A7B2A3660 /* UnitTests */,
-				E230D056F929A925630B12A9 /* Frameworks */,
-				F0C879ECCA69720B405FFDED /* Products */,
-				53C365F93549B9779FEC62BA /* Pods */,
 			);
 			indentWidth = 4;
 			sourceTree = "<group>";
@@ -1583,14 +1583,14 @@
 			isa = PBXGroup;
 			children = (
 				064864FB1C2893A20087A41E /* Fonts */,
-				061B89721C65650900B2BAA2 /* disclosureArrow@2x.png */,
-				7CA155BD9F096C834D9B1CA1 /* LaunchScreen.xib */,
+				064865BF1C323B310087A41E /* Assets.bundle */,
 				064864FF1C289E700087A41E /* Images.xcassets */,
 				AA81B22FC1E507596CAD5B23 /* Info.plist */,
-				A8B72ECC29D3C09B00CD52F4 /* Stack-Prefix.pch */,
-				4C844A16ABC8114B3FACECD6 /* main.m */,
-				064865BF1C323B310087A41E /* Assets.bundle */,
+				7CA155BD9F096C834D9B1CA1 /* LaunchScreen.xib */,
 				E976AFC6777F5EDFDB9DCD41 /* Settings.bundle */,
+				A8B72ECC29D3C09B00CD52F4 /* Stack-Prefix.pch */,
+				061B89721C65650900B2BAA2 /* disclosureArrow@2x.png */,
+				4C844A16ABC8114B3FACECD6 /* main.m */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1598,28 +1598,28 @@
 		B2507770EDFAB98B2E027B13 /* Stack */ = {
 			isa = PBXGroup;
 			children = (
+				064865141C28A78D0087A41E /* Animation Controllers */,
+				064863DA1C2685300087A41E /* App Delegate */,
+				064865761C29D58C0087A41E /* Author */,
+				064865471C2928580087A41E /* Bookmarks */,
+				064864791C2795D90087A41E /* Categories */,
+				0648649B1C27A5C00087A41E /* Constants */,
 				061B89681C65034000B2BAA2 /* Event Details */,
 				061B89171C61C5B100B2BAA2 /* Events */,
-				064863DA1C2685300087A41E /* App Delegate */,
-				064865041C28A43F0087A41E /* Root */,
-				064863DB1C26853B0087A41E /* Onboarding */,
 				0648652D1C28AD000087A41E /* Feed */,
+				064865801C29EF7E0087A41E /* Image */,
+				064863E51C2687C60087A41E /* Managers */,
+				064863F91C2692870087A41E /* Models */,
+				064863DB1C26853B0087A41E /* Onboarding */,
+				0648654E1C292F8E0087A41E /* Post */,
+				0648648C1C279E1E0087A41E /* Protocols */,
+				78F1E9CCE866BACC7C3D17AD /* Resources */,
+				064865041C28A43F0087A41E /* Root */,
 				064865921C2F02C00087A41E /* Search */,
-				064865471C2928580087A41E /* Bookmarks */,
 				064865A61C31CCC60087A41E /* Settings */,
 				0648653A1C2918C50087A41E /* Source List */,
-				0648654E1C292F8E0087A41E /* Post */,
-				064865761C29D58C0087A41E /* Author */,
-				064865801C29EF7E0087A41E /* Image */,
-				064865141C28A78D0087A41E /* Animation Controllers */,
-				0648649B1C27A5C00087A41E /* Constants */,
-				0648648C1C279E1E0087A41E /* Protocols */,
-				064864791C2795D90087A41E /* Categories */,
-				064864561C2770E10087A41E /* Utilities */,
-				064863F91C2692870087A41E /* Models */,
 				064863EB1C268A680087A41E /* Style */,
-				064863E51C2687C60087A41E /* Managers */,
-				78F1E9CCE866BACC7C3D17AD /* Resources */,
+				064864561C2770E10087A41E /* Utilities */,
 			);
 			path = Stack;
 			sourceTree = "<group>";
@@ -1627,8 +1627,8 @@
 		D3E53538C08DF95A7B2A3660 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				E48F6CDB671A9A3BB6AFA4A5 /* Resources */,
 				64FAEC3A5D8BF1EF9B2DE05E /* Helpers */,
+				E48F6CDB671A9A3BB6AFA4A5 /* Resources */,
 				4386E57B5AA8F32914262547 /* Tests */,
 			);
 			path = UnitTests;
@@ -2124,9 +2124,9 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Stack/Resources/Other-Sources/Stack-Prefix.pch";
+				GCC_PREFIX_HEADER = "Stack/Resources/Stack-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = "Stack/Resources/Other-Sources/Info.plist";
+				INFOPLIST_FILE = Stack/Resources/Info.plist;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = (
@@ -2302,13 +2302,13 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Stack/Resources/Other-Sources/Stack-Prefix.pch";
+				GCC_PREFIX_HEADER = "Stack/Resources/Stack-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "Stack/Resources/Other-Sources/Info.plist";
+				INFOPLIST_FILE = Stack/Resources/Info.plist;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bradsmith.stack;
@@ -2355,8 +2355,8 @@
 		064863FC1C2763380087A41E /* Stack.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				061B89011C61BD2500B2BAA2 /* Stack_2.xcdatamodel */,
 				064863FD1C2763380087A41E /* Stack.xcdatamodel */,
+				061B89011C61BD2500B2BAA2 /* Stack_2.xcdatamodel */,
 			);
 			currentVersion = 061B89011C61BD2500B2BAA2 /* Stack_2.xcdatamodel */;
 			path = Stack.xcdatamodeld;
