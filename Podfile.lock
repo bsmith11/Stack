@@ -20,12 +20,12 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AsyncDisplayKit (1.9.5):
-    - AsyncDisplayKit/ASDealloc2MainObject (= 1.9.5)
-  - AsyncDisplayKit/ASDealloc2MainObject (1.9.5)
+  - AsyncDisplayKit (1.9.6):
+    - AsyncDisplayKit/ASDealloc2MainObject (= 1.9.6)
+  - AsyncDisplayKit/ASDealloc2MainObject (1.9.6)
   - BlockRSSParser (2.1):
     - AFNetworking (~> 2.0)
-  - Bolts/Tasks (1.5.1)
+  - Bolts/Tasks (1.6.0)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -49,7 +49,7 @@ PODS:
   - FLAnimatedImage (1.0.10)
   - Keys (1.0.0)
   - KVOController (1.0.3)
-  - OCMock (3.2)
+  - OCMock (3.2.2)
   - OHHTTPStubs (4.7.0):
     - OHHTTPStubs/Default (= 4.7.0)
   - OHHTTPStubs/Core (4.7.0)
@@ -63,20 +63,20 @@ PODS:
   - OHHTTPStubs/NSURLSession (4.7.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (4.7.0)
-  - Parse (1.11.0):
+  - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
   - ParseCrashReporting (1.9.2):
     - Bolts/Tasks (~> 1.5)
     - Parse (~> 1.9)
   - PINCache (2.1.2)
-  - PINRemoteImage (1.2.2):
-    - PINRemoteImage/FLAnimatedImage (= 1.2.2)
-  - PINRemoteImage/Core (1.2.2):
+  - PINRemoteImage (1.2.3):
+    - PINRemoteImage/FLAnimatedImage (= 1.2.3)
+  - PINRemoteImage/Core (1.2.3):
     - PINCache (>= 2.1)
-  - PINRemoteImage/FLAnimatedImage (1.2.2):
+  - PINRemoteImage/FLAnimatedImage (1.2.3):
     - FLAnimatedImage (>= 1.0)
     - PINRemoteImage/Core
-  - pop (1.0.8)
+  - pop (1.0.9)
   - POP+MCAnimate (2.0.1):
     - pop (~> 1.0)
     - POP+MCAnimate/Animations (= 2.0.1)
@@ -99,78 +99,80 @@ PODS:
   - POP+MCAnimate/Velocity (2.0.1):
     - pop (~> 1.0)
     - POP+MCAnimate/Internal
-  - RZCollectionList (0.7.2)
+  - RZCollectionList (0.7.3)
   - RZDataBinding (2.0.2)
   - RZImport (1.3.0)
-  - RZUtils (2.5.1):
-    - RZUtils/All (= 2.5.1)
-  - RZUtils/All (2.5.1):
+  - RZUtils (2.6.0):
+    - RZUtils/All (= 2.6.0)
+  - RZUtils/All (2.6.0):
     - RZUtils/Categories
     - RZUtils/Components
     - RZUtils/Utilities
-  - RZUtils/Categories (2.5.1):
-    - RZUtils/Categories/CoreAnimation (= 2.5.1)
-    - RZUtils/Categories/KVO (= 2.5.1)
-    - RZUtils/Categories/NSDate (= 2.5.1)
-    - RZUtils/Categories/NSDictionary (= 2.5.1)
-    - RZUtils/Categories/NSString (= 2.5.1)
-    - RZUtils/Categories/NSUndoManager (= 2.5.1)
-    - RZUtils/Categories/UIAlertView (= 2.5.1)
-    - RZUtils/Categories/UIColor (= 2.5.1)
-    - RZUtils/Categories/UIFont (= 2.5.1)
-    - RZUtils/Categories/UIImage (= 2.5.1)
-    - RZUtils/Categories/UIImageView (= 2.5.1)
-    - RZUtils/Categories/UIView (= 2.5.1)
-    - RZUtils/Categories/UIViewController (= 2.5.1)
-  - RZUtils/Categories/CoreAnimation (2.5.1)
-  - RZUtils/Categories/KVO (2.5.1)
-  - RZUtils/Categories/NSDate (2.5.1)
-  - RZUtils/Categories/NSDictionary (2.5.1)
-  - RZUtils/Categories/NSString (2.5.1)
-  - RZUtils/Categories/NSUndoManager (2.5.1)
-  - RZUtils/Categories/UIAlertView (2.5.1)
-  - RZUtils/Categories/UIColor (2.5.1)
-  - RZUtils/Categories/UIFont (2.5.1)
-  - RZUtils/Categories/UIImage (2.5.1)
-  - RZUtils/Categories/UIImageView (2.5.1)
-  - RZUtils/Categories/UIView (2.5.1)
-  - RZUtils/Categories/UIViewController (2.5.1)
-  - RZUtils/Components (2.5.1):
-    - RZUtils/Components/RZAnimatedCountingLabel (= 2.5.1)
-    - RZUtils/Components/RZAnimatedImageView (= 2.5.1)
-    - RZUtils/Components/RZButtonView (= 2.5.1)
-    - RZUtils/Components/RZCollectionTableView (= 2.5.1)
-    - RZUtils/Components/RZCollectionViewAnimationAssistant (= 2.5.1)
-    - RZUtils/Components/RZDelayedOperation (= 2.5.1)
-    - RZUtils/Components/RZLocationService (= 2.5.1)
-    - RZUtils/Components/RZProgressView (= 2.5.1)
-    - RZUtils/Components/RZRevealViewController (= 2.5.1)
-    - RZUtils/Components/RZSegmentedViewController (= 2.5.1)
-    - RZUtils/Components/RZSingleChildContainerViewController (= 2.5.1)
-    - RZUtils/Components/RZSplitViewController (= 2.5.1)
-    - RZUtils/Components/RZTelprompt (= 2.5.1)
-    - RZUtils/Components/RZViewFactory (= 2.5.1)
-    - RZUtils/Components/RZWebViewController (= 2.5.1)
-  - RZUtils/Components/RZAnimatedCountingLabel (2.5.1)
-  - RZUtils/Components/RZAnimatedImageView (2.5.1)
-  - RZUtils/Components/RZButtonView (2.5.1)
-  - RZUtils/Components/RZCollectionTableView (2.5.1)
-  - RZUtils/Components/RZCollectionViewAnimationAssistant (2.5.1)
-  - RZUtils/Components/RZDelayedOperation (2.5.1)
-  - RZUtils/Components/RZLocationService (2.5.1)
-  - RZUtils/Components/RZProgressView (2.5.1)
-  - RZUtils/Components/RZRevealViewController (2.5.1)
-  - RZUtils/Components/RZSegmentedViewController (2.5.1)
-  - RZUtils/Components/RZSingleChildContainerViewController (2.5.1)
-  - RZUtils/Components/RZSplitViewController (2.5.1)
-  - RZUtils/Components/RZTelprompt (2.5.1)
-  - RZUtils/Components/RZViewFactory (2.5.1)
-  - RZUtils/Components/RZWebViewController (2.5.1)
-  - RZUtils/Utilities (2.5.1):
-    - RZUtils/Utilities/RZCommonUtils (= 2.5.1)
-    - RZUtils/Utilities/RZDispatch (= 2.5.1)
-  - RZUtils/Utilities/RZCommonUtils (2.5.1)
-  - RZUtils/Utilities/RZDispatch (2.5.1)
+  - RZUtils/Categories (2.6.0):
+    - RZUtils/Categories/CoreAnimation (= 2.6.0)
+    - RZUtils/Categories/KVO (= 2.6.0)
+    - RZUtils/Categories/NSDate (= 2.6.0)
+    - RZUtils/Categories/NSDictionary (= 2.6.0)
+    - RZUtils/Categories/NSString (= 2.6.0)
+    - RZUtils/Categories/NSUndoManager (= 2.6.0)
+    - RZUtils/Categories/UIAlertView (= 2.6.0)
+    - RZUtils/Categories/UIColor (= 2.6.0)
+    - RZUtils/Categories/UIFont (= 2.6.0)
+    - RZUtils/Categories/UIImage (= 2.6.0)
+    - RZUtils/Categories/UIImageView (= 2.6.0)
+    - RZUtils/Categories/UIView (= 2.6.0)
+    - RZUtils/Categories/UIViewController (= 2.6.0)
+  - RZUtils/Categories/CoreAnimation (2.6.0)
+  - RZUtils/Categories/KVO (2.6.0)
+  - RZUtils/Categories/NSDate (2.6.0)
+  - RZUtils/Categories/NSDictionary (2.6.0)
+  - RZUtils/Categories/NSString (2.6.0)
+  - RZUtils/Categories/NSUndoManager (2.6.0)
+  - RZUtils/Categories/UIAlertView (2.6.0)
+  - RZUtils/Categories/UIColor (2.6.0)
+  - RZUtils/Categories/UIFont (2.6.0)
+  - RZUtils/Categories/UIImage (2.6.0)
+  - RZUtils/Categories/UIImageView (2.6.0)
+  - RZUtils/Categories/UIView (2.6.0)
+  - RZUtils/Categories/UIViewController (2.6.0)
+  - RZUtils/Components (2.6.0):
+    - RZUtils/Components/RZAbout (= 2.6.0)
+    - RZUtils/Components/RZAnimatedCountingLabel (= 2.6.0)
+    - RZUtils/Components/RZAnimatedImageView (= 2.6.0)
+    - RZUtils/Components/RZButtonView (= 2.6.0)
+    - RZUtils/Components/RZCollectionTableView (= 2.6.0)
+    - RZUtils/Components/RZCollectionViewAnimationAssistant (= 2.6.0)
+    - RZUtils/Components/RZDelayedOperation (= 2.6.0)
+    - RZUtils/Components/RZLocationService (= 2.6.0)
+    - RZUtils/Components/RZProgressView (= 2.6.0)
+    - RZUtils/Components/RZRevealViewController (= 2.6.0)
+    - RZUtils/Components/RZSegmentedViewController (= 2.6.0)
+    - RZUtils/Components/RZSingleChildContainerViewController (= 2.6.0)
+    - RZUtils/Components/RZSplitViewController (= 2.6.0)
+    - RZUtils/Components/RZTelprompt (= 2.6.0)
+    - RZUtils/Components/RZViewFactory (= 2.6.0)
+    - RZUtils/Components/RZWebViewController (= 2.6.0)
+  - RZUtils/Components/RZAbout (2.6.0)
+  - RZUtils/Components/RZAnimatedCountingLabel (2.6.0)
+  - RZUtils/Components/RZAnimatedImageView (2.6.0)
+  - RZUtils/Components/RZButtonView (2.6.0)
+  - RZUtils/Components/RZCollectionTableView (2.6.0)
+  - RZUtils/Components/RZCollectionViewAnimationAssistant (2.6.0)
+  - RZUtils/Components/RZDelayedOperation (2.6.0)
+  - RZUtils/Components/RZLocationService (2.6.0)
+  - RZUtils/Components/RZProgressView (2.6.0)
+  - RZUtils/Components/RZRevealViewController (2.6.0)
+  - RZUtils/Components/RZSegmentedViewController (2.6.0)
+  - RZUtils/Components/RZSingleChildContainerViewController (2.6.0)
+  - RZUtils/Components/RZSplitViewController (2.6.0)
+  - RZUtils/Components/RZTelprompt (2.6.0)
+  - RZUtils/Components/RZViewFactory (2.6.0)
+  - RZUtils/Components/RZWebViewController (2.6.0)
+  - RZUtils/Utilities (2.6.0):
+    - RZUtils/Utilities/RZCommonUtils (= 2.6.0)
+    - RZUtils/Utilities/RZDispatch (= 2.6.0)
+  - RZUtils/Utilities/RZCommonUtils (2.6.0)
+  - RZUtils/Utilities/RZDispatch (2.6.0)
   - RZVinyl (1.1.3):
     - RZVinyl/Extensions (= 1.1.3)
   - RZVinyl/Core (1.1.3)
@@ -183,7 +185,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
-  - AsyncDisplayKit (from `https://github.com/knopp/AsyncDisplayKit`, commit `1223cb28d7b2408cae0d6342d189e0f96dbeba81`)
+  - AsyncDisplayKit (~> 1.9)
   - BlockRSSParser (from `https://github.com/bsmith11/BlockRSSParser`, commit `4938eaa1eb7c88d7a4d376f31e37b808ae957e15`)
   - CocoaLumberjack (~> 2.0)
   - DTCoreText (~> 1.6)
@@ -207,9 +209,6 @@ DEPENDENCIES:
   - youtube-ios-player-helper (~> 0.1)
 
 EXTERNAL SOURCES:
-  AsyncDisplayKit:
-    :commit: 1223cb28d7b2408cae0d6342d189e0f96dbeba81
-    :git: https://github.com/knopp/AsyncDisplayKit
   BlockRSSParser:
     :commit: 4938eaa1eb7c88d7a4d376f31e37b808ae957e15
     :git: https://github.com/bsmith11/BlockRSSParser
@@ -217,18 +216,15 @@ EXTERNAL SOURCES:
     :path: Pods/CocoaPodsKeys
 
 CHECKOUT OPTIONS:
-  AsyncDisplayKit:
-    :commit: 1223cb28d7b2408cae0d6342d189e0f96dbeba81
-    :git: https://github.com/knopp/AsyncDisplayKit
   BlockRSSParser:
     :commit: 4938eaa1eb7c88d7a4d376f31e37b808ae957e15
     :git: https://github.com/bsmith11/BlockRSSParser
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  AsyncDisplayKit: 9c55f1aadf4edc3eab9e27812171f500c13882c7
+  AsyncDisplayKit: 56b2845c87345324cb3af3c43d3c3a4556a275be
   BlockRSSParser: aedf3ab9a6c92f8d0881b9415fe88b5e136ab174
-  Bolts: a12663244b1d3351c738882e71902fc74db54f64
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   DTCoreText: 3ea8bba23dd2141ba18adb227a7dd33a822df1c4
   DTFoundation: 70a0765e3596f82dd421832e95c65e2166eb3102
@@ -236,18 +232,18 @@ SPEC CHECKSUMS:
   FLAnimatedImage: e16a1e1cef08e4c509b47e4acbe3923f65c16135
   Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
-  OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
+  OCMock: 18c9b7e67d4c2770e95bb77a9cc1ae0c91fe3835
   OHHTTPStubs: d2bf6a0f407620d67e75a1d3f12d86a2b1dd15c0
-  Parse: 886af46a0a677402f6374bb97ac212e795f70afe
+  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   ParseCrashReporting: 33b760facc649d4fd99eef8f35dcda6a406099e5
   PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
-  PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81
-  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
+  PINRemoteImage: b6f6b10a704fa8c68ead4d7e55b68dbde79b3686
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   POP+MCAnimate: a99e209148c602512de487f1160a44bf78572024
-  RZCollectionList: 0a68ff56f07fc56212ab0a8258fa103b90e91e11
+  RZCollectionList: 03c1df044739b4c6396ffd5e81b306b3a4e9d03a
   RZDataBinding: cee51c9865c82e37adc4639fe408a6f81abe79ad
   RZImport: b28a0e94be0603ab23acd6fc3fbdb77421439c3f
-  RZUtils: cd28b216417433030583aaffe98ecfc761a22978
+  RZUtils: a1f7597db038c81bd020626ce344211c6a8e6451
   RZVinyl: 3ddb4a3e99e1f3063e06794aff124fc270fd2798
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
   SSPullToRefresh: 369e862c1d6528c7a354fc85cd4763d4e670e9af

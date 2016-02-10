@@ -73,7 +73,7 @@
     NSDate *endOfWeek;
     NSTimeInterval interval;
 
-    [calendar rangeOfUnit:NSWeekCalendarUnit
+    [calendar rangeOfUnit:NSCalendarUnitWeekOfMonth
                 startDate:&startOfWeek
                  interval:&interval
                   forDate:date];

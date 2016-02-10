@@ -14,7 +14,7 @@ pod 'RZCollectionList', '~> 0.7'
 pod 'RZDataBinding', '~> 2.0'
 pod 'RZUtils', '~> 2.5'
 pod 'AFNetworking', '~> 2.5'
-pod 'AsyncDisplayKit', :git => "https://github.com/knopp/AsyncDisplayKit", :commit => "1223cb28d7b2408cae0d6342d189e0f96dbeba81"
+pod 'AsyncDisplayKit', '~> 1.9'
 pod 'pop', '~> 1.0'
 pod 'POP+MCAnimate', '~> 2.0'
 pod 'KVOController', '~> 1.0'
