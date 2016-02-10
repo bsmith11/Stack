@@ -20,6 +20,7 @@
 #import <Parse/Parse.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <RZDataBinding/RZDataBinding.h>
 
 @implementation STKAppDelegate
 
@@ -38,6 +39,9 @@
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 
     [STKCoreDataStack configureStack];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", RZDB_KP(STKPost, sourceType) , @(STKSourceTypeUltiworld)];
+    [STKPost rzv_deleteAllWhere:predicate inContext:[STKCoreDataStack defaultStack].mainManagedObjectContext];
 
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 

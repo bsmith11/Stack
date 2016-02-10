@@ -45,7 +45,7 @@
         self.sessionManagers = @{@(STKSourceTypeSkyd):[[STKWordpressSessionManager alloc] initWithSourceType:STKSourceTypeSkyd],
                                  @(STKSourceTypeBamaSecs):[[STKWordpressSessionManager alloc] initWithSourceType:STKSourceTypeBamaSecs],
                                  @(STKSourceTypeMLU):[[STKWordpressSessionManager alloc] initWithSourceType:STKSourceTypeMLU],
-                                 @(STKSourceTypeUltiworld):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeUltiworld],
+//                                 @(STKSourceTypeUltiworld):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeUltiworld],
                                  @(STKSourceTypeAUDL):[[STKRSSSessionManager alloc] initWithSourceType:STKSourceTypeAUDL],
                                  @(STKSourceTypeSludge):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDSludge sourceType:STKSourceTypeSludge],
                                  @(STKSourceTypeProcessOfIllumination):[[STKBloggerSessionManager alloc] initWithBlogID:kSTKAPIBloggerIDProcessOfIllumination sourceType:STKSourceTypeProcessOfIllumination],

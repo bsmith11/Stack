@@ -23,7 +23,8 @@
              @(STKSourceTypeProcessOfIllumination),
              @(STKSourceTypeSkyd),
              @(STKSourceTypeSludge),
-             @(STKSourceTypeUltiworld)];
+//             @(STKSourceTypeUltiworld),
+            ];
 }
 
 + (NSArray *)sourcesWithSearchAvailable {
