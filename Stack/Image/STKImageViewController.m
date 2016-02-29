@@ -155,6 +155,8 @@ static CGFloat const kSTKImageViewControllerMaximumZoom = 2.0f;
 
 - (void)didTapDismiss {
     [self performDismissAnimation];
+
+    [self.scrollView setZoomScale:kSTKImageViewControllerMinimumZoom animated:YES];
 }
 
 - (void)centerScrollViewContents {
